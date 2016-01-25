@@ -1,0 +1,1 @@
+create unique index IX_678CBA5B on unideb_syllabus_manager_Curriculum (curriculumCode);

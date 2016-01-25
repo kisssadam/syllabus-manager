@@ -3,4 +3,7 @@
 
 <display>
 	
+	<category name="category.hidden">
+		<portlet id="curriculum-admin"></portlet>
+	</category>
 </display>
