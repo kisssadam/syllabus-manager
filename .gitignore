@@ -1,3 +1,5 @@
+**/docroot/WEB-INF/classes/*
+
 !/sql/update-*.sql
 **/.gradle
 **/.settings
