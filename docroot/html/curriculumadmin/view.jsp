@@ -19,11 +19,17 @@
 		total="<%=CurriculumLocalServiceUtil.getCurriculumsCount()%>"
 	/>
 	
-	<liferay-ui:search-container-row className="hu.unideb.inf.model.Curriculum" modelVar="curriculum" keyProperty="curriculumId">
-		<liferay-ui:search-container-column-text name="curriculum-code" property="curriculumCode" />
-		<liferay-ui:search-container-column-text name="curriculum-name" property="curriculumName" />
-		<liferay-ui:search-container-column-jsp path="/html/curriculumadmin/curriculum_actions.jsp" align="right" />
-	</liferay-ui:search-container-row>
+		<liferay-ui:search-container-row className="hu.unideb.inf.model.Curriculum" modelVar="curriculum" keyProperty="curriculumId">
+			<%
+			if (CurriculumPermission.contains(permissionChecker, curriculum.getCurriculumId(), "VIEW")) {
+			%>
+				<liferay-ui:search-container-column-text name="curriculum-code" property="curriculumCode" />
+				<liferay-ui:search-container-column-text name="curriculum-name" property="curriculumName" />
+				<liferay-ui:search-container-column-jsp path="/html/curriculumadmin/curriculum_actions.jsp" align="right" />
+			<%
+			}
+			%>
+		</liferay-ui:search-container-row>
 	
 	<liferay-ui:search-iterator />
 </liferay-ui:search-container>
