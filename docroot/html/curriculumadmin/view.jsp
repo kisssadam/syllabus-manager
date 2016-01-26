@@ -20,7 +20,7 @@
 	/>
 	
 		<liferay-ui:search-container-row className="hu.unideb.inf.model.Curriculum" modelVar="curriculum" keyProperty="curriculumId">
-			<c:if test='<%=CurriculumPermission.contains(permissionChecker, curriculum.getCurriculumId(), "VIEW")%>'> 
+			<c:if test='<%=CurriculumPermission.contains(permissionChecker, curriculum.getCurriculumId(), "VIEW")%>'>
 				<liferay-ui:search-container-column-text name="curriculum-code" property="curriculumCode" />
 				<liferay-ui:search-container-column-text name="curriculum-name" property="curriculumName" />
 				<liferay-ui:search-container-column-jsp path="/html/curriculumadmin/curriculum_actions.jsp" align="right" />
