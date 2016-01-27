@@ -287,6 +287,12 @@ public class CourseTypeLocalServiceUtil {
 		return getService().getCourseTypeByType(type);
 	}
 
+	public static hu.unideb.inf.model.CourseType fetchCourseTypeByType(
+		java.lang.String type)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchCourseTypeByType(type);
+	}
+
 	public static hu.unideb.inf.model.CourseType addCourseType(
 		java.lang.String type,
 		com.liferay.portal.service.ServiceContext serviceContext)

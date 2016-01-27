@@ -67,6 +67,10 @@ public class SubjectLocalServiceImpl extends SubjectLocalServiceBaseImpl {
 		return subjectPersistence.findBySubjectCode(subjectCode);
 	}
 
+	public Subject fetchSubjectByCode(String subjectCode) throws SystemException {
+		return subjectPersistence.fetchBySubjectCode(subjectCode);
+	}
+
 	public Subject addSubject(String subjectCode, String subjectName, int credit, long curriculumId,
 			ServiceContext serviceContext) throws SystemException, PortalException {
 		Date now = new Date();
@@ -159,13 +163,11 @@ public class SubjectLocalServiceImpl extends SubjectLocalServiceBaseImpl {
 			throw new NoSuchCurriculumException();
 		}
 
-		try {
-			Subject subject = SubjectLocalServiceUtil.getSubjectByCode(subjectCode);
+		Subject subject = SubjectLocalServiceUtil.fetchSubjectByCode(subjectCode);
+		if (Validator.isNotNull(subject)) {
 			if (!Validator.equals(subject.getSubjectId(), subjectId)) {
 				throw new DuplicateSubjectException();
 			}
-		} catch (NoSuchSubjectException e) {
-			return;
 		}
 	}
 

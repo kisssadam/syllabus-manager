@@ -298,6 +298,13 @@ public class CurriculumLocalServiceWrapper implements CurriculumLocalService,
 	}
 
 	@Override
+	public hu.unideb.inf.model.Curriculum fetchCurriculumByCode(
+		java.lang.String curriculumCode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _curriculumLocalService.fetchCurriculumByCode(curriculumCode);
+	}
+
+	@Override
 	public hu.unideb.inf.model.Curriculum addCurriculum(
 		java.lang.String curriculumCode, java.lang.String curriculumName,
 		com.liferay.portal.service.ServiceContext serviceContext)

@@ -294,6 +294,13 @@ public class SubjectLocalServiceWrapper implements SubjectLocalService,
 	}
 
 	@Override
+	public hu.unideb.inf.model.Subject fetchSubjectByCode(
+		java.lang.String subjectCode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _subjectLocalService.fetchSubjectByCode(subjectCode);
+	}
+
+	@Override
 	public hu.unideb.inf.model.Subject addSubject(
 		java.lang.String subjectCode, java.lang.String subjectName, int credit,
 		long curriculumId,

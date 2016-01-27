@@ -116,26 +116,30 @@ public class CourseLocalServiceClpInvoker {
 
 		_methodParameterTypes59 = new String[] { "long", "long" };
 
-		_methodName60 = "getCourseBySubjectId";
+		_methodName60 = "fetchCourseByS_CT";
 
-		_methodParameterTypes60 = new String[] { "long" };
+		_methodParameterTypes60 = new String[] { "long", "long" };
 
-		_methodName61 = "addCourse";
+		_methodName61 = "getCourseBySubjectId";
 
-		_methodParameterTypes61 = new String[] {
+		_methodParameterTypes61 = new String[] { "long" };
+
+		_methodName62 = "addCourse";
+
+		_methodParameterTypes62 = new String[] {
 				"long", "int", "int", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName62 = "deleteCourse";
+		_methodName63 = "deleteCourse";
 
-		_methodParameterTypes62 = new String[] {
+		_methodParameterTypes63 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName63 = "updateCourse";
+		_methodName64 = "updateCourse";
 
-		_methodParameterTypes63 = new String[] {
+		_methodParameterTypes64 = new String[] {
 				"long", "long", "long", "int", "int", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -255,11 +259,17 @@ public class CourseLocalServiceClpInvoker {
 
 		if (_methodName60.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
-			return CourseLocalServiceUtil.getCourseBySubjectId(((Long)arguments[0]).longValue());
+			return CourseLocalServiceUtil.fetchCourseByS_CT(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName61.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+			return CourseLocalServiceUtil.getCourseBySubjectId(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return CourseLocalServiceUtil.addCourse(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
@@ -267,14 +277,14 @@ public class CourseLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[4]);
 		}
 
-		if (_methodName62.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
+		if (_methodName63.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
 			return CourseLocalServiceUtil.deleteCourse(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
-		if (_methodName63.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+		if (_methodName64.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
 			return CourseLocalServiceUtil.updateCourse(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(),
@@ -335,4 +345,6 @@ public class CourseLocalServiceClpInvoker {
 	private String[] _methodParameterTypes62;
 	private String _methodName63;
 	private String[] _methodParameterTypes63;
+	private String _methodName64;
+	private String[] _methodParameterTypes64;
 }

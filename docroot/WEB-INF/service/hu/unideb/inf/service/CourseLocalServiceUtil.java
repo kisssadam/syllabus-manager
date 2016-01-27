@@ -283,6 +283,12 @@ public class CourseLocalServiceUtil {
 		return getService().getCourseByS_CT(subjectId, courseTypeId);
 	}
 
+	public static hu.unideb.inf.model.Course fetchCourseByS_CT(long subjectId,
+		long courseTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchCourseByS_CT(subjectId, courseTypeId);
+	}
+
 	public static java.util.List<hu.unideb.inf.model.Course> getCourseBySubjectId(
 		long subjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {

@@ -260,6 +260,11 @@ public interface CourseLocalService extends BaseLocalService,
 			hu.unideb.inf.NoSuchCourseException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public hu.unideb.inf.model.Course fetchCourseByS_CT(long subjectId,
+		long courseTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<hu.unideb.inf.model.Course> getCourseBySubjectId(
 		long subjectId)
 		throws com.liferay.portal.kernel.exception.SystemException;

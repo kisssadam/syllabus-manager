@@ -259,6 +259,11 @@ public interface SubjectLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchSubjectException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public hu.unideb.inf.model.Subject fetchSubjectByCode(
+		java.lang.String subjectCode)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public hu.unideb.inf.model.Subject addSubject(
 		java.lang.String subjectCode, java.lang.String subjectName, int credit,
 		long curriculumId,

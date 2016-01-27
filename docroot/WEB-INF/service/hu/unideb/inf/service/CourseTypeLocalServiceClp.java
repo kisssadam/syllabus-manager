@@ -117,21 +117,25 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 
 		_methodParameterTypes20 = new String[] { "java.lang.String" };
 
-		_methodName21 = "addCourseType";
+		_methodName21 = "fetchCourseTypeByType";
 
-		_methodParameterTypes21 = new String[] {
+		_methodParameterTypes21 = new String[] { "java.lang.String" };
+
+		_methodName22 = "addCourseType";
+
+		_methodParameterTypes22 = new String[] {
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName22 = "deleteCourseType";
+		_methodName23 = "deleteCourseType";
 
-		_methodParameterTypes22 = new String[] {
+		_methodParameterTypes23 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName23 = "updateCourseType";
+		_methodName24 = "updateCourseType";
 
-		_methodParameterTypes23 = new String[] {
+		_methodParameterTypes24 = new String[] {
 				"long", "long", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -747,6 +751,36 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 	}
 
 	@Override
+	public hu.unideb.inf.model.CourseType fetchCourseTypeByType(
+		java.lang.String type)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
+					new Object[] { ClpSerializer.translateInput(type) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.CourseType)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public hu.unideb.inf.model.CourseType addCourseType(java.lang.String type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -754,8 +788,8 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21,
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
 					new Object[] {
 						ClpSerializer.translateInput(type),
 						
@@ -793,8 +827,8 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22,
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
 					new Object[] {
 						courseTypeId,
 						
@@ -833,8 +867,8 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
 					new Object[] {
 						userId,
 						
@@ -915,4 +949,6 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 	private String[] _methodParameterTypes22;
 	private String _methodName23;
 	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
 }

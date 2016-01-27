@@ -116,22 +116,26 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 
 		_methodParameterTypes20 = new String[] { "java.lang.String" };
 
-		_methodName21 = "addSubject";
+		_methodName21 = "fetchSubjectByCode";
 
-		_methodParameterTypes21 = new String[] {
+		_methodParameterTypes21 = new String[] { "java.lang.String" };
+
+		_methodName22 = "addSubject";
+
+		_methodParameterTypes22 = new String[] {
 				"java.lang.String", "java.lang.String", "int", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName22 = "deleteSubject";
+		_methodName23 = "deleteSubject";
 
-		_methodParameterTypes22 = new String[] {
+		_methodParameterTypes23 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName23 = "updateSubject";
+		_methodName24 = "updateSubject";
 
-		_methodParameterTypes23 = new String[] {
+		_methodParameterTypes24 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String", "int",
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
@@ -746,6 +750,36 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 	}
 
 	@Override
+	public hu.unideb.inf.model.Subject fetchSubjectByCode(
+		java.lang.String subjectCode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
+					new Object[] { ClpSerializer.translateInput(subjectCode) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.Subject)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public hu.unideb.inf.model.Subject addSubject(
 		java.lang.String subjectCode, java.lang.String subjectName, int credit,
 		long curriculumId,
@@ -755,8 +789,8 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21,
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
 					new Object[] {
 						ClpSerializer.translateInput(subjectCode),
 						
@@ -800,8 +834,8 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22,
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
 					new Object[] {
 						subjectId,
 						
@@ -841,8 +875,8 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
 					new Object[] {
 						userId,
 						
@@ -929,4 +963,6 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 	private String[] _methodParameterTypes22;
 	private String _methodName23;
 	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
 }

@@ -63,6 +63,10 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 		return courseTypePersistence.findByType(type);
 	}
 
+	public CourseType fetchCourseTypeByType(String type) throws SystemException {
+		return courseTypePersistence.fetchByType(type);
+	}
+
 	public CourseType addCourseType(String type, ServiceContext serviceContext)
 			throws SystemException, PortalException {
 		Date now = new Date();
@@ -134,13 +138,11 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 			throw new CourseTypeException();
 		}
 
-		try {
-			CourseType courseType = CourseTypeLocalServiceUtil.getCourseTypeByType(type);
+		CourseType courseType = CourseTypeLocalServiceUtil.fetchCourseTypeByType(type);
+		if (Validator.isNotNull(courseType)) {
 			if (!Validator.equals(courseType.getCourseTypeId(), courseTypeId)) {
 				throw new DuplicateCourseTypeException();
 			}
-		} catch (NoSuchCourseTypeException e) {
-			return;
 		}
 	}
 

@@ -67,6 +67,10 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 		return coursePersistence.findByS_CT(subjectId, courseTypeId);
 	}
 
+	public Course fetchCourseByS_CT(long subjectId, long courseTypeId) throws SystemException {
+		return coursePersistence.fetchByS_CT(subjectId, courseTypeId);
+	}
+
 	public List<Course> getCourseBySubjectId(long subjectId) throws SystemException {
 		return coursePersistence.findBySubjectId(subjectId);
 	}
@@ -164,13 +168,11 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 			throw new NoSuchCourseTypeException();
 		}
 
-		try {
-			Course course = CourseLocalServiceUtil.getCourseByS_CT(subjectId, courseTypeId);
+		Course course = CourseLocalServiceUtil.fetchCourseByS_CT(subjectId, courseTypeId);
+		if (Validator.isNotNull(course)) {
 			if (!Validator.equals(course.getCourseId(), courseId)) {
 				throw new DuplicateCourseException();
 			}
-		} catch (NoSuchCourseException e) {
-			return;
 		}
 	}
 

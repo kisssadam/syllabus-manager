@@ -64,6 +64,10 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 		return curriculumPersistence.findByCode(curriculumCode);
 	}
 
+	public Curriculum fetchCurriculumByCode(String curriculumCode) throws SystemException {
+		return curriculumPersistence.fetchByCode(curriculumCode);
+	}
+
 	public Curriculum addCurriculum(String curriculumCode, String curriculumName, ServiceContext serviceContext)
 			throws PortalException, SystemException {
 		Date now = new Date();
@@ -142,13 +146,11 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 			throw new CurriculumNameException();
 		}
 
-		try {
-			Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculumByCode(curriculumCode);
+		Curriculum curriculum = CurriculumLocalServiceUtil.fetchCurriculumByCode(curriculumCode);
+		if (Validator.isNotNull(curriculum)) {
 			if (!Validator.equals(curriculum.getCurriculumId(), curriculumId)) {
 				throw new DuplicateCurriculumException();
 			}
-		} catch (NoSuchCurriculumException e) {
-			return;
 		}
 	}
 

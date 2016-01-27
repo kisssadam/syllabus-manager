@@ -294,6 +294,13 @@ public class CourseLocalServiceWrapper implements CourseLocalService,
 	}
 
 	@Override
+	public hu.unideb.inf.model.Course fetchCourseByS_CT(long subjectId,
+		long courseTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _courseLocalService.fetchCourseByS_CT(subjectId, courseTypeId);
+	}
+
+	@Override
 	public java.util.List<hu.unideb.inf.model.Course> getCourseBySubjectId(
 		long subjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
