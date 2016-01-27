@@ -7,6 +7,51 @@
 			<access>PROPERTY</access>
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
+	<mapped-superclass class="hu.unideb.inf.model.impl.CourseModelImpl">
+		<attributes>
+			<id name="courseId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="subjectId" />
+			<basic name="hoursPerSemester" />
+			<basic name="hoursPerWeek" />
+			<basic name="courseTypeId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="hu.unideb.inf.model.impl.CourseTypeModelImpl">
+		<attributes>
+			<id name="courseTypeId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="type">
+				<column name="TYPE_" />
+			</basic>
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="hu.unideb.inf.model.impl.CurriculumModelImpl">
 		<attributes>
 			<id name="curriculumId" />
@@ -28,8 +73,43 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="hu.unideb.inf.model.impl.SubjectModelImpl">
+		<attributes>
+			<id name="subjectId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="subjectCode" />
+			<basic name="subjectName" />
+			<basic name="credit" />
+			<basic name="curriculumId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="hu.unideb.inf.model.impl.CourseImpl" name="Course">
+		<table name="unideb_syllabus_manager_Course" />
+		<attributes />
+	</entity>
+	<entity class="hu.unideb.inf.model.impl.CourseTypeImpl" name="CourseType">
+		<table name="unideb_syllabus_manager_CourseType" />
+		<attributes />
+	</entity>
 	<entity class="hu.unideb.inf.model.impl.CurriculumImpl" name="Curriculum">
 		<table name="unideb_syllabus_manager_Curriculum" />
+		<attributes />
+	</entity>
+	<entity class="hu.unideb.inf.model.impl.SubjectImpl" name="Subject">
+		<table name="unideb_syllabus_manager_Subject" />
 		<attributes />
 	</entity>
 </entity-mappings>

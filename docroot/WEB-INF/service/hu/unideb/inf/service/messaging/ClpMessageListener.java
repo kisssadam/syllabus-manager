@@ -18,8 +18,14 @@ import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 
 import hu.unideb.inf.service.ClpSerializer;
+import hu.unideb.inf.service.CourseLocalServiceUtil;
+import hu.unideb.inf.service.CourseServiceUtil;
+import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
+import hu.unideb.inf.service.CourseTypeServiceUtil;
 import hu.unideb.inf.service.CurriculumLocalServiceUtil;
 import hu.unideb.inf.service.CurriculumServiceUtil;
+import hu.unideb.inf.service.SubjectLocalServiceUtil;
+import hu.unideb.inf.service.SubjectServiceUtil;
 
 /**
  * @author Adam Kiss
@@ -36,9 +42,18 @@ public class ClpMessageListener extends BaseMessageListener {
 
 		if (command.equals("undeploy") &&
 				servletContextName.equals(getServletContextName())) {
+			CourseLocalServiceUtil.clearService();
+
+			CourseServiceUtil.clearService();
+			CourseTypeLocalServiceUtil.clearService();
+
+			CourseTypeServiceUtil.clearService();
 			CurriculumLocalServiceUtil.clearService();
 
 			CurriculumServiceUtil.clearService();
+			SubjectLocalServiceUtil.clearService();
+
+			SubjectServiceUtil.clearService();
 		}
 	}
 }

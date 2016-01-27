@@ -282,7 +282,8 @@ public class CurriculumLocalServiceUtil {
 
 	public static hu.unideb.inf.model.Curriculum getCurriculumByCode(
 		java.lang.String curriculumCode)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchCurriculumException {
 		return getService().getCurriculumByCode(curriculumCode);
 	}
 

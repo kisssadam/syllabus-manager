@@ -292,7 +292,8 @@ public class CurriculumLocalServiceWrapper implements CurriculumLocalService,
 	@Override
 	public hu.unideb.inf.model.Curriculum getCurriculumByCode(
 		java.lang.String curriculumCode)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchCurriculumException {
 		return _curriculumLocalService.getCurriculumByCode(curriculumCode);
 	}
 

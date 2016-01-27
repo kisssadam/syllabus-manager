@@ -30,7 +30,95 @@
             <finder-column name="curriculumCode"></finder-column>
         </finder>
 	</entity>
-    <exceptions>
+	<entity name="Subject" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="subjectId" type="long" primary="true"></column>
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+        <column name="subjectCode" type="String"></column>
+        <column name="subjectName" type="String"></column>
+        <column name="credit" type="int"></column>
+        <column name="curriculumId" type="long"></column>
+        <order by="asc">
+            <order-column name="subjectCode" order-by="asc"></order-column>
+            <order-column name="subjectName" order-by="asc"></order-column>
+            <order-column name="credit" order-by="asc"></order-column>
+        </order>
+        <finder name="SubjectCode" return-type="Subject" unique="true">
+            <finder-column name="subjectCode"></finder-column>
+        </finder>
+        <finder name="Curriculum" return-type="Collection">
+            <finder-column name="curriculumId"></finder-column>
+        </finder>
+	</entity>
+    <entity local-service="true" name="CourseType">
+        <column name="courseTypeId" primary="true" type="long"></column>
+        <column name="groupId" type="long"></column>
+        <column name="companyId" type="long"></column>
+        <column name="userId" type="long"></column>
+        <column name="userName" type="String"></column>
+        <column name="createDate" type="Date"></column>
+        <column name="modifiedDate" type="Date"></column>
+        <column name="type" type="String"></column>
+        <order by="asc">
+            <order-column name="type" order-by="asc"></order-column>
+        </order>
+        <finder name="Type" return-type="CourseType" unique="true">
+            <finder-column name="type"></finder-column>
+        </finder>
+    </entity>
+	<entity name="Course" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="courseId" type="long" primary="true"></column>
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+        <column name="subjectId" type="long"></column>
+        <column name="hoursPerSemester" type="int"></column>
+        <column name="hoursPerWeek" type="int"></column>
+        <column name="courseTypeId" type="long"></column>
+        <finder name="SubjectId" return-type="Collection">
+            <finder-column name="subjectId"></finder-column>
+        </finder>
+        <finder name="S_CT" return-type="Course" unique="true">
+            <finder-column name="subjectId"></finder-column>
+            <finder-column name="courseTypeId"></finder-column>
+        </finder>
+	</entity>
+	<exceptions>
+        <exception>CurriculumCode</exception>
+        <exception>CurriculumName</exception>
+        <exception>SubjectCode</exception>
+        <exception>SubjectName</exception>
+        <exception>SubjectCredit</exception>
+        <exception>CourseType</exception>
         <exception>DuplicateCurriculum</exception>
+        <exception>CourseHours</exception>
+        <exception>DuplicateSubject</exception>
+        <exception>DuplicateCourseType</exception>
+        <exception>DuplicateCourse</exception>
     </exceptions>
 </service-builder>

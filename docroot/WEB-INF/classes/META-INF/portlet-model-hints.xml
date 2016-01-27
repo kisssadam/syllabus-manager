@@ -1,6 +1,29 @@
 <?xml version="1.0"?>
 
 <model-hints>
+	<model name="hu.unideb.inf.model.Course">
+		<field name="courseId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="subjectId" type="long" />
+		<field name="hoursPerSemester" type="int" />
+		<field name="hoursPerWeek" type="int" />
+		<field name="courseTypeId" type="long" />
+	</model>
+	<model name="hu.unideb.inf.model.CourseType">
+		<field name="courseTypeId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="type" type="String" />
+	</model>
 	<model name="hu.unideb.inf.model.Curriculum">
 		<field name="curriculumId" type="long" />
 		<field name="groupId" type="long" />
@@ -11,5 +34,18 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="curriculumCode" type="String" />
 		<field name="curriculumName" type="String" />
+	</model>
+	<model name="hu.unideb.inf.model.Subject">
+		<field name="subjectId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="subjectCode" type="String" />
+		<field name="subjectName" type="String" />
+		<field name="credit" type="int" />
+		<field name="curriculumId" type="long" />
 	</model>
 </model-hints>

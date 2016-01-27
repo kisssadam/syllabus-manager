@@ -24,7 +24,10 @@ import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 
+import hu.unideb.inf.CurriculumCodeException;
+import hu.unideb.inf.CurriculumNameException;
 import hu.unideb.inf.DuplicateCurriculumException;
+import hu.unideb.inf.NoSuchCurriculumException;
 import hu.unideb.inf.model.Curriculum;
 import hu.unideb.inf.service.CurriculumLocalServiceUtil;
 import hu.unideb.inf.service.base.CurriculumLocalServiceBaseImpl;
@@ -57,8 +60,8 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 		return curriculumPersistence.findAll();
 	}
 
-	public Curriculum getCurriculumByCode(String curriculumCode) throws SystemException {
-		return curriculumPersistence.fetchByCode(curriculumCode);
+	public Curriculum getCurriculumByCode(String curriculumCode) throws SystemException, NoSuchCurriculumException {
+		return curriculumPersistence.findByCode(curriculumCode);
 	}
 
 	public Curriculum addCurriculum(String curriculumCode, String curriculumName, ServiceContext serviceContext)
@@ -117,7 +120,7 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 
 		curriculum.setUserId(userId);
 		curriculum.setUserName(user.getFullName());
-		curriculum.setModifiedDate(now);
+		curriculum.setModifiedDate(serviceContext.getModifiedDate(now));
 		curriculum.setCurriculumCode(curriculumCode);
 		curriculum.setCurriculumName(curriculumName);
 
@@ -131,10 +134,21 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 
 	private void validate(long curriculumId, String curriculumCode, String curriculumName)
 			throws PortalException, SystemException {
-		Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculumByCode(curriculumCode);
+		if (Validator.isNull(curriculumCode)) {
+			throw new CurriculumCodeException();
+		}
 
-		if (Validator.isNotNull(curriculum) && !Validator.equals(curriculum.getCurriculumId(), curriculumId)) {
-			throw new DuplicateCurriculumException();
+		if (Validator.isNull(curriculumName)) {
+			throw new CurriculumNameException();
+		}
+
+		try {
+			Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculumByCode(curriculumCode);
+			if (!Validator.equals(curriculum.getCurriculumId(), curriculumId)) {
+				throw new DuplicateCurriculumException();
+			}
+		} catch (NoSuchCurriculumException e) {
+			return;
 		}
 	}
 

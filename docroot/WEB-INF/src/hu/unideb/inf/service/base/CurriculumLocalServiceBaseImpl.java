@@ -33,7 +33,10 @@ import com.liferay.portal.service.persistence.UserPersistence;
 
 import hu.unideb.inf.model.Curriculum;
 import hu.unideb.inf.service.CurriculumLocalService;
+import hu.unideb.inf.service.persistence.CoursePersistence;
+import hu.unideb.inf.service.persistence.CourseTypePersistence;
 import hu.unideb.inf.service.persistence.CurriculumPersistence;
+import hu.unideb.inf.service.persistence.SubjectPersistence;
 
 import java.io.Serializable;
 
@@ -281,6 +284,119 @@ public abstract class CurriculumLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the course local service.
+	 *
+	 * @return the course local service
+	 */
+	public hu.unideb.inf.service.CourseLocalService getCourseLocalService() {
+		return courseLocalService;
+	}
+
+	/**
+	 * Sets the course local service.
+	 *
+	 * @param courseLocalService the course local service
+	 */
+	public void setCourseLocalService(
+		hu.unideb.inf.service.CourseLocalService courseLocalService) {
+		this.courseLocalService = courseLocalService;
+	}
+
+	/**
+	 * Returns the course remote service.
+	 *
+	 * @return the course remote service
+	 */
+	public hu.unideb.inf.service.CourseService getCourseService() {
+		return courseService;
+	}
+
+	/**
+	 * Sets the course remote service.
+	 *
+	 * @param courseService the course remote service
+	 */
+	public void setCourseService(
+		hu.unideb.inf.service.CourseService courseService) {
+		this.courseService = courseService;
+	}
+
+	/**
+	 * Returns the course persistence.
+	 *
+	 * @return the course persistence
+	 */
+	public CoursePersistence getCoursePersistence() {
+		return coursePersistence;
+	}
+
+	/**
+	 * Sets the course persistence.
+	 *
+	 * @param coursePersistence the course persistence
+	 */
+	public void setCoursePersistence(CoursePersistence coursePersistence) {
+		this.coursePersistence = coursePersistence;
+	}
+
+	/**
+	 * Returns the course type local service.
+	 *
+	 * @return the course type local service
+	 */
+	public hu.unideb.inf.service.CourseTypeLocalService getCourseTypeLocalService() {
+		return courseTypeLocalService;
+	}
+
+	/**
+	 * Sets the course type local service.
+	 *
+	 * @param courseTypeLocalService the course type local service
+	 */
+	public void setCourseTypeLocalService(
+		hu.unideb.inf.service.CourseTypeLocalService courseTypeLocalService) {
+		this.courseTypeLocalService = courseTypeLocalService;
+	}
+
+	/**
+	 * Returns the course type remote service.
+	 *
+	 * @return the course type remote service
+	 */
+	public hu.unideb.inf.service.CourseTypeService getCourseTypeService() {
+		return courseTypeService;
+	}
+
+	/**
+	 * Sets the course type remote service.
+	 *
+	 * @param courseTypeService the course type remote service
+	 */
+	public void setCourseTypeService(
+		hu.unideb.inf.service.CourseTypeService courseTypeService) {
+		this.courseTypeService = courseTypeService;
+	}
+
+	/**
+	 * Returns the course type persistence.
+	 *
+	 * @return the course type persistence
+	 */
+	public CourseTypePersistence getCourseTypePersistence() {
+		return courseTypePersistence;
+	}
+
+	/**
+	 * Sets the course type persistence.
+	 *
+	 * @param courseTypePersistence the course type persistence
+	 */
+	public void setCourseTypePersistence(
+		CourseTypePersistence courseTypePersistence) {
+		this.courseTypePersistence = courseTypePersistence;
+	}
+
+	/**
 	 * Returns the curriculum local service.
 	 *
 	 * @return the curriculum local service
@@ -335,6 +451,62 @@ public abstract class CurriculumLocalServiceBaseImpl
 	public void setCurriculumPersistence(
 		CurriculumPersistence curriculumPersistence) {
 		this.curriculumPersistence = curriculumPersistence;
+	}
+
+	/**
+	 * Returns the subject local service.
+	 *
+	 * @return the subject local service
+	 */
+	public hu.unideb.inf.service.SubjectLocalService getSubjectLocalService() {
+		return subjectLocalService;
+	}
+
+	/**
+	 * Sets the subject local service.
+	 *
+	 * @param subjectLocalService the subject local service
+	 */
+	public void setSubjectLocalService(
+		hu.unideb.inf.service.SubjectLocalService subjectLocalService) {
+		this.subjectLocalService = subjectLocalService;
+	}
+
+	/**
+	 * Returns the subject remote service.
+	 *
+	 * @return the subject remote service
+	 */
+	public hu.unideb.inf.service.SubjectService getSubjectService() {
+		return subjectService;
+	}
+
+	/**
+	 * Sets the subject remote service.
+	 *
+	 * @param subjectService the subject remote service
+	 */
+	public void setSubjectService(
+		hu.unideb.inf.service.SubjectService subjectService) {
+		this.subjectService = subjectService;
+	}
+
+	/**
+	 * Returns the subject persistence.
+	 *
+	 * @return the subject persistence
+	 */
+	public SubjectPersistence getSubjectPersistence() {
+		return subjectPersistence;
+	}
+
+	/**
+	 * Sets the subject persistence.
+	 *
+	 * @param subjectPersistence the subject persistence
+	 */
+	public void setSubjectPersistence(SubjectPersistence subjectPersistence) {
+		this.subjectPersistence = subjectPersistence;
 	}
 
 	/**
@@ -513,12 +685,30 @@ public abstract class CurriculumLocalServiceBaseImpl
 		}
 	}
 
+	@BeanReference(type = hu.unideb.inf.service.CourseLocalService.class)
+	protected hu.unideb.inf.service.CourseLocalService courseLocalService;
+	@BeanReference(type = hu.unideb.inf.service.CourseService.class)
+	protected hu.unideb.inf.service.CourseService courseService;
+	@BeanReference(type = CoursePersistence.class)
+	protected CoursePersistence coursePersistence;
+	@BeanReference(type = hu.unideb.inf.service.CourseTypeLocalService.class)
+	protected hu.unideb.inf.service.CourseTypeLocalService courseTypeLocalService;
+	@BeanReference(type = hu.unideb.inf.service.CourseTypeService.class)
+	protected hu.unideb.inf.service.CourseTypeService courseTypeService;
+	@BeanReference(type = CourseTypePersistence.class)
+	protected CourseTypePersistence courseTypePersistence;
 	@BeanReference(type = hu.unideb.inf.service.CurriculumLocalService.class)
 	protected hu.unideb.inf.service.CurriculumLocalService curriculumLocalService;
 	@BeanReference(type = hu.unideb.inf.service.CurriculumService.class)
 	protected hu.unideb.inf.service.CurriculumService curriculumService;
 	@BeanReference(type = CurriculumPersistence.class)
 	protected CurriculumPersistence curriculumPersistence;
+	@BeanReference(type = hu.unideb.inf.service.SubjectLocalService.class)
+	protected hu.unideb.inf.service.SubjectLocalService subjectLocalService;
+	@BeanReference(type = hu.unideb.inf.service.SubjectService.class)
+	protected hu.unideb.inf.service.SubjectService subjectService;
+	@BeanReference(type = SubjectPersistence.class)
+	protected SubjectPersistence subjectPersistence;
 	@BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
 	protected com.liferay.counter.service.CounterLocalService counterLocalService;
 	@BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)

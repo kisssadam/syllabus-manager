@@ -257,7 +257,8 @@ public interface CurriculumLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public hu.unideb.inf.model.Curriculum getCurriculumByCode(
 		java.lang.String curriculumCode)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchCurriculumException;
 
 	public hu.unideb.inf.model.Curriculum addCurriculum(
 		java.lang.String curriculumCode, java.lang.String curriculumName,

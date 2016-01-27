@@ -100,38 +100,38 @@ public class CurriculumLocalServiceClpInvoker {
 
 		_methodParameterTypes15 = new String[] { "hu.unideb.inf.model.Curriculum" };
 
-		_methodName34 = "getBeanIdentifier";
+		_methodName52 = "getBeanIdentifier";
 
-		_methodParameterTypes34 = new String[] {  };
+		_methodParameterTypes52 = new String[] {  };
 
-		_methodName35 = "setBeanIdentifier";
+		_methodName53 = "setBeanIdentifier";
 
-		_methodParameterTypes35 = new String[] { "java.lang.String" };
+		_methodParameterTypes53 = new String[] { "java.lang.String" };
 
-		_methodName40 = "getCurriculums";
+		_methodName58 = "getCurriculums";
 
-		_methodParameterTypes40 = new String[] {  };
+		_methodParameterTypes58 = new String[] {  };
 
-		_methodName41 = "getCurriculumByCode";
+		_methodName59 = "getCurriculumByCode";
 
-		_methodParameterTypes41 = new String[] { "java.lang.String" };
+		_methodParameterTypes59 = new String[] { "java.lang.String" };
 
-		_methodName42 = "addCurriculum";
+		_methodName60 = "addCurriculum";
 
-		_methodParameterTypes42 = new String[] {
+		_methodParameterTypes60 = new String[] {
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName43 = "deleteCurriculum";
+		_methodName61 = "deleteCurriculum";
 
-		_methodParameterTypes43 = new String[] {
+		_methodParameterTypes61 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName44 = "updateCurriculum";
+		_methodName62 = "updateCurriculum";
 
-		_methodParameterTypes44 = new String[] {
+		_methodParameterTypes62 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -226,43 +226,43 @@ public class CurriculumLocalServiceClpInvoker {
 			return CurriculumLocalServiceUtil.updateCurriculum((hu.unideb.inf.model.Curriculum)arguments[0]);
 		}
 
-		if (_methodName34.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+		if (_methodName52.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			return CurriculumLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName35.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
+		if (_methodName53.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
 			CurriculumLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName40.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
 			return CurriculumLocalServiceUtil.getCurriculums();
 		}
 
-		if (_methodName41.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
 			return CurriculumLocalServiceUtil.getCurriculumByCode((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName42.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
 			return CurriculumLocalServiceUtil.addCurriculum((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1],
 				(com.liferay.portal.service.ServiceContext)arguments[2]);
 		}
 
-		if (_methodName43.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
 			return CurriculumLocalServiceUtil.deleteCurriculum(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
-		if (_methodName44.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return CurriculumLocalServiceUtil.updateCurriculum(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
@@ -304,18 +304,18 @@ public class CurriculumLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName34;
-	private String[] _methodParameterTypes34;
-	private String _methodName35;
-	private String[] _methodParameterTypes35;
-	private String _methodName40;
-	private String[] _methodParameterTypes40;
-	private String _methodName41;
-	private String[] _methodParameterTypes41;
-	private String _methodName42;
-	private String[] _methodParameterTypes42;
-	private String _methodName43;
-	private String[] _methodParameterTypes43;
-	private String _methodName44;
-	private String[] _methodParameterTypes44;
+	private String _methodName52;
+	private String[] _methodParameterTypes52;
+	private String _methodName53;
+	private String[] _methodParameterTypes53;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
+	private String _methodName59;
+	private String[] _methodParameterTypes59;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
+	private String _methodName61;
+	private String[] _methodParameterTypes61;
+	private String _methodName62;
+	private String[] _methodParameterTypes62;
 }

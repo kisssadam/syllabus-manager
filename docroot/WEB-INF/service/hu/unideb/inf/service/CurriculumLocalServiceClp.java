@@ -715,7 +715,8 @@ public class CurriculumLocalServiceClp implements CurriculumLocalService {
 	@Override
 	public hu.unideb.inf.model.Curriculum getCurriculumByCode(
 		java.lang.String curriculumCode)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchCurriculumException {
 		Object returnObj = null;
 
 		try {
@@ -728,6 +729,10 @@ public class CurriculumLocalServiceClp implements CurriculumLocalService {
 
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
 				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof hu.unideb.inf.NoSuchCurriculumException) {
+				throw (hu.unideb.inf.NoSuchCurriculumException)t;
 			}
 
 			if (t instanceof RuntimeException) {

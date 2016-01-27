@@ -1,7 +1,16 @@
 <?xml version="1.0"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="hu.unideb.inf.service.CourseLocalService" class="hu.unideb.inf.service.impl.CourseLocalServiceImpl" />
+	<bean id="hu.unideb.inf.service.CourseService" class="hu.unideb.inf.service.impl.CourseServiceImpl" />
+	<bean id="hu.unideb.inf.service.persistence.CoursePersistence" class="hu.unideb.inf.service.persistence.CoursePersistenceImpl" parent="basePersistence" />
+	<bean id="hu.unideb.inf.service.CourseTypeLocalService" class="hu.unideb.inf.service.impl.CourseTypeLocalServiceImpl" />
+	<bean id="hu.unideb.inf.service.CourseTypeService" class="hu.unideb.inf.service.impl.CourseTypeServiceImpl" />
+	<bean id="hu.unideb.inf.service.persistence.CourseTypePersistence" class="hu.unideb.inf.service.persistence.CourseTypePersistenceImpl" parent="basePersistence" />
 	<bean id="hu.unideb.inf.service.CurriculumLocalService" class="hu.unideb.inf.service.impl.CurriculumLocalServiceImpl" />
 	<bean id="hu.unideb.inf.service.CurriculumService" class="hu.unideb.inf.service.impl.CurriculumServiceImpl" />
 	<bean id="hu.unideb.inf.service.persistence.CurriculumPersistence" class="hu.unideb.inf.service.persistence.CurriculumPersistenceImpl" parent="basePersistence" />
+	<bean id="hu.unideb.inf.service.SubjectLocalService" class="hu.unideb.inf.service.impl.SubjectLocalServiceImpl" />
+	<bean id="hu.unideb.inf.service.SubjectService" class="hu.unideb.inf.service.impl.SubjectServiceImpl" />
+	<bean id="hu.unideb.inf.service.persistence.SubjectPersistence" class="hu.unideb.inf.service.persistence.SubjectPersistenceImpl" parent="basePersistence" />
 </beans>
