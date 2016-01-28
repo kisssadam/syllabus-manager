@@ -293,6 +293,11 @@ public class CourseTypeLocalServiceUtil {
 		return getService().fetchCourseTypeByType(type);
 	}
 
+	public static boolean isCourseExistsWithType(java.lang.String type)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().isCourseExistsWithType(type);
+	}
+
 	public static hu.unideb.inf.model.CourseType addCourseType(
 		java.lang.String type,
 		com.liferay.portal.service.ServiceContext serviceContext)

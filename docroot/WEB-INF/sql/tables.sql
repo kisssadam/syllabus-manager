@@ -20,7 +20,7 @@ create table unideb_syllabus_manager_CourseType (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	type_ VARCHAR(75) null
+	type_ TEXT null
 );
 
 create table unideb_syllabus_manager_Curriculum (
@@ -31,8 +31,8 @@ create table unideb_syllabus_manager_Curriculum (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	curriculumCode VARCHAR(75) null,
-	curriculumName VARCHAR(75) null
+	curriculumCode TEXT null,
+	curriculumName TEXT null
 );
 
 create table unideb_syllabus_manager_Subject (
@@ -43,8 +43,8 @@ create table unideb_syllabus_manager_Subject (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	subjectCode VARCHAR(75) null,
-	subjectName VARCHAR(75) null,
+	subjectCode TEXT null,
+	subjectName TEXT null,
 	credit INTEGER,
 	curriculumId LONG
 );

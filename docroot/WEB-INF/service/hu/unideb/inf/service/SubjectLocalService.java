@@ -264,6 +264,10 @@ public interface SubjectLocalService extends BaseLocalService,
 		java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean isSubjectExistsWithCode(java.lang.String subjectCode)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public hu.unideb.inf.model.Subject addSubject(
 		java.lang.String subjectCode, java.lang.String subjectName, int credit,
 		long curriculumId,

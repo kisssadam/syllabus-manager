@@ -3,4 +3,5 @@
 
 <resource-action-mapping>
 	<resource file="resource-actions/curriculum.xml" />
+	<resource file="resource-actions/subjectcourseadmin.xml" />
 </resource-action-mapping>

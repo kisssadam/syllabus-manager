@@ -67,6 +67,10 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 		return courseTypePersistence.fetchByType(type);
 	}
 
+	public boolean isCourseExistsWithType(String type) throws SystemException {
+		return courseTypePersistence.countByType(type) > 0;
+	}
+
 	public CourseType addCourseType(String type, ServiceContext serviceContext)
 			throws SystemException, PortalException {
 		Date now = new Date();

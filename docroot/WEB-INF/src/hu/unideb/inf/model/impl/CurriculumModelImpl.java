@@ -76,7 +76,7 @@ public class CurriculumModelImpl extends BaseModelImpl<Curriculum>
 			{ "curriculumCode", Types.VARCHAR },
 			{ "curriculumName", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Curriculum (curriculumId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,curriculumCode VARCHAR(75) null,curriculumName VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Curriculum (curriculumId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,curriculumCode TEXT null,curriculumName TEXT null)";
 	public static final String TABLE_SQL_DROP = "drop table unideb_syllabus_manager_Curriculum";
 	public static final String ORDER_BY_JPQL = " ORDER BY curriculum.curriculumCode ASC, curriculum.curriculumName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY unideb_syllabus_manager_Curriculum.curriculumCode ASC, unideb_syllabus_manager_Curriculum.curriculumName ASC";

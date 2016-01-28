@@ -71,6 +71,10 @@ public class SubjectLocalServiceImpl extends SubjectLocalServiceBaseImpl {
 		return subjectPersistence.fetchBySubjectCode(subjectCode);
 	}
 
+	public boolean isSubjectExistsWithCode(String subjectCode) throws SystemException {
+		return subjectPersistence.countBySubjectCode(subjectCode) > 0;
+	}
+
 	public Subject addSubject(String subjectCode, String subjectName, int credit, long curriculumId,
 			ServiceContext serviceContext) throws SystemException, PortalException {
 		Date now = new Date();

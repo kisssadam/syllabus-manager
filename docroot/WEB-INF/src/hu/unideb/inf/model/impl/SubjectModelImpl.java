@@ -78,7 +78,7 @@ public class SubjectModelImpl extends BaseModelImpl<Subject>
 			{ "credit", Types.INTEGER },
 			{ "curriculumId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Subject (subjectId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,subjectCode VARCHAR(75) null,subjectName VARCHAR(75) null,credit INTEGER,curriculumId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Subject (subjectId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,subjectCode TEXT null,subjectName TEXT null,credit INTEGER,curriculumId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table unideb_syllabus_manager_Subject";
 	public static final String ORDER_BY_JPQL = " ORDER BY subject.subjectCode ASC, subject.subjectName ASC, subject.credit ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY unideb_syllabus_manager_Subject.subjectCode ASC, unideb_syllabus_manager_Subject.subjectName ASC, unideb_syllabus_manager_Subject.credit ASC";

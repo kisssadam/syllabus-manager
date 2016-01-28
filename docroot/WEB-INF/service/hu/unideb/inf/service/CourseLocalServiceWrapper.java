@@ -308,6 +308,13 @@ public class CourseLocalServiceWrapper implements CourseLocalService,
 	}
 
 	@Override
+	public boolean isCourseExistsWithS_CT(long subjectId, long courseTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _courseLocalService.isCourseExistsWithS_CT(subjectId,
+			courseTypeId);
+	}
+
+	@Override
 	public hu.unideb.inf.model.Course addCourse(long subjectId,
 		int hoursPerSemester, int hoursPerWeek, long courseTypeId,
 		com.liferay.portal.service.ServiceContext serviceContext)

@@ -269,6 +269,10 @@ public interface CourseLocalService extends BaseLocalService,
 		long subjectId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean isCourseExistsWithS_CT(long subjectId, long courseTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public hu.unideb.inf.model.Course addCourse(long subjectId,
 		int hoursPerSemester, int hoursPerWeek, long courseTypeId,
 		com.liferay.portal.service.ServiceContext serviceContext)
