@@ -77,6 +77,14 @@ public class SubjectLocalServiceImpl extends SubjectLocalServiceBaseImpl {
 		return subjectPersistence.findByCurriculum(curriculumId);
 	}
 
+	public List<Subject> getSubjectsByCurriculumId(long curriculumId, int start, int end) throws SystemException {
+		return subjectPersistence.findByCurriculum(curriculumId, start, end);
+	}
+
+	public int getSubjectsCountByCurriculumId(long curriculumId) throws SystemException {
+		return subjectPersistence.countByCurriculum(curriculumId);
+	}
+
 	public boolean isSubjectExistsWithCode(String subjectCode) throws SystemException {
 		return subjectPersistence.countBySubjectCode(subjectCode) > 0;
 	}

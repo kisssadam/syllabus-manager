@@ -16,14 +16,17 @@
 <%@page import="java.util.Calendar"%>
 
 <%@page import="hu.unideb.inf.service.CurriculumLocalServiceUtil"%>
+<%@page import="hu.unideb.inf.service.SubjectLocalServiceUtil"%>
 
 <%@page import="hu.unideb.inf.model.Curriculum"%>
+<%@page import="hu.unideb.inf.model.Subject"%>
 
 <%@page import="hu.unideb.inf.util.WebKeys"%>
 <%@page import="hu.unideb.inf.util.ActionKeys"%>
 
 <%@page import="hu.unideb.inf.service.permission.ModelPermission"%>
 <%@page import="hu.unideb.inf.service.permission.CurriculumPermission"%>
+<%@page import="hu.unideb.inf.service.permission.SubjectPermission"%>
 
 <%@page import="hu.unideb.inf.DuplicateCurriculumException"%>
 

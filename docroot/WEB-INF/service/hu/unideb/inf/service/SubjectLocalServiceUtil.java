@@ -295,6 +295,17 @@ public class SubjectLocalServiceUtil {
 		return getService().getSubjectsByCurriculumId(curriculumId);
 	}
 
+	public static java.util.List<hu.unideb.inf.model.Subject> getSubjectsByCurriculumId(
+		long curriculumId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSubjectsByCurriculumId(curriculumId, start, end);
+	}
+
+	public static int getSubjectsCountByCurriculumId(long curriculumId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSubjectsCountByCurriculumId(curriculumId);
+	}
+
 	public static boolean isSubjectExistsWithCode(java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().isSubjectExistsWithCode(subjectCode);

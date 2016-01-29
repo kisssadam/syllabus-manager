@@ -124,26 +124,34 @@ public class SubjectLocalServiceClpInvoker {
 
 		_methodParameterTypes61 = new String[] { "long" };
 
-		_methodName62 = "isSubjectExistsWithCode";
+		_methodName62 = "getSubjectsByCurriculumId";
 
-		_methodParameterTypes62 = new String[] { "java.lang.String" };
+		_methodParameterTypes62 = new String[] { "long", "int", "int" };
 
-		_methodName63 = "addSubject";
+		_methodName63 = "getSubjectsCountByCurriculumId";
 
-		_methodParameterTypes63 = new String[] {
+		_methodParameterTypes63 = new String[] { "long" };
+
+		_methodName64 = "isSubjectExistsWithCode";
+
+		_methodParameterTypes64 = new String[] { "java.lang.String" };
+
+		_methodName65 = "addSubject";
+
+		_methodParameterTypes65 = new String[] {
 				"java.lang.String", "java.lang.String", "int", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName64 = "deleteSubject";
+		_methodName66 = "deleteSubject";
 
-		_methodParameterTypes64 = new String[] {
+		_methodParameterTypes66 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName65 = "updateSubject";
+		_methodName67 = "updateSubject";
 
-		_methodParameterTypes65 = new String[] {
+		_methodParameterTypes67 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String", "int",
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
@@ -272,11 +280,23 @@ public class SubjectLocalServiceClpInvoker {
 
 		if (_methodName62.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
-			return SubjectLocalServiceUtil.isSubjectExistsWithCode((java.lang.String)arguments[0]);
+			return SubjectLocalServiceUtil.getSubjectsByCurriculumId(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue());
 		}
 
 		if (_methodName63.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+			return SubjectLocalServiceUtil.getSubjectsCountByCurriculumId(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName64.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+			return SubjectLocalServiceUtil.isSubjectExistsWithCode((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName65.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
 			return SubjectLocalServiceUtil.addSubject((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1],
 				((Integer)arguments[2]).intValue(),
@@ -284,14 +304,14 @@ public class SubjectLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[4]);
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName66.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
 			return SubjectLocalServiceUtil.deleteSubject(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
-		if (_methodName65.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+		if (_methodName67.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
 			return SubjectLocalServiceUtil.updateSubject(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
@@ -355,4 +375,8 @@ public class SubjectLocalServiceClpInvoker {
 	private String[] _methodParameterTypes64;
 	private String _methodName65;
 	private String[] _methodParameterTypes65;
+	private String _methodName66;
+	private String[] _methodParameterTypes66;
+	private String _methodName67;
+	private String[] _methodParameterTypes67;
 }
