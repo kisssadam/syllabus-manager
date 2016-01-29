@@ -295,6 +295,12 @@ public class CourseLocalServiceUtil {
 		return getService().getCourseBySubjectId(subjectId);
 	}
 
+	public static java.util.List<hu.unideb.inf.model.Course> getCoursesByCourseTypeId(
+		long courseTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCoursesByCourseTypeId(courseTypeId);
+	}
+
 	public static boolean isCourseExistsWithS_CT(long subjectId,
 		long courseTypeId)
 		throws com.liferay.portal.kernel.exception.SystemException {

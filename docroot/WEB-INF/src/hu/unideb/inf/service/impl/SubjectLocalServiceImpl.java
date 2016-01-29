@@ -30,7 +30,9 @@ import hu.unideb.inf.NoSuchSubjectException;
 import hu.unideb.inf.SubjectCodeException;
 import hu.unideb.inf.SubjectCreditException;
 import hu.unideb.inf.SubjectNameException;
+import hu.unideb.inf.model.Course;
 import hu.unideb.inf.model.Subject;
+import hu.unideb.inf.service.CourseLocalServiceUtil;
 import hu.unideb.inf.service.CurriculumLocalServiceUtil;
 import hu.unideb.inf.service.SubjectLocalServiceUtil;
 import hu.unideb.inf.service.base.SubjectLocalServiceBaseImpl;
@@ -69,6 +71,10 @@ public class SubjectLocalServiceImpl extends SubjectLocalServiceBaseImpl {
 
 	public Subject fetchSubjectByCode(String subjectCode) throws SystemException {
 		return subjectPersistence.fetchBySubjectCode(subjectCode);
+	}
+
+	public List<Subject> getSubjectsByCurriculumId(long curriculumId) throws SystemException {
+		return subjectPersistence.findByCurriculum(curriculumId);
 	}
 
 	public boolean isSubjectExistsWithCode(String subjectCode) throws SystemException {
@@ -112,6 +118,11 @@ public class SubjectLocalServiceImpl extends SubjectLocalServiceBaseImpl {
 	public Subject deleteSubject(long subjectId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
 		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
+
+		List<Course> coursesToDelete = CourseLocalServiceUtil.getCourseBySubjectId(subjectId);
+		for (Course course : coursesToDelete) {
+			CourseLocalServiceUtil.deleteCourse(course.getCourseId(), serviceContext);
+		}
 
 		resourceLocalService.deleteResource(subject.getCompanyId(), subject.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, subjectId);

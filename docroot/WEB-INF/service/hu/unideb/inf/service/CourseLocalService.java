@@ -270,6 +270,11 @@ public interface CourseLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<hu.unideb.inf.model.Course> getCoursesByCourseTypeId(
+		long courseTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public boolean isCourseExistsWithS_CT(long subjectId, long courseTypeId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 

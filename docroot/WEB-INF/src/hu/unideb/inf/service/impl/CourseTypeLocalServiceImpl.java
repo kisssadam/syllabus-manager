@@ -27,7 +27,9 @@ import com.liferay.portal.service.ServiceContext;
 import hu.unideb.inf.CourseTypeException;
 import hu.unideb.inf.DuplicateCourseTypeException;
 import hu.unideb.inf.NoSuchCourseTypeException;
+import hu.unideb.inf.model.Course;
 import hu.unideb.inf.model.CourseType;
+import hu.unideb.inf.service.CourseLocalServiceUtil;
 import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
 import hu.unideb.inf.service.base.CourseTypeLocalServiceBaseImpl;
 
@@ -105,6 +107,11 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 	public CourseType deleteCourseType(long courseTypeId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
 		CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(courseTypeId);
+
+		List<Course> coursesToDelete = CourseLocalServiceUtil.getCoursesByCourseTypeId(courseTypeId);
+		for (Course course : coursesToDelete) {
+			CourseLocalServiceUtil.deleteCourse(course.getCourseId(), serviceContext);
+		}
 
 		resourceLocalService.deleteResource(courseType.getCompanyId(), courseType.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, courseTypeId);

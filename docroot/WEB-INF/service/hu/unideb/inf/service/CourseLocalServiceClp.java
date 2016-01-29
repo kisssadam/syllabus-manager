@@ -124,26 +124,30 @@ public class CourseLocalServiceClp implements CourseLocalService {
 
 		_methodParameterTypes22 = new String[] { "long" };
 
-		_methodName23 = "isCourseExistsWithS_CT";
+		_methodName23 = "getCoursesByCourseTypeId";
 
-		_methodParameterTypes23 = new String[] { "long", "long" };
+		_methodParameterTypes23 = new String[] { "long" };
 
-		_methodName24 = "addCourse";
+		_methodName24 = "isCourseExistsWithS_CT";
 
-		_methodParameterTypes24 = new String[] {
+		_methodParameterTypes24 = new String[] { "long", "long" };
+
+		_methodName25 = "addCourse";
+
+		_methodParameterTypes25 = new String[] {
 				"long", "int", "int", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName25 = "deleteCourse";
+		_methodName26 = "deleteCourse";
 
-		_methodParameterTypes25 = new String[] {
+		_methodParameterTypes26 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName26 = "updateCourse";
+		_methodName27 = "updateCourse";
 
-		_methodParameterTypes26 = new String[] {
+		_methodParameterTypes27 = new String[] {
 				"long", "long", "long", "int", "int", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -817,13 +821,42 @@ public class CourseLocalServiceClp implements CourseLocalService {
 	}
 
 	@Override
-	public boolean isCourseExistsWithS_CT(long subjectId, long courseTypeId)
+	public java.util.List<hu.unideb.inf.model.Course> getCoursesByCourseTypeId(
+		long courseTypeId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+					_methodParameterTypes23, new Object[] { courseTypeId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<hu.unideb.inf.model.Course>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public boolean isCourseExistsWithS_CT(long subjectId, long courseTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
 					new Object[] { subjectId, courseTypeId });
 		}
 		catch (Throwable t) {
@@ -854,8 +887,8 @@ public class CourseLocalServiceClp implements CourseLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName24,
-					_methodParameterTypes24,
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25,
 					new Object[] {
 						subjectId,
 						
@@ -899,8 +932,8 @@ public class CourseLocalServiceClp implements CourseLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName25,
-					_methodParameterTypes25,
+			returnObj = _invokableLocalService.invokeMethod(_methodName26,
+					_methodParameterTypes26,
 					new Object[] {
 						courseId,
 						
@@ -940,8 +973,8 @@ public class CourseLocalServiceClp implements CourseLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName26,
-					_methodParameterTypes26,
+			returnObj = _invokableLocalService.invokeMethod(_methodName27,
+					_methodParameterTypes27,
 					new Object[] {
 						userId,
 						
@@ -1034,4 +1067,6 @@ public class CourseLocalServiceClp implements CourseLocalService {
 	private String[] _methodParameterTypes25;
 	private String _methodName26;
 	private String[] _methodParameterTypes26;
+	private String _methodName27;
+	private String[] _methodParameterTypes27;
 }

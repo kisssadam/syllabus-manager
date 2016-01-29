@@ -120,26 +120,30 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 
 		_methodParameterTypes21 = new String[] { "java.lang.String" };
 
-		_methodName22 = "isSubjectExistsWithCode";
+		_methodName22 = "getSubjectsByCurriculumId";
 
-		_methodParameterTypes22 = new String[] { "java.lang.String" };
+		_methodParameterTypes22 = new String[] { "long" };
 
-		_methodName23 = "addSubject";
+		_methodName23 = "isSubjectExistsWithCode";
 
-		_methodParameterTypes23 = new String[] {
+		_methodParameterTypes23 = new String[] { "java.lang.String" };
+
+		_methodName24 = "addSubject";
+
+		_methodParameterTypes24 = new String[] {
 				"java.lang.String", "java.lang.String", "int", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName24 = "deleteSubject";
+		_methodName25 = "deleteSubject";
 
-		_methodParameterTypes24 = new String[] {
+		_methodParameterTypes25 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName25 = "updateSubject";
+		_methodName26 = "updateSubject";
 
-		_methodParameterTypes25 = new String[] {
+		_methodParameterTypes26 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String", "int",
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
@@ -784,13 +788,42 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 	}
 
 	@Override
-	public boolean isSubjectExistsWithCode(java.lang.String subjectCode)
+	public java.util.List<hu.unideb.inf.model.Subject> getSubjectsByCurriculumId(
+		long curriculumId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22,
+					_methodParameterTypes22, new Object[] { curriculumId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<hu.unideb.inf.model.Subject>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public boolean isSubjectExistsWithCode(java.lang.String subjectCode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
 					new Object[] { ClpSerializer.translateInput(subjectCode) });
 		}
 		catch (Throwable t) {
@@ -822,8 +855,8 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
 					new Object[] {
 						ClpSerializer.translateInput(subjectCode),
 						
@@ -867,8 +900,8 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName24,
-					_methodParameterTypes24,
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25,
 					new Object[] {
 						subjectId,
 						
@@ -908,8 +941,8 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName25,
-					_methodParameterTypes25,
+			returnObj = _invokableLocalService.invokeMethod(_methodName26,
+					_methodParameterTypes26,
 					new Object[] {
 						userId,
 						
@@ -1000,4 +1033,6 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 	private String[] _methodParameterTypes24;
 	private String _methodName25;
 	private String[] _methodParameterTypes25;
+	private String _methodName26;
+	private String[] _methodParameterTypes26;
 }

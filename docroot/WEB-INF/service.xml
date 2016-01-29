@@ -107,6 +107,9 @@
             <finder-column name="subjectId"></finder-column>
             <finder-column name="courseTypeId"></finder-column>
         </finder>
+        <finder name="CourseType" return-type="Collection">
+            <finder-column name="courseTypeId"></finder-column>
+        </finder>
 	</entity>
 	<exceptions>
         <exception>CurriculumCode</exception>

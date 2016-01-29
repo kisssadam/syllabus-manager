@@ -29,7 +29,9 @@ import hu.unideb.inf.CurriculumNameException;
 import hu.unideb.inf.DuplicateCurriculumException;
 import hu.unideb.inf.NoSuchCurriculumException;
 import hu.unideb.inf.model.Curriculum;
+import hu.unideb.inf.model.Subject;
 import hu.unideb.inf.service.CurriculumLocalServiceUtil;
+import hu.unideb.inf.service.SubjectLocalServiceUtil;
 import hu.unideb.inf.service.base.CurriculumLocalServiceBaseImpl;
 
 /**
@@ -67,7 +69,7 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 	public Curriculum fetchCurriculumByCode(String curriculumCode) throws SystemException {
 		return curriculumPersistence.fetchByCode(curriculumCode);
 	}
-	
+
 	public boolean isCurriculumExistsWithCode(String curriculumCode) throws SystemException {
 		return curriculumPersistence.countByCode(curriculumCode) > 0;
 	}
@@ -107,6 +109,11 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 	public Curriculum deleteCurriculum(long curriculumId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
 		Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(curriculumId);
+
+		List<Subject> subjectsToDelete = SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculumId);
+		for (Subject subject : subjectsToDelete) {
+			SubjectLocalServiceUtil.deleteSubject(subject.getSubjectId(), serviceContext);
+		}
 
 		resourceLocalService.deleteResource(curriculum.getCompanyId(), curriculum.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, curriculumId);

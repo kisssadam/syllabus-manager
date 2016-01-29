@@ -75,6 +75,10 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 		return coursePersistence.findBySubjectId(subjectId);
 	}
 
+	public List<Course> getCoursesByCourseTypeId(long courseTypeId) throws SystemException {
+		return coursePersistence.findByCourseType(courseTypeId);
+	}
+
 	public boolean isCourseExistsWithS_CT(long subjectId, long courseTypeId) throws SystemException {
 		return coursePersistence.countByS_CT(subjectId, courseTypeId) > 0;
 	}
