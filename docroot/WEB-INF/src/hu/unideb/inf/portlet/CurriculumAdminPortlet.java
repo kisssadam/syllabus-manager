@@ -68,6 +68,7 @@ public class CurriculumAdminPortlet extends MVCPortlet {
 		try {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
 			CurriculumLocalServiceUtil.deleteCurriculum(curriculumId, serviceContext);
+			SessionMessages.add(request, "curriculumDeleted");
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 		}
@@ -77,6 +78,7 @@ public class CurriculumAdminPortlet extends MVCPortlet {
 		try {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
 			CurriculumLocalServiceUtil.deleteEveryCurriculum(serviceContext);
+			SessionMessages.add(request, "everyCurriculumDeleted");
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 		}

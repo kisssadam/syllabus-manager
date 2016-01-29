@@ -2,6 +2,8 @@
 
 <liferay-ui:success key="curriculumAdded" message="curriculum-has-been-successfully-added" />
 <liferay-ui:success key="curriculumUpdated" message="curriculum-has-been-successfully-updated" />
+<liferay-ui:success key="curriculumDeleted" message="curriculum-has-been-successfully-deleted" />
+<liferay-ui:success key="everyCurriculumDeleted" message="every-curriculum-has-been-successfully-deleted" />
 
 <aui:button-row cssClass="curriculum-buttons">
 	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_CURRICULUM)%>'>
