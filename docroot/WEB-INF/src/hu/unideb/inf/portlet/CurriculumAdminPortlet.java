@@ -73,4 +73,13 @@ public class CurriculumAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	public void deleteEveryCurriculum(ActionRequest request, ActionResponse response) {
+		try {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
+			CurriculumLocalServiceUtil.deleteEveryCurriculum(serviceContext);
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+		}
+	}
+
 }

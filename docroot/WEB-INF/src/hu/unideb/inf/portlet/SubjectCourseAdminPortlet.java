@@ -45,6 +45,7 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			while ((line = br.readLine()) != null) {
 				try {
+					System.out.println("Parsing: " + line);
 					parseLine(line, serviceContext);
 				} catch (Exception e) {
 					System.out.println(e.toString());

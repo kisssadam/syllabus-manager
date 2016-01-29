@@ -28,13 +28,16 @@
 		<permissions>
 			<supports>
 				<action-key>ADD_CURRICULUM</action-key>
+				<action-key>DELETE_EVERY_CURRICULUM</action-key>
 			</supports>
 			<site-member-defaults>
 				<action-key>ADD_CURRICULUM</action-key>
+				<action-key>DELETE_EVERY_CURRICULUM</action-key>
 			</site-member-defaults>
 			<guest-defaults />
 			<guest-unsupported>
 				<action-key>ADD_CURRICULUM</action-key>
+				<action-key>DELETE_EVERY_CURRICULUM</action-key>
 			</guest-unsupported>
 		</permissions>
 	</model-resource>

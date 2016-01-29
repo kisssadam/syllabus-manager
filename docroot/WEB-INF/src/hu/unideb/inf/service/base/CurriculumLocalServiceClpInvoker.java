@@ -137,9 +137,15 @@ public class CurriculumLocalServiceClpInvoker {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName64 = "updateCurriculum";
+		_methodName64 = "deleteEveryCurriculum";
 
 		_methodParameterTypes64 = new String[] {
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName65 = "updateCurriculum";
+
+		_methodParameterTypes65 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -281,6 +287,13 @@ public class CurriculumLocalServiceClpInvoker {
 
 		if (_methodName64.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+			CurriculumLocalServiceUtil.deleteEveryCurriculum((com.liferay.portal.service.ServiceContext)arguments[0]);
+
+			return null;
+		}
+
+		if (_methodName65.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
 			return CurriculumLocalServiceUtil.updateCurriculum(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
@@ -340,4 +353,6 @@ public class CurriculumLocalServiceClpInvoker {
 	private String[] _methodParameterTypes63;
 	private String _methodName64;
 	private String[] _methodParameterTypes64;
+	private String _methodName65;
+	private String[] _methodParameterTypes65;
 }
