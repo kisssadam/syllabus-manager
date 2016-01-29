@@ -66,7 +66,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		Curriculum curriculum = parseCurriculum(curriculumCode, curriculumName, serviceContext);
 		Subject subject = parseSubject(curriculum, subjectCode, subjectName, credit, serviceContext);
 
-		for (int i = 5; i <= tokens.length - 3; i += 3) {
+		int i;
+		for (i = 5; i <= tokens.length - 3; i += 3) {
 			String hoursPerSemesterField = tokens[i];
 			String hoursPerWeekField = tokens[i + 1];
 			String typeOfCourse = tokens[i + 2];
@@ -75,7 +76,11 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 				continue;
 			}
 
-			parseCourses(subject, hoursPerSemesterField, hoursPerWeekField, typeOfCourse, serviceContext);
+			parseCourse(subject, hoursPerSemesterField, hoursPerWeekField, typeOfCourse, serviceContext);
+		}
+		System.out.println("i: " + i);
+		if (i != tokens.length) {
+			throw new RuntimeException("Failed to parse some Courses.");
 		}
 	}
 
@@ -110,7 +115,7 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		return subject;
 	}
 
-	private void parseCourses(Subject subject, String hoursPerSemesterField, String hoursPerWeekField,
+	private void parseCourse(Subject subject, String hoursPerSemesterField, String hoursPerWeekField,
 			String typeOfCourse, ServiceContext serviceContext) throws PortalException, SystemException {
 		int hoursPerSemester = Validator.isNull(hoursPerSemesterField) ? 0 : Integer.parseInt(hoursPerSemesterField);
 		int hoursPerWeek = Validator.isNull(hoursPerWeekField) ? 0 : Integer.parseInt(hoursPerWeekField);
