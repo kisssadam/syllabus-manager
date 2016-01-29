@@ -67,6 +67,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		Curriculum curriculum;
 		if (CurriculumLocalServiceUtil.isCurriculumExistsWithCode(curriculumCode)) {
 			curriculum = CurriculumLocalServiceUtil.getCurriculumByCode(curriculumCode);
+			curriculum = CurriculumLocalServiceUtil.updateCurriculum(serviceContext.getUserId(),
+					curriculum.getCurriculumId(), curriculumCode, curriculumName, serviceContext);
 		} else {
 			curriculum = CurriculumLocalServiceUtil.addCurriculum(curriculumCode, curriculumName, serviceContext);
 		}
@@ -74,6 +76,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		Subject subject;
 		if (SubjectLocalServiceUtil.isSubjectExistsWithCode(subjectCode)) {
 			subject = SubjectLocalServiceUtil.getSubjectByCode(subjectCode);
+			subject = SubjectLocalServiceUtil.updateSubject(serviceContext.getUserId(), subject.getSubjectId(),
+					subjectCode, subjectName, credit, curriculum.getCurriculumId(), serviceContext);
 		} else {
 			subject = SubjectLocalServiceUtil.addSubject(subjectCode, subjectName, credit, curriculum.getCurriculumId(),
 					serviceContext);
@@ -100,6 +104,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		CourseType courseType;
 		if (CourseTypeLocalServiceUtil.isCourseExistsWithType(typeOfCourse)) {
 			courseType = CourseTypeLocalServiceUtil.getCourseTypeByType(typeOfCourse);
+			courseType = CourseTypeLocalServiceUtil.updateCourseType(serviceContext.getUserId(),
+					courseType.getCourseTypeId(), typeOfCourse, serviceContext);
 		} else {
 			courseType = CourseTypeLocalServiceUtil.addCourseType(typeOfCourse, serviceContext);
 		}
@@ -107,6 +113,9 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		Course course;
 		if (CourseLocalServiceUtil.isCourseExistsWithS_CT(subject.getSubjectId(), courseType.getCourseTypeId())) {
 			course = CourseLocalServiceUtil.getCourseByS_CT(subject.getSubjectId(), courseType.getCourseTypeId());
+			course = CourseLocalServiceUtil.updateCourse(serviceContext.getUserId(), course.getCourseId(),
+					subject.getSubjectId(), hoursPerSemester, hoursPerWeek, courseType.getCourseTypeId(),
+					serviceContext);
 		} else {
 			course = CourseLocalServiceUtil.addCourse(subject.getSubjectId(), hoursPerSemester, hoursPerWeek,
 					courseType.getCourseTypeId(), serviceContext);
