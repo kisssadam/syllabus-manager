@@ -60,28 +60,11 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		String subjectName = tokens[0];
 		String subjectCode = tokens[1];
 		int credit = Integer.parseInt(tokens[2]);
-
 		String curriculumName = tokens[3];
 		String curriculumCode = tokens[4];
 
-		Curriculum curriculum;
-		if (CurriculumLocalServiceUtil.isCurriculumExistsWithCode(curriculumCode)) {
-			curriculum = CurriculumLocalServiceUtil.getCurriculumByCode(curriculumCode);
-			curriculum = CurriculumLocalServiceUtil.updateCurriculum(serviceContext.getUserId(),
-					curriculum.getCurriculumId(), curriculumCode, curriculumName, serviceContext);
-		} else {
-			curriculum = CurriculumLocalServiceUtil.addCurriculum(curriculumCode, curriculumName, serviceContext);
-		}
-
-		Subject subject;
-		if (SubjectLocalServiceUtil.isSubjectExistsWithCode(subjectCode)) {
-			subject = SubjectLocalServiceUtil.getSubjectByCode(subjectCode);
-			subject = SubjectLocalServiceUtil.updateSubject(serviceContext.getUserId(), subject.getSubjectId(),
-					subjectCode, subjectName, credit, curriculum.getCurriculumId(), serviceContext);
-		} else {
-			subject = SubjectLocalServiceUtil.addSubject(subjectCode, subjectName, credit, curriculum.getCurriculumId(),
-					serviceContext);
-		}
+		Curriculum curriculum = parseCurriculum(curriculumCode, curriculumName, serviceContext);
+		Subject subject = parseSubject(curriculum, subjectCode, subjectName, credit, serviceContext);
 
 		for (int i = 5; i <= tokens.length - 3; i += 3) {
 			String hoursPerSemesterField = tokens[i];
@@ -92,16 +75,56 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 				continue;
 			}
 
-			parseCourse(subject, hoursPerSemesterField, hoursPerWeekField, typeOfCourse, serviceContext);
+			parseCourses(subject, hoursPerSemesterField, hoursPerWeekField, typeOfCourse, serviceContext);
 		}
 	}
 
-	private void parseCourse(Subject subject, String hoursPerSemesterField, String hoursPerWeekField,
-			String typeOfCourse, ServiceContext serviceContext) throws SystemException, PortalException {
+	private Curriculum parseCurriculum(String curriculumCode, String curriculumName, ServiceContext serviceContext)
+			throws PortalException, SystemException {
+		Curriculum curriculum;
+
+		if (CurriculumLocalServiceUtil.isCurriculumExistsWithCode(curriculumCode)) {
+			curriculum = CurriculumLocalServiceUtil.getCurriculumByCode(curriculumCode);
+			curriculum = CurriculumLocalServiceUtil.updateCurriculum(serviceContext.getUserId(),
+					curriculum.getCurriculumId(), curriculumCode, curriculumName, serviceContext);
+		} else {
+			curriculum = CurriculumLocalServiceUtil.addCurriculum(curriculumCode, curriculumName, serviceContext);
+		}
+
+		return curriculum;
+	}
+
+	private Subject parseSubject(Curriculum curriculum, String subjectCode, String subjectName, int credit,
+			ServiceContext serviceContext) throws PortalException, SystemException {
+		Subject subject;
+
+		if (SubjectLocalServiceUtil.isSubjectExistsWithCode(subjectCode)) {
+			subject = SubjectLocalServiceUtil.getSubjectByCode(subjectCode);
+			subject = SubjectLocalServiceUtil.updateSubject(serviceContext.getUserId(), subject.getSubjectId(),
+					subjectCode, subjectName, credit, curriculum.getCurriculumId(), serviceContext);
+		} else {
+			subject = SubjectLocalServiceUtil.addSubject(subjectCode, subjectName, credit, curriculum.getCurriculumId(),
+					serviceContext);
+		}
+
+		return subject;
+	}
+
+	private void parseCourses(Subject subject, String hoursPerSemesterField, String hoursPerWeekField,
+			String typeOfCourse, ServiceContext serviceContext) throws PortalException, SystemException {
 		int hoursPerSemester = Validator.isNull(hoursPerSemesterField) ? 0 : Integer.parseInt(hoursPerSemesterField);
 		int hoursPerWeek = Validator.isNull(hoursPerWeekField) ? 0 : Integer.parseInt(hoursPerWeekField);
 
+		CourseType courseType = parseCourseType(typeOfCourse, serviceContext);
+		Course course = parseCourse(subject, courseType, hoursPerSemester, hoursPerWeek, serviceContext);
+
+		System.out.println("Success: " + course);
+	}
+
+	private CourseType parseCourseType(String typeOfCourse, ServiceContext serviceContext)
+			throws PortalException, SystemException {
 		CourseType courseType;
+
 		if (CourseTypeLocalServiceUtil.isCourseExistsWithType(typeOfCourse)) {
 			courseType = CourseTypeLocalServiceUtil.getCourseTypeByType(typeOfCourse);
 			courseType = CourseTypeLocalServiceUtil.updateCourseType(serviceContext.getUserId(),
@@ -110,7 +133,13 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			courseType = CourseTypeLocalServiceUtil.addCourseType(typeOfCourse, serviceContext);
 		}
 
+		return courseType;
+	}
+
+	private Course parseCourse(Subject subject, CourseType courseType, int hoursPerSemester, int hoursPerWeek,
+			ServiceContext serviceContext) throws PortalException, SystemException {
 		Course course;
+
 		if (CourseLocalServiceUtil.isCourseExistsWithS_CT(subject.getSubjectId(), courseType.getCourseTypeId())) {
 			course = CourseLocalServiceUtil.getCourseByS_CT(subject.getSubjectId(), courseType.getCourseTypeId());
 			course = CourseLocalServiceUtil.updateCourse(serviceContext.getUserId(), course.getCourseId(),
@@ -121,7 +150,7 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 					courseType.getCourseTypeId(), serviceContext);
 		}
 
-		System.out.println("Success: " + course);
+		return course;
 	}
 
 }
