@@ -4,6 +4,7 @@
 <%@taglib uri="http://liferay.com/tld/theme" prefix="theme"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://liferay.com/tld/security" prefix="liferay-security"%>
+<%@taglib uri="http://liferay.com/tld/util" prefix="liferay-util"%>
 
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@page import="com.liferay.portal.kernel.util.HtmlUtil"%>

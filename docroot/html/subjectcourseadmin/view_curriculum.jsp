@@ -10,7 +10,7 @@
 	}
 %>
 
-<!-- ide lehetne egy breadcrumbot rakni -->
+<jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <c:if test='<%=curriculum != null%>'>
 	<h1><%=curriculum.getCurriculumCode()%> - <%=curriculum.getCurriculumName()%></h1>
