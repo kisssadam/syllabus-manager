@@ -127,7 +127,7 @@ public class SubjectLocalServiceImpl extends SubjectLocalServiceBaseImpl {
 			throws PortalException, SystemException {
 		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
 
-		List<Course> coursesToDelete = CourseLocalServiceUtil.getCourseBySubjectId(subjectId);
+		List<Course> coursesToDelete = CourseLocalServiceUtil.getCoursesBySubjectId(subjectId);
 		for (Course course : coursesToDelete) {
 			CourseLocalServiceUtil.deleteCourse(course.getCourseId(), serviceContext);
 		}

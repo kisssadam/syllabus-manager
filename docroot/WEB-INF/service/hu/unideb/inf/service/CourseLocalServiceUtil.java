@@ -289,10 +289,21 @@ public class CourseLocalServiceUtil {
 		return getService().fetchCourseByS_CT(subjectId, courseTypeId);
 	}
 
-	public static java.util.List<hu.unideb.inf.model.Course> getCourseBySubjectId(
+	public static java.util.List<hu.unideb.inf.model.Course> getCoursesBySubjectId(
 		long subjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getCourseBySubjectId(subjectId);
+		return getService().getCoursesBySubjectId(subjectId);
+	}
+
+	public static java.util.List<hu.unideb.inf.model.Course> getCoursesBySubjectId(
+		long subjectId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCoursesBySubjectId(subjectId, start, end);
+	}
+
+	public static int getCoursesCountBySubjectId(long subjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCoursesCountBySubjectId(subjectId);
 	}
 
 	public static java.util.List<hu.unideb.inf.model.Course> getCoursesByCourseTypeId(

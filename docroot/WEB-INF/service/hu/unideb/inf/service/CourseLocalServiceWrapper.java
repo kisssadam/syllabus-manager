@@ -301,10 +301,23 @@ public class CourseLocalServiceWrapper implements CourseLocalService,
 	}
 
 	@Override
-	public java.util.List<hu.unideb.inf.model.Course> getCourseBySubjectId(
+	public java.util.List<hu.unideb.inf.model.Course> getCoursesBySubjectId(
 		long subjectId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _courseLocalService.getCourseBySubjectId(subjectId);
+		return _courseLocalService.getCoursesBySubjectId(subjectId);
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.Course> getCoursesBySubjectId(
+		long subjectId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _courseLocalService.getCoursesBySubjectId(subjectId, start, end);
+	}
+
+	@Override
+	public int getCoursesCountBySubjectId(long subjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _courseLocalService.getCoursesCountBySubjectId(subjectId);
 	}
 
 	@Override

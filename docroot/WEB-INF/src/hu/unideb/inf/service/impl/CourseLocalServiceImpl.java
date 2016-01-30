@@ -71,8 +71,16 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 		return coursePersistence.fetchByS_CT(subjectId, courseTypeId);
 	}
 
-	public List<Course> getCourseBySubjectId(long subjectId) throws SystemException {
+	public List<Course> getCoursesBySubjectId(long subjectId) throws SystemException {
 		return coursePersistence.findBySubjectId(subjectId);
+	}
+	
+	public List<Course> getCoursesBySubjectId(long subjectId, int start, int end) throws SystemException {
+		return coursePersistence.findBySubjectId(subjectId, start, end);
+	}
+	
+	public int getCoursesCountBySubjectId(long subjectId) throws SystemException {
+		return coursePersistence.countBySubjectId(subjectId);
 	}
 
 	public List<Course> getCoursesByCourseTypeId(long courseTypeId) throws SystemException {

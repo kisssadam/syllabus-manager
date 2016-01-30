@@ -5,5 +5,7 @@ public class ActionKeys extends com.liferay.portal.security.permission.ActionKey
 	public static final String ADD_CURRICULUM = "ADD_CURRICULUM";
 
 	public static final String DELETE_EVERY_CURRICULUM = "DELETE_EVERY_CURRICULUM";
-	
+
+	public static final String IMPORT_SYLLABUS = "IMPORT_SYLLABUS";
+
 }
