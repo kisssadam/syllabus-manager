@@ -7,13 +7,7 @@
 
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
-<aui:button-row cssClass="curriculum-buttons">
-	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.DELETE_EVERY_CURRICULUM)%>'>
-		<portlet:actionURL name="deleteEveryCurriculum" var="deleteURL" />
-		
-		<aui:button onClick="<%=deleteURL.toString()%>" value="delete-every-curriculum" />
-	</c:if>
-</aui:button-row>
+<liferay-ui:header title="curriculums" />
 
 <liferay-ui:search-container emptyResultsMessage="curriculums-not-found">
 	<liferay-ui:search-container-results

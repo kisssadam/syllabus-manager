@@ -19,8 +19,14 @@
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <c:if test='<%=curriculum != null && subject != null%>'>
-	<h1><%=curriculum.getCurriculumCode()%> - <%=curriculum.getCurriculumName()%></h1>
-	<h2><%=subject.getSubjectCode()%> - <%=subject.getSubjectName()%></h2>
+	<ul>
+		<li><b>Curriculum:</b> <%=curriculum.getCurriculumCode()%> - <%=curriculum.getCurriculumName()%></li>
+		<li>
+			<ul>
+				<li><b>Subject:</b> <%=subject.getSubjectCode()%> - <%=subject.getSubjectName()%></li>
+			</ul>
+		</li>
+	</ul>
 	<hr>
 	
 	<liferay-ui:search-container emptyResultsMessage="courses-not-found">
