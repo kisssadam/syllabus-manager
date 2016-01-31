@@ -64,7 +64,6 @@ https://github.com/eduardolundgren/alloy-ui-exercises/blob/master/01-basics/08-s
 	A.one('.removeCheckedItemsButton').on(
 		'click',
 		function(event) {
-			console.log("most kell torolni");
 			<portlet:namespace />deleteCurriculums();
 		}
 	);
