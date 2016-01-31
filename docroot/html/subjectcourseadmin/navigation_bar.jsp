@@ -5,9 +5,10 @@
 	
 	http://marcoceppi.github.io/bootstrap-glyphicons/
 -->
+
 <aui:nav-bar>
     <aui:nav>
-    	<aui:nav-item cssClass="removeCheckedItemsButton" href="/..." iconCssClass="icon-remove" label="delete" selected='false' style="display: none;" />
+    	<aui:nav-item cssClass="removeCheckedItemsButton" iconCssClass="icon-remove" label="delete" selected='false' style="display: none;" />
     
     	<portlet:renderURL var="viewHomeURL">
 			<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view.jsp" />

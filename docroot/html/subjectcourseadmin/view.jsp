@@ -5,11 +5,9 @@
 <liferay-ui:success key="curriculumDeleted" message="curriculum-has-been-successfully-deleted" />
 <liferay-ui:success key="everyCurriculumDeleted" message="every-curriculum-has-been-successfully-deleted" />
 
-<jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
-
 <liferay-ui:header title="curriculums" />
 
-<aui:button onClick='<%= renderResponse.getNamespace() + "deleteCurriculums();" %>' value="delete" />
+<jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <aui:form method="post" name="fmCurriculum">
 	<liferay-ui:search-container emptyResultsMessage="curriculums-not-found" rowChecker="<%= new RowChecker(renderResponse) %>">
@@ -63,6 +61,14 @@ https://github.com/eduardolundgren/alloy-ui-exercises/blob/master/01-basics/08-s
 
  -->
 <aui:script use="aui-base">
+	A.one('.removeCheckedItemsButton').on(
+		'click',
+		function(event) {
+			console.log("most kell torolni");
+			<portlet:namespace />deleteCurriculums();
+		}
+	);
+
 	function toggleViewIfRequired(rowsChecked) {
 		var deleteButton = A.one('.removeCheckedItemsButton');
 		
@@ -83,11 +89,11 @@ https://github.com/eduardolundgren/alloy-ui-exercises/blob/master/01-basics/08-s
 	);
 	
 	A.all('input[name=<portlet:namespace />allRowIds]').on(
-			'click',
-			function(event) {
-				var rowsChecked = A.all('input[name=<portlet:namespace />allRowIds]:checked');
-				
-				toggleViewIfRequired(rowsChecked);
-			}
-		);
+		'click',
+		function(event) {
+			var rowsChecked = A.all('input[name=<portlet:namespace />allRowIds]:checked');
+			
+			toggleViewIfRequired(rowsChecked);
+		}
+	);
 </aui:script>
