@@ -1,24 +1,20 @@
 <%@include file="/html/init.jsp"%>
 
 <%
-	long curriculumId = ParamUtil.getLong(renderRequest, "curriculumId");
 	long subjectId = ParamUtil.getLong(renderRequest, "subjectId");
 
 	Subject subject = null;
 	Curriculum curriculum = null; 
 	
-	if (curriculumId > 0) {
-		curriculum = CurriculumLocalServiceUtil.getCurriculum(curriculumId);
-	}
-	
 	if (subjectId > 0) {
 		subject = SubjectLocalServiceUtil.getSubject(subjectId);
+		curriculum = CurriculumLocalServiceUtil.getCurriculum(subject.getSubjectId());
 	}
 %>
 
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
-<c:if test='<%=curriculum != null && subject != null%>'>
+<c:if test='<%=Validator.isNotNull(subject)%>'>
 	<ul>
 		<li><b>Curriculum:</b> <%=curriculum.getCurriculumCode()%> - <%=curriculum.getCurriculumName()%></li>
 		<li>

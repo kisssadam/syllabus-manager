@@ -9,24 +9,45 @@
 
 <liferay-ui:header title="curriculums" />
 
-<liferay-ui:search-container emptyResultsMessage="curriculums-not-found">
-	<liferay-ui:search-container-results
-		results="<%=CurriculumLocalServiceUtil.getCurriculums(searchContainer.getStart(), searchContainer.getEnd())%>"
-		total="<%=CurriculumLocalServiceUtil.getCurriculumsCount()%>"
-	/>
+<aui:button onClick='<%= renderResponse.getNamespace() + "deleteCurriculums();" %>' value="delete" />
+
+<aui:form method="post" name="fmCurriculum">
+	<liferay-ui:search-container emptyResultsMessage="curriculums-not-found" rowChecker="<%=new RowChecker(renderResponse)%>">
+		<aui:input name="deleteCurriculumIds" type="hidden" />	
 	
-	<liferay-ui:search-container-row className="hu.unideb.inf.model.Curriculum" modelVar="curriculum" keyProperty="curriculumId">
-		<c:if test='<%=CurriculumPermission.contains(permissionChecker, curriculum.getCurriculumId(), "VIEW")%>'>
-			<portlet:renderURL var="viewCurriculumURL">
-				<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculum.jsp" />
-				<portlet:param name="curriculumId" value="<%=String.valueOf(curriculum.getCurriculumId())%>" />
-			</portlet:renderURL>
-			
-			<liferay-ui:search-container-column-text name="curriculum-code" property="curriculumCode" href="<%=viewCurriculumURL.toString()%>" />
-			<liferay-ui:search-container-column-text name="curriculum-name" property="curriculumName" />
-			<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/curriculum_actions.jsp" align="right" />
-		</c:if>
-	</liferay-ui:search-container-row>
-	
-	<liferay-ui:search-iterator />
-</liferay-ui:search-container>
+		<liferay-ui:search-container-results
+			results="<%=CurriculumLocalServiceUtil.getCurriculums(searchContainer.getStart(), searchContainer.getEnd())%>"
+			total="<%=CurriculumLocalServiceUtil.getCurriculumsCount()%>"
+		/>
+		
+		<liferay-ui:search-container-row className="hu.unideb.inf.model.Curriculum" modelVar="curriculum" keyProperty="curriculumId">
+			<c:if test='<%=CurriculumPermission.contains(permissionChecker, curriculum.getCurriculumId(), "VIEW")%>'>
+				<portlet:renderURL var="viewCurriculumURL">
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculum.jsp" />
+					<portlet:param name="curriculumId" value="<%=String.valueOf(curriculum.getCurriculumId())%>" />
+				</portlet:renderURL>
+				
+				<liferay-ui:search-container-column-text name="curriculum-code" property="curriculumCode" href="<%=viewCurriculumURL.toString()%>" />
+				<liferay-ui:search-container-column-text name="curriculum-name" property="curriculumName" />
+				<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/curriculum_actions.jsp" align="right" />
+			</c:if>
+		</liferay-ui:search-container-row>
+		
+		<liferay-ui:search-iterator />
+	</liferay-ui:search-container>
+</aui:form>
+
+<aui:script>
+    Liferay.provide(
+        window,
+        '<portlet:namespace />deleteCurriculums',
+        function() {
+            if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-permanently-delete-the-selected-items") %>'))  {
+                document.<portlet:namespace />fmCurriculum.method = "post";                
+                document.<portlet:namespace />fmCurriculum.<portlet:namespace />deleteCurriculumIds.value = Liferay.Util.listCheckedExcept(document.<portlet:namespace />fmCurriculum, '<portlet:namespace />allRowIds');
+                submitForm(document.<portlet:namespace />fmCurriculum, '<portlet:actionURL name="deleteCurriculums"></portlet:actionURL>');
+            }
+        },
+        ['liferay-util-list-fields']
+    );
+</aui:script>

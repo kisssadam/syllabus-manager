@@ -9,7 +9,10 @@ import javax.portlet.ActionResponse;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -30,7 +33,28 @@ import hu.unideb.inf.service.SubjectLocalServiceUtil;
  */
 public class SubjectCourseAdminPortlet extends MVCPortlet {
 
+	private static final String VIEW = "/html/subjectcourseadmin/view.jsp";
+
 	private final static String fileInputName = "fileupload";
+
+	public void deleteCurriculums(ActionRequest request, ActionResponse response) throws Exception {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(SubjectCourseAdminPortlet.class.getName(),
+				request);
+
+		String[] curriculumIds = ParamUtil.getParameterValues(request, "deleteCurriculumIds");
+
+		try {
+			for (String curriculumIdString : curriculumIds) {
+				long curriculumId = Long.parseLong(curriculumIdString);
+				CurriculumLocalServiceUtil.deleteCurriculum(curriculumId, serviceContext);
+			}
+			SessionMessages.add(request, "curriculumsDeleted");
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW);
+		}
+	}
 
 	public void upload(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(SubjectCourseAdminPortlet.class.getName(),

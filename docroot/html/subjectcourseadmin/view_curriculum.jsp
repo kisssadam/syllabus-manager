@@ -12,8 +12,7 @@
 
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
-
-<c:if test='<%=curriculum != null%>'>
+<c:if test='<%=Validator.isNotNull(curriculum)%>'>
 	<ul>
 		<li><b>Curriculum:</b> <%=curriculum.getCurriculumCode()%> - <%=curriculum.getCurriculumName()%></li>
 	</ul>
@@ -29,7 +28,6 @@
 			<c:if test='<%=SubjectPermission.contains(permissionChecker, subject.getSubjectId(), "VIEW")%>'>
 				<portlet:renderURL var="viewSubjectURL">
 					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_subject.jsp" />
-					<portlet:param name="curriculumId" value="<%=String.valueOf(curriculumId)%>" />
 					<portlet:param name="subjectId" value="<%=String.valueOf(subject.getSubjectId())%>" />
 				</portlet:renderURL>
 				
