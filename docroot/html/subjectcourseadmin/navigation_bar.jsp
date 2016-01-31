@@ -45,7 +45,5 @@
 			</c:if>
             <aui:nav-item href="/..." label="ik_orarend_ws.csv" />
         </aui:nav-item>
-        
-        <aui:nav-item href="/..." iconCssClass="icon-download" label="export" selected='false' />
     </aui:nav>
 </aui:nav-bar>
