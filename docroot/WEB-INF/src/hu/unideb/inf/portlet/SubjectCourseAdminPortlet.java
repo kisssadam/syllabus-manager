@@ -35,24 +35,133 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 	private static final String VIEW = "/html/subjectcourseadmin/view.jsp";
 
+	private static final String VIEW_CURRICULUM = "/html/subjectcourseadmin/view_curriculum.jsp";
+
+	private static final String EDIT_CURRICULUM = "/html/subjectcourseadmin/edit_curriculum.jsp";
+
+	private static final String VIEW_SUBJECT = "/html/subjectcourseadmin/view_subject.jsp";
+
 	private final static String fileInputName = "fileupload";
+
+	public void addCurriculum(ActionRequest request, ActionResponse response) throws PortalException, SystemException {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
+
+		long curriculumId = ParamUtil.getLong(request, "curriculumId");
+		String curriculumCode = ParamUtil.getString(request, "curriculumCode");
+		String curriculumName = ParamUtil.getString(request, "curriculumName");
+
+		if (curriculumId > 0) {
+			updateCurriculum(curriculumId, curriculumCode, curriculumName, request, response, serviceContext);
+		} else {
+			addCurriculum(curriculumCode, curriculumName, request, response, serviceContext);
+		}
+	}
+
+	private void updateCurriculum(long curriculumId, String curriculumCode, String curriculumName,
+			ActionRequest request, ActionResponse response, ServiceContext serviceContext) {
+		try {
+			CurriculumLocalServiceUtil.updateCurriculum(serviceContext.getUserId(), curriculumId, curriculumCode,
+					curriculumName, serviceContext);
+			SessionMessages.add(request, "curriculumUpdated");
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", EDIT_CURRICULUM);
+		}
+	}
+
+	private void addCurriculum(String curriculumCode, String curriculumName, ActionRequest request,
+			ActionResponse response, ServiceContext serviceContext) {
+		try {
+			CurriculumLocalServiceUtil.addCurriculum(curriculumCode, curriculumName, serviceContext);
+			SessionMessages.add(request, "curriculumAdded");
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", EDIT_CURRICULUM);
+		}
+	}
+
+	public void deleteCurriculum(ActionRequest request, ActionResponse response) {
+		long curriculumId = ParamUtil.getLong(request, "curriculumId");
+
+		try {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
+			CurriculumLocalServiceUtil.deleteCurriculum(curriculumId, serviceContext);
+			SessionMessages.add(request, "curriculumDeleted");
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+		}
+	}
 
 	public void deleteCurriculums(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(SubjectCourseAdminPortlet.class.getName(),
 				request);
 
-		String[] curriculumIds = ParamUtil.getParameterValues(request, "deleteCurriculumIds");
-
 		try {
+			String[] curriculumIds = ParamUtil.getParameterValues(request, "deleteCurriculumIds");
+
 			for (String curriculumIdString : curriculumIds) {
 				long curriculumId = Long.parseLong(curriculumIdString);
 				CurriculumLocalServiceUtil.deleteCurriculum(curriculumId, serviceContext);
 			}
+
 			SessionMessages.add(request, "curriculumsDeleted");
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
+
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW);
+		}
+	}
+
+	public void deleteSubjects(ActionRequest request, ActionResponse response) throws Exception {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(SubjectCourseAdminPortlet.class.getName(),
+				request);
+		try {
+			Long curriculumId = ParamUtil.getLong(request, "curriculumId");
+
+			String[] subjectIds = ParamUtil.getParameterValues(request, "deleteSubjectIds");
+
+			for (String subjectIdString : subjectIds) {
+				long subjectId = Long.parseLong(subjectIdString);
+				SubjectLocalServiceUtil.deleteSubject(subjectId, serviceContext);
+			}
+
+			SessionMessages.add(request, "subjectsDeleted");
+
+			response.setRenderParameter("mvcPath", VIEW_CURRICULUM);
+			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW_CURRICULUM);
+		}
+	}
+
+	public void deleteCourses(ActionRequest request, ActionResponse response) throws Exception {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(SubjectCourseAdminPortlet.class.getName(),
+				request);
+		try {
+			Long subjectId = ParamUtil.getLong(request, "subjectId");
+
+			String[] courseIds = ParamUtil.getParameterValues(request, "deleteCourseIds");
+
+			for (String courseIdString : courseIds) {
+				long courseId = Long.parseLong(courseIdString);
+				CourseLocalServiceUtil.deleteCourse(courseId, serviceContext);
+			}
+
+			SessionMessages.add(request, "coursesDeleted");
+
+			response.setRenderParameter("mvcPath", VIEW_SUBJECT);
+			response.setRenderParameter("subjectId", String.valueOf(subjectId));
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW_SUBJECT);
 		}
 	}
 
