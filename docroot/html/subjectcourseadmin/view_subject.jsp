@@ -12,17 +12,9 @@
 	}
 %>
 
-<c:if test='<%=Validator.isNotNull(subject)%>'>
-	<ul>
-		<li><b>Curriculum:</b> <%=curriculum.getCurriculumCode()%> - <%=curriculum.getCurriculumName()%></li>
-		<li>
-			<ul>
-				<li><b>Subject:</b> <%=subject.getSubjectCode()%> - <%=subject.getSubjectName()%></li>
-			</ul>
-		</li>
-	</ul>
-	<hr>
-</c:if>
+<c:set var="curriculumId" value="<%= curriculum.getCurriculumId() %>" scope="request"/>
+<c:set var="subjectId" value="<%= subject.getSubjectId() %>" scope="request"/>
+<jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />
 
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 	

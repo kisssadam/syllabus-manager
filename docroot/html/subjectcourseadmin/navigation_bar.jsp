@@ -47,3 +47,33 @@
         </aui:nav-item>
     </aui:nav>
 </aui:nav-bar>
+
+<aui:script use="aui-base">
+A.all('input[name=<portlet:namespace />rowIds]').on(
+		'click',
+		function(event) {
+			var rowsChecked = A.all('input[name=<portlet:namespace />rowIds]:checked');
+			
+			toggleViewIfRequired(rowsChecked);
+		}
+	);
+	
+	A.all('input[name=<portlet:namespace />allRowIds]').on(
+		'click',
+		function(event) {
+			var rowsChecked = A.all('input[name=<portlet:namespace />allRowIds]:checked');
+			
+			toggleViewIfRequired(rowsChecked);
+		}
+	);
+	
+	function toggleViewIfRequired(rowsChecked) {
+		var deleteButton = A.one('.removeCheckedItemsButton');
+		
+		if (rowsChecked.size() > 0) {
+			deleteButton.show();
+		} else {
+			deleteButton.hide();
+		}
+	}
+</aui:script>

@@ -5,7 +5,7 @@
 <liferay-ui:success key="curriculumDeleted" message="curriculum-has-been-successfully-deleted" />
 <liferay-ui:success key="everyCurriculumDeleted" message="every-curriculum-has-been-successfully-deleted" />
 
-<liferay-ui:header title="curriculums" />
+<jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />
 
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
@@ -35,7 +35,24 @@
 	</liferay-ui:search-container>
 </aui:form>
 
-<aui:script>
+<!--
+https://www.liferay.com/community/forums/-/message_boards/message/24915122
+https://jsumon.wordpress.com/2011/01/13/retrieve-selected-checkbox-value-in-liferay-6-with-auiscript-and-liferay-provide/
+
+https://searchcode.com/codesearch/view/6760798/
+liferay-plugins /portlets/knowledge-base-portlet/docroot/admin/common/history.jsp
+https://github.com/liferay/liferay-portal/blob/6.1.x/portal-web/docroot/html/portlet/document_library_display/view_file_entries.jspf
+https://github.com/eduardolundgren/alloy-ui-exercises/blob/master/01-basics/08-show-hide.html#L54
+-->
+
+<aui:script use="aui-base">
+	A.one('.removeCheckedItemsButton').on(
+		'click',
+		function(event) {
+			<portlet:namespace />deleteCurriculums();
+		}
+	);
+	
     Liferay.provide(
         window,
         '<portlet:namespace />deleteCurriculums',
@@ -48,51 +65,4 @@
         },
         ['liferay-util-list-fields']
     );
-</aui:script>
-
-<!--
-https://www.liferay.com/community/forums/-/message_boards/message/24915122
-https://jsumon.wordpress.com/2011/01/13/retrieve-selected-checkbox-value-in-liferay-6-with-auiscript-and-liferay-provide/
-
-https://searchcode.com/codesearch/view/6760798/
-liferay-plugins /portlets/knowledge-base-portlet/docroot/admin/common/history.jsp
-https://github.com/liferay/liferay-portal/blob/6.1.x/portal-web/docroot/html/portlet/document_library_display/view_file_entries.jspf
-https://github.com/eduardolundgren/alloy-ui-exercises/blob/master/01-basics/08-show-hide.html#L54
-
- -->
-<aui:script use="aui-base">
-	A.one('.removeCheckedItemsButton').on(
-		'click',
-		function(event) {
-			<portlet:namespace />deleteCurriculums();
-		}
-	);
-
-	function toggleViewIfRequired(rowsChecked) {
-		var deleteButton = A.one('.removeCheckedItemsButton');
-		
-		if (rowsChecked.size() > 0) {
-			deleteButton.show();
-		} else {
-			deleteButton.hide();
-		}
-	}
-	
-	A.all('input[name=<portlet:namespace />rowIds]').on(
-		'click',
-		function(event) {
-			var rowsChecked = A.all('input[name=<portlet:namespace />rowIds]:checked');
-			
-			toggleViewIfRequired(rowsChecked);
-		}
-	);
-	
-	A.all('input[name=<portlet:namespace />allRowIds]').on(
-		'click',
-		function(event) {
-			var rowsChecked = A.all('input[name=<portlet:namespace />allRowIds]:checked');
-			
-			toggleViewIfRequired(rowsChecked);
-		}
-	);
 </aui:script>
