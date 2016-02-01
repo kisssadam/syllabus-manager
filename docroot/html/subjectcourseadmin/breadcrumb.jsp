@@ -3,9 +3,6 @@
 <%
 	long curriculumId = GetterUtil.getLong(request.getAttribute("curriculumId"), 0); 
 	long subjectId = GetterUtil.getLong(request.getAttribute("subjectId"), 0);
-	
-	System.out.println(curriculumId);
-	System.out.println(subjectId);
 %>
 
 <portlet:renderURL var="viewHomeURL">
