@@ -4,15 +4,13 @@
 	long subjectId = ParamUtil.getLong(renderRequest, "subjectId");
 
 	Subject subject = null;
-	Curriculum curriculum = null; 
 	
 	if (subjectId > 0) {
 		subject = SubjectLocalServiceUtil.getSubject(subjectId);
-		curriculum = CurriculumLocalServiceUtil.getCurriculum(subject.getCurriculumId());
 	}
 %>
 
-<c:set var="curriculumId" value="<%= curriculum.getCurriculumId() %>" scope="request"/>
+<c:set var="curriculumId" value="<%= subject.getCurriculumId() %>" scope="request"/>
 <c:set var="subjectId" value="<%= subject.getSubjectId() %>" scope="request"/>
 <jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />
 
