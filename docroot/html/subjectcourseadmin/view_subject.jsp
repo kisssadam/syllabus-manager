@@ -14,7 +14,7 @@
 <c:set var="subjectId" value="<%= subject.getSubjectId() %>" scope="request"/>
 <jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />
 
-<jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
+<%@include file="/html/subjectcourseadmin/navigation_bar.jspf" %>
 
 <aui:form method="post" name="fmCourse">
 	<liferay-ui:search-container emptyResultsMessage="courses-not-found" rowChecker="<%= new RowChecker(renderResponse) %>">

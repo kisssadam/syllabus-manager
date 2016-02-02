@@ -1,26 +1,25 @@
-<%@include file="/html/init.jsp"%>
-
 <!-- 
 	https://docs.liferay.com/portal/6.2/taglibs/liferay-ui/icon.html
 	
 	http://marcoceppi.github.io/bootstrap-glyphicons/
 -->
 
+<portlet:renderURL var="viewHomeURL">
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view.jsp" />
+</portlet:renderURL>
+
 <aui:nav-bar>
     <aui:nav>
     	<aui:nav-item cssClass="removeCheckedItemsButton" iconCssClass="icon-remove" label="delete" selected='false' style="display: none;" />
-    
-    	<portlet:renderURL var="viewHomeURL">
-			<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view.jsp" />
-		</portlet:renderURL>
+    	
         <aui:nav-item href="<%=viewHomeURL.toString()%>" iconCssClass="icon-home" label="home" selected='false' />
         
-        <aui:nav-item dropdown="true" iconCssClass="icon-list" label="view" selected='false'>
-        	<aui:nav-item href="/..." label="Curriculums" />
+        <%-- <aui:nav-item dropdown="true" iconCssClass="icon-list" label="view" selected='false'>
+        	<aui:nav-item href="<%= viewHomeURL.toString() %>" label="Curriculums" />
         	<aui:nav-item href="/..." label="Subjects" />
         	<aui:nav-item href="/..." label="Courses" />
         	<aui:nav-item href="/..." label="Course Types" />
-        </aui:nav-item>
+        </aui:nav-item> --%>
         
         <aui:nav-item dropdown="true" iconCssClass="icon-plus" label="add" selected='false'>
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_CURRICULUM)%>'>

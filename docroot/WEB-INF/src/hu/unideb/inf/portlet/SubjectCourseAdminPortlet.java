@@ -95,8 +95,7 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 	}
 
 	public void deleteCurriculums(ActionRequest request, ActionResponse response) throws Exception {
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(SubjectCourseAdminPortlet.class.getName(),
-				request);
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
 
 		try {
 			String[] curriculumIds = ParamUtil.getParameterValues(request, "deleteCurriculumIds");
@@ -116,8 +115,7 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 	}
 
 	public void deleteSubjects(ActionRequest request, ActionResponse response) throws Exception {
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(SubjectCourseAdminPortlet.class.getName(),
-				request);
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Subject.class.getName(), request);
 		try {
 			Long curriculumId = ParamUtil.getLong(request, "curriculumId");
 
@@ -141,8 +139,7 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 	}
 
 	public void deleteCourses(ActionRequest request, ActionResponse response) throws Exception {
-		ServiceContext serviceContext = ServiceContextFactory.getInstance(SubjectCourseAdminPortlet.class.getName(),
-				request);
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Course.class.getName(), request);
 		try {
 			Long subjectId = ParamUtil.getLong(request, "subjectId");
 
