@@ -7,7 +7,7 @@
 
 <jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />
 
-<%@include file="/html/subjectcourseadmin/navigation_bar.jspf" %>
+<jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <aui:form method="post" name="fmCurriculum">
 	<liferay-ui:search-container emptyResultsMessage="curriculums-not-found" rowChecker="<%= new RowChecker(renderResponse) %>">

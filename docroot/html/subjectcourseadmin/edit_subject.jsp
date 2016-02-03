@@ -4,11 +4,13 @@
 
 <%
 	long subjectId = ParamUtil.getLong(renderRequest, "subjectId");
+	long curriculumId = ParamUtil.getLong(request, "curriculumId");
 
 	Subject subject = null;
 
 	if (subjectId > 0) {
 		subject = SubjectLocalServiceUtil.getSubject(subjectId);
+		curriculumId = subject.getCurriculumId();
 	}
 
 	request.setAttribute("curriculums", CurriculumLocalServiceUtil.getCurriculums());
@@ -18,14 +20,14 @@
 
 <portlet:renderURL var="viewURL">
 	<%
-		if (Validator.isNull(subject)) {
+		if (curriculumId > 0) {
 	%>
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view.jsp" />
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculum.jsp" />
+	<portlet:param name="curriculumId" value="<%=String.valueOf(curriculumId)%>" />
 	<%
 		} else {
 	%>
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculum.jsp" />
-	<portlet:param name="curriculumId" value="<%=String.valueOf(subject.getCurriculumId())%>" />
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view.jsp" />
 	<%
 		}
 	%>

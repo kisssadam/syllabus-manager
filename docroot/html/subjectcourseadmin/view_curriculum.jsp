@@ -11,9 +11,10 @@
 %>
 
 <c:set var="curriculumId" value="<%= curriculum.getCurriculumId() %>" scope="request"/>
+
 <jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />
 
-<%@include file="/html/subjectcourseadmin/navigation_bar.jspf" %>
+<jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <aui:form method="post" name="fmSubject">
 	<liferay-ui:search-container emptyResultsMessage="subjects-not-found" rowChecker="<%= new RowChecker(renderResponse) %>">

@@ -1,3 +1,5 @@
+<%@include file="/html/init.jsp"%>
+
 <!-- 
 	https://docs.liferay.com/portal/6.2/taglibs/liferay-ui/icon.html
 	
@@ -32,6 +34,7 @@
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SUBJECT)%>'>
             	<portlet:renderURL var="addSubjectURL">
 					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/edit_subject.jsp" />
+					<portlet:param name="curriculumId" value="${curriculumId}" />
 				</portlet:renderURL>
             	
             	<aui:nav-item href="<%=addSubjectURL.toString()%>" label="Subject" />
