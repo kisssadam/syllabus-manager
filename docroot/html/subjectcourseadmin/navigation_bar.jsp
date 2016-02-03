@@ -48,7 +48,14 @@
             	<aui:nav-item href="<%=addSubjectURL.toString()%>" label="Subject" />
 			</c:if>
             <aui:nav-item href="/..." label="Course" />
-            <aui:nav-item href="/..." label="Course Type" />
+            
+            <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_COURSE_TYPE)%>'>
+            	<portlet:renderURL var="addCourseTypeURL">
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/edit_course_type.jsp" />
+				</portlet:renderURL>
+            	
+            	<aui:nav-item href="<%= addCourseTypeURL.toString() %>" label="Course Type" />
+           	</c:if>
         </aui:nav-item>
         
         <aui:nav-item dropdown="true" iconCssClass="icon-upload" label="import" selected='false'>

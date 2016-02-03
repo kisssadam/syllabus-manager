@@ -45,6 +45,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 	private static final String VIEW_COURSE_TYPES = "/html/subjectcourseadmin/view_course_types.jsp";
 
+	private static final String EDIT_COURSE_TYPE = "/html/subjectcourseadmin/edit_course_type.jsp";
+
 	private final static String fileInputName = "fileupload";
 
 	public void addCurriculum(ActionRequest request, ActionResponse response) throws PortalException, SystemException {
@@ -99,6 +101,31 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", EDIT_SUBJECT);
+		}
+	}
+
+	public void addCourseType(ActionRequest request, ActionResponse response) throws PortalException, SystemException {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(CourseType.class.getName(), request);
+
+		long courseTypeId = ParamUtil.getLong(request, "courseTypeId");
+		String type = ParamUtil.getString(request, "type");
+
+		try {
+			if (courseTypeId > 0) {
+				CourseTypeLocalServiceUtil.updateCourseType(serviceContext.getUserId(), courseTypeId, type,
+						serviceContext);
+				SessionMessages.add(request, "courseTypeUpdated");
+			} else {
+				CourseTypeLocalServiceUtil.addCourseType(type, serviceContext);
+				SessionMessages.add(request, "courseTypeAdded");
+			}
+
+			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", EDIT_COURSE_TYPE);
 		}
 	}
 
