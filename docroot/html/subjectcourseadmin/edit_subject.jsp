@@ -29,11 +29,10 @@
 	<%
 		} else {
 	%>
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view.jsp" />
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculums.jsp" />
 	<%
 		}
 	%>
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculum.jsp" />
 </portlet:renderURL>
 
 <portlet:actionURL name="addSubject" var="addSubjectURL" />
