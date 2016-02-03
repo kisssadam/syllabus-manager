@@ -17,6 +17,18 @@
 <liferay-ui:error exception="<%=DuplicateSubjectException.class%>" message="duplicate-subject" />
 
 <portlet:renderURL var="viewURL">
+	<%
+		if (Validator.isNull(subject)) {
+	%>
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view.jsp" />
+	<%
+		} else {
+	%>
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculum.jsp" />
+	<portlet:param name="curriculumId" value="<%=String.valueOf(subject.getCurriculumId())%>" />
+	<%
+		}
+	%>
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculum.jsp" />
 </portlet:renderURL>
 
