@@ -10,6 +10,8 @@
 	}
 %>
 
+<liferay-ui:header title="edit-course-type" />
+
 <liferay-ui:error exception="<%=DuplicateCourseTypeException.class%>" message="duplicate-course-type" />
 
 <portlet:renderURL var="viewURL">

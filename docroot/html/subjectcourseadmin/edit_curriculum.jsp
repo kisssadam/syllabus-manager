@@ -10,6 +10,8 @@
 	}
 %>
 
+<liferay-ui:header title="edit-curriculum" />
+
 <liferay-ui:error exception="<%=DuplicateCurriculumException.class%>" message="duplicate-curriculum" />
 
 <portlet:renderURL var="viewURL">

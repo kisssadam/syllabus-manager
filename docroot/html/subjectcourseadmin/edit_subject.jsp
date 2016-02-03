@@ -16,6 +16,8 @@
 	request.setAttribute("curriculums", CurriculumLocalServiceUtil.getCurriculums());
 %>
 
+<liferay-ui:header title="edit-subject" />
+
 <liferay-ui:error exception="<%=DuplicateSubjectException.class%>" message="duplicate-subject" />
 
 <portlet:renderURL var="viewURL">
