@@ -218,6 +218,28 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	public void deleteCourseTypes(ActionRequest request, ActionResponse response) throws Exception {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(CourseType.class.getName(), request);
+
+		try {
+			String[] courseTypeIds = ParamUtil.getParameterValues(request, "deleteCourseTypeIds");
+
+			for (String courseTypeIdString : courseTypeIds) {
+				long courseTypeId = Long.parseLong(courseTypeIdString);
+				CourseTypeLocalServiceUtil.deleteCourseType(courseTypeId, serviceContext);
+			}
+
+			SessionMessages.add(request, "courseTypesDeleted");
+			
+			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
+		}
+	}
+
 	public void upload(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(SubjectCourseAdminPortlet.class.getName(),
 				request);
