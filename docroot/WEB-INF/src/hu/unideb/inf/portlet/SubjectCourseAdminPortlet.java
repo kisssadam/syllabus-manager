@@ -103,10 +103,30 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 		try {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
+
 			CurriculumLocalServiceUtil.deleteCurriculum(curriculumId, serviceContext);
 			SessionMessages.add(request, "curriculumDeleted");
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
+		}
+	}
+
+	public void deleteSubject(ActionRequest request, ActionResponse response) {
+		long subjectId = ParamUtil.getLong(request, "subjectId");
+
+		try {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(Subject.class.getName(), request);
+
+			Subject deletedSubject = SubjectLocalServiceUtil.deleteSubject(subjectId, serviceContext);
+			SessionMessages.add(request, "subjectDeleted");
+
+			response.setRenderParameter("mvcPath", VIEW_CURRICULUM);
+			response.setRenderParameter("curriculumId", String.valueOf(deletedSubject.getCurriculumId()));
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW_CURRICULUM);
 		}
 	}
 
