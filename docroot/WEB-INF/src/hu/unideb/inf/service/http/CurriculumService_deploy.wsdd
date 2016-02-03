@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<service name="Plugin_unideb_syllabus_manager_CurriculumService" provider="java:RPC" style="rpc" use="encoded">
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="className" value="hu.unideb.inf.service.http.CurriculumServiceSoap" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="CurriculumServiceSoap" />
+		<parameter name="wsdlServiceElement" value="CurriculumServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_unideb_syllabus_manager_CurriculumService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.inf.unideb.hu" />
+	</service>
+</deployment>

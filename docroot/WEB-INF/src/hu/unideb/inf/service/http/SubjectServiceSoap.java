@@ -14,6 +14,13 @@
 
 package hu.unideb.inf.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import hu.unideb.inf.service.SubjectServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
  * {@link hu.unideb.inf.service.SubjectServiceUtil} service utility. The
@@ -55,4 +62,19 @@ package hu.unideb.inf.service.http;
  * @generated
  */
 public class SubjectServiceSoap {
+	public static hu.unideb.inf.model.SubjectSoap[] getSubjectsByCurriculumId(
+		long curriculumId) throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.Subject> returnValue = SubjectServiceUtil.getSubjectsByCurriculumId(curriculumId);
+
+			return hu.unideb.inf.model.SubjectSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SubjectServiceSoap.class);
 }

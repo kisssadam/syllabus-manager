@@ -14,16 +14,23 @@
 
 package hu.unideb.inf.service.impl;
 
+import java.util.List;
+
+import com.liferay.portal.kernel.exception.SystemException;
+
+import hu.unideb.inf.model.Subject;
 import hu.unideb.inf.service.base.SubjectServiceBaseImpl;
 
 /**
  * The implementation of the subject remote service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link hu.unideb.inf.service.SubjectService} interface.
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy
+ * their definitions into the {@link hu.unideb.inf.service.SubjectService} interface.
  *
  * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
+ * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS
+ * credentials because this service can be accessed remotely.
  * </p>
  *
  * @author Adam Kiss
@@ -34,6 +41,12 @@ public class SubjectServiceImpl extends SubjectServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this interface directly. Always use {@link hu.unideb.inf.service.SubjectServiceUtil} to access the subject remote service.
+	 * Never reference this interface directly. Always use {@link hu.unideb.inf.service.SubjectServiceUtil} to access
+	 * the subject remote service.
 	 */
+
+	public List<Subject> getSubjectsByCurriculumId(long curriculumId) throws SystemException {
+		return subjectPersistence.findByCurriculum(curriculumId);
+	}
+
 }

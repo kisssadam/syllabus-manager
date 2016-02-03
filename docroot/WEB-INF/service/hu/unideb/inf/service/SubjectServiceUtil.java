@@ -63,6 +63,12 @@ public class SubjectServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static java.util.List<hu.unideb.inf.model.Subject> getSubjectsByCurriculumId(
+		long curriculumId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSubjectsByCurriculumId(curriculumId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

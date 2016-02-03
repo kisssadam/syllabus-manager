@@ -39,6 +39,7 @@
             	
             	<aui:nav-item href="<%=addCurriculumURL.toString()%>" label="Curriculum" />
 			</c:if>
+            
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SUBJECT)%>'>
             	<portlet:renderURL var="addSubjectURL">
 					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/edit_subject.jsp" />
@@ -47,7 +48,14 @@
             	
             	<aui:nav-item href="<%=addSubjectURL.toString()%>" label="Subject" />
 			</c:if>
-            <aui:nav-item href="/..." label="Course" />
+			
+			<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_COURSE)%>'>
+				<portlet:renderURL var="addCourseURL">
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/edit_course.jsp" />
+				</portlet:renderURL>
+            	
+            	<aui:nav-item href="<%=addCourseURL.toString()%>" label="Course" />
+           	</c:if>
             
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_COURSE_TYPE)%>'>
             	<portlet:renderURL var="addCourseTypeURL">

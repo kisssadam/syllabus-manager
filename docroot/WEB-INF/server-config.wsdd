@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<globalConfiguration>
+		<parameter name="adminPassword" value="admin" />
+		<parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl" />
+		<parameter name="sendXsiTypes" value="true" />
+		<parameter name="sendMultiRefs" value="true" />
+		<parameter name="sendXMLDeclaration" value="true" />
+		<parameter name="axis.sendMinimizedElements" value="true" />
+		<requestFlow>
+			<handler type="java:org.apache.axis.handlers.JWSHandler">
+				<parameter name="scope" value="session" />
+			</handler>
+			<handler type="java:org.apache.axis.handlers.JWSHandler">
+				<parameter name="scope" value="request" />
+				<parameter name="extension" value=".jwr" />
+			</handler>
+		</requestFlow>
+	</globalConfiguration>
+	<handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder" />
+	<handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper" />
+	<handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler" />
+	<transport name="http">
+		<requestFlow>
+			<handler type="URLMapper" />
+			<handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler" />
+		</requestFlow>
+	</transport>
+	<transport name="local">
+		<responseFlow>
+			<handler type="LocalResponder" />
+		</responseFlow>
+	</transport>
+	<service name="Plugin_unideb_syllabus_manager_CourseService" provider="java:RPC" style="rpc" use="encoded">
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="className" value="hu.unideb.inf.service.http.CourseServiceSoap" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="CourseServiceSoap" />
+		<parameter name="wsdlServiceElement" value="CourseServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_unideb_syllabus_manager_CourseService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.inf.unideb.hu" />
+	</service>
+	<service name="Plugin_unideb_syllabus_manager_CourseTypeService" provider="java:RPC" style="rpc" use="encoded">
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="className" value="hu.unideb.inf.service.http.CourseTypeServiceSoap" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="CourseTypeServiceSoap" />
+		<parameter name="wsdlServiceElement" value="CourseTypeServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_unideb_syllabus_manager_CourseTypeService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.inf.unideb.hu" />
+	</service>
+	<service name="Plugin_unideb_syllabus_manager_CurriculumService" provider="java:RPC" style="rpc" use="encoded">
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="className" value="hu.unideb.inf.service.http.CurriculumServiceSoap" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="CurriculumServiceSoap" />
+		<parameter name="wsdlServiceElement" value="CurriculumServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_unideb_syllabus_manager_CurriculumService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.inf.unideb.hu" />
+	</service>
+	<service name="Plugin_unideb_syllabus_manager_SubjectService" provider="java:RPC" style="rpc" use="encoded">
+		<arrayMapping xmlns:ns="urn:http.service.inf.unideb.hu" xmlns:cmp-ns="http://model.inf.unideb.hu" qname="ns:ArrayOf_tns2_SubjectSoap" type="java:hu.unideb.inf.model.SubjectSoap[]" innerType="cmp-ns:SubjectSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<typeMapping xmlns:ns="http://model.inf.unideb.hu" qname="ns:SubjectSoap" type="java:hu.unideb.inf.model.SubjectSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.inf.unideb.hu" xmlns:rtns="urn:http.service.inf.unideb.hu" xmlns:tns2="http://model.inf.unideb.hu" name="getSubjectsByCurriculumId" qname="operNS:getSubjectsByCurriculumId" returnQName="getSubjectsByCurriculumIdReturn" returnType="rtns:ArrayOf_tns2_SubjectSoap" returnItemType="tns2:SubjectSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="curriculumId" type="tns:long"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="getSubjectsByCurriculumId" />
+		<parameter name="className" value="hu.unideb.inf.service.http.SubjectServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.inf.unideb.hu,urn:http.service.inf.unideb.hu" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="SubjectServiceSoap" />
+		<parameter name="wsdlServiceElement" value="SubjectServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_unideb_syllabus_manager_SubjectService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.inf.unideb.hu" />
+	</service>
+</deployment>
