@@ -10,13 +10,14 @@
 	if (subjectId > 0) {
 		subject = SubjectLocalServiceUtil.getSubject(subjectId);
 	}
+
+	request.setAttribute("curriculums", CurriculumLocalServiceUtil.getCurriculums());
 %>
 
 <liferay-ui:error exception="<%=DuplicateSubjectException.class%>" message="duplicate-subject" />
 
 <portlet:renderURL var="viewURL">
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculum.jsp" />
-	<portlet:param name="curriculumId" value="<%=String.valueOf(subject.getCurriculumId())%>" />
 </portlet:renderURL>
 
 <portlet:actionURL name="addSubject" var="addSubjectURL" />
@@ -27,17 +28,12 @@
 	<aui:input name="subjectId" type="hidden" value='<%=subject == null ? subjectId : subject.getSubjectId()%>' />
 
 	<aui:fieldset>
-		<aui:select label="curriculum" name="curriculumId">
-			<%
-				List<Curriculum> curriculums = CurriculumLocalServiceUtil.getCurriculums();
-							for (Curriculum curriculum : curriculums) {
-			%>
-			<aui:option value="<%=curriculum.getCurriculumId()%>">
-				<%=curriculum.getCurriculumCode() + " - " + curriculum.getCurriculumName()%>
-			</aui:option>
-			<%
-				}
-			%>
+		<aui:select label="curriculum" name="curriculumId" required="true">
+			<c:forEach items="${curriculums}" var="curriculum">
+				<aui:option value="${curriculum.curriculumId}">
+					<c:out value="${curriculum.curriculumCode} - ${curriculum.curriculumName}" />
+				</aui:option>
+			</c:forEach>
 		</aui:select>
 
 		<aui:input name="subjectCode" type="text">
@@ -48,7 +44,7 @@
 			<aui:validator name="required" />
 		</aui:input>
 
-		<aui:input name="credit" type="text">
+		<aui:input name="credit" type="number" min="0" value="<%=subject == null ? 0 : subject.getCredit()%>">
 			<aui:validator name="required" />
 		</aui:input>
 	</aui:fieldset>

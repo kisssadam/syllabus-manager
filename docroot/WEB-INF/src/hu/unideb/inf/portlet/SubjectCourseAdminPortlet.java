@@ -41,6 +41,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 	private static final String VIEW_SUBJECT = "/html/subjectcourseadmin/view_subject.jsp";
 
+	private static final String EDIT_SUBJECT = "/html/subjectcourseadmin/edit_subject.jsp";
+
 	private final static String fileInputName = "fileupload";
 
 	public void addCurriculum(ActionRequest request, ActionResponse response) throws PortalException, SystemException {
@@ -50,35 +52,49 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		String curriculumCode = ParamUtil.getString(request, "curriculumCode");
 		String curriculumName = ParamUtil.getString(request, "curriculumName");
 
-		if (curriculumId > 0) {
-			updateCurriculum(curriculumId, curriculumCode, curriculumName, request, response, serviceContext);
-		} else {
-			addCurriculum(curriculumCode, curriculumName, request, response, serviceContext);
-		}
-	}
-
-	private void updateCurriculum(long curriculumId, String curriculumCode, String curriculumName,
-			ActionRequest request, ActionResponse response, ServiceContext serviceContext) {
 		try {
-			CurriculumLocalServiceUtil.updateCurriculum(serviceContext.getUserId(), curriculumId, curriculumCode,
-					curriculumName, serviceContext);
-			SessionMessages.add(request, "curriculumUpdated");
+			if (curriculumId > 0) {
+				CurriculumLocalServiceUtil.updateCurriculum(serviceContext.getUserId(), curriculumId, curriculumCode,
+						curriculumName, serviceContext);
+				SessionMessages.add(request, "curriculumUpdated");
+			} else {
+				CurriculumLocalServiceUtil.addCurriculum(curriculumCode, curriculumName, serviceContext);
+				SessionMessages.add(request, "curriculumAdded");
+			}
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
+
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", EDIT_CURRICULUM);
 		}
 	}
 
-	private void addCurriculum(String curriculumCode, String curriculumName, ActionRequest request,
-			ActionResponse response, ServiceContext serviceContext) {
+	public void addSubject(ActionRequest request, ActionResponse response) throws PortalException, SystemException {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Subject.class.getName(), request);
+
+		long subjectId = ParamUtil.getLong(request, "subjectId");
+		String subjectCode = ParamUtil.getString(request, "subjectCode");
+		String subjectName = ParamUtil.getString(request, "subjectName");
+		int credit = ParamUtil.getInteger(request, "credit");
+		long curriculumId = ParamUtil.getLong(request, "curriculumId");
+
 		try {
-			CurriculumLocalServiceUtil.addCurriculum(curriculumCode, curriculumName, serviceContext);
-			SessionMessages.add(request, "curriculumAdded");
+			if (subjectId > 0) {
+				SubjectLocalServiceUtil.updateSubject(serviceContext.getUserId(), subjectId, subjectCode, subjectName,
+						credit, curriculumId, serviceContext);
+				SessionMessages.add(request, "subjectUpdated");
+			} else {
+				SubjectLocalServiceUtil.addSubject(subjectCode, subjectName, credit, curriculumId, serviceContext);
+				SessionMessages.add(request, "subjectAdded");
+			}
+
+			response.setRenderParameter("mvcPath", VIEW_CURRICULUM);
+			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
+
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", EDIT_CURRICULUM);
+			response.setRenderParameter("mvcPath", EDIT_SUBJECT);
 		}
 	}
 

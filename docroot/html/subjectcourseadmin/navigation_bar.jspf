@@ -29,7 +29,13 @@
             	
             	<aui:nav-item href="<%=addCurriculumURL.toString()%>" label="Curriculum" />
 			</c:if>
-            <aui:nav-item href="/..." label="Subject" />
+            <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SUBJECT)%>'>
+            	<portlet:renderURL var="addSubjectURL">
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/edit_subject.jsp" />
+				</portlet:renderURL>
+            	
+            	<aui:nav-item href="<%=addSubjectURL.toString()%>" label="Subject" />
+			</c:if>
             <aui:nav-item href="/..." label="Course" />
             <aui:nav-item href="/..." label="Course Type" />
         </aui:nav-item>
