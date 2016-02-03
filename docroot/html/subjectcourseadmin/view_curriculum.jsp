@@ -10,6 +10,7 @@
 	}
 %>
 
+<c:set var="showCurriculumsLink" value="<%= true %>" scope="request"/>
 <c:set var="curriculumId" value="<%= curriculum.getCurriculumId() %>" scope="request"/>
 
 <jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />

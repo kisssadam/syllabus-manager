@@ -33,7 +33,7 @@ import hu.unideb.inf.service.SubjectLocalServiceUtil;
  */
 public class SubjectCourseAdminPortlet extends MVCPortlet {
 
-	private static final String VIEW = "/html/subjectcourseadmin/view.jsp";
+	private static final String VIEW_CURRICULUMS = "/html/subjectcourseadmin/view_curriculums.jsp";
 
 	private static final String VIEW_CURRICULUM = "/html/subjectcourseadmin/view_curriculum.jsp";
 
@@ -63,6 +63,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 				CurriculumLocalServiceUtil.addCurriculum(curriculumCode, curriculumName, serviceContext);
 				SessionMessages.add(request, "curriculumAdded");
 			}
+
+			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 
@@ -108,8 +110,12 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			CurriculumLocalServiceUtil.deleteCurriculum(curriculumId, serviceContext);
 			SessionMessages.add(request, "curriculumDeleted");
+
+			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
 		}
 	}
 
@@ -162,11 +168,12 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			}
 
 			SessionMessages.add(request, "curriculumsDeleted");
+			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW);
+			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
 		}
 	}
 
@@ -230,7 +237,7 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			}
 
 			SessionMessages.add(request, "courseTypesDeleted");
-			
+
 			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());

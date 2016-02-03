@@ -6,7 +6,6 @@
 
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
-
 <aui:form method="post" name="fmCurriculum">
 	<liferay-ui:search-container emptyResultsMessage="curriculums-not-found" rowChecker="<%= new RowChecker(renderResponse) %>">
 		<aui:input name="deleteCurriculumIds" type="hidden" />
