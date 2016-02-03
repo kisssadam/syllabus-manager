@@ -10,18 +10,26 @@
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view.jsp" />
 </portlet:renderURL>
 
+<portlet:renderURL var="viewCurriculumsURL">
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculums.jsp" />
+</portlet:renderURL>
+
+<portlet:renderURL var="viewCourseTypesURL">
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_course_types.jsp" />
+</portlet:renderURL>
+
 <aui:nav-bar>
     <aui:nav>
     	<aui:nav-item cssClass="removeCheckedItemsButton" iconCssClass="icon-remove" label="delete" selected='false' style="display: none;" />
     	
         <aui:nav-item href="<%=viewHomeURL.toString()%>" iconCssClass="icon-home" label="home" selected='false' />
         
-        <%-- <aui:nav-item dropdown="true" iconCssClass="icon-list" label="view" selected='false'>
-        	<aui:nav-item href="<%= viewHomeURL.toString() %>" label="Curriculums" />
-        	<aui:nav-item href="/..." label="Subjects" />
-        	<aui:nav-item href="/..." label="Courses" />
-        	<aui:nav-item href="/..." label="Course Types" />
-        </aui:nav-item> --%>
+        <aui:nav-item dropdown="true" iconCssClass="icon-list" label="view" selected='false'>
+        	<aui:nav-item href="<%=viewCurriculumsURL.toString()%>" label="Curriculums" />
+        	<%-- <aui:nav-item href="/..." label="Subjects" />
+        	<aui:nav-item href="/..." label="Courses" /> --%>
+			<aui:nav-item href="<%=viewCourseTypesURL.toString()%>" label="Course Types" />
+		</aui:nav-item>
         
         <aui:nav-item dropdown="true" iconCssClass="icon-plus" label="add" selected='false'>
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_CURRICULUM)%>'>

@@ -1,12 +1,18 @@
 <%@include file="/html/init.jsp"%>
 
 <%
-	long curriculumId = GetterUtil.getLong(request.getAttribute("curriculumId"), 0); 
+	boolean showCourseTypesLink = GetterUtil.getBoolean(request.getAttribute("showCourseTypesLink"), false);
+	boolean showCurriculumsLink = GetterUtil.getBoolean(request.getAttribute("showCurriculumsLink"), false);
+	long curriculumId = GetterUtil.getLong(request.getAttribute("curriculumId"), 0);
 	long subjectId = GetterUtil.getLong(request.getAttribute("subjectId"), 0);
 %>
 
 <portlet:renderURL var="viewHomeURL">
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view.jsp" />
+</portlet:renderURL>
+
+<portlet:renderURL var="viewCurriculumsURL">
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculums.jsp" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewCurriculumURL">
@@ -19,17 +25,30 @@
 	<portlet:param name="subjectId" value="${subjectId}" />
 </portlet:renderURL>
 
+<portlet:renderURL var="viewCourseTypesURL">
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_course_types.jsp" />
+</portlet:renderURL>
+
 <%
-	PortalUtil.addPortletBreadcrumbEntry(request, "Home", viewHomeURL.toString());	
+	PortalUtil.addPortletBreadcrumbEntry(request, "Home", viewHomeURL.toString());
+
+	if (showCourseTypesLink) {
+		PortalUtil.addPortletBreadcrumbEntry(request, "Course Types", viewCourseTypesURL.toString());
+	} else if (showCurriculumsLink) {
+		PortalUtil.addPortletBreadcrumbEntry(request, "Curriculums", viewCurriculumsURL.toString());
+	}
 
 	if (curriculumId > 0) {
 		Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(curriculumId);
-		PortalUtil.addPortletBreadcrumbEntry(request, curriculum.getCurriculumCode() + " - " + curriculum.getCurriculumName(), viewCurriculumURL.toString());
+		PortalUtil.addPortletBreadcrumbEntry(request,
+				curriculum.getCurriculumCode() + " - " + curriculum.getCurriculumName(),
+				viewCurriculumURL.toString());
 	}
-	
+
 	if (subjectId > 0) {
 		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
-		PortalUtil.addPortletBreadcrumbEntry(request, subject.getSubjectCode() + " - " + subject.getSubjectName(), viewSubjectURL.toString());
+		PortalUtil.addPortletBreadcrumbEntry(request,
+				subject.getSubjectCode() + " - " + subject.getSubjectName(), viewSubjectURL.toString());
 	}
 %>
 
