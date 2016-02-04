@@ -2,18 +2,23 @@
 
 <%
 	long courseId = ParamUtil.getLong(renderRequest, "courseId");
+	long subjectId = ParamUtil.getLong(renderRequest, "subjectId");
+	long curriculumId = ParamUtil.getLong(renderRequest, "curriculumId");
 
 	Course course = null;
 
 	if (courseId > 0) {
 		course = CourseLocalServiceUtil.getCourse(courseId);
-
-		Subject subject = SubjectLocalServiceUtil.getSubject(course.getSubjectId());
-
-		request.setAttribute("curriculumId", subject.getCurriculumId());
-		request.setAttribute("subjectId", course.getSubjectId());
+		subjectId = course.getSubjectId();
 	}
 
+	if (subjectId > 0) {
+		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
+		curriculumId = subject.getCurriculumId();
+	}
+
+	request.setAttribute("curriculumId", curriculumId);
+	request.setAttribute("subjectId", subjectId);
 	request.setAttribute("curriculums", CurriculumLocalServiceUtil.getCurriculums());
 	request.setAttribute("courseTypes", CourseTypeLocalServiceUtil.getCourseTypes());
 %>

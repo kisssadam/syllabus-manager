@@ -52,6 +52,8 @@
 			<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_COURSE)%>'>
 				<portlet:renderURL var="addCourseURL">
 					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/edit_course.jsp" />
+					<portlet:param name="subjectId" value="${subjectId}" />
+					<portlet:param name="curriculumId" value="${curriculumId}" />
 				</portlet:renderURL>
             	
             	<aui:nav-item href="<%=addCourseURL.toString()%>" label="Course" />
