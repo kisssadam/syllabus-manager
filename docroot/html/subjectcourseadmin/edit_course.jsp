@@ -23,9 +23,9 @@
 	request.setAttribute("courseTypes", CourseTypeLocalServiceUtil.getCourseTypes());
 %>
 
-<liferay-ui:header title="edit-course" />
-
 <liferay-ui:error exception="<%=DuplicateCourseException.class%>" message="duplicate-course" />
+
+<liferay-ui:header title="edit-course" />
 
 <portlet:renderURL var="viewURL">
 	<c:choose>

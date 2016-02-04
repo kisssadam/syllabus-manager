@@ -43,6 +43,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 	private static final String EDIT_SUBJECT = "/html/subjectcourseadmin/edit_subject.jsp";
 
+	private static final String EDIT_COURSE = "/html/subjectcourseadmin/edit_course.jsp";
+
 	private static final String VIEW_COURSE_TYPES = "/html/subjectcourseadmin/view_course_types.jsp";
 
 	private static final String EDIT_COURSE_TYPE = "/html/subjectcourseadmin/edit_course_type.jsp";
@@ -104,6 +106,36 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	public void addCourse(ActionRequest request, ActionResponse response) throws PortalException, SystemException {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Course.class.getName(), request);
+
+		long courseId = ParamUtil.getLong(request, "courseId");
+		long subjectId = ParamUtil.getLong(request, "subjectId");
+		int hoursPerSemester = ParamUtil.getInteger(request, "hoursPerSemester");
+		int hoursPerWeek = ParamUtil.getInteger(request, "hoursPerWeek");
+		long courseTypeId = ParamUtil.getLong(request, "courseTypeId");
+
+		try {
+			if (courseId > 0) {
+				CourseLocalServiceUtil.updateCourse(serviceContext.getUserId(), courseId, subjectId, hoursPerSemester,
+						hoursPerWeek, courseTypeId, serviceContext);
+				SessionMessages.add(request, "courseUpdated");
+			} else {
+				CourseLocalServiceUtil.addCourse(subjectId, hoursPerSemester, hoursPerWeek, courseTypeId,
+						serviceContext);
+				SessionMessages.add(request, "courseAdded");
+			}
+
+			response.setRenderParameter("mvcPath", VIEW_SUBJECT);
+			response.setRenderParameter("subjectId", String.valueOf(subjectId));
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", EDIT_COURSE);
+		}
+	}
+
 	public void addCourseType(ActionRequest request, ActionResponse response) throws PortalException, SystemException {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(CourseType.class.getName(), request);
 
@@ -162,6 +194,25 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_CURRICULUM);
+		}
+	}
+
+	public void deleteCourse(ActionRequest request, ActionResponse response) {
+		long courseId = ParamUtil.getLong(request, "courseId");
+
+		try {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(Course.class.getName(), request);
+
+			Course deletedCourse = CourseLocalServiceUtil.deleteCourse(courseId, serviceContext);
+			SessionMessages.add(request, "courseDeleted");
+
+			response.setRenderParameter("mvcPath", VIEW_SUBJECT);
+			response.setRenderParameter("subjectId", String.valueOf(deletedCourse.getSubjectId()));
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW_SUBJECT);
 		}
 	}
 
