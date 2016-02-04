@@ -28,18 +28,19 @@
 <liferay-ui:error exception="<%=DuplicateCourseException.class%>" message="duplicate-course" />
 
 <portlet:renderURL var="viewURL">
-	<%
-		if (courseId > 0) {
-	%>
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_subject.jsp" />
-	<portlet:param name="subjectId" value="<%=String.valueOf(course.getSubjectId())%>" />
-	<%
-		} else {
-	%>
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculums.jsp" />
-	<%
-		}
-	%>
+	<c:choose>
+		<c:when test="${subjectId gt 0}">
+			<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_subject.jsp" />
+			<portlet:param name="subjectId" value="${subjectId}" />
+		</c:when>
+		<c:when test="${curriculumId gt 0}">
+			<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculum.jsp" />
+			<portlet:param name="curriculumId" value="${curriculumId}" />
+		</c:when>
+		<c:otherwise>
+			<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculums.jsp" />
+		</c:otherwise>
+	</c:choose>
 </portlet:renderURL>
 
 <portlet:actionURL name="addCourse" var="addCourseURL" />
