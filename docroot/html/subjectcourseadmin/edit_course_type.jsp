@@ -10,9 +10,9 @@
 	}
 %>
 
-<liferay-ui:header title="edit-course-type" />
-
 <liferay-ui:error exception="<%=DuplicateCourseTypeException.class%>" message="duplicate-course-type" />
+
+<liferay-ui:header title="edit-course-type" />
 
 <portlet:renderURL var="viewURL">
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_course_types.jsp" />

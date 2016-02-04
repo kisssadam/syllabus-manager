@@ -10,9 +10,9 @@
 	}
 %>
 
-<liferay-ui:header title="edit-curriculum" />
-
 <liferay-ui:error exception="<%=DuplicateCurriculumException.class%>" message="duplicate-curriculum" />
+
+<liferay-ui:header title="edit-curriculum" />
 
 <portlet:renderURL var="viewURL">
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view.jsp" />

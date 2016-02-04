@@ -1,5 +1,3 @@
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.Map"%>
 <%@include file="/html/init.jsp"%>
 
 <%
@@ -16,9 +14,9 @@
 	request.setAttribute("curriculums", CurriculumLocalServiceUtil.getCurriculums());
 %>
 
-<liferay-ui:header title="edit-subject" />
-
 <liferay-ui:error exception="<%=DuplicateSubjectException.class%>" message="duplicate-subject" />
+
+<liferay-ui:header title="edit-subject" />
 
 <portlet:renderURL var="viewURL">
 	<%
