@@ -7,7 +7,6 @@
 	Curriculum curriculum = null;
 
 	if (curriculumId > 0) {
-		System.out.println("curriculumId: " + curriculumId);
 		curriculum = CurriculumLocalServiceUtil.getCurriculum(curriculumId);
 	}
 	
