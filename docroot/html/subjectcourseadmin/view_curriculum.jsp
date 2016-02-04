@@ -1,13 +1,19 @@
 <%@include file="/html/init.jsp"%>
 
 <%
-	long curriculumId = ParamUtil.getLong(renderRequest, "curriculumId");
+
+	long curriculumId = ParamUtil.getLong(request, "curriculumId");
 
 	Curriculum curriculum = null;
 
 	if (curriculumId > 0) {
+		System.out.println("curriculumId: " + curriculumId);
 		curriculum = CurriculumLocalServiceUtil.getCurriculum(curriculumId);
 	}
+	
+	PortletURL iteratorURL = renderResponse.createRenderURL();
+	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/view_curriculum.jsp");
+	iteratorURL.setParameter("curriculumId", String.valueOf(curriculumId));
 %>
 
 <c:set var="showCurriculumsLink" value="<%= true %>" scope="request"/>
@@ -18,7 +24,7 @@
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <aui:form method="post" name="fmSubject">
-	<liferay-ui:search-container emptyResultsMessage="subjects-not-found" rowChecker="<%= new RowChecker(renderResponse) %>">
+	<liferay-ui:search-container emptyResultsMessage="subjects-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
 		<aui:input name="curriculumId" type="hidden" value="<%= curriculumId %>" />
 		<aui:input name="deleteSubjectIds" type="hidden" />
 		

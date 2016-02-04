@@ -9,7 +9,6 @@
 <%@page import="com.liferay.portal.kernel.dao.search.SearchEntry"%>
 <%@page import="com.liferay.portal.kernel.dao.search.ResultRow"%>
 <%@page import="com.liferay.portal.kernel.dao.search.RowChecker"%>
-
 <%@page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil"%>
 
 <%@page import="com.liferay.portal.kernel.util.ParamUtil"%>
@@ -23,6 +22,8 @@
 
 <%@page import="java.util.List"%>
 <%@page import="java.util.Calendar"%>
+
+<%@page import="javax.portlet.PortletURL"%>
 
 <%@page import="hu.unideb.inf.service.CurriculumLocalServiceUtil"%>
 <%@page import="hu.unideb.inf.service.SubjectLocalServiceUtil"%>

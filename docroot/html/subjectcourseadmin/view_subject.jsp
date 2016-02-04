@@ -8,6 +8,10 @@
 	if (subjectId > 0) {
 		subject = SubjectLocalServiceUtil.getSubject(subjectId);
 	}
+	
+	PortletURL iteratorURL = renderResponse.createRenderURL();
+	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/view_subject.jsp");
+	iteratorURL.setParameter("subjectId", String.valueOf(subjectId));
 %>
 
 <c:set var="showCurriculumsLink" value="<%= true %>" scope="request"/>
@@ -19,7 +23,7 @@
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <aui:form method="post" name="fmCourse">
-	<liferay-ui:search-container emptyResultsMessage="courses-not-found" rowChecker="<%= new RowChecker(renderResponse) %>">
+	<liferay-ui:search-container emptyResultsMessage="courses-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
 		<aui:input name="subjectId" type="hidden" value="<%= subjectId %>" />
 		<aui:input name="deleteCourseIds" type="hidden" />
 		

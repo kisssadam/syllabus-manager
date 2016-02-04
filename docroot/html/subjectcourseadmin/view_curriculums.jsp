@@ -1,5 +1,10 @@
 <%@include file="/html/init.jsp"%>
 
+<%
+	PortletURL iteratorURL = renderResponse.createRenderURL();
+	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/view_curriculums.jsp");
+%>
+
 <c:set var="showCurriculumsLink" value="<%= true %>" scope="request"/>
 
 <jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />
@@ -7,7 +12,7 @@
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <aui:form method="post" name="fmCurriculum">
-	<liferay-ui:search-container emptyResultsMessage="curriculums-not-found" rowChecker="<%= new RowChecker(renderResponse) %>">
+	<liferay-ui:search-container emptyResultsMessage="curriculums-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
 		<aui:input name="deleteCurriculumIds" type="hidden" />
 	
 		<liferay-ui:search-container-results
