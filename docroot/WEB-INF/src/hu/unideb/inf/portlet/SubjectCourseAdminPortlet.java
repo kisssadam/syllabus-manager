@@ -35,11 +35,11 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 	private static final String VIEW_CURRICULUMS = "/html/subjectcourseadmin/view_curriculums.jsp";
 
-	private static final String VIEW_CURRICULUM = "/html/subjectcourseadmin/view_curriculum.jsp";
+	private static final String VIEW_SUBJECTS = "/html/subjectcourseadmin/view_subjects.jsp";
 
 	private static final String EDIT_CURRICULUM = "/html/subjectcourseadmin/edit_curriculum.jsp";
 
-	private static final String VIEW_SUBJECT = "/html/subjectcourseadmin/view_subject.jsp";
+	private static final String VIEW_COURSES = "/html/subjectcourseadmin/view_courses.jsp";
 
 	private static final String EDIT_SUBJECT = "/html/subjectcourseadmin/edit_subject.jsp";
 
@@ -96,7 +96,7 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "subjectAdded");
 			}
 
-			response.setRenderParameter("mvcPath", VIEW_CURRICULUM);
+			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
@@ -126,7 +126,7 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "courseAdded");
 			}
 
-			response.setRenderParameter("mvcPath", VIEW_SUBJECT);
+			response.setRenderParameter("mvcPath", VIEW_COURSES);
 			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
@@ -187,13 +187,13 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			Subject deletedSubject = SubjectLocalServiceUtil.deleteSubject(subjectId, serviceContext);
 			SessionMessages.add(request, "subjectDeleted");
 
-			response.setRenderParameter("mvcPath", VIEW_CURRICULUM);
+			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
 			response.setRenderParameter("curriculumId", String.valueOf(deletedSubject.getCurriculumId()));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_CURRICULUM);
+			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
 		}
 	}
 
@@ -206,13 +206,13 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			Course deletedCourse = CourseLocalServiceUtil.deleteCourse(courseId, serviceContext);
 			SessionMessages.add(request, "courseDeleted");
 
-			response.setRenderParameter("mvcPath", VIEW_SUBJECT);
+			response.setRenderParameter("mvcPath", VIEW_COURSES);
 			response.setRenderParameter("subjectId", String.valueOf(deletedCourse.getSubjectId()));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_SUBJECT);
+			response.setRenderParameter("mvcPath", VIEW_COURSES);
 		}
 	}
 
@@ -269,13 +269,13 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			SessionMessages.add(request, "subjectsDeleted");
 
-			response.setRenderParameter("mvcPath", VIEW_CURRICULUM);
+			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_CURRICULUM);
+			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
 		}
 	}
 
@@ -293,13 +293,13 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			SessionMessages.add(request, "coursesDeleted");
 
-			response.setRenderParameter("mvcPath", VIEW_SUBJECT);
+			response.setRenderParameter("mvcPath", VIEW_COURSES);
 			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_SUBJECT);
+			response.setRenderParameter("mvcPath", VIEW_COURSES);
 		}
 	}
 

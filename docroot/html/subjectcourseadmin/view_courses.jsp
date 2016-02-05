@@ -10,7 +10,7 @@
 	}
 	
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/view_subject.jsp");
+	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/view_courses.jsp");
 	iteratorURL.setParameter("subjectId", String.valueOf(subjectId));
 %>
 

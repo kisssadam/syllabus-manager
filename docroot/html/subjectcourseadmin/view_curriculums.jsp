@@ -22,12 +22,12 @@
 		
 		<liferay-ui:search-container-row className="hu.unideb.inf.model.Curriculum" modelVar="curriculum" keyProperty="curriculumId">
 			<c:if test='<%=CurriculumPermission.contains(permissionChecker, curriculum.getCurriculumId(), "VIEW")%>'>
-				<portlet:renderURL var="viewCurriculumURL">
-					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculum.jsp" />
+				<portlet:renderURL var="viewSubjectsURL">
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_subjects.jsp" />
 					<portlet:param name="curriculumId" value="<%=String.valueOf(curriculum.getCurriculumId())%>" />
 				</portlet:renderURL>
 				
-				<liferay-ui:search-container-column-text name="curriculum-code" property="curriculumCode" href="<%=viewCurriculumURL.toString()%>" />
+				<liferay-ui:search-container-column-text name="curriculum-code" property="curriculumCode" href="<%=viewSubjectsURL.toString()%>" />
 				<liferay-ui:search-container-column-text name="curriculum-name" property="curriculumName" />
 				<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/curriculum_actions.jsp" align="right" />
 			</c:if>

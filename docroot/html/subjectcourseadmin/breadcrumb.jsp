@@ -15,13 +15,13 @@
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculums.jsp" />
 </portlet:renderURL>
 
-<portlet:renderURL var="viewCurriculumURL">
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculum.jsp" />
+<portlet:renderURL var="viewSubjectsURL">
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_subjects.jsp" />
 	<portlet:param name="curriculumId" value="${curriculumId}" />
 </portlet:renderURL>
 
-<portlet:renderURL var="viewSubjectURL">
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_subject.jsp" />
+<portlet:renderURL var="viewCoursesURL">
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_courses.jsp" />
 	<portlet:param name="subjectId" value="${subjectId}" />
 </portlet:renderURL>
 
@@ -42,13 +42,13 @@
 		Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(curriculumId);
 		PortalUtil.addPortletBreadcrumbEntry(request,
 				curriculum.getCurriculumCode() + " - " + curriculum.getCurriculumName(),
-				viewCurriculumURL.toString());
+				viewSubjectsURL.toString());
 	}
 
 	if (subjectId > 0) {
 		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
 		PortalUtil.addPortletBreadcrumbEntry(request,
-				subject.getSubjectCode() + " - " + subject.getSubjectName(), viewSubjectURL.toString());
+				subject.getSubjectCode() + " - " + subject.getSubjectName(), viewCoursesURL.toString());
 	}
 %>
 
