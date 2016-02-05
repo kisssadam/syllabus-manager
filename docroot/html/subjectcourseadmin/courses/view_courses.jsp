@@ -10,7 +10,7 @@
 	}
 	
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/view_courses.jsp");
+	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/courses/view_courses.jsp");
 	iteratorURL.setParameter("subjectId", String.valueOf(subjectId));
 %>
 
@@ -38,7 +38,7 @@
 					value="<%=CourseTypeLocalServiceUtil.getCourseType(course.getCourseTypeId()).getType()%>" />
 				<liferay-ui:search-container-column-text name="hours-per-semester" property="hoursPerSemester" />
 				<liferay-ui:search-container-column-text name="hours-per-week" property="hoursPerWeek" />
-				<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/course_actions.jsp" align="right" />
+				<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/courses/course_actions.jsp" align="right" />
 			</c:if>
 		</liferay-ui:search-container-row>
 		

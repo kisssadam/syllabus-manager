@@ -22,11 +22,11 @@
 <portlet:renderURL var="viewURL">
 	<c:choose>
 		<c:when test="${curriculumId gt 0}">
-			<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_subjects.jsp" />
+			<portlet:param name="mvcPath" value="/html/subjectcourseadmin/subjects/view_subjects.jsp" />
 			<portlet:param name="curriculumId" value="${curriculumId}" />
 		</c:when>
 		<c:otherwise>
-			<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculums.jsp" />
+			<portlet:param name="mvcPath" value="/html/subjectcourseadmin/curriculums/view_curriculums.jsp" />
 		</c:otherwise>
 	</c:choose>
 </portlet:renderURL>

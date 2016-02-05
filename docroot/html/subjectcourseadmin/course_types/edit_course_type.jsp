@@ -15,7 +15,7 @@
 <liferay-ui:header title="edit-course-type" />
 
 <portlet:renderURL var="viewURL">
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_course_types.jsp" />
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/course_types/view_course_types.jsp" />
 </portlet:renderURL>
 
 <portlet:actionURL name="addCourseType" var="addCourseTypeURL" />

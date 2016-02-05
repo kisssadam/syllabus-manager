@@ -2,7 +2,7 @@
 
 <%
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/view_curriculums.jsp");
+	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/curriculums/view_curriculums.jsp");
 %>
 
 <c:set var="showCurriculumsLink" value="<%= true %>" scope="request"/>
@@ -23,13 +23,13 @@
 		<liferay-ui:search-container-row className="hu.unideb.inf.model.Curriculum" modelVar="curriculum" keyProperty="curriculumId">
 			<c:if test='<%=CurriculumPermission.contains(permissionChecker, curriculum.getCurriculumId(), "VIEW")%>'>
 				<portlet:renderURL var="viewSubjectsURL">
-					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_subjects.jsp" />
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/subjects/view_subjects.jsp" />
 					<portlet:param name="curriculumId" value="<%=String.valueOf(curriculum.getCurriculumId())%>" />
 				</portlet:renderURL>
 				
 				<liferay-ui:search-container-column-text name="curriculum-code" property="curriculumCode" href="<%=viewSubjectsURL.toString()%>" />
 				<liferay-ui:search-container-column-text name="curriculum-name" property="curriculumName" />
-				<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/curriculum_actions.jsp" align="right" />
+				<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/curriculums/curriculum_actions.jsp" align="right" />
 			</c:if>
 		</liferay-ui:search-container-row>
 		

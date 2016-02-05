@@ -2,7 +2,7 @@
 
 <%
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/view_course_types.jsp");
+	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/course_types/view_course_types.jsp");
 %>
 
 <c:set var="showCourseTypesLink" value="<%= true %>" scope="request"/>
@@ -23,7 +23,7 @@
 		<liferay-ui:search-container-row className="hu.unideb.inf.model.CourseType" modelVar="courseType" keyProperty="courseTypeId">
 			<c:if test='<%=CourseTypePermission.contains(permissionChecker, courseType.getCourseTypeId(), "VIEW")%>'>
 				<liferay-ui:search-container-column-text name="course-type" property="type" />
-				<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/course_type_actions.jsp" align="right" />
+				<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/course_types/course_type_actions.jsp" align="right" />
 			</c:if>
 		</liferay-ui:search-container-row>
 		

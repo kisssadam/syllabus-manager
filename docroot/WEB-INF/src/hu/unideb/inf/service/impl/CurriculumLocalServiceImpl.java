@@ -121,14 +121,6 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 		return deleteCurriculum(curriculumId);
 	}
 
-	public void deleteEveryCurriculum(ServiceContext serviceContext) throws SystemException, PortalException {
-		List<Curriculum> curriculums = CurriculumLocalServiceUtil.getCurriculums();
-		
-		for (Curriculum curriculum : curriculums) {
-			CurriculumLocalServiceUtil.deleteCurriculum(curriculum.getCurriculumId(), serviceContext);
-		}
-	}
-
 	public Curriculum updateCurriculum(long userId, long curriculumId, String curriculumCode, String curriculumName,
 			ServiceContext serviceContext) throws SystemException, PortalException {
 		long groupId = serviceContext.getScopeGroupId();

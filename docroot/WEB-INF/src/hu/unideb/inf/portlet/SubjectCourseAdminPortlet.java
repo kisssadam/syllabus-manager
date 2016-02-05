@@ -33,21 +33,21 @@ import hu.unideb.inf.service.SubjectLocalServiceUtil;
  */
 public class SubjectCourseAdminPortlet extends MVCPortlet {
 
-	private static final String VIEW_CURRICULUMS = "/html/subjectcourseadmin/view_curriculums.jsp";
+	private static final String VIEW_CURRICULUMS = "/html/subjectcourseadmin/curriculums/view_curriculums.jsp";
 
-	private static final String VIEW_SUBJECTS = "/html/subjectcourseadmin/view_subjects.jsp";
+	private static final String VIEW_SUBJECTS = "/html/subjectcourseadmin/subjects/view_subjects.jsp";
 
-	private static final String EDIT_CURRICULUM = "/html/subjectcourseadmin/edit_curriculum.jsp";
+	private static final String VIEW_COURSES = "/html/subjectcourseadmin/courses/view_courses.jsp";
 
-	private static final String VIEW_COURSES = "/html/subjectcourseadmin/view_courses.jsp";
+	private static final String VIEW_COURSE_TYPES = "/html/subjectcourseadmin/course_types/view_course_types.jsp";
 
-	private static final String EDIT_SUBJECT = "/html/subjectcourseadmin/edit_subject.jsp";
+	private static final String EDIT_CURRICULUM = "/html/subjectcourseadmin/curriculums/edit_curriculum.jsp";
 
-	private static final String EDIT_COURSE = "/html/subjectcourseadmin/edit_course.jsp";
+	private static final String EDIT_SUBJECT = "/html/subjectcourseadmin/subjects/edit_subject.jsp";
 
-	private static final String VIEW_COURSE_TYPES = "/html/subjectcourseadmin/view_course_types.jsp";
+	private static final String EDIT_COURSE = "/html/subjectcourseadmin/courses/edit_course.jsp";
 
-	private static final String EDIT_COURSE_TYPE = "/html/subjectcourseadmin/edit_course_type.jsp";
+	private static final String EDIT_COURSE_TYPE = "/html/subjectcourseadmin/course_types/edit_course_type.jsp";
 
 	private final static String fileInputName = "fileupload";
 

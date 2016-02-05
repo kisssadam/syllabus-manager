@@ -11,7 +11,7 @@
 	<c:if test="<%=CourseTypePermission.contains(permissionChecker, courseTypeId, ActionKeys.UPDATE)%>">
 		<portlet:renderURL var="editURL">
 			<portlet:param name="courseTypeId" value="<%=String.valueOf(courseTypeId)%>" />
-			<portlet:param name="mvcPath" value="/html/subjectcourseadmin/edit_course_type.jsp" />
+			<portlet:param name="mvcPath" value="/html/subjectcourseadmin/course_types/edit_course_type.jsp" />
 		</portlet:renderURL>
 
 		<liferay-ui:icon image="edit" message="edit" url="<%=editURL.toString()%>" />

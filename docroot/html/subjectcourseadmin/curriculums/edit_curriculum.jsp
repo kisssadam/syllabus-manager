@@ -15,7 +15,7 @@
 <liferay-ui:header title="edit-curriculum" />
 
 <portlet:renderURL var="viewURL">
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculums.jsp" />
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/curriculums/view_curriculums.jsp" />
 </portlet:renderURL>
 
 <portlet:actionURL name="addCurriculum" var="addCurriculumURL" />

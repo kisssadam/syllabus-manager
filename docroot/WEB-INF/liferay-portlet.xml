@@ -3,12 +3,6 @@
 
 <liferay-portlet-app>
 
-	<!-- <portlet> <portlet-name>curriculum-admin</portlet-name> <icon>/icon.png</icon> 
-		<configuration-action-class>com.liferay.portal.kernel.portlet.DefaultConfigurationAction</configuration-action-class> 
-		<control-panel-entry-category> site_administration.content </control-panel-entry-category> 
-		<control-panel-entry-weight>1.5</control-panel-entry-weight> <header-portlet-css>/css/main.css</header-portlet-css> 
-		<footer-portlet-javascript> /js/main.js </footer-portlet-javascript> <css-class-wrapper>curriculum-admin-portlet</css-class-wrapper> 
-		</portlet> -->
 	<portlet>
 		<portlet-name>subject-course-admin</portlet-name>
 		<icon>/icon.png</icon>

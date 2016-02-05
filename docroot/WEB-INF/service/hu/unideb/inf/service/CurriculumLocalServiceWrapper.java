@@ -330,14 +330,6 @@ public class CurriculumLocalServiceWrapper implements CurriculumLocalService,
 	}
 
 	@Override
-	public void deleteEveryCurriculum(
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		_curriculumLocalService.deleteEveryCurriculum(serviceContext);
-	}
-
-	@Override
 	public hu.unideb.inf.model.Curriculum updateCurriculum(long userId,
 		long curriculumId, java.lang.String curriculumCode,
 		java.lang.String curriculumName,

@@ -316,13 +316,6 @@ public class CurriculumLocalServiceUtil {
 		return getService().deleteCurriculum(curriculumId, serviceContext);
 	}
 
-	public static void deleteEveryCurriculum(
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		getService().deleteEveryCurriculum(serviceContext);
-	}
-
 	public static hu.unideb.inf.model.Curriculum updateCurriculum(long userId,
 		long curriculumId, java.lang.String curriculumCode,
 		java.lang.String curriculumName,

@@ -4,7 +4,6 @@
 <display>
 	
 	<category name="category.hidden">
-		<portlet id="curriculum-admin"></portlet>
 		<portlet id="subject-course-admin"></portlet>
 	</category>
 </display>

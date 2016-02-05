@@ -12,21 +12,21 @@
 </portlet:renderURL>
 
 <portlet:renderURL var="viewCurriculumsURL">
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculums.jsp" />
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/curriculums/view_curriculums.jsp" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewSubjectsURL">
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_subjects.jsp" />
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/subjects/view_subjects.jsp" />
 	<portlet:param name="curriculumId" value="${curriculumId}" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewCoursesURL">
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_courses.jsp" />
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/courses/view_courses.jsp" />
 	<portlet:param name="subjectId" value="${subjectId}" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewCourseTypesURL">
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_course_types.jsp" />
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/course_types/view_course_types.jsp" />
 </portlet:renderURL>
 
 <%

@@ -11,11 +11,11 @@
 </portlet:renderURL>
 
 <portlet:renderURL var="viewCurriculumsURL">
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_curriculums.jsp" />
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/curriculums/view_curriculums.jsp" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewCourseTypesURL">
-	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/view_course_types.jsp" />
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/course_types/view_course_types.jsp" />
 </portlet:renderURL>
 
 <aui:nav-bar>
@@ -34,7 +34,7 @@
         <aui:nav-item dropdown="true" iconCssClass="icon-plus" label="add" selected='false'>
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_CURRICULUM)%>'>
 				<portlet:renderURL var="addCurriculumURL">
-					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/edit_curriculum.jsp" />
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/curriculums/edit_curriculum.jsp" />
 				</portlet:renderURL>
             	
             	<aui:nav-item href="<%=addCurriculumURL.toString()%>" label="Curriculum" />
@@ -42,7 +42,7 @@
             
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SUBJECT)%>'>
             	<portlet:renderURL var="addSubjectURL">
-					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/edit_subject.jsp" />
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/subjects/edit_subject.jsp" />
 					<portlet:param name="curriculumId" value="${curriculumId}" />
 				</portlet:renderURL>
             	
@@ -51,7 +51,7 @@
 			
 			<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_COURSE)%>'>
 				<portlet:renderURL var="addCourseURL">
-					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/edit_course.jsp" />
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/courses/edit_course.jsp" />
 					<portlet:param name="subjectId" value="${subjectId}" />
 					<portlet:param name="curriculumId" value="${curriculumId}" />
 				</portlet:renderURL>
@@ -61,7 +61,7 @@
             
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_COURSE_TYPE)%>'>
             	<portlet:renderURL var="addCourseTypeURL">
-					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/edit_course_type.jsp" />
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/course_types/edit_course_type.jsp" />
 				</portlet:renderURL>
             	
             	<aui:nav-item href="<%= addCourseTypeURL.toString() %>" label="Course Type" />
@@ -76,7 +76,7 @@
             	
             	<aui:nav-item href="<%=importSyllabusURL.toString()%>" label="ik_syllabus_ws.csv" />
 			</c:if>
-            <aui:nav-item href="/..." label="ik_orarend_ws.csv" />
+            <aui:nav-item href="/..." label="ik_orarend_ws.csv" state="disabled" />
         </aui:nav-item>
     </aui:nav>
 </aui:nav-bar>
