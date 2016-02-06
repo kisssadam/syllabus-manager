@@ -5,6 +5,11 @@
 	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/course_types/view_course_types.jsp");
 %>
 
+<liferay-ui:success key="courseTypeAdded" message="course-type-has-been-successfully-updated" />
+<liferay-ui:success key="courseTypeUpdated" message="course-type-has-been-successfully-updated" />
+<liferay-ui:success key="courseTypeDeleted" message="course-type-has-been-successfully-deleted" />
+<liferay-ui:success key="courseTypesDeleted" message="course-types-have-been-successfully-deleted" />
+
 <c:set var="showCourseTypesLink" value="<%= true %>" scope="request"/>
 
 <jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />

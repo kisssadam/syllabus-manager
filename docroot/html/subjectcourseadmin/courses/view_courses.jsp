@@ -14,6 +14,11 @@
 	iteratorURL.setParameter("subjectId", String.valueOf(subjectId));
 %>
 
+<liferay-ui:success key="courseAdded" message="course-has-been-successfully-updated" />
+<liferay-ui:success key="courseUpdated" message="course-has-been-successfully-updated" />
+<liferay-ui:success key="courseDeleted" message="course-has-been-successfully-deleted" />
+<liferay-ui:success key="coursesDeleted" message="courses-have-been-successfully-deleted" />
+
 <c:set var="showCurriculumsLink" value="<%= true %>" scope="request"/>
 <c:set var="curriculumId" value="<%= subject.getCurriculumId() %>" scope="request"/>
 <c:set var="subjectId" value="<%= subject.getSubjectId() %>" scope="request"/>
