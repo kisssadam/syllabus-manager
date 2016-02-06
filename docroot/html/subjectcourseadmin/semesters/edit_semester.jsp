@@ -24,7 +24,7 @@
 	}
 %>
 
-<liferay-ui:error exception="<%=DuplicateSemesterException.class%>" message="semester-already-exists" />
+<liferay-ui:error exception="<%=DuplicateSemesterException.class%>" message="duplicate-semester-exception" />
 <liferay-ui:error exception="<%=SemesterYearDifferenceException.class%>" message="semester-year-difference-exception" />
 <liferay-ui:error exception="<%=SemesterYearsAreEqualException.class%>" message="semester-years-are-equal-exception" />
 <liferay-ui:error exception="<%=SemesterYearOverlapException.class%>" message="semester-year-overlap-exception" />

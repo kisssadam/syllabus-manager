@@ -23,7 +23,7 @@
 	request.setAttribute("courseTypes", CourseTypeLocalServiceUtil.getCourseTypes());
 %>
 
-<liferay-ui:error exception="<%=DuplicateCourseException.class%>" message="duplicate-course" />
+<liferay-ui:error exception="<%=DuplicateCourseException.class%>" message="duplicate-course-exception" />
 <liferay-ui:error exception="<%=NoSuchCourseTypeException.class%>" message="no-such-course-type-exception" />
 <liferay-ui:error exception="<%=NoSuchSubjectException.class%>" message="no-such-subject-exception" />
 <liferay-ui:error exception="<%=CourseHoursException.class%>" message="course-hours-exception" />
