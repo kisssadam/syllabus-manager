@@ -10,7 +10,9 @@
 	}
 %>
 
-<liferay-ui:error exception="<%=DuplicateCurriculumException.class%>" message="duplicate-curriculum" />
+<liferay-ui:error exception="<%=DuplicateCurriculumException.class%>" message="duplicate-curriculum-exception" />
+<liferay-ui:error exception="<%=CurriculumCodeException.class%>" message="curriculum-code-exception" />
+<liferay-ui:error exception="<%=CurriculumNameException.class%>" message="curriculum-name-exception" />
 
 <liferay-ui:header title="edit-curriculum" />
 

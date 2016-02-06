@@ -7,9 +7,8 @@
 
 <liferay-ui:success key="semesterAdded" message="semester-has-been-successfully-added" />
 <liferay-ui:success key="semesterUpdated" message="semester-has-been-successfully-updated" />
-<liferay-ui:success key="nextSemesterAdded" message="next-semester-has-been-successfully-added" />
-<liferay-ui:success key="semesterDeleted" message="semester-deleted" />
-<liferay-ui:success key="semestersDeleted" message="semesters-deleted" />
+<liferay-ui:success key="semesterDeleted" message="semester-has-been-successfully-deleted" />
+<liferay-ui:success key="semestersDeleted" message="semesters-have-been-successfully-deleted" />
 
 <liferay-ui:error exception="<%=DuplicateSemesterException.class%>" message="duplicate-semester" />
 

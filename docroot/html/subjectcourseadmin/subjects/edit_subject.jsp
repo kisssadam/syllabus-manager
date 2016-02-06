@@ -16,6 +16,9 @@
 %>
 
 <liferay-ui:error exception="<%=DuplicateSubjectException.class%>" message="duplicate-subject" />
+<liferay-ui:error exception="<%=SubjectCodeException.class%>" message="subject-code-exception" />
+<liferay-ui:error exception="<%=SubjectCreditException.class%>" message="subject-credit-exception" />
+<liferay-ui:error exception="<%=SubjectNameException.class%>" message="subject-name-exception" />
 
 <liferay-ui:header title="edit-subject" />
 

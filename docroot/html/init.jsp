@@ -61,6 +61,17 @@
 <%@page import="hu.unideb.inf.NoSuchCourseTypeException"%>
 <%@page import="hu.unideb.inf.NoSuchSemesterException"%>
 
+<%@page import="hu.unideb.inf.CurriculumCodeException"%>
+<%@page import="hu.unideb.inf.CurriculumNameException"%>
+
+<%@page import="hu.unideb.inf.CourseTypeException"%>
+
+<%@page import="hu.unideb.inf.CourseHoursException"%>
+
+<%@page import="hu.unideb.inf.SubjectCodeException"%>
+<%@page import="hu.unideb.inf.SubjectCreditException"%>
+<%@page import="hu.unideb.inf.SubjectNameException"%>
+
 <%@page import="hu.unideb.inf.SemesterDivisionException"%>
 <%@page import="hu.unideb.inf.SemesterYearOverlapException"%>
 <%@page import="hu.unideb.inf.SemesterYearsAreEqualException"%>

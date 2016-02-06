@@ -11,6 +11,7 @@
 %>
 
 <liferay-ui:error exception="<%=DuplicateCourseTypeException.class%>" message="duplicate-course-type" />
+<liferay-ui:error exception="<%=CourseTypeException.class%>" message="course-type-exception" />
 
 <liferay-ui:header title="edit-course-type" />
 
