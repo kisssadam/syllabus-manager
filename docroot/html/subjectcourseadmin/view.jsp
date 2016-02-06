@@ -27,6 +27,8 @@
 				} ]
 			}, {
 				label : 'Course Types'
+			}, {
+				label : 'Semesters'
 			} ],
 			expanded : true,
 			label : 'Home'
