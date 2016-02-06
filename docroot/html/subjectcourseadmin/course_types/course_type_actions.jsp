@@ -19,9 +19,9 @@
 
 	<c:if test="<%=CourseTypePermission.contains(permissionChecker, courseTypeId, ActionKeys.PERMISSIONS)%>">
 		<liferay-security:permissionsURL modelResource="<%=CourseType.class.getName()%>" modelResourceDescription=""
-			resourcePrimKey="<%=String.valueOf(courseTypeId)%>" var="permissionsURL" />
+			resourcePrimKey="<%=String.valueOf(courseTypeId)%>" var="permissionsURL" windowState="<%=LiferayWindowState.POP_UP.toString()%>" />
 
-		<liferay-ui:icon image="permissions" url="<%=permissionsURL%>" />
+		<liferay-ui:icon image="permissions" url="<%=permissionsURL%>" useDialog="true" />
 	</c:if>
 
 	<c:if test="<%=CourseTypePermission.contains(permissionChecker, courseTypeId, ActionKeys.DELETE)%>">

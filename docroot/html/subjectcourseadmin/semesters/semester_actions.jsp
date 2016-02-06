@@ -23,9 +23,10 @@
 	        modelResource="<%= Semester.class.getName() %>"
 	        modelResourceDescription=""
 	        resourcePrimKey="<%= String.valueOf(semester.getSemesterId()) %>"
-	        var="permissionsURL" />
+	        var="permissionsURL"
+			windowState="<%=LiferayWindowState.POP_UP.toString()%>" />
 	
-	    <liferay-ui:icon image="permissions" url="<%= permissionsURL %>" />
+	    <liferay-ui:icon image="permissions" url="<%= permissionsURL %>" useDialog="true" />
 	</c:if>
 	
 	<c:if test="<%=SemesterPermission.contains(permissionChecker, semester.getSemesterId(), ActionKeys.DELETE) %>">

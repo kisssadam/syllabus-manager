@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 <%@include file="/html/init.jsp"%>
 
 <!-- 
@@ -79,6 +80,9 @@
            	</c:if>
         </aui:nav-item>
         
+        <%--
+        dialogos megoldashoz: https://www.liferay.com/community/forums/-/message_boards/message/41261810
+        --%>
         <aui:nav-item dropdown="true" iconCssClass="icon-upload" label="import" selected='false'>
         	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.IMPORT_SYLLABUS)%>'>
         		<portlet:renderURL var="importSyllabusURL">
