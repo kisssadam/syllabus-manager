@@ -194,19 +194,6 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	// public void addNextSemester(ActionRequest request, ActionResponse response)
-	// throws PortalException, SystemException {
-	// ServiceContext serviceContext = ServiceContextFactory.getInstance(Semester.class.getName(), request);
-	//
-	// try {
-	// SemesterLocalServiceUtil.addNextSemester(serviceContext);
-	// SessionMessages.add(request, "nextSemesterAdded");
-	// } catch (Exception e) {
-	// SessionErrors.add(request, e.getClass().getName());
-	// response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
-	// }
-	// }
-
 	public void deleteCurriculum(ActionRequest request, ActionResponse response) {
 		long curriculumId = ParamUtil.getLong(request, "curriculumId");
 
