@@ -120,21 +120,23 @@ AUI().ready('aui-dialog', "node", function(A) {
 
 function updateSubjectIds() {
 	var selectedCurriculumId = A.one("#<portlet:namespace />curriculumId").val();
-	Liferay.Service(
-		'/unideb-syllabus-manager-portlet.subject/get-subjects-by-curriculum-id',
-		{
-			curriculumId: selectedCurriculumId
-		},
-		function(obj) {
-			A.one("#<portlet:namespace />subjectId").val("");
-			document.getElementById('<portlet:namespace/>subjectId').options.length = obj.length;
-			for(var i = 0; i < obj.length; i++){
-				var subject = obj[i];
-				
-				document.getElementById('<portlet:namespace/>subjectId').options[i]= new Option(subject.subjectCode + " - " + subject.subjectName, subject.subjectId);
-				document.getElementById('<portlet:namespace/>subjectId').options[i].selected = subject.subjectId == "${subjectId}" ? true : false;
+	if (selectedCurriculumId > 0) {
+		Liferay.Service(
+			'/unideb-syllabus-manager-portlet.subject/get-subjects-by-curriculum-id',
+			{
+				curriculumId: selectedCurriculumId
+			},
+			function(obj) {
+				A.one("#<portlet:namespace />subjectId").val("");
+				document.getElementById('<portlet:namespace/>subjectId').options.length = obj.length;
+				for(var i = 0; i < obj.length; i++){
+					var subject = obj[i];
+					
+					document.getElementById('<portlet:namespace/>subjectId').options[i]= new Option(subject.subjectCode + " - " + subject.subjectName, subject.subjectId);
+					document.getElementById('<portlet:namespace/>subjectId').options[i].selected = subject.subjectId == "${subjectId}" ? true : false;
+				}
 			}
-		}
-	);
+		);
+	}
 }
 </aui:script>
