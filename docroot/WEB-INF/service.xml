@@ -111,6 +111,37 @@
             <finder-column name="courseTypeId"></finder-column>
         </finder>
 	</entity>
+	<entity local-service="true" name="Semester">
+
+		<!-- PK fields -->
+
+		<column name="semesterId" type="long" primary="true"></column>
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+        <column name="beginYear" type="int"></column>
+        <column name="endYear" type="int"></column>
+        <column name="division" type="int"></column>
+        <order by="desc">
+            <order-column name="beginYear" order-by="desc"></order-column>
+            <order-column name="endYear" order-by="desc"></order-column>
+            <order-column name="division" order-by="desc"></order-column>
+        </order>
+        <finder name="B_E_D" return-type="Semester" unique="true">
+            <finder-column name="beginYear"></finder-column>
+            <finder-column name="endYear"></finder-column>
+            <finder-column name="division"></finder-column>
+        </finder>
+	</entity>
 	<exceptions>
         <exception>CurriculumCode</exception>
         <exception>CurriculumName</exception>
@@ -123,5 +154,10 @@
         <exception>DuplicateSubject</exception>
         <exception>DuplicateCourseType</exception>
         <exception>DuplicateCourse</exception>
+        <exception>DuplicateSemester</exception>
+        <exception>SemesterYearsAreEqual</exception>
+        <exception>SemesterYearOverlap</exception>
+        <exception>SemesterYearDifference</exception>
+        <exception>SemesterDivision</exception>
     </exceptions>
 </service-builder>

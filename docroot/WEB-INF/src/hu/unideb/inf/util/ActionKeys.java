@@ -10,6 +10,8 @@ public class ActionKeys extends com.liferay.portal.security.permission.ActionKey
 
 	public static final String ADD_COURSE_TYPE = "ADD_COURSE_TYPE";
 
+	public static final String ADD_SEMESTER = "ADD_SEMESTER";
+
 	public static final String IMPORT_SYLLABUS = "IMPORT_SYLLABUS";
 
 }

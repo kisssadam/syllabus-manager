@@ -36,6 +36,7 @@ import hu.unideb.inf.service.CourseTypeLocalService;
 import hu.unideb.inf.service.persistence.CoursePersistence;
 import hu.unideb.inf.service.persistence.CourseTypePersistence;
 import hu.unideb.inf.service.persistence.CurriculumPersistence;
+import hu.unideb.inf.service.persistence.SemesterPersistence;
 import hu.unideb.inf.service.persistence.SubjectPersistence;
 
 import java.io.Serializable;
@@ -454,6 +455,62 @@ public abstract class CourseTypeLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the semester local service.
+	 *
+	 * @return the semester local service
+	 */
+	public hu.unideb.inf.service.SemesterLocalService getSemesterLocalService() {
+		return semesterLocalService;
+	}
+
+	/**
+	 * Sets the semester local service.
+	 *
+	 * @param semesterLocalService the semester local service
+	 */
+	public void setSemesterLocalService(
+		hu.unideb.inf.service.SemesterLocalService semesterLocalService) {
+		this.semesterLocalService = semesterLocalService;
+	}
+
+	/**
+	 * Returns the semester remote service.
+	 *
+	 * @return the semester remote service
+	 */
+	public hu.unideb.inf.service.SemesterService getSemesterService() {
+		return semesterService;
+	}
+
+	/**
+	 * Sets the semester remote service.
+	 *
+	 * @param semesterService the semester remote service
+	 */
+	public void setSemesterService(
+		hu.unideb.inf.service.SemesterService semesterService) {
+		this.semesterService = semesterService;
+	}
+
+	/**
+	 * Returns the semester persistence.
+	 *
+	 * @return the semester persistence
+	 */
+	public SemesterPersistence getSemesterPersistence() {
+		return semesterPersistence;
+	}
+
+	/**
+	 * Sets the semester persistence.
+	 *
+	 * @param semesterPersistence the semester persistence
+	 */
+	public void setSemesterPersistence(SemesterPersistence semesterPersistence) {
+		this.semesterPersistence = semesterPersistence;
+	}
+
+	/**
 	 * Returns the subject local service.
 	 *
 	 * @return the subject local service
@@ -703,6 +760,12 @@ public abstract class CourseTypeLocalServiceBaseImpl
 	protected hu.unideb.inf.service.CurriculumService curriculumService;
 	@BeanReference(type = CurriculumPersistence.class)
 	protected CurriculumPersistence curriculumPersistence;
+	@BeanReference(type = hu.unideb.inf.service.SemesterLocalService.class)
+	protected hu.unideb.inf.service.SemesterLocalService semesterLocalService;
+	@BeanReference(type = hu.unideb.inf.service.SemesterService.class)
+	protected hu.unideb.inf.service.SemesterService semesterService;
+	@BeanReference(type = SemesterPersistence.class)
+	protected SemesterPersistence semesterPersistence;
 	@BeanReference(type = hu.unideb.inf.service.SubjectLocalService.class)
 	protected hu.unideb.inf.service.SubjectLocalService subjectLocalService;
 	@BeanReference(type = hu.unideb.inf.service.SubjectService.class)

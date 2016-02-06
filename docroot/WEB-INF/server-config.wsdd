@@ -59,6 +59,15 @@
 		<parameter name="wsdlServicePort" value="Plugin_unideb_syllabus_manager_CurriculumService" />
 		<parameter name="wsdlTargetNamespace" value="urn:http.service.inf.unideb.hu" />
 	</service>
+	<service name="Plugin_unideb_syllabus_manager_SemesterService" provider="java:RPC" style="rpc" use="encoded">
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="className" value="hu.unideb.inf.service.http.SemesterServiceSoap" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="SemesterServiceSoap" />
+		<parameter name="wsdlServiceElement" value="SemesterServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_unideb_syllabus_manager_SemesterService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.inf.unideb.hu" />
+	</service>
 	<service name="Plugin_unideb_syllabus_manager_SubjectService" provider="java:RPC" style="rpc" use="encoded">
 		<arrayMapping xmlns:ns="urn:http.service.inf.unideb.hu" xmlns:cmp-ns="http://model.inf.unideb.hu" qname="ns:ArrayOf_tns2_SubjectSoap" type="java:hu.unideb.inf.model.SubjectSoap[]" innerType="cmp-ns:SubjectSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
 		<typeMapping xmlns:ns="http://model.inf.unideb.hu" qname="ns:SubjectSoap" type="java:hu.unideb.inf.model.SubjectSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>

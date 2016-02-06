@@ -18,6 +18,10 @@
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/course_types/view_course_types.jsp" />
 </portlet:renderURL>
 
+<portlet:renderURL var="viewSemestersURL">
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/semesters/view_semesters.jsp" />
+</portlet:renderURL>
+
 <aui:nav-bar>
     <aui:nav>
     	<aui:nav-item cssClass="removeCheckedItemsButton" iconCssClass="icon-remove" label="delete" selected='false' style="display: none;" />
@@ -26,9 +30,8 @@
         
         <aui:nav-item dropdown="true" iconCssClass="icon-list" label="view" selected='false'>
         	<aui:nav-item href="<%=viewCurriculumsURL.toString()%>" label="Curriculums" />
-        	<%-- <aui:nav-item href="/..." label="Subjects" />
-        	<aui:nav-item href="/..." label="Courses" /> --%>
 			<aui:nav-item href="<%=viewCourseTypesURL.toString()%>" label="Course Types" />
+			<aui:nav-item href="<%=viewSemestersURL.toString()%>" label="Semesters" />
 		</aui:nav-item>
         
         <aui:nav-item dropdown="true" iconCssClass="icon-plus" label="add" selected='false'>
@@ -65,6 +68,14 @@
 				</portlet:renderURL>
             	
             	<aui:nav-item href="<%= addCourseTypeURL.toString() %>" label="Course Type" />
+           	</c:if>
+           	
+           	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SEMESTER)%>'>
+            	<portlet:renderURL var="addSemesterURL">
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/semesters/edit_semester.jsp" />
+				</portlet:renderURL>
+            	
+            	<aui:nav-item href="<%= addSemesterURL.toString() %>" label="Semester" />
            	</c:if>
         </aui:nav-item>
         

@@ -10,6 +10,9 @@
 	<bean id="hu.unideb.inf.service.CurriculumLocalService" class="hu.unideb.inf.service.impl.CurriculumLocalServiceImpl" />
 	<bean id="hu.unideb.inf.service.CurriculumService" class="hu.unideb.inf.service.impl.CurriculumServiceImpl" />
 	<bean id="hu.unideb.inf.service.persistence.CurriculumPersistence" class="hu.unideb.inf.service.persistence.CurriculumPersistenceImpl" parent="basePersistence" />
+	<bean id="hu.unideb.inf.service.SemesterLocalService" class="hu.unideb.inf.service.impl.SemesterLocalServiceImpl" />
+	<bean id="hu.unideb.inf.service.SemesterService" class="hu.unideb.inf.service.impl.SemesterServiceImpl" />
+	<bean id="hu.unideb.inf.service.persistence.SemesterPersistence" class="hu.unideb.inf.service.persistence.SemesterPersistenceImpl" parent="basePersistence" />
 	<bean id="hu.unideb.inf.service.SubjectLocalService" class="hu.unideb.inf.service.impl.SubjectLocalServiceImpl" />
 	<bean id="hu.unideb.inf.service.SubjectService" class="hu.unideb.inf.service.impl.SubjectServiceImpl" />
 	<bean id="hu.unideb.inf.service.persistence.SubjectPersistence" class="hu.unideb.inf.service.persistence.SubjectPersistenceImpl" parent="basePersistence" />

@@ -47,6 +47,18 @@
 			<hint-collection name="TEXTAREA" />
 		</field>
 	</model>
+	<model name="hu.unideb.inf.model.Semester">
+		<field name="semesterId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="beginYear" type="int" />
+		<field name="endYear" type="int" />
+		<field name="division" type="int" />
+	</model>
 	<model name="hu.unideb.inf.model.Subject">
 		<field name="subjectId" type="long" />
 		<field name="groupId" type="long" />

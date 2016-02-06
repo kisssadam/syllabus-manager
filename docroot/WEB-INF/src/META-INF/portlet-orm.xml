@@ -73,6 +73,28 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="hu.unideb.inf.model.impl.SemesterModelImpl">
+		<attributes>
+			<id name="semesterId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="beginYear" />
+			<basic name="endYear" />
+			<basic name="division" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="hu.unideb.inf.model.impl.SubjectModelImpl">
 		<attributes>
 			<id name="subjectId" />
@@ -106,6 +128,10 @@
 	</entity>
 	<entity class="hu.unideb.inf.model.impl.CurriculumImpl" name="Curriculum">
 		<table name="unideb_syllabus_manager_Curriculum" />
+		<attributes />
+	</entity>
+	<entity class="hu.unideb.inf.model.impl.SemesterImpl" name="Semester">
+		<table name="unideb_syllabus_manager_Semester" />
 		<attributes />
 	</entity>
 	<entity class="hu.unideb.inf.model.impl.SubjectImpl" name="Subject">

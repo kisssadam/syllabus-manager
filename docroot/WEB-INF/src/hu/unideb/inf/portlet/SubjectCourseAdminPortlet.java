@@ -22,10 +22,12 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 import hu.unideb.inf.model.Course;
 import hu.unideb.inf.model.CourseType;
 import hu.unideb.inf.model.Curriculum;
+import hu.unideb.inf.model.Semester;
 import hu.unideb.inf.model.Subject;
 import hu.unideb.inf.service.CourseLocalServiceUtil;
 import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
 import hu.unideb.inf.service.CurriculumLocalServiceUtil;
+import hu.unideb.inf.service.SemesterLocalServiceUtil;
 import hu.unideb.inf.service.SubjectLocalServiceUtil;
 
 /**
@@ -41,6 +43,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 	private static final String VIEW_COURSE_TYPES = "/html/subjectcourseadmin/course_types/view_course_types.jsp";
 
+	private static final String VIEW_SEMESTERS = "/html/subjectcourseadmin/semesters/view_semesters.jsp";
+
 	private static final String EDIT_CURRICULUM = "/html/subjectcourseadmin/curriculums/edit_curriculum.jsp";
 
 	private static final String EDIT_SUBJECT = "/html/subjectcourseadmin/subjects/edit_subject.jsp";
@@ -48,6 +52,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 	private static final String EDIT_COURSE = "/html/subjectcourseadmin/courses/edit_course.jsp";
 
 	private static final String EDIT_COURSE_TYPE = "/html/subjectcourseadmin/course_types/edit_course_type.jsp";
+
+	private static final String EDIT_SEMESTER = "/html/subjectcourseadmin/semesters/edit_semester.jsp";
 
 	private final static String fileInputName = "fileupload";
 
@@ -161,6 +167,46 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	public void addSemester(ActionRequest request, ActionResponse response) throws PortalException, SystemException {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Semester.class.getName(), request);
+
+		int beginYear = ParamUtil.getInteger(request, "beginYear");
+		int endYear = ParamUtil.getInteger(request, "endYear");
+		int division = ParamUtil.getInteger(request, "division");
+		long semesterId = ParamUtil.getLong(request, "semesterId");
+
+		try {
+			if (semesterId > 0) {
+				SemesterLocalServiceUtil.updateSemester(serviceContext.getUserId(), semesterId, beginYear, endYear,
+						division, serviceContext);
+				SessionMessages.add(request, "semesterUpdated");
+			} else {
+				SemesterLocalServiceUtil.addSemester(beginYear, endYear, division, serviceContext);
+				SessionMessages.add(request, "semesterAdded");
+			}
+
+			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", EDIT_SEMESTER);
+		}
+	}
+
+	// public void addNextSemester(ActionRequest request, ActionResponse response)
+	// throws PortalException, SystemException {
+	// ServiceContext serviceContext = ServiceContextFactory.getInstance(Semester.class.getName(), request);
+	//
+	// try {
+	// SemesterLocalServiceUtil.addNextSemester(serviceContext);
+	// SessionMessages.add(request, "nextSemesterAdded");
+	// } catch (Exception e) {
+	// SessionErrors.add(request, e.getClass().getName());
+	// response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
+	// }
+	// }
+
 	public void deleteCurriculum(ActionRequest request, ActionResponse response) {
 		long curriculumId = ParamUtil.getLong(request, "curriculumId");
 
@@ -231,6 +277,24 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
+		}
+	}
+
+	public void deleteSemester(ActionRequest request, ActionResponse response) {
+		long semesterId = ParamUtil.getLong(request, "semesterId");
+
+		try {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(Semester.class.getName(), request);
+
+			SemesterLocalServiceUtil.deleteSemester(semesterId, serviceContext);
+			SessionMessages.add(request, "semesterDeleted");
+
+			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
 		}
 	}
 
@@ -322,6 +386,28 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
+		}
+	}
+
+	public void deleteSemesters(ActionRequest request, ActionResponse response) throws Exception {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Semester.class.getName(), request);
+
+		try {
+			String[] semesterIds = ParamUtil.getParameterValues(request, "deleteSemesterIds");
+
+			for (String semesterIdString : semesterIds) {
+				long semesterId = Long.parseLong(semesterIdString);
+				SemesterLocalServiceUtil.deleteSemester(semesterId, serviceContext);
+			}
+
+			SessionMessages.add(request, "semestersDeleted");
+
+			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
 		}
 	}
 
