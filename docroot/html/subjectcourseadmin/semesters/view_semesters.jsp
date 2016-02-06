@@ -28,7 +28,7 @@
 			total="<%=SemesterLocalServiceUtil.getSemestersCount()%>"
 		/>
 		
-		<liferay-ui:search-container-row className="hu.unideb.inf.model.Semester" modelVar="semester" keyProperty="semesterId">
+		<liferay-ui:search-container-row className="hu.unideb.inf.model.Semester" escapedModel="<%= true %>" modelVar="semester" keyProperty="semesterId">
 			<liferay-ui:search-container-column-text name="semester" value="<%=HtmlUtil.escapeAttribute(semester.toString())%>" />
 			<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/semesters/semester_actions.jsp" align="right" />
 		</liferay-ui:search-container-row>

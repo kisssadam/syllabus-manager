@@ -37,10 +37,10 @@
 			total="<%=CourseLocalServiceUtil.getCoursesCountBySubjectId(subjectId)%>"
 		/>
 		
-		<liferay-ui:search-container-row className="hu.unideb.inf.model.Course" modelVar="course" keyProperty="courseId">
+		<liferay-ui:search-container-row className="hu.unideb.inf.model.Course" escapedModel="<%= true %>" modelVar="course" keyProperty="courseId">
 			<c:if test='<%=CoursePermission.contains(permissionChecker, course.getCourseId(), "VIEW")%>'>				
 				<liferay-ui:search-container-column-text name="course-type"
-					value="<%=CourseTypeLocalServiceUtil.getCourseType(course.getCourseTypeId()).getType()%>" />
+					value="<%=HtmlUtil.escapeAttribute(CourseTypeLocalServiceUtil.getCourseType(course.getCourseTypeId()).getType())%>" />
 				<liferay-ui:search-container-column-text name="hours-per-semester" property="hoursPerSemester" />
 				<liferay-ui:search-container-column-text name="hours-per-week" property="hoursPerWeek" />
 				<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/courses/course_actions.jsp" align="right" />

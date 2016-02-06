@@ -36,7 +36,7 @@
 			total="<%=SubjectLocalServiceUtil.getSubjectsCountByCurriculumId(curriculumId)%>"
 		/>
 		
-		<liferay-ui:search-container-row className="hu.unideb.inf.model.Subject" modelVar="subject" keyProperty="subjectId">
+		<liferay-ui:search-container-row className="hu.unideb.inf.model.Subject" escapedModel="<%= true %>" modelVar="subject" keyProperty="subjectId">
 			<c:if test='<%=SubjectPermission.contains(permissionChecker, subject.getSubjectId(), "VIEW")%>'>
 				<portlet:renderURL var="viewCoursesURL">
 					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/courses/view_courses.jsp" />

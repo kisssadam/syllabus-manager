@@ -25,7 +25,7 @@
 			total="<%=CourseTypeLocalServiceUtil.getCourseTypesCount()%>"
 		/>
 		
-		<liferay-ui:search-container-row className="hu.unideb.inf.model.CourseType" modelVar="courseType" keyProperty="courseTypeId">
+		<liferay-ui:search-container-row className="hu.unideb.inf.model.CourseType" escapedModel="<%= true %>" modelVar="courseType" keyProperty="courseTypeId">
 			<c:if test='<%=CourseTypePermission.contains(permissionChecker, courseType.getCourseTypeId(), "VIEW")%>'>
 				<liferay-ui:search-container-column-text name="course-type" property="type" />
 				<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/course_types/course_type_actions.jsp" align="right" />
