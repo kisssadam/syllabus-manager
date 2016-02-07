@@ -100,53 +100,53 @@ public class SemesterLocalServiceClpInvoker {
 
 		_methodParameterTypes15 = new String[] { "hu.unideb.inf.model.Semester" };
 
-		_methodName58 = "getBeanIdentifier";
+		_methodName70 = "getBeanIdentifier";
 
-		_methodParameterTypes58 = new String[] {  };
+		_methodParameterTypes70 = new String[] {  };
 
-		_methodName59 = "setBeanIdentifier";
+		_methodName71 = "setBeanIdentifier";
 
-		_methodParameterTypes59 = new String[] { "java.lang.String" };
+		_methodParameterTypes71 = new String[] { "java.lang.String" };
 
-		_methodName64 = "getSemesters";
+		_methodName76 = "getSemesters";
 
-		_methodParameterTypes64 = new String[] {  };
+		_methodParameterTypes76 = new String[] {  };
 
-		_methodName65 = "getSemesterByB_E_D";
+		_methodName77 = "getSemesterByB_E_D";
 
-		_methodParameterTypes65 = new String[] { "int", "int", "int" };
+		_methodParameterTypes77 = new String[] { "int", "int", "int" };
 
-		_methodName66 = "getLatestSemester";
+		_methodName78 = "getLatestSemester";
 
-		_methodParameterTypes66 = new String[] {  };
+		_methodParameterTypes78 = new String[] {  };
 
-		_methodName67 = "addNextSemester";
+		_methodName79 = "addNextSemester";
 
-		_methodParameterTypes67 = new String[] {
+		_methodParameterTypes79 = new String[] {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName68 = "addCurrentSemester";
+		_methodName80 = "addCurrentSemester";
 
-		_methodParameterTypes68 = new String[] {
+		_methodParameterTypes80 = new String[] {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName69 = "addSemester";
+		_methodName81 = "addSemester";
 
-		_methodParameterTypes69 = new String[] {
+		_methodParameterTypes81 = new String[] {
 				"int", "int", "int", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName70 = "deleteSemester";
+		_methodName82 = "deleteSemester";
 
-		_methodParameterTypes70 = new String[] {
+		_methodParameterTypes82 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName71 = "updateSemester";
+		_methodName83 = "updateSemester";
 
-		_methodParameterTypes71 = new String[] {
+		_methodParameterTypes83 = new String[] {
 				"long", "long", "int", "int", "int",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -241,61 +241,61 @@ public class SemesterLocalServiceClpInvoker {
 			return SemesterLocalServiceUtil.updateSemester((hu.unideb.inf.model.Semester)arguments[0]);
 		}
 
-		if (_methodName58.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+		if (_methodName70.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
 			return SemesterLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName59.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+		if (_methodName71.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
 			SemesterLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName76.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
 			return SemesterLocalServiceUtil.getSemesters();
 		}
 
-		if (_methodName65.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+		if (_methodName77.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
 			return SemesterLocalServiceUtil.getSemesterByB_E_D(((Integer)arguments[0]).intValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
-		if (_methodName66.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+		if (_methodName78.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
 			return SemesterLocalServiceUtil.getLatestSemester();
 		}
 
-		if (_methodName67.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+		if (_methodName79.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
 			return SemesterLocalServiceUtil.addNextSemester((com.liferay.portal.service.ServiceContext)arguments[0]);
 		}
 
-		if (_methodName68.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+		if (_methodName80.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
 			return SemesterLocalServiceUtil.addCurrentSemester((com.liferay.portal.service.ServiceContext)arguments[0]);
 		}
 
-		if (_methodName69.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+		if (_methodName81.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
 			return SemesterLocalServiceUtil.addSemester(((Integer)arguments[0]).intValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[3]);
 		}
 
-		if (_methodName70.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+		if (_methodName82.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
 			return SemesterLocalServiceUtil.deleteSemester(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
-		if (_methodName71.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+		if (_methodName83.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
 			return SemesterLocalServiceUtil.updateSemester(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Integer)arguments[2]).intValue(),
@@ -339,24 +339,24 @@ public class SemesterLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName58;
-	private String[] _methodParameterTypes58;
-	private String _methodName59;
-	private String[] _methodParameterTypes59;
-	private String _methodName64;
-	private String[] _methodParameterTypes64;
-	private String _methodName65;
-	private String[] _methodParameterTypes65;
-	private String _methodName66;
-	private String[] _methodParameterTypes66;
-	private String _methodName67;
-	private String[] _methodParameterTypes67;
-	private String _methodName68;
-	private String[] _methodParameterTypes68;
-	private String _methodName69;
-	private String[] _methodParameterTypes69;
 	private String _methodName70;
 	private String[] _methodParameterTypes70;
 	private String _methodName71;
 	private String[] _methodParameterTypes71;
+	private String _methodName76;
+	private String[] _methodParameterTypes76;
+	private String _methodName77;
+	private String[] _methodParameterTypes77;
+	private String _methodName78;
+	private String[] _methodParameterTypes78;
+	private String _methodName79;
+	private String[] _methodParameterTypes79;
+	private String _methodName80;
+	private String[] _methodParameterTypes80;
+	private String _methodName81;
+	private String[] _methodParameterTypes81;
+	private String _methodName82;
+	private String[] _methodParameterTypes82;
+	private String _methodName83;
+	private String[] _methodParameterTypes83;
 }

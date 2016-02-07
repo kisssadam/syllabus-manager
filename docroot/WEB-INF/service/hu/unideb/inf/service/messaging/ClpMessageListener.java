@@ -24,10 +24,14 @@ import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
 import hu.unideb.inf.service.CourseTypeServiceUtil;
 import hu.unideb.inf.service.CurriculumLocalServiceUtil;
 import hu.unideb.inf.service.CurriculumServiceUtil;
+import hu.unideb.inf.service.LecturerLocalServiceUtil;
+import hu.unideb.inf.service.LecturerServiceUtil;
 import hu.unideb.inf.service.SemesterLocalServiceUtil;
 import hu.unideb.inf.service.SemesterServiceUtil;
 import hu.unideb.inf.service.SubjectLocalServiceUtil;
 import hu.unideb.inf.service.SubjectServiceUtil;
+import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
+import hu.unideb.inf.service.TimetableCourseServiceUtil;
 
 /**
  * @author Adam Kiss
@@ -53,12 +57,18 @@ public class ClpMessageListener extends BaseMessageListener {
 			CurriculumLocalServiceUtil.clearService();
 
 			CurriculumServiceUtil.clearService();
+			LecturerLocalServiceUtil.clearService();
+
+			LecturerServiceUtil.clearService();
 			SemesterLocalServiceUtil.clearService();
 
 			SemesterServiceUtil.clearService();
 			SubjectLocalServiceUtil.clearService();
 
 			SubjectServiceUtil.clearService();
+			TimetableCourseLocalServiceUtil.clearService();
+
+			TimetableCourseServiceUtil.clearService();
 		}
 	}
 }

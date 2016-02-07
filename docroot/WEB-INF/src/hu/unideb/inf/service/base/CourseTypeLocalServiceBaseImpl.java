@@ -36,8 +36,10 @@ import hu.unideb.inf.service.CourseTypeLocalService;
 import hu.unideb.inf.service.persistence.CoursePersistence;
 import hu.unideb.inf.service.persistence.CourseTypePersistence;
 import hu.unideb.inf.service.persistence.CurriculumPersistence;
+import hu.unideb.inf.service.persistence.LecturerPersistence;
 import hu.unideb.inf.service.persistence.SemesterPersistence;
 import hu.unideb.inf.service.persistence.SubjectPersistence;
+import hu.unideb.inf.service.persistence.TimetableCoursePersistence;
 
 import java.io.Serializable;
 
@@ -455,6 +457,62 @@ public abstract class CourseTypeLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the lecturer local service.
+	 *
+	 * @return the lecturer local service
+	 */
+	public hu.unideb.inf.service.LecturerLocalService getLecturerLocalService() {
+		return lecturerLocalService;
+	}
+
+	/**
+	 * Sets the lecturer local service.
+	 *
+	 * @param lecturerLocalService the lecturer local service
+	 */
+	public void setLecturerLocalService(
+		hu.unideb.inf.service.LecturerLocalService lecturerLocalService) {
+		this.lecturerLocalService = lecturerLocalService;
+	}
+
+	/**
+	 * Returns the lecturer remote service.
+	 *
+	 * @return the lecturer remote service
+	 */
+	public hu.unideb.inf.service.LecturerService getLecturerService() {
+		return lecturerService;
+	}
+
+	/**
+	 * Sets the lecturer remote service.
+	 *
+	 * @param lecturerService the lecturer remote service
+	 */
+	public void setLecturerService(
+		hu.unideb.inf.service.LecturerService lecturerService) {
+		this.lecturerService = lecturerService;
+	}
+
+	/**
+	 * Returns the lecturer persistence.
+	 *
+	 * @return the lecturer persistence
+	 */
+	public LecturerPersistence getLecturerPersistence() {
+		return lecturerPersistence;
+	}
+
+	/**
+	 * Sets the lecturer persistence.
+	 *
+	 * @param lecturerPersistence the lecturer persistence
+	 */
+	public void setLecturerPersistence(LecturerPersistence lecturerPersistence) {
+		this.lecturerPersistence = lecturerPersistence;
+	}
+
+	/**
 	 * Returns the semester local service.
 	 *
 	 * @return the semester local service
@@ -564,6 +622,63 @@ public abstract class CourseTypeLocalServiceBaseImpl
 	 */
 	public void setSubjectPersistence(SubjectPersistence subjectPersistence) {
 		this.subjectPersistence = subjectPersistence;
+	}
+
+	/**
+	 * Returns the timetable course local service.
+	 *
+	 * @return the timetable course local service
+	 */
+	public hu.unideb.inf.service.TimetableCourseLocalService getTimetableCourseLocalService() {
+		return timetableCourseLocalService;
+	}
+
+	/**
+	 * Sets the timetable course local service.
+	 *
+	 * @param timetableCourseLocalService the timetable course local service
+	 */
+	public void setTimetableCourseLocalService(
+		hu.unideb.inf.service.TimetableCourseLocalService timetableCourseLocalService) {
+		this.timetableCourseLocalService = timetableCourseLocalService;
+	}
+
+	/**
+	 * Returns the timetable course remote service.
+	 *
+	 * @return the timetable course remote service
+	 */
+	public hu.unideb.inf.service.TimetableCourseService getTimetableCourseService() {
+		return timetableCourseService;
+	}
+
+	/**
+	 * Sets the timetable course remote service.
+	 *
+	 * @param timetableCourseService the timetable course remote service
+	 */
+	public void setTimetableCourseService(
+		hu.unideb.inf.service.TimetableCourseService timetableCourseService) {
+		this.timetableCourseService = timetableCourseService;
+	}
+
+	/**
+	 * Returns the timetable course persistence.
+	 *
+	 * @return the timetable course persistence
+	 */
+	public TimetableCoursePersistence getTimetableCoursePersistence() {
+		return timetableCoursePersistence;
+	}
+
+	/**
+	 * Sets the timetable course persistence.
+	 *
+	 * @param timetableCoursePersistence the timetable course persistence
+	 */
+	public void setTimetableCoursePersistence(
+		TimetableCoursePersistence timetableCoursePersistence) {
+		this.timetableCoursePersistence = timetableCoursePersistence;
 	}
 
 	/**
@@ -760,6 +875,12 @@ public abstract class CourseTypeLocalServiceBaseImpl
 	protected hu.unideb.inf.service.CurriculumService curriculumService;
 	@BeanReference(type = CurriculumPersistence.class)
 	protected CurriculumPersistence curriculumPersistence;
+	@BeanReference(type = hu.unideb.inf.service.LecturerLocalService.class)
+	protected hu.unideb.inf.service.LecturerLocalService lecturerLocalService;
+	@BeanReference(type = hu.unideb.inf.service.LecturerService.class)
+	protected hu.unideb.inf.service.LecturerService lecturerService;
+	@BeanReference(type = LecturerPersistence.class)
+	protected LecturerPersistence lecturerPersistence;
 	@BeanReference(type = hu.unideb.inf.service.SemesterLocalService.class)
 	protected hu.unideb.inf.service.SemesterLocalService semesterLocalService;
 	@BeanReference(type = hu.unideb.inf.service.SemesterService.class)
@@ -772,6 +893,12 @@ public abstract class CourseTypeLocalServiceBaseImpl
 	protected hu.unideb.inf.service.SubjectService subjectService;
 	@BeanReference(type = SubjectPersistence.class)
 	protected SubjectPersistence subjectPersistence;
+	@BeanReference(type = hu.unideb.inf.service.TimetableCourseLocalService.class)
+	protected hu.unideb.inf.service.TimetableCourseLocalService timetableCourseLocalService;
+	@BeanReference(type = hu.unideb.inf.service.TimetableCourseService.class)
+	protected hu.unideb.inf.service.TimetableCourseService timetableCourseService;
+	@BeanReference(type = TimetableCoursePersistence.class)
+	protected TimetableCoursePersistence timetableCoursePersistence;
 	@BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
 	protected com.liferay.counter.service.CounterLocalService counterLocalService;
 	@BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)

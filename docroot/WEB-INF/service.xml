@@ -142,6 +142,44 @@
             <finder-column name="division"></finder-column>
         </finder>
 	</entity>
+	<entity name="TimetableCourse" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="timetableCourseId" type="long" primary="true"></column>
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+        <column name="courseId" type="long"></column>
+        <column name="subjectType" type="String"></column>
+        <column name="recommendedTerm" type="int"></column>
+        <column name="limit" type="int"></column>
+        <column name="lecturers" type="Collection" mapping-table="Lecturers_TimetableCourses" entity="Lecturer"></column>
+        <column name="classScheduleInfo" type="String"></column>
+        <column name="description" type="String"></column>
+	</entity>
+	<entity name="Lecturer" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="lecturerId" type="long" primary="true"></column>
+
+		<!-- Group instance -->
+
+		<!-- Audit fields -->
+        <column name="lecturerName" type="String"></column>
+        <column name="userId" type="long"></column>
+        <column name="timetableCourses" type="Collection" mapping-table="Lecturers_TimetableCourses" entity="TimetableCourse"></column>
+	</entity>
 	<exceptions>
         <exception>CurriculumCode</exception>
         <exception>CurriculumName</exception>

@@ -28,8 +28,10 @@ import com.liferay.portal.model.BaseModel;
 import hu.unideb.inf.model.CourseClp;
 import hu.unideb.inf.model.CourseTypeClp;
 import hu.unideb.inf.model.CurriculumClp;
+import hu.unideb.inf.model.LecturerClp;
 import hu.unideb.inf.model.SemesterClp;
 import hu.unideb.inf.model.SubjectClp;
+import hu.unideb.inf.model.TimetableCourseClp;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -118,12 +120,20 @@ public class ClpSerializer {
 			return translateInputCurriculum(oldModel);
 		}
 
+		if (oldModelClassName.equals(LecturerClp.class.getName())) {
+			return translateInputLecturer(oldModel);
+		}
+
 		if (oldModelClassName.equals(SemesterClp.class.getName())) {
 			return translateInputSemester(oldModel);
 		}
 
 		if (oldModelClassName.equals(SubjectClp.class.getName())) {
 			return translateInputSubject(oldModel);
+		}
+
+		if (oldModelClassName.equals(TimetableCourseClp.class.getName())) {
+			return translateInputTimetableCourse(oldModel);
 		}
 
 		return oldModel;
@@ -171,6 +181,16 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateInputLecturer(BaseModel<?> oldModel) {
+		LecturerClp oldClpModel = (LecturerClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getLecturerRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
 	public static Object translateInputSemester(BaseModel<?> oldModel) {
 		SemesterClp oldClpModel = (SemesterClp)oldModel;
 
@@ -185,6 +205,16 @@ public class ClpSerializer {
 		SubjectClp oldClpModel = (SubjectClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getSubjectRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputTimetableCourse(BaseModel<?> oldModel) {
+		TimetableCourseClp oldClpModel = (TimetableCourseClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getTimetableCourseRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -316,6 +346,42 @@ public class ClpSerializer {
 			}
 		}
 
+		if (oldModelClassName.equals("hu.unideb.inf.model.impl.LecturerImpl")) {
+			return translateOutputLecturer(oldModel);
+		}
+		else if (oldModelClassName.endsWith("Clp")) {
+			try {
+				ClassLoader classLoader = ClpSerializer.class.getClassLoader();
+
+				Method getClpSerializerClassMethod = oldModelClass.getMethod(
+						"getClpSerializerClass");
+
+				Class<?> oldClpSerializerClass = (Class<?>)getClpSerializerClassMethod.invoke(oldModel);
+
+				Class<?> newClpSerializerClass = classLoader.loadClass(oldClpSerializerClass.getName());
+
+				Method translateOutputMethod = newClpSerializerClass.getMethod("translateOutput",
+						BaseModel.class);
+
+				Class<?> oldModelModelClass = oldModel.getModelClass();
+
+				Method getRemoteModelMethod = oldModelClass.getMethod("get" +
+						oldModelModelClass.getSimpleName() + "RemoteModel");
+
+				Object oldRemoteModel = getRemoteModelMethod.invoke(oldModel);
+
+				BaseModel<?> newModel = (BaseModel<?>)translateOutputMethod.invoke(null,
+						oldRemoteModel);
+
+				return newModel;
+			}
+			catch (Throwable t) {
+				if (_log.isInfoEnabled()) {
+					_log.info("Unable to translate " + oldModelClassName, t);
+				}
+			}
+		}
+
 		if (oldModelClassName.equals("hu.unideb.inf.model.impl.SemesterImpl")) {
 			return translateOutputSemester(oldModel);
 		}
@@ -354,6 +420,43 @@ public class ClpSerializer {
 
 		if (oldModelClassName.equals("hu.unideb.inf.model.impl.SubjectImpl")) {
 			return translateOutputSubject(oldModel);
+		}
+		else if (oldModelClassName.endsWith("Clp")) {
+			try {
+				ClassLoader classLoader = ClpSerializer.class.getClassLoader();
+
+				Method getClpSerializerClassMethod = oldModelClass.getMethod(
+						"getClpSerializerClass");
+
+				Class<?> oldClpSerializerClass = (Class<?>)getClpSerializerClassMethod.invoke(oldModel);
+
+				Class<?> newClpSerializerClass = classLoader.loadClass(oldClpSerializerClass.getName());
+
+				Method translateOutputMethod = newClpSerializerClass.getMethod("translateOutput",
+						BaseModel.class);
+
+				Class<?> oldModelModelClass = oldModel.getModelClass();
+
+				Method getRemoteModelMethod = oldModelClass.getMethod("get" +
+						oldModelModelClass.getSimpleName() + "RemoteModel");
+
+				Object oldRemoteModel = getRemoteModelMethod.invoke(oldModel);
+
+				BaseModel<?> newModel = (BaseModel<?>)translateOutputMethod.invoke(null,
+						oldRemoteModel);
+
+				return newModel;
+			}
+			catch (Throwable t) {
+				if (_log.isInfoEnabled()) {
+					_log.info("Unable to translate " + oldModelClassName, t);
+				}
+			}
+		}
+
+		if (oldModelClassName.equals(
+					"hu.unideb.inf.model.impl.TimetableCourseImpl")) {
+			return translateOutputTimetableCourse(oldModel);
 		}
 		else if (oldModelClassName.endsWith("Clp")) {
 			try {
@@ -544,12 +647,20 @@ public class ClpSerializer {
 			return new hu.unideb.inf.NoSuchCurriculumException();
 		}
 
+		if (className.equals("hu.unideb.inf.NoSuchLecturerException")) {
+			return new hu.unideb.inf.NoSuchLecturerException();
+		}
+
 		if (className.equals("hu.unideb.inf.NoSuchSemesterException")) {
 			return new hu.unideb.inf.NoSuchSemesterException();
 		}
 
 		if (className.equals("hu.unideb.inf.NoSuchSubjectException")) {
 			return new hu.unideb.inf.NoSuchSubjectException();
+		}
+
+		if (className.equals("hu.unideb.inf.NoSuchTimetableCourseException")) {
+			return new hu.unideb.inf.NoSuchTimetableCourseException();
 		}
 
 		return throwable;
@@ -585,6 +696,16 @@ public class ClpSerializer {
 		return newModel;
 	}
 
+	public static Object translateOutputLecturer(BaseModel<?> oldModel) {
+		LecturerClp newModel = new LecturerClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setLecturerRemoteModel(oldModel);
+
+		return newModel;
+	}
+
 	public static Object translateOutputSemester(BaseModel<?> oldModel) {
 		SemesterClp newModel = new SemesterClp();
 
@@ -601,6 +722,16 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setSubjectRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputTimetableCourse(BaseModel<?> oldModel) {
+		TimetableCourseClp newModel = new TimetableCourseClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setTimetableCourseRemoteModel(oldModel);
 
 		return newModel;
 	}

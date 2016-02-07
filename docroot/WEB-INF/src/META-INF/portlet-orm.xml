@@ -73,6 +73,17 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="hu.unideb.inf.model.impl.LecturerModelImpl">
+		<attributes>
+			<id name="lecturerId" />
+			<basic name="lecturerName" />
+			<basic name="userId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="hu.unideb.inf.model.impl.SemesterModelImpl">
 		<attributes>
 			<id name="semesterId" />
@@ -118,6 +129,33 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="hu.unideb.inf.model.impl.TimetableCourseModelImpl">
+		<attributes>
+			<id name="timetableCourseId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="courseId" />
+			<basic name="subjectType" />
+			<basic name="recommendedTerm" />
+			<basic name="limit">
+				<column name="LIMIT_" />
+			</basic>
+			<basic name="classScheduleInfo" />
+			<basic name="description" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<entity class="hu.unideb.inf.model.impl.CourseImpl" name="Course">
 		<table name="unideb_syllabus_manager_Course" />
 		<attributes />
@@ -130,12 +168,20 @@
 		<table name="unideb_syllabus_manager_Curriculum" />
 		<attributes />
 	</entity>
+	<entity class="hu.unideb.inf.model.impl.LecturerImpl" name="Lecturer">
+		<table name="unideb_syllabus_manager_Lecturer" />
+		<attributes />
+	</entity>
 	<entity class="hu.unideb.inf.model.impl.SemesterImpl" name="Semester">
 		<table name="unideb_syllabus_manager_Semester" />
 		<attributes />
 	</entity>
 	<entity class="hu.unideb.inf.model.impl.SubjectImpl" name="Subject">
 		<table name="unideb_syllabus_manager_Subject" />
+		<attributes />
+	</entity>
+	<entity class="hu.unideb.inf.model.impl.TimetableCourseImpl" name="TimetableCourse">
+		<table name="unideb_syllabus_manager_TimetableCourse" />
 		<attributes />
 	</entity>
 </entity-mappings>

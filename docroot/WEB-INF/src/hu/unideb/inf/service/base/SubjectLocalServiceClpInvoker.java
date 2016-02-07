@@ -100,58 +100,58 @@ public class SubjectLocalServiceClpInvoker {
 
 		_methodParameterTypes15 = new String[] { "hu.unideb.inf.model.Subject" };
 
-		_methodName58 = "getBeanIdentifier";
+		_methodName70 = "getBeanIdentifier";
 
-		_methodParameterTypes58 = new String[] {  };
+		_methodParameterTypes70 = new String[] {  };
 
-		_methodName59 = "setBeanIdentifier";
+		_methodName71 = "setBeanIdentifier";
 
-		_methodParameterTypes59 = new String[] { "java.lang.String" };
+		_methodParameterTypes71 = new String[] { "java.lang.String" };
 
-		_methodName64 = "getSubjects";
+		_methodName76 = "getSubjects";
 
-		_methodParameterTypes64 = new String[] {  };
+		_methodParameterTypes76 = new String[] {  };
 
-		_methodName65 = "getSubjectByCode";
+		_methodName77 = "getSubjectByCode";
 
-		_methodParameterTypes65 = new String[] { "java.lang.String" };
+		_methodParameterTypes77 = new String[] { "java.lang.String" };
 
-		_methodName66 = "fetchSubjectByCode";
+		_methodName78 = "fetchSubjectByCode";
 
-		_methodParameterTypes66 = new String[] { "java.lang.String" };
+		_methodParameterTypes78 = new String[] { "java.lang.String" };
 
-		_methodName67 = "getSubjectsByCurriculumId";
+		_methodName79 = "getSubjectsByCurriculumId";
 
-		_methodParameterTypes67 = new String[] { "long" };
+		_methodParameterTypes79 = new String[] { "long" };
 
-		_methodName68 = "getSubjectsByCurriculumId";
+		_methodName80 = "getSubjectsByCurriculumId";
 
-		_methodParameterTypes68 = new String[] { "long", "int", "int" };
+		_methodParameterTypes80 = new String[] { "long", "int", "int" };
 
-		_methodName69 = "getSubjectsCountByCurriculumId";
+		_methodName81 = "getSubjectsCountByCurriculumId";
 
-		_methodParameterTypes69 = new String[] { "long" };
+		_methodParameterTypes81 = new String[] { "long" };
 
-		_methodName70 = "isSubjectExistsWithCode";
+		_methodName82 = "isSubjectExistsWithCode";
 
-		_methodParameterTypes70 = new String[] { "java.lang.String" };
+		_methodParameterTypes82 = new String[] { "java.lang.String" };
 
-		_methodName71 = "addSubject";
+		_methodName83 = "addSubject";
 
-		_methodParameterTypes71 = new String[] {
+		_methodParameterTypes83 = new String[] {
 				"java.lang.String", "java.lang.String", "int", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName72 = "deleteSubject";
+		_methodName84 = "deleteSubject";
 
-		_methodParameterTypes72 = new String[] {
+		_methodParameterTypes84 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName73 = "updateSubject";
+		_methodName85 = "updateSubject";
 
-		_methodParameterTypes73 = new String[] {
+		_methodParameterTypes85 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String", "int",
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
@@ -246,57 +246,57 @@ public class SubjectLocalServiceClpInvoker {
 			return SubjectLocalServiceUtil.updateSubject((hu.unideb.inf.model.Subject)arguments[0]);
 		}
 
-		if (_methodName58.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+		if (_methodName70.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
 			return SubjectLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName59.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+		if (_methodName71.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
 			SubjectLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName76.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
 			return SubjectLocalServiceUtil.getSubjects();
 		}
 
-		if (_methodName65.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+		if (_methodName77.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
 			return SubjectLocalServiceUtil.getSubjectByCode((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName66.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+		if (_methodName78.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
 			return SubjectLocalServiceUtil.fetchSubjectByCode((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName67.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+		if (_methodName79.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
 			return SubjectLocalServiceUtil.getSubjectsByCurriculumId(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName68.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+		if (_methodName80.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
 			return SubjectLocalServiceUtil.getSubjectsByCurriculumId(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
-		if (_methodName69.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+		if (_methodName81.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
 			return SubjectLocalServiceUtil.getSubjectsCountByCurriculumId(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName70.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+		if (_methodName82.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
 			return SubjectLocalServiceUtil.isSubjectExistsWithCode((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName71.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+		if (_methodName83.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes83, parameterTypes)) {
 			return SubjectLocalServiceUtil.addSubject((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1],
 				((Integer)arguments[2]).intValue(),
@@ -304,14 +304,14 @@ public class SubjectLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[4]);
 		}
 
-		if (_methodName72.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
+		if (_methodName84.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes84, parameterTypes)) {
 			return SubjectLocalServiceUtil.deleteSubject(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
-		if (_methodName73.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
+		if (_methodName85.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes85, parameterTypes)) {
 			return SubjectLocalServiceUtil.updateSubject(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
@@ -355,28 +355,28 @@ public class SubjectLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName58;
-	private String[] _methodParameterTypes58;
-	private String _methodName59;
-	private String[] _methodParameterTypes59;
-	private String _methodName64;
-	private String[] _methodParameterTypes64;
-	private String _methodName65;
-	private String[] _methodParameterTypes65;
-	private String _methodName66;
-	private String[] _methodParameterTypes66;
-	private String _methodName67;
-	private String[] _methodParameterTypes67;
-	private String _methodName68;
-	private String[] _methodParameterTypes68;
-	private String _methodName69;
-	private String[] _methodParameterTypes69;
 	private String _methodName70;
 	private String[] _methodParameterTypes70;
 	private String _methodName71;
 	private String[] _methodParameterTypes71;
-	private String _methodName72;
-	private String[] _methodParameterTypes72;
-	private String _methodName73;
-	private String[] _methodParameterTypes73;
+	private String _methodName76;
+	private String[] _methodParameterTypes76;
+	private String _methodName77;
+	private String[] _methodParameterTypes77;
+	private String _methodName78;
+	private String[] _methodParameterTypes78;
+	private String _methodName79;
+	private String[] _methodParameterTypes79;
+	private String _methodName80;
+	private String[] _methodParameterTypes80;
+	private String _methodName81;
+	private String[] _methodParameterTypes81;
+	private String _methodName82;
+	private String[] _methodParameterTypes82;
+	private String _methodName83;
+	private String[] _methodParameterTypes83;
+	private String _methodName84;
+	private String[] _methodParameterTypes84;
+	private String _methodName85;
+	private String[] _methodParameterTypes85;
 }

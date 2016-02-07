@@ -47,6 +47,11 @@
 			<hint-collection name="TEXTAREA" />
 		</field>
 	</model>
+	<model name="hu.unideb.inf.model.Lecturer">
+		<field name="lecturerId" type="long" />
+		<field name="lecturerName" type="String" />
+		<field name="userId" type="long" />
+	</model>
 	<model name="hu.unideb.inf.model.Semester">
 		<field name="semesterId" type="long" />
 		<field name="groupId" type="long" />
@@ -75,5 +80,20 @@
 		</field>
 		<field name="credit" type="int" />
 		<field name="curriculumId" type="long" />
+	</model>
+	<model name="hu.unideb.inf.model.TimetableCourse">
+		<field name="timetableCourseId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="courseId" type="long" />
+		<field name="subjectType" type="String" />
+		<field name="recommendedTerm" type="int" />
+		<field name="limit" type="int" />
+		<field name="classScheduleInfo" type="String" />
+		<field name="description" type="String" />
 	</model>
 </model-hints>

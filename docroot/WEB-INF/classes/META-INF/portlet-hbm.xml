@@ -5,8 +5,10 @@
 	<import class="hu.unideb.inf.model.Course" />
 	<import class="hu.unideb.inf.model.CourseType" />
 	<import class="hu.unideb.inf.model.Curriculum" />
+	<import class="hu.unideb.inf.model.Lecturer" />
 	<import class="hu.unideb.inf.model.Semester" />
 	<import class="hu.unideb.inf.model.Subject" />
+	<import class="hu.unideb.inf.model.TimetableCourse" />
 	<class name="hu.unideb.inf.model.impl.CourseImpl" table="unideb_syllabus_manager_Course">
 		<cache usage="read-write" />
 		<id name="courseId" type="long">
@@ -50,6 +52,14 @@
 		<property name="curriculumCode" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="curriculumName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
+	<class name="hu.unideb.inf.model.impl.LecturerImpl" table="unideb_syllabus_manager_Lecturer">
+		<cache usage="read-write" />
+		<id name="lecturerId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="lecturerName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
 	<class name="hu.unideb.inf.model.impl.SemesterImpl" table="unideb_syllabus_manager_Semester">
 		<cache usage="read-write" />
 		<id name="semesterId" type="long">
@@ -80,5 +90,23 @@
 		<property name="subjectName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="credit" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="curriculumId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="hu.unideb.inf.model.impl.TimetableCourseImpl" table="unideb_syllabus_manager_TimetableCourse">
+		<cache usage="read-write" />
+		<id name="timetableCourseId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="courseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="subjectType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="recommendedTerm" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="limit" type="com.liferay.portal.dao.orm.hibernate.IntegerType" column="limit_" />
+		<property name="classScheduleInfo" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 </hibernate-mapping>
