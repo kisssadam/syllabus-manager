@@ -186,6 +186,57 @@ public class TimetableCourseLocalServiceClp
 		_methodName33 = "setBeanIdentifier";
 
 		_methodParameterTypes33 = new String[] { "java.lang.String" };
+
+		_methodName35 = "getTimetableCourses";
+
+		_methodParameterTypes35 = new String[] {  };
+
+		_methodName36 = "findTimetableCourseByTimetableCourseCode";
+
+		_methodParameterTypes36 = new String[] { "java.lang.String" };
+
+		_methodName37 = "fetchTimetableCourseByTimetableCourseCode";
+
+		_methodParameterTypes37 = new String[] { "java.lang.String" };
+
+		_methodName38 = "getTimetableCourseByC_S";
+
+		_methodParameterTypes38 = new String[] { "long", "long" };
+
+		_methodName39 = "getTimetableCourseByCourseId";
+
+		_methodParameterTypes39 = new String[] { "long" };
+
+		_methodName40 = "getTimetableCourseByCourseId";
+
+		_methodParameterTypes40 = new String[] { "long", "int", "int" };
+
+		_methodName41 = "getTimetableCourseByCourseIdCount";
+
+		_methodParameterTypes41 = new String[] { "long" };
+
+		_methodName42 = "addTimetableCourse";
+
+		_methodParameterTypes42 = new String[] {
+				"long", "long", "java.lang.String", "java.lang.String", "int",
+				"int", "java.lang.String[][]", "java.lang.String",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName43 = "updateTimetableCourse";
+
+		_methodParameterTypes43 = new String[] {
+				"long", "long", "long", "long", "java.lang.String",
+				"java.lang.String", "int", "int", "java.lang.String[][]",
+				"java.lang.String", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName44 = "deleteTimetableCourse";
+
+		_methodParameterTypes44 = new String[] {
+				"long", "com.liferay.portal.service.ServiceContext"
+			};
 	}
 
 	@Override
@@ -1208,6 +1259,387 @@ public class TimetableCourseLocalServiceClp
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourses()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName35,
+					_methodParameterTypes35, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<hu.unideb.inf.model.TimetableCourse>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public hu.unideb.inf.model.TimetableCourse findTimetableCourseByTimetableCourseCode(
+		java.lang.String timetableCourseCode)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchTimetableCourseException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName36,
+					_methodParameterTypes36,
+					new Object[] {
+						ClpSerializer.translateInput(timetableCourseCode)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof hu.unideb.inf.NoSuchTimetableCourseException) {
+				throw (hu.unideb.inf.NoSuchTimetableCourseException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.TimetableCourse)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public hu.unideb.inf.model.TimetableCourse fetchTimetableCourseByTimetableCourseCode(
+		java.lang.String timetableCourseCode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName37,
+					_methodParameterTypes37,
+					new Object[] {
+						ClpSerializer.translateInput(timetableCourseCode)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.TimetableCourse)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public hu.unideb.inf.model.TimetableCourse getTimetableCourseByC_S(
+		long courseId, long semesterId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchTimetableCourseException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName38,
+					_methodParameterTypes38,
+					new Object[] { courseId, semesterId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof hu.unideb.inf.NoSuchTimetableCourseException) {
+				throw (hu.unideb.inf.NoSuchTimetableCourseException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.TimetableCourse)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+		long courseId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName39,
+					_methodParameterTypes39, new Object[] { courseId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<hu.unideb.inf.model.TimetableCourse>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+		long courseId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName40,
+					_methodParameterTypes40,
+					new Object[] { courseId, start, end });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<hu.unideb.inf.model.TimetableCourse>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public int getTimetableCourseByCourseIdCount(long courseId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName41,
+					_methodParameterTypes41, new Object[] { courseId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	@Override
+	public hu.unideb.inf.model.TimetableCourse addTimetableCourse(
+		long courseId, long semesterId, java.lang.String timetableCourseCode,
+		java.lang.String subjectType, int recommendedTerm, int limit,
+		java.lang.String[] lecturerNames, java.lang.String classScheduleInfo,
+		java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName42,
+					_methodParameterTypes42,
+					new Object[] {
+						courseId,
+						
+					semesterId,
+						
+					ClpSerializer.translateInput(timetableCourseCode),
+						
+					ClpSerializer.translateInput(subjectType),
+						
+					recommendedTerm,
+						
+					limit,
+						
+					ClpSerializer.translateInput(lecturerNames),
+						
+					ClpSerializer.translateInput(classScheduleInfo),
+						
+					ClpSerializer.translateInput(description),
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.TimetableCourse)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public hu.unideb.inf.model.TimetableCourse updateTimetableCourse(
+		long userId, long timetableCourseId, long courseId, long semesterId,
+		java.lang.String timetableCourseCode, java.lang.String subjectType,
+		int recommendedTerm, int limit, java.lang.String[] lecturerNames,
+		java.lang.String classScheduleInfo, java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName43,
+					_methodParameterTypes43,
+					new Object[] {
+						userId,
+						
+					timetableCourseId,
+						
+					courseId,
+						
+					semesterId,
+						
+					ClpSerializer.translateInput(timetableCourseCode),
+						
+					ClpSerializer.translateInput(subjectType),
+						
+					recommendedTerm,
+						
+					limit,
+						
+					ClpSerializer.translateInput(lecturerNames),
+						
+					ClpSerializer.translateInput(classScheduleInfo),
+						
+					ClpSerializer.translateInput(description),
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.TimetableCourse)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public hu.unideb.inf.model.TimetableCourse deleteTimetableCourse(
+		long timetableCourseId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName44,
+					_methodParameterTypes44,
+					new Object[] {
+						timetableCourseId,
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.TimetableCourse)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -1277,4 +1709,24 @@ public class TimetableCourseLocalServiceClp
 	private String[] _methodParameterTypes32;
 	private String _methodName33;
 	private String[] _methodParameterTypes33;
+	private String _methodName35;
+	private String[] _methodParameterTypes35;
+	private String _methodName36;
+	private String[] _methodParameterTypes36;
+	private String _methodName37;
+	private String[] _methodParameterTypes37;
+	private String _methodName38;
+	private String[] _methodParameterTypes38;
+	private String _methodName39;
+	private String[] _methodParameterTypes39;
+	private String _methodName40;
+	private String[] _methodParameterTypes40;
+	private String _methodName41;
+	private String[] _methodParameterTypes41;
+	private String _methodName42;
+	private String[] _methodParameterTypes42;
+	private String _methodName43;
+	private String[] _methodParameterTypes43;
+	private String _methodName44;
+	private String[] _methodParameterTypes44;
 }

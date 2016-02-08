@@ -83,6 +83,8 @@ public class TimetableCourseClp extends BaseModelImpl<TimetableCourse>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("courseId", getCourseId());
+		attributes.put("semesterId", getSemesterId());
+		attributes.put("timetableCourseCode", getTimetableCourseCode());
 		attributes.put("subjectType", getSubjectType());
 		attributes.put("recommendedTerm", getRecommendedTerm());
 		attributes.put("limit", getLimit());
@@ -140,6 +142,19 @@ public class TimetableCourseClp extends BaseModelImpl<TimetableCourse>
 
 		if (courseId != null) {
 			setCourseId(courseId);
+		}
+
+		Long semesterId = (Long)attributes.get("semesterId");
+
+		if (semesterId != null) {
+			setSemesterId(semesterId);
+		}
+
+		String timetableCourseCode = (String)attributes.get(
+				"timetableCourseCode");
+
+		if (timetableCourseCode != null) {
+			setTimetableCourseCode(timetableCourseCode);
 		}
 
 		String subjectType = (String)attributes.get("subjectType");
@@ -369,6 +384,53 @@ public class TimetableCourseClp extends BaseModelImpl<TimetableCourse>
 	}
 
 	@Override
+	public long getSemesterId() {
+		return _semesterId;
+	}
+
+	@Override
+	public void setSemesterId(long semesterId) {
+		_semesterId = semesterId;
+
+		if (_timetableCourseRemoteModel != null) {
+			try {
+				Class<?> clazz = _timetableCourseRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSemesterId", long.class);
+
+				method.invoke(_timetableCourseRemoteModel, semesterId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getTimetableCourseCode() {
+		return _timetableCourseCode;
+	}
+
+	@Override
+	public void setTimetableCourseCode(String timetableCourseCode) {
+		_timetableCourseCode = timetableCourseCode;
+
+		if (_timetableCourseRemoteModel != null) {
+			try {
+				Class<?> clazz = _timetableCourseRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setTimetableCourseCode",
+						String.class);
+
+				method.invoke(_timetableCourseRemoteModel, timetableCourseCode);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public String getSubjectType() {
 		return _subjectType;
 	}
@@ -563,6 +625,8 @@ public class TimetableCourseClp extends BaseModelImpl<TimetableCourse>
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setCourseId(getCourseId());
+		clone.setSemesterId(getSemesterId());
+		clone.setTimetableCourseCode(getTimetableCourseCode());
 		clone.setSubjectType(getSubjectType());
 		clone.setRecommendedTerm(getRecommendedTerm());
 		clone.setLimit(getLimit());
@@ -620,7 +684,7 @@ public class TimetableCourseClp extends BaseModelImpl<TimetableCourse>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{timetableCourseId=");
 		sb.append(getTimetableCourseId());
@@ -638,6 +702,10 @@ public class TimetableCourseClp extends BaseModelImpl<TimetableCourse>
 		sb.append(getModifiedDate());
 		sb.append(", courseId=");
 		sb.append(getCourseId());
+		sb.append(", semesterId=");
+		sb.append(getSemesterId());
+		sb.append(", timetableCourseCode=");
+		sb.append(getTimetableCourseCode());
 		sb.append(", subjectType=");
 		sb.append(getSubjectType());
 		sb.append(", recommendedTerm=");
@@ -655,7 +723,7 @@ public class TimetableCourseClp extends BaseModelImpl<TimetableCourse>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("<model><model-name>");
 		sb.append("hu.unideb.inf.model.TimetableCourse");
@@ -694,6 +762,14 @@ public class TimetableCourseClp extends BaseModelImpl<TimetableCourse>
 		sb.append(getCourseId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>semesterId</column-name><column-value><![CDATA[");
+		sb.append(getSemesterId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>timetableCourseCode</column-name><column-value><![CDATA[");
+		sb.append(getTimetableCourseCode());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>subjectType</column-name><column-value><![CDATA[");
 		sb.append(getSubjectType());
 		sb.append("]]></column-value></column>");
@@ -728,6 +804,8 @@ public class TimetableCourseClp extends BaseModelImpl<TimetableCourse>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _courseId;
+	private long _semesterId;
+	private String _timetableCourseCode;
 	private String _subjectType;
 	private int _recommendedTerm;
 	private int _limit;

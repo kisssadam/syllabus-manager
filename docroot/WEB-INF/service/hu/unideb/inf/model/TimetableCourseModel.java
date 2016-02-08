@@ -205,6 +205,35 @@ public interface TimetableCourseModel extends BaseModel<TimetableCourse>,
 	public void setCourseId(long courseId);
 
 	/**
+	 * Returns the semester ID of this timetable course.
+	 *
+	 * @return the semester ID of this timetable course
+	 */
+	public long getSemesterId();
+
+	/**
+	 * Sets the semester ID of this timetable course.
+	 *
+	 * @param semesterId the semester ID of this timetable course
+	 */
+	public void setSemesterId(long semesterId);
+
+	/**
+	 * Returns the timetable course code of this timetable course.
+	 *
+	 * @return the timetable course code of this timetable course
+	 */
+	@AutoEscape
+	public String getTimetableCourseCode();
+
+	/**
+	 * Sets the timetable course code of this timetable course.
+	 *
+	 * @param timetableCourseCode the timetable course code of this timetable course
+	 */
+	public void setTimetableCourseCode(String timetableCourseCode);
+
+	/**
 	 * Returns the subject type of this timetable course.
 	 *
 	 * @return the subject type of this timetable course

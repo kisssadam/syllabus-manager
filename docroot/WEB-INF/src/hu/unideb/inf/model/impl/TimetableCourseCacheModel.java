@@ -38,7 +38,7 @@ public class TimetableCourseCacheModel implements CacheModel<TimetableCourse>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{timetableCourseId=");
 		sb.append(timetableCourseId);
@@ -56,6 +56,10 @@ public class TimetableCourseCacheModel implements CacheModel<TimetableCourse>,
 		sb.append(modifiedDate);
 		sb.append(", courseId=");
 		sb.append(courseId);
+		sb.append(", semesterId=");
+		sb.append(semesterId);
+		sb.append(", timetableCourseCode=");
+		sb.append(timetableCourseCode);
 		sb.append(", subjectType=");
 		sb.append(subjectType);
 		sb.append(", recommendedTerm=");
@@ -102,6 +106,14 @@ public class TimetableCourseCacheModel implements CacheModel<TimetableCourse>,
 		}
 
 		timetableCourseImpl.setCourseId(courseId);
+		timetableCourseImpl.setSemesterId(semesterId);
+
+		if (timetableCourseCode == null) {
+			timetableCourseImpl.setTimetableCourseCode(StringPool.BLANK);
+		}
+		else {
+			timetableCourseImpl.setTimetableCourseCode(timetableCourseCode);
+		}
 
 		if (subjectType == null) {
 			timetableCourseImpl.setSubjectType(StringPool.BLANK);
@@ -142,6 +154,8 @@ public class TimetableCourseCacheModel implements CacheModel<TimetableCourse>,
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		courseId = objectInput.readLong();
+		semesterId = objectInput.readLong();
+		timetableCourseCode = objectInput.readUTF();
 		subjectType = objectInput.readUTF();
 		recommendedTerm = objectInput.readInt();
 		limit = objectInput.readInt();
@@ -167,6 +181,14 @@ public class TimetableCourseCacheModel implements CacheModel<TimetableCourse>,
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 		objectOutput.writeLong(courseId);
+		objectOutput.writeLong(semesterId);
+
+		if (timetableCourseCode == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(timetableCourseCode);
+		}
 
 		if (subjectType == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -201,6 +223,8 @@ public class TimetableCourseCacheModel implements CacheModel<TimetableCourse>,
 	public long createDate;
 	public long modifiedDate;
 	public long courseId;
+	public long semesterId;
+	public String timetableCourseCode;
 	public String subjectType;
 	public int recommendedTerm;
 	public int limit;

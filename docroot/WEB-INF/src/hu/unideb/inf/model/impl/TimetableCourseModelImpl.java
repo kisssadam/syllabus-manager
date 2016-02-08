@@ -74,13 +74,15 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "courseId", Types.BIGINT },
+			{ "semesterId", Types.BIGINT },
+			{ "timetableCourseCode", Types.VARCHAR },
 			{ "subjectType", Types.VARCHAR },
 			{ "recommendedTerm", Types.INTEGER },
 			{ "limit_", Types.INTEGER },
 			{ "classScheduleInfo", Types.VARCHAR },
 			{ "description", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_TimetableCourse (timetableCourseId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,courseId LONG,subjectType VARCHAR(75) null,recommendedTerm INTEGER,limit_ INTEGER,classScheduleInfo VARCHAR(75) null,description VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_TimetableCourse (timetableCourseId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,courseId LONG,semesterId LONG,timetableCourseCode VARCHAR(75) null,subjectType VARCHAR(75) null,recommendedTerm INTEGER,limit_ INTEGER,classScheduleInfo VARCHAR(75) null,description VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table unideb_syllabus_manager_TimetableCourse";
 	public static final String ORDER_BY_JPQL = " ORDER BY timetableCourse.timetableCourseId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY unideb_syllabus_manager_TimetableCourse.timetableCourseId ASC";
@@ -93,7 +95,13 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.finder.cache.enabled.hu.unideb.inf.model.TimetableCourse"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
+				"value.object.column.bitmask.enabled.hu.unideb.inf.model.TimetableCourse"),
+			true);
+	public static long COURSEID_COLUMN_BITMASK = 1L;
+	public static long SEMESTERID_COLUMN_BITMASK = 2L;
+	public static long TIMETABLECOURSECODE_COLUMN_BITMASK = 4L;
+	public static long TIMETABLECOURSEID_COLUMN_BITMASK = 8L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -116,6 +124,8 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setCourseId(soapModel.getCourseId());
+		model.setSemesterId(soapModel.getSemesterId());
+		model.setTimetableCourseCode(soapModel.getTimetableCourseCode());
 		model.setSubjectType(soapModel.getSubjectType());
 		model.setRecommendedTerm(soapModel.getRecommendedTerm());
 		model.setLimit(soapModel.getLimit());
@@ -207,6 +217,8 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("courseId", getCourseId());
+		attributes.put("semesterId", getSemesterId());
+		attributes.put("timetableCourseCode", getTimetableCourseCode());
 		attributes.put("subjectType", getSubjectType());
 		attributes.put("recommendedTerm", getRecommendedTerm());
 		attributes.put("limit", getLimit());
@@ -264,6 +276,19 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 
 		if (courseId != null) {
 			setCourseId(courseId);
+		}
+
+		Long semesterId = (Long)attributes.get("semesterId");
+
+		if (semesterId != null) {
+			setSemesterId(semesterId);
+		}
+
+		String timetableCourseCode = (String)attributes.get(
+				"timetableCourseCode");
+
+		if (timetableCourseCode != null) {
+			setTimetableCourseCode(timetableCourseCode);
 		}
 
 		String subjectType = (String)attributes.get("subjectType");
@@ -397,7 +422,68 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 
 	@Override
 	public void setCourseId(long courseId) {
+		_columnBitmask |= COURSEID_COLUMN_BITMASK;
+
+		if (!_setOriginalCourseId) {
+			_setOriginalCourseId = true;
+
+			_originalCourseId = _courseId;
+		}
+
 		_courseId = courseId;
+	}
+
+	public long getOriginalCourseId() {
+		return _originalCourseId;
+	}
+
+	@JSON
+	@Override
+	public long getSemesterId() {
+		return _semesterId;
+	}
+
+	@Override
+	public void setSemesterId(long semesterId) {
+		_columnBitmask |= SEMESTERID_COLUMN_BITMASK;
+
+		if (!_setOriginalSemesterId) {
+			_setOriginalSemesterId = true;
+
+			_originalSemesterId = _semesterId;
+		}
+
+		_semesterId = semesterId;
+	}
+
+	public long getOriginalSemesterId() {
+		return _originalSemesterId;
+	}
+
+	@JSON
+	@Override
+	public String getTimetableCourseCode() {
+		if (_timetableCourseCode == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _timetableCourseCode;
+		}
+	}
+
+	@Override
+	public void setTimetableCourseCode(String timetableCourseCode) {
+		_columnBitmask |= TIMETABLECOURSECODE_COLUMN_BITMASK;
+
+		if (_originalTimetableCourseCode == null) {
+			_originalTimetableCourseCode = _timetableCourseCode;
+		}
+
+		_timetableCourseCode = timetableCourseCode;
+	}
+
+	public String getOriginalTimetableCourseCode() {
+		return GetterUtil.getString(_originalTimetableCourseCode);
 	}
 
 	@JSON
@@ -470,6 +556,10 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 		_description = description;
 	}
 
+	public long getColumnBitmask() {
+		return _columnBitmask;
+	}
+
 	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
@@ -505,6 +595,8 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 		timetableCourseImpl.setCreateDate(getCreateDate());
 		timetableCourseImpl.setModifiedDate(getModifiedDate());
 		timetableCourseImpl.setCourseId(getCourseId());
+		timetableCourseImpl.setSemesterId(getSemesterId());
+		timetableCourseImpl.setTimetableCourseCode(getTimetableCourseCode());
 		timetableCourseImpl.setSubjectType(getSubjectType());
 		timetableCourseImpl.setRecommendedTerm(getRecommendedTerm());
 		timetableCourseImpl.setLimit(getLimit());
@@ -560,6 +652,19 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 
 	@Override
 	public void resetOriginalValues() {
+		TimetableCourseModelImpl timetableCourseModelImpl = this;
+
+		timetableCourseModelImpl._originalCourseId = timetableCourseModelImpl._courseId;
+
+		timetableCourseModelImpl._setOriginalCourseId = false;
+
+		timetableCourseModelImpl._originalSemesterId = timetableCourseModelImpl._semesterId;
+
+		timetableCourseModelImpl._setOriginalSemesterId = false;
+
+		timetableCourseModelImpl._originalTimetableCourseCode = timetableCourseModelImpl._timetableCourseCode;
+
+		timetableCourseModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -602,6 +707,17 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 
 		timetableCourseCacheModel.courseId = getCourseId();
 
+		timetableCourseCacheModel.semesterId = getSemesterId();
+
+		timetableCourseCacheModel.timetableCourseCode = getTimetableCourseCode();
+
+		String timetableCourseCode = timetableCourseCacheModel.timetableCourseCode;
+
+		if ((timetableCourseCode != null) &&
+				(timetableCourseCode.length() == 0)) {
+			timetableCourseCacheModel.timetableCourseCode = null;
+		}
+
 		timetableCourseCacheModel.subjectType = getSubjectType();
 
 		String subjectType = timetableCourseCacheModel.subjectType;
@@ -635,7 +751,7 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{timetableCourseId=");
 		sb.append(getTimetableCourseId());
@@ -653,6 +769,10 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 		sb.append(getModifiedDate());
 		sb.append(", courseId=");
 		sb.append(getCourseId());
+		sb.append(", semesterId=");
+		sb.append(getSemesterId());
+		sb.append(", timetableCourseCode=");
+		sb.append(getTimetableCourseCode());
 		sb.append(", subjectType=");
 		sb.append(getSubjectType());
 		sb.append(", recommendedTerm=");
@@ -670,7 +790,7 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("<model><model-name>");
 		sb.append("hu.unideb.inf.model.TimetableCourse");
@@ -707,6 +827,14 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 		sb.append(
 			"<column><column-name>courseId</column-name><column-value><![CDATA[");
 		sb.append(getCourseId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>semesterId</column-name><column-value><![CDATA[");
+		sb.append(getSemesterId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>timetableCourseCode</column-name><column-value><![CDATA[");
+		sb.append(getTimetableCourseCode());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>subjectType</column-name><column-value><![CDATA[");
@@ -747,10 +875,18 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _courseId;
+	private long _originalCourseId;
+	private boolean _setOriginalCourseId;
+	private long _semesterId;
+	private long _originalSemesterId;
+	private boolean _setOriginalSemesterId;
+	private String _timetableCourseCode;
+	private String _originalTimetableCourseCode;
 	private String _subjectType;
 	private int _recommendedTerm;
 	private int _limit;
 	private String _classScheduleInfo;
 	private String _description;
+	private long _columnBitmask;
 	private TimetableCourse _escapedModel;
 }

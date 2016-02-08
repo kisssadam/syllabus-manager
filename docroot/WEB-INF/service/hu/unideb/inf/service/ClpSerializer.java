@@ -599,12 +599,24 @@ public class ClpSerializer {
 			return new hu.unideb.inf.DuplicateCurriculumException();
 		}
 
+		if (className.equals("hu.unideb.inf.DuplicateLecturerException")) {
+			return new hu.unideb.inf.DuplicateLecturerException();
+		}
+
 		if (className.equals("hu.unideb.inf.DuplicateSemesterException")) {
 			return new hu.unideb.inf.DuplicateSemesterException();
 		}
 
 		if (className.equals("hu.unideb.inf.DuplicateSubjectException")) {
 			return new hu.unideb.inf.DuplicateSubjectException();
+		}
+
+		if (className.equals("hu.unideb.inf.DuplicateTimetableCourseException")) {
+			return new hu.unideb.inf.DuplicateTimetableCourseException();
+		}
+
+		if (className.equals("hu.unideb.inf.LecturerNameException")) {
+			return new hu.unideb.inf.LecturerNameException();
 		}
 
 		if (className.equals("hu.unideb.inf.SemesterDivisionException")) {
@@ -633,6 +645,29 @@ public class ClpSerializer {
 
 		if (className.equals("hu.unideb.inf.SubjectNameException")) {
 			return new hu.unideb.inf.SubjectNameException();
+		}
+
+		if (className.equals("hu.unideb.inf.TimetableCourseCodeException")) {
+			return new hu.unideb.inf.TimetableCourseCodeException();
+		}
+
+		if (className.equals(
+					"hu.unideb.inf.TimetableCourseLecturerNameException")) {
+			return new hu.unideb.inf.TimetableCourseLecturerNameException();
+		}
+
+		if (className.equals("hu.unideb.inf.TimetableCourseLimitException")) {
+			return new hu.unideb.inf.TimetableCourseLimitException();
+		}
+
+		if (className.equals(
+					"hu.unideb.inf.TimetableCourseRecommendedTermException")) {
+			return new hu.unideb.inf.TimetableCourseRecommendedTermException();
+		}
+
+		if (className.equals(
+					"hu.unideb.inf.TimetableCourseSubjectTypeException")) {
+			return new hu.unideb.inf.TimetableCourseSubjectTypeException();
 		}
 
 		if (className.equals("hu.unideb.inf.NoSuchCourseException")) {

@@ -143,6 +143,8 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="courseId" />
+			<basic name="semesterId" />
+			<basic name="timetableCourseCode" />
 			<basic name="subjectType" />
 			<basic name="recommendedTerm" />
 			<basic name="limit">

@@ -58,6 +58,8 @@ public class TimetableCourseWrapper implements TimetableCourse,
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("courseId", getCourseId());
+		attributes.put("semesterId", getSemesterId());
+		attributes.put("timetableCourseCode", getTimetableCourseCode());
 		attributes.put("subjectType", getSubjectType());
 		attributes.put("recommendedTerm", getRecommendedTerm());
 		attributes.put("limit", getLimit());
@@ -115,6 +117,19 @@ public class TimetableCourseWrapper implements TimetableCourse,
 
 		if (courseId != null) {
 			setCourseId(courseId);
+		}
+
+		Long semesterId = (Long)attributes.get("semesterId");
+
+		if (semesterId != null) {
+			setSemesterId(semesterId);
+		}
+
+		String timetableCourseCode = (String)attributes.get(
+				"timetableCourseCode");
+
+		if (timetableCourseCode != null) {
+			setTimetableCourseCode(timetableCourseCode);
 		}
 
 		String subjectType = (String)attributes.get("subjectType");
@@ -348,6 +363,46 @@ public class TimetableCourseWrapper implements TimetableCourse,
 	@Override
 	public void setCourseId(long courseId) {
 		_timetableCourse.setCourseId(courseId);
+	}
+
+	/**
+	* Returns the semester ID of this timetable course.
+	*
+	* @return the semester ID of this timetable course
+	*/
+	@Override
+	public long getSemesterId() {
+		return _timetableCourse.getSemesterId();
+	}
+
+	/**
+	* Sets the semester ID of this timetable course.
+	*
+	* @param semesterId the semester ID of this timetable course
+	*/
+	@Override
+	public void setSemesterId(long semesterId) {
+		_timetableCourse.setSemesterId(semesterId);
+	}
+
+	/**
+	* Returns the timetable course code of this timetable course.
+	*
+	* @return the timetable course code of this timetable course
+	*/
+	@Override
+	public java.lang.String getTimetableCourseCode() {
+		return _timetableCourse.getTimetableCourseCode();
+	}
+
+	/**
+	* Sets the timetable course code of this timetable course.
+	*
+	* @param timetableCourseCode the timetable course code of this timetable course
+	*/
+	@Override
+	public void setTimetableCourseCode(java.lang.String timetableCourseCode) {
+		_timetableCourse.setTimetableCourseCode(timetableCourseCode);
 	}
 
 	/**

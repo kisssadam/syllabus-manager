@@ -421,6 +421,87 @@ public class TimetableCourseLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourses()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTimetableCourses();
+	}
+
+	public static hu.unideb.inf.model.TimetableCourse findTimetableCourseByTimetableCourseCode(
+		java.lang.String timetableCourseCode)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchTimetableCourseException {
+		return getService()
+				   .findTimetableCourseByTimetableCourseCode(timetableCourseCode);
+	}
+
+	public static hu.unideb.inf.model.TimetableCourse fetchTimetableCourseByTimetableCourseCode(
+		java.lang.String timetableCourseCode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .fetchTimetableCourseByTimetableCourseCode(timetableCourseCode);
+	}
+
+	public static hu.unideb.inf.model.TimetableCourse getTimetableCourseByC_S(
+		long courseId, long semesterId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchTimetableCourseException {
+		return getService().getTimetableCourseByC_S(courseId, semesterId);
+	}
+
+	public static java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+		long courseId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTimetableCourseByCourseId(courseId);
+	}
+
+	public static java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+		long courseId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTimetableCourseByCourseId(courseId, start, end);
+	}
+
+	public static int getTimetableCourseByCourseIdCount(long courseId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTimetableCourseByCourseIdCount(courseId);
+	}
+
+	public static hu.unideb.inf.model.TimetableCourse addTimetableCourse(
+		long courseId, long semesterId, java.lang.String timetableCourseCode,
+		java.lang.String subjectType, int recommendedTerm, int limit,
+		java.lang.String[] lecturerNames, java.lang.String classScheduleInfo,
+		java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addTimetableCourse(courseId, semesterId,
+			timetableCourseCode, subjectType, recommendedTerm, limit,
+			lecturerNames, classScheduleInfo, description, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.TimetableCourse updateTimetableCourse(
+		long userId, long timetableCourseId, long courseId, long semesterId,
+		java.lang.String timetableCourseCode, java.lang.String subjectType,
+		int recommendedTerm, int limit, java.lang.String[] lecturerNames,
+		java.lang.String classScheduleInfo, java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateTimetableCourse(userId, timetableCourseId, courseId,
+			semesterId, timetableCourseCode, subjectType, recommendedTerm,
+			limit, lecturerNames, classScheduleInfo, description, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.TimetableCourse deleteTimetableCourse(
+		long timetableCourseId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .deleteTimetableCourse(timetableCourseId, serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

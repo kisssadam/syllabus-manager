@@ -90,6 +90,8 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="courseId" type="long" />
+		<field name="semesterId" type="long" />
+		<field name="timetableCourseCode" type="String" />
 		<field name="subjectType" type="String" />
 		<field name="recommendedTerm" type="int" />
 		<field name="limit" type="int" />

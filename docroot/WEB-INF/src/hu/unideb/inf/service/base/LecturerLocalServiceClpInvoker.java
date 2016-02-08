@@ -178,6 +178,42 @@ public class LecturerLocalServiceClpInvoker {
 		_methodName87 = "setBeanIdentifier";
 
 		_methodParameterTypes87 = new String[] { "java.lang.String" };
+
+		_methodName92 = "getLecturers";
+
+		_methodParameterTypes92 = new String[] {  };
+
+		_methodName93 = "getLecturerByName";
+
+		_methodParameterTypes93 = new String[] { "java.lang.String" };
+
+		_methodName94 = "fetchLecturerByName";
+
+		_methodParameterTypes94 = new String[] { "java.lang.String" };
+
+		_methodName95 = "isLecturerExists";
+
+		_methodParameterTypes95 = new String[] { "java.lang.String" };
+
+		_methodName96 = "addLecturer";
+
+		_methodParameterTypes96 = new String[] {
+				"java.lang.String", "long",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName97 = "deleteLecturer";
+
+		_methodParameterTypes97 = new String[] {
+				"long", "com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName98 = "updateLecturer";
+
+		_methodParameterTypes98 = new String[] {
+				"long", "java.lang.String", "long",
+				"com.liferay.portal.service.ServiceContext"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -396,6 +432,47 @@ public class LecturerLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName92.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes92, parameterTypes)) {
+			return LecturerLocalServiceUtil.getLecturers();
+		}
+
+		if (_methodName93.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes93, parameterTypes)) {
+			return LecturerLocalServiceUtil.getLecturerByName((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName94.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+			return LecturerLocalServiceUtil.fetchLecturerByName((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName95.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
+			return LecturerLocalServiceUtil.isLecturerExists((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName96.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+			return LecturerLocalServiceUtil.addLecturer((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[2]);
+		}
+
+		if (_methodName97.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
+			return LecturerLocalServiceUtil.deleteLecturer(((Long)arguments[0]).longValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[1]);
+		}
+
+		if (_methodName98.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
+			return LecturerLocalServiceUtil.updateLecturer(((Long)arguments[0]).longValue(),
+				(java.lang.String)arguments[1],
+				((Long)arguments[2]).longValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[3]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -467,4 +544,18 @@ public class LecturerLocalServiceClpInvoker {
 	private String[] _methodParameterTypes86;
 	private String _methodName87;
 	private String[] _methodParameterTypes87;
+	private String _methodName92;
+	private String[] _methodParameterTypes92;
+	private String _methodName93;
+	private String[] _methodParameterTypes93;
+	private String _methodName94;
+	private String[] _methodParameterTypes94;
+	private String _methodName95;
+	private String[] _methodParameterTypes95;
+	private String _methodName96;
+	private String[] _methodParameterTypes96;
+	private String _methodName97;
+	private String[] _methodParameterTypes97;
+	private String _methodName98;
+	private String[] _methodParameterTypes98;
 }

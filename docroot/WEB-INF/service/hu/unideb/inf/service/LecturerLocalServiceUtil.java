@@ -418,6 +418,54 @@ public class LecturerLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static java.util.List<hu.unideb.inf.model.Lecturer> getLecturers()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getLecturers();
+	}
+
+	public static hu.unideb.inf.model.Lecturer getLecturerByName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchLecturerException {
+		return getService().getLecturerByName(lecturerName);
+	}
+
+	public static hu.unideb.inf.model.Lecturer fetchLecturerByName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchLecturerByName(lecturerName);
+	}
+
+	public static boolean isLecturerExists(java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().isLecturerExists(lecturerName);
+	}
+
+	public static hu.unideb.inf.model.Lecturer addLecturer(
+		java.lang.String lecturerName, long userId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().addLecturer(lecturerName, userId, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.Lecturer deleteLecturer(long lecturerId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteLecturer(lecturerId, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.Lecturer updateLecturer(long lecturerId,
+		java.lang.String lecturerName, long userId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateLecturer(lecturerId, lecturerName, userId,
+			serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

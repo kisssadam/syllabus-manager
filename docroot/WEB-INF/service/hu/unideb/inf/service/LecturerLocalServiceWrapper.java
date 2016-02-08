@@ -452,6 +452,61 @@ public class LecturerLocalServiceWrapper implements LecturerLocalService,
 			arguments);
 	}
 
+	@Override
+	public java.util.List<hu.unideb.inf.model.Lecturer> getLecturers()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _lecturerLocalService.getLecturers();
+	}
+
+	@Override
+	public hu.unideb.inf.model.Lecturer getLecturerByName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchLecturerException {
+		return _lecturerLocalService.getLecturerByName(lecturerName);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Lecturer fetchLecturerByName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _lecturerLocalService.fetchLecturerByName(lecturerName);
+	}
+
+	@Override
+	public boolean isLecturerExists(java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _lecturerLocalService.isLecturerExists(lecturerName);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Lecturer addLecturer(
+		java.lang.String lecturerName, long userId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _lecturerLocalService.addLecturer(lecturerName, userId,
+			serviceContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Lecturer deleteLecturer(long lecturerId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _lecturerLocalService.deleteLecturer(lecturerId, serviceContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Lecturer updateLecturer(long lecturerId,
+		java.lang.String lecturerName, long userId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _lecturerLocalService.updateLecturer(lecturerId, lecturerName,
+			userId, serviceContext);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

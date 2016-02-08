@@ -160,12 +160,24 @@
 		<column name="createDate" type="Date"></column>
 		<column name="modifiedDate" type="Date"></column>
         <column name="courseId" type="long"></column>
+        <column name="semesterId" type="long"></column>
+        <column name="timetableCourseCode" type="String"></column>
         <column name="subjectType" type="String"></column>
         <column name="recommendedTerm" type="int"></column>
         <column name="limit" type="int"></column>
         <column name="lecturers" type="Collection" mapping-table="Lecturers_TimetableCourses" entity="Lecturer"></column>
         <column name="classScheduleInfo" type="String"></column>
         <column name="description" type="String"></column>
+        <finder name="TimetableCourseCode" return-type="TimetableCourse" unique="true">
+            <finder-column name="timetableCourseCode"></finder-column>
+        </finder>
+        <finder name="C_S" return-type="TimetableCourse" unique="true">
+            <finder-column name="courseId"></finder-column>
+            <finder-column name="semesterId"></finder-column>
+        </finder>
+        <finder name="CourseId" return-type="Collection">
+            <finder-column name="courseId"></finder-column>
+        </finder>
 	</entity>
 	<entity name="Lecturer" local-service="true">
 
@@ -179,6 +191,9 @@
         <column name="lecturerName" type="String"></column>
         <column name="userId" type="long"></column>
         <column name="timetableCourses" type="Collection" mapping-table="Lecturers_TimetableCourses" entity="TimetableCourse"></column>
+        <finder name="LecturerName" return-type="Lecturer" unique="true">
+            <finder-column name="lecturerName"></finder-column>
+        </finder>
 	</entity>
 	<exceptions>
         <exception>CurriculumCode</exception>
@@ -197,5 +212,13 @@
         <exception>SemesterYearOverlap</exception>
         <exception>SemesterYearDifference</exception>
         <exception>SemesterDivision</exception>
+        <exception>LecturerName</exception>
+        <exception>DuplicateLecturer</exception>
+        <exception>TimetableCourseSubjectType</exception>
+        <exception>TimetableCourseRecommendedTerm</exception>
+        <exception>TimetableCourseLimit</exception>
+        <exception>TimetableCourseLecturerName</exception>
+        <exception>DuplicateTimetableCourse</exception>
+        <exception>TimetableCourseCode</exception>
     </exceptions>
 </service-builder>

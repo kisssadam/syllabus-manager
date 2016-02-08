@@ -38,6 +38,64 @@ public interface LecturerPersistence extends BasePersistence<Lecturer> {
 	 */
 
 	/**
+	* Returns the lecturer where lecturerName = &#63; or throws a {@link hu.unideb.inf.NoSuchLecturerException} if it could not be found.
+	*
+	* @param lecturerName the lecturer name
+	* @return the matching lecturer
+	* @throws hu.unideb.inf.NoSuchLecturerException if a matching lecturer could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public hu.unideb.inf.model.Lecturer findByLecturerName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchLecturerException;
+
+	/**
+	* Returns the lecturer where lecturerName = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param lecturerName the lecturer name
+	* @return the matching lecturer, or <code>null</code> if a matching lecturer could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public hu.unideb.inf.model.Lecturer fetchByLecturerName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the lecturer where lecturerName = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param lecturerName the lecturer name
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching lecturer, or <code>null</code> if a matching lecturer could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public hu.unideb.inf.model.Lecturer fetchByLecturerName(
+		java.lang.String lecturerName, boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the lecturer where lecturerName = &#63; from the database.
+	*
+	* @param lecturerName the lecturer name
+	* @return the lecturer that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public hu.unideb.inf.model.Lecturer removeByLecturerName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchLecturerException;
+
+	/**
+	* Returns the number of lecturers where lecturerName = &#63;.
+	*
+	* @param lecturerName the lecturer name
+	* @return the number of matching lecturers
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByLecturerName(java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Caches the lecturer in the entity cache if it is enabled.
 	*
 	* @param lecturer the lecturer

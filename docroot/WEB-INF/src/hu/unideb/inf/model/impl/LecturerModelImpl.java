@@ -82,7 +82,11 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 	public static final boolean FINDER_CACHE_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.finder.cache.enabled.hu.unideb.inf.model.Lecturer"),
 			true);
-	public static final boolean COLUMN_BITMASK_ENABLED = false;
+	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
+				"value.object.column.bitmask.enabled.hu.unideb.inf.model.Lecturer"),
+			true);
+	public static long LECTURERNAME_COLUMN_BITMASK = 1L;
+	public static long LECTURERID_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -229,7 +233,17 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 
 	@Override
 	public void setLecturerName(String lecturerName) {
+		_columnBitmask |= LECTURERNAME_COLUMN_BITMASK;
+
+		if (_originalLecturerName == null) {
+			_originalLecturerName = _lecturerName;
+		}
+
 		_lecturerName = lecturerName;
+	}
+
+	public String getOriginalLecturerName() {
+		return GetterUtil.getString(_originalLecturerName);
 	}
 
 	@JSON
@@ -251,6 +265,10 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
+	}
+
+	public long getColumnBitmask() {
+		return _columnBitmask;
 	}
 
 	@Override
@@ -333,6 +351,11 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 
 	@Override
 	public void resetOriginalValues() {
+		LecturerModelImpl lecturerModelImpl = this;
+
+		lecturerModelImpl._originalLecturerName = lecturerModelImpl._lecturerName;
+
+		lecturerModelImpl._columnBitmask = 0;
 	}
 
 	@Override
@@ -401,7 +424,9 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 		};
 	private long _lecturerId;
 	private String _lecturerName;
+	private String _originalLecturerName;
 	private long _userId;
 	private String _userUuid;
+	private long _columnBitmask;
 	private Lecturer _escapedModel;
 }

@@ -178,6 +178,42 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 		_methodName33 = "setBeanIdentifier";
 
 		_methodParameterTypes33 = new String[] { "java.lang.String" };
+
+		_methodName35 = "getLecturers";
+
+		_methodParameterTypes35 = new String[] {  };
+
+		_methodName36 = "getLecturerByName";
+
+		_methodParameterTypes36 = new String[] { "java.lang.String" };
+
+		_methodName37 = "fetchLecturerByName";
+
+		_methodParameterTypes37 = new String[] { "java.lang.String" };
+
+		_methodName38 = "isLecturerExists";
+
+		_methodParameterTypes38 = new String[] { "java.lang.String" };
+
+		_methodName39 = "addLecturer";
+
+		_methodParameterTypes39 = new String[] {
+				"java.lang.String", "long",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName40 = "deleteLecturer";
+
+		_methodParameterTypes40 = new String[] {
+				"long", "com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName41 = "updateLecturer";
+
+		_methodParameterTypes41 = new String[] {
+				"long", "java.lang.String", "long",
+				"com.liferay.portal.service.ServiceContext"
+			};
 	}
 
 	@Override
@@ -1196,6 +1232,253 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public java.util.List<hu.unideb.inf.model.Lecturer> getLecturers()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName35,
+					_methodParameterTypes35, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<hu.unideb.inf.model.Lecturer>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Lecturer getLecturerByName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchLecturerException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName36,
+					_methodParameterTypes36,
+					new Object[] { ClpSerializer.translateInput(lecturerName) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof hu.unideb.inf.NoSuchLecturerException) {
+				throw (hu.unideb.inf.NoSuchLecturerException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.Lecturer)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Lecturer fetchLecturerByName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName37,
+					_methodParameterTypes37,
+					new Object[] { ClpSerializer.translateInput(lecturerName) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.Lecturer)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public boolean isLecturerExists(java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName38,
+					_methodParameterTypes38,
+					new Object[] { ClpSerializer.translateInput(lecturerName) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Boolean)returnObj).booleanValue();
+	}
+
+	@Override
+	public hu.unideb.inf.model.Lecturer addLecturer(
+		java.lang.String lecturerName, long userId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName39,
+					_methodParameterTypes39,
+					new Object[] {
+						ClpSerializer.translateInput(lecturerName),
+						
+					userId,
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.Lecturer)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Lecturer deleteLecturer(long lecturerId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName40,
+					_methodParameterTypes40,
+					new Object[] {
+						lecturerId,
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.Lecturer)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Lecturer updateLecturer(long lecturerId,
+		java.lang.String lecturerName, long userId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName41,
+					_methodParameterTypes41,
+					new Object[] {
+						lecturerId,
+						
+					ClpSerializer.translateInput(lecturerName),
+						
+					userId,
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.Lecturer)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -1265,4 +1548,18 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 	private String[] _methodParameterTypes32;
 	private String _methodName33;
 	private String[] _methodParameterTypes33;
+	private String _methodName35;
+	private String[] _methodParameterTypes35;
+	private String _methodName36;
+	private String[] _methodParameterTypes36;
+	private String _methodName37;
+	private String[] _methodParameterTypes37;
+	private String _methodName38;
+	private String[] _methodParameterTypes38;
+	private String _methodName39;
+	private String[] _methodParameterTypes39;
+	private String _methodName40;
+	private String[] _methodParameterTypes40;
+	private String _methodName41;
+	private String[] _methodParameterTypes41;
 }

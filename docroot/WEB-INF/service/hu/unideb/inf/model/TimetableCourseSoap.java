@@ -39,6 +39,8 @@ public class TimetableCourseSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setCourseId(model.getCourseId());
+		soapModel.setSemesterId(model.getSemesterId());
+		soapModel.setTimetableCourseCode(model.getTimetableCourseCode());
 		soapModel.setSubjectType(model.getSubjectType());
 		soapModel.setRecommendedTerm(model.getRecommendedTerm());
 		soapModel.setLimit(model.getLimit());
@@ -162,6 +164,22 @@ public class TimetableCourseSoap implements Serializable {
 		_courseId = courseId;
 	}
 
+	public long getSemesterId() {
+		return _semesterId;
+	}
+
+	public void setSemesterId(long semesterId) {
+		_semesterId = semesterId;
+	}
+
+	public String getTimetableCourseCode() {
+		return _timetableCourseCode;
+	}
+
+	public void setTimetableCourseCode(String timetableCourseCode) {
+		_timetableCourseCode = timetableCourseCode;
+	}
+
 	public String getSubjectType() {
 		return _subjectType;
 	}
@@ -210,6 +228,8 @@ public class TimetableCourseSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _courseId;
+	private long _semesterId;
+	private String _timetableCourseCode;
 	private String _subjectType;
 	private int _recommendedTerm;
 	private int _limit;

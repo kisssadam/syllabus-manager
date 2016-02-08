@@ -459,6 +459,96 @@ public class TimetableCourseLocalServiceWrapper
 			arguments);
 	}
 
+	@Override
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourses()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _timetableCourseLocalService.getTimetableCourses();
+	}
+
+	@Override
+	public hu.unideb.inf.model.TimetableCourse findTimetableCourseByTimetableCourseCode(
+		java.lang.String timetableCourseCode)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchTimetableCourseException {
+		return _timetableCourseLocalService.findTimetableCourseByTimetableCourseCode(timetableCourseCode);
+	}
+
+	@Override
+	public hu.unideb.inf.model.TimetableCourse fetchTimetableCourseByTimetableCourseCode(
+		java.lang.String timetableCourseCode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _timetableCourseLocalService.fetchTimetableCourseByTimetableCourseCode(timetableCourseCode);
+	}
+
+	@Override
+	public hu.unideb.inf.model.TimetableCourse getTimetableCourseByC_S(
+		long courseId, long semesterId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchTimetableCourseException {
+		return _timetableCourseLocalService.getTimetableCourseByC_S(courseId,
+			semesterId);
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+		long courseId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _timetableCourseLocalService.getTimetableCourseByCourseId(courseId);
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+		long courseId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _timetableCourseLocalService.getTimetableCourseByCourseId(courseId,
+			start, end);
+	}
+
+	@Override
+	public int getTimetableCourseByCourseIdCount(long courseId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _timetableCourseLocalService.getTimetableCourseByCourseIdCount(courseId);
+	}
+
+	@Override
+	public hu.unideb.inf.model.TimetableCourse addTimetableCourse(
+		long courseId, long semesterId, java.lang.String timetableCourseCode,
+		java.lang.String subjectType, int recommendedTerm, int limit,
+		java.lang.String[] lecturerNames, java.lang.String classScheduleInfo,
+		java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _timetableCourseLocalService.addTimetableCourse(courseId,
+			semesterId, timetableCourseCode, subjectType, recommendedTerm,
+			limit, lecturerNames, classScheduleInfo, description, serviceContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.TimetableCourse updateTimetableCourse(
+		long userId, long timetableCourseId, long courseId, long semesterId,
+		java.lang.String timetableCourseCode, java.lang.String subjectType,
+		int recommendedTerm, int limit, java.lang.String[] lecturerNames,
+		java.lang.String classScheduleInfo, java.lang.String description,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _timetableCourseLocalService.updateTimetableCourse(userId,
+			timetableCourseId, courseId, semesterId, timetableCourseCode,
+			subjectType, recommendedTerm, limit, lecturerNames,
+			classScheduleInfo, description, serviceContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.TimetableCourse deleteTimetableCourse(
+		long timetableCourseId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _timetableCourseLocalService.deleteTimetableCourse(timetableCourseId,
+			serviceContext);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

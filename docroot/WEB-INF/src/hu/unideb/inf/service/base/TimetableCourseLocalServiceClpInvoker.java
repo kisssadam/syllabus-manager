@@ -184,6 +184,57 @@ public class TimetableCourseLocalServiceClpInvoker {
 		_methodName87 = "setBeanIdentifier";
 
 		_methodParameterTypes87 = new String[] { "java.lang.String" };
+
+		_methodName92 = "getTimetableCourses";
+
+		_methodParameterTypes92 = new String[] {  };
+
+		_methodName93 = "findTimetableCourseByTimetableCourseCode";
+
+		_methodParameterTypes93 = new String[] { "java.lang.String" };
+
+		_methodName94 = "fetchTimetableCourseByTimetableCourseCode";
+
+		_methodParameterTypes94 = new String[] { "java.lang.String" };
+
+		_methodName95 = "getTimetableCourseByC_S";
+
+		_methodParameterTypes95 = new String[] { "long", "long" };
+
+		_methodName96 = "getTimetableCourseByCourseId";
+
+		_methodParameterTypes96 = new String[] { "long" };
+
+		_methodName97 = "getTimetableCourseByCourseId";
+
+		_methodParameterTypes97 = new String[] { "long", "int", "int" };
+
+		_methodName98 = "getTimetableCourseByCourseIdCount";
+
+		_methodParameterTypes98 = new String[] { "long" };
+
+		_methodName99 = "addTimetableCourse";
+
+		_methodParameterTypes99 = new String[] {
+				"long", "long", "java.lang.String", "java.lang.String", "int",
+				"int", "java.lang.String[][]", "java.lang.String",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName100 = "updateTimetableCourse";
+
+		_methodParameterTypes100 = new String[] {
+				"long", "long", "long", "long", "java.lang.String",
+				"java.lang.String", "int", "int", "java.lang.String[][]",
+				"java.lang.String", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName101 = "deleteTimetableCourse";
+
+		_methodParameterTypes101 = new String[] {
+				"long", "com.liferay.portal.service.ServiceContext"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -402,6 +453,77 @@ public class TimetableCourseLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName92.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes92, parameterTypes)) {
+			return TimetableCourseLocalServiceUtil.getTimetableCourses();
+		}
+
+		if (_methodName93.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes93, parameterTypes)) {
+			return TimetableCourseLocalServiceUtil.findTimetableCourseByTimetableCourseCode((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName94.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
+			return TimetableCourseLocalServiceUtil.fetchTimetableCourseByTimetableCourseCode((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName95.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
+			return TimetableCourseLocalServiceUtil.getTimetableCourseByC_S(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName96.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+			return TimetableCourseLocalServiceUtil.getTimetableCourseByCourseId(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName97.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
+			return TimetableCourseLocalServiceUtil.getTimetableCourseByCourseId(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue());
+		}
+
+		if (_methodName98.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
+			return TimetableCourseLocalServiceUtil.getTimetableCourseByCourseIdCount(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName99.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes99, parameterTypes)) {
+			return TimetableCourseLocalServiceUtil.addTimetableCourse(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
+				((Integer)arguments[4]).intValue(),
+				((Integer)arguments[5]).intValue(),
+				(java.lang.String[])arguments[6],
+				(java.lang.String)arguments[7], (java.lang.String)arguments[8],
+				(com.liferay.portal.service.ServiceContext)arguments[9]);
+		}
+
+		if (_methodName100.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes100, parameterTypes)) {
+			return TimetableCourseLocalServiceUtil.updateTimetableCourse(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(),
+				((Long)arguments[3]).longValue(),
+				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
+				((Integer)arguments[6]).intValue(),
+				((Integer)arguments[7]).intValue(),
+				(java.lang.String[])arguments[8],
+				(java.lang.String)arguments[9],
+				(java.lang.String)arguments[10],
+				(com.liferay.portal.service.ServiceContext)arguments[11]);
+		}
+
+		if (_methodName101.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes101, parameterTypes)) {
+			return TimetableCourseLocalServiceUtil.deleteTimetableCourse(((Long)arguments[0]).longValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[1]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -473,4 +595,24 @@ public class TimetableCourseLocalServiceClpInvoker {
 	private String[] _methodParameterTypes86;
 	private String _methodName87;
 	private String[] _methodParameterTypes87;
+	private String _methodName92;
+	private String[] _methodParameterTypes92;
+	private String _methodName93;
+	private String[] _methodParameterTypes93;
+	private String _methodName94;
+	private String[] _methodParameterTypes94;
+	private String _methodName95;
+	private String[] _methodParameterTypes95;
+	private String _methodName96;
+	private String[] _methodParameterTypes96;
+	private String _methodName97;
+	private String[] _methodParameterTypes97;
+	private String _methodName98;
+	private String[] _methodParameterTypes98;
+	private String _methodName99;
+	private String[] _methodParameterTypes99;
+	private String _methodName100;
+	private String[] _methodParameterTypes100;
+	private String _methodName101;
+	private String[] _methodParameterTypes101;
 }

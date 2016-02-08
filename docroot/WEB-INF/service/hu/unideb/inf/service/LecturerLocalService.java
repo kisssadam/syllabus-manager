@@ -365,4 +365,40 @@ public interface LecturerLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<hu.unideb.inf.model.Lecturer> getLecturers()
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public hu.unideb.inf.model.Lecturer getLecturerByName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchLecturerException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public hu.unideb.inf.model.Lecturer fetchLecturerByName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public boolean isLecturerExists(java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public hu.unideb.inf.model.Lecturer addLecturer(
+		java.lang.String lecturerName, long userId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public hu.unideb.inf.model.Lecturer deleteLecturer(long lecturerId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public hu.unideb.inf.model.Lecturer updateLecturer(long lecturerId,
+		java.lang.String lecturerName, long userId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }

@@ -83,6 +83,8 @@ create table unideb_syllabus_manager_TimetableCourse (
 	createDate DATE null,
 	modifiedDate DATE null,
 	courseId LONG,
+	semesterId LONG,
+	timetableCourseCode VARCHAR(75) null,
 	subjectType VARCHAR(75) null,
 	recommendedTerm INTEGER,
 	limit_ INTEGER,

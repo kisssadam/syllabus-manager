@@ -103,6 +103,8 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="courseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="semesterId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="timetableCourseCode" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="subjectType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="recommendedTerm" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="limit" type="com.liferay.portal.dao.orm.hibernate.IntegerType" column="limit_" />
