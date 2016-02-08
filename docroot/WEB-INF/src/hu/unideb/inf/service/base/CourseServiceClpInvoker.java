@@ -31,6 +31,10 @@ public class CourseServiceClpInvoker {
 		_methodName55 = "setBeanIdentifier";
 
 		_methodParameterTypes55 = new String[] { "java.lang.String" };
+
+		_methodName60 = "getCoursesBySubjectId";
+
+		_methodParameterTypes60 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -47,6 +51,11 @@ public class CourseServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+			return CourseServiceUtil.getCoursesBySubjectId(((Long)arguments[0]).longValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -54,4 +63,6 @@ public class CourseServiceClpInvoker {
 	private String[] _methodParameterTypes54;
 	private String _methodName55;
 	private String[] _methodParameterTypes55;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
 }

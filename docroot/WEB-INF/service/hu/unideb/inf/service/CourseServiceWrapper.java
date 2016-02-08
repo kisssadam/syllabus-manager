@@ -56,6 +56,13 @@ public class CourseServiceWrapper implements CourseService,
 		return _courseService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
+	public java.util.List<hu.unideb.inf.model.Course> getCoursesBySubjectId(
+		long subjectId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _courseService.getCoursesBySubjectId(subjectId);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

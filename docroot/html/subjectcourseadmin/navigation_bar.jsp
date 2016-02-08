@@ -78,6 +78,18 @@
             	
             	<aui:nav-item href="<%= addSemesterURL.toString() %>" label="Semester" />
            	</c:if>
+           	
+           	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_TIMETABLE_COURSE)%>'>
+           		<portlet:renderURL var="addTimetableCourseURL">
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/timetablecourses/edit_timetable_course.jsp" />
+					<portlet:param name="curriculumId" value="${curriculumId}" />
+					<portlet:param name="subjectId" value="${subjectId}" />
+					<portlet:param name="courseId" value="${courseId}" />
+					<portlet:param name="semesterId" value="${semesterId}" />
+				</portlet:renderURL>
+            	
+            	<aui:nav-item href="<%= addTimetableCourseURL.toString() %>" label="TimetableCourse" />
+           	</c:if>
         </aui:nav-item>
         
         <%--
@@ -98,30 +110,30 @@
 
 <aui:script use="aui-base">
 A.all('input[name=<portlet:namespace />rowIds]').on(
-		'click',
-		function(event) {
-			var rowsChecked = A.all('input[name=<portlet:namespace />rowIds]:checked');
-			
-			toggleViewIfRequired(rowsChecked);
-		}
-	);
-	
-	A.all('input[name=<portlet:namespace />allRowIds]').on(
-		'click',
-		function(event) {
-			var rowsChecked = A.all('input[name=<portlet:namespace />allRowIds]:checked');
-			
-			toggleViewIfRequired(rowsChecked);
-		}
-	);
-	
-	function toggleViewIfRequired(rowsChecked) {
-		var deleteButton = A.one('.removeCheckedItemsButton');
+	'click',
+	function(event) {
+		var rowsChecked = A.all('input[name=<portlet:namespace />rowIds]:checked');
 		
-		if (rowsChecked.size() > 0) {
-			deleteButton.show();
-		} else {
-			deleteButton.hide();
-		}
+		toggleViewIfRequired(rowsChecked);
 	}
+);
+
+A.all('input[name=<portlet:namespace />allRowIds]').on(
+	'click',
+	function(event) {
+		var rowsChecked = A.all('input[name=<portlet:namespace />allRowIds]:checked');
+		
+		toggleViewIfRequired(rowsChecked);
+	}
+);
+
+function toggleViewIfRequired(rowsChecked) {
+	var deleteButton = A.one('.removeCheckedItemsButton');
+	
+	if (rowsChecked.size() > 0) {
+		deleteButton.show();
+	} else {
+		deleteButton.hide();
+	}
+}
 </aui:script>

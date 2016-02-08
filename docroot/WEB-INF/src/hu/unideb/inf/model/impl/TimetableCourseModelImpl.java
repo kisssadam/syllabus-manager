@@ -82,7 +82,7 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 			{ "classScheduleInfo", Types.VARCHAR },
 			{ "description", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_TimetableCourse (timetableCourseId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,courseId LONG,semesterId LONG,timetableCourseCode VARCHAR(75) null,subjectType VARCHAR(75) null,recommendedTerm INTEGER,limit_ INTEGER,classScheduleInfo VARCHAR(75) null,description VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_TimetableCourse (timetableCourseId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,courseId LONG,semesterId LONG,timetableCourseCode TEXT null,subjectType TEXT null,recommendedTerm INTEGER,limit_ INTEGER,classScheduleInfo TEXT null,description TEXT null)";
 	public static final String TABLE_SQL_DROP = "drop table unideb_syllabus_manager_TimetableCourse";
 	public static final String ORDER_BY_JPQL = " ORDER BY timetableCourse.timetableCourseId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY unideb_syllabus_manager_TimetableCourse.timetableCourseId ASC";

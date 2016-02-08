@@ -33,8 +33,14 @@
 		</responseFlow>
 	</transport>
 	<service name="Plugin_unideb_syllabus_manager_CourseService" provider="java:RPC" style="rpc" use="encoded">
-		<parameter name="allowedMethods" value="*" />
+		<arrayMapping xmlns:ns="urn:http.service.inf.unideb.hu" xmlns:cmp-ns="http://model.inf.unideb.hu" qname="ns:ArrayOf_tns2_CourseSoap" type="java:hu.unideb.inf.model.CourseSoap[]" innerType="cmp-ns:CourseSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<typeMapping xmlns:ns="http://model.inf.unideb.hu" qname="ns:CourseSoap" type="java:hu.unideb.inf.model.CourseSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.inf.unideb.hu" xmlns:rtns="urn:http.service.inf.unideb.hu" xmlns:tns2="http://model.inf.unideb.hu" name="getCoursesBySubjectId" qname="operNS:getCoursesBySubjectId" returnQName="getCoursesBySubjectIdReturn" returnType="rtns:ArrayOf_tns2_CourseSoap" returnItemType="tns2:CourseSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="subjectId" type="tns:long"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="getCoursesBySubjectId" />
 		<parameter name="className" value="hu.unideb.inf.service.http.CourseServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.inf.unideb.hu,urn:http.service.inf.unideb.hu" />
 		<parameter name="typeMappingVersion" value="1.2" />
 		<parameter name="wsdlPortType" value="CourseServiceSoap" />
 		<parameter name="wsdlServiceElement" value="CourseServiceSoapService" />
@@ -59,6 +65,15 @@
 		<parameter name="wsdlServicePort" value="Plugin_unideb_syllabus_manager_CurriculumService" />
 		<parameter name="wsdlTargetNamespace" value="urn:http.service.inf.unideb.hu" />
 	</service>
+	<service name="Plugin_unideb_syllabus_manager_LecturerService" provider="java:RPC" style="rpc" use="encoded">
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="className" value="hu.unideb.inf.service.http.LecturerServiceSoap" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="LecturerServiceSoap" />
+		<parameter name="wsdlServiceElement" value="LecturerServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_unideb_syllabus_manager_LecturerService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.inf.unideb.hu" />
+	</service>
 	<service name="Plugin_unideb_syllabus_manager_SemesterService" provider="java:RPC" style="rpc" use="encoded">
 		<parameter name="allowedMethods" value="*" />
 		<parameter name="className" value="hu.unideb.inf.service.http.SemesterServiceSoap" />
@@ -81,6 +96,15 @@
 		<parameter name="wsdlPortType" value="SubjectServiceSoap" />
 		<parameter name="wsdlServiceElement" value="SubjectServiceSoapService" />
 		<parameter name="wsdlServicePort" value="Plugin_unideb_syllabus_manager_SubjectService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.inf.unideb.hu" />
+	</service>
+	<service name="Plugin_unideb_syllabus_manager_TimetableCourseService" provider="java:RPC" style="rpc" use="encoded">
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="className" value="hu.unideb.inf.service.http.TimetableCourseServiceSoap" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="TimetableCourseServiceSoap" />
+		<parameter name="wsdlServiceElement" value="TimetableCourseServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_unideb_syllabus_manager_TimetableCourseService" />
 		<parameter name="wsdlTargetNamespace" value="urn:http.service.inf.unideb.hu" />
 	</service>
 </deployment>

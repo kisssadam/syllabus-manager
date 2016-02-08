@@ -31,12 +31,16 @@
 <%@page import="hu.unideb.inf.service.CourseLocalServiceUtil"%>
 <%@page import="hu.unideb.inf.service.CourseTypeLocalServiceUtil"%>
 <%@page import="hu.unideb.inf.service.SemesterLocalServiceUtil"%>
+<%@page import="hu.unideb.inf.service.TimetableCourseLocalServiceUtil"%>
+<%@page import="hu.unideb.inf.service.LecturerLocalServiceUtil"%>
 
 <%@page import="hu.unideb.inf.model.Curriculum"%>
 <%@page import="hu.unideb.inf.model.Subject"%>
 <%@page import="hu.unideb.inf.model.Course"%>
 <%@page import="hu.unideb.inf.model.CourseType"%>
 <%@page import="hu.unideb.inf.model.Semester"%>
+<%@page import="hu.unideb.inf.model.TimetableCourse"%>
+<%@page import="hu.unideb.inf.model.Lecturer"%>
 
 <%@page import="hu.unideb.inf.util.WebKeys"%>
 <%@page import="hu.unideb.inf.util.ActionKeys"%>
@@ -48,18 +52,23 @@
 <%@page import="hu.unideb.inf.service.permission.CoursePermission"%>
 <%@page import="hu.unideb.inf.service.permission.CourseTypePermission"%>
 <%@page import="hu.unideb.inf.service.permission.SemesterPermission"%>
+<%@page import="hu.unideb.inf.service.permission.TimetableCoursePermission"%>
 
 <%@page import="hu.unideb.inf.DuplicateCurriculumException"%>
 <%@page import="hu.unideb.inf.DuplicateSubjectException"%>
 <%@page import="hu.unideb.inf.DuplicateCourseException"%>
 <%@page import="hu.unideb.inf.DuplicateCourseTypeException"%>
 <%@page import="hu.unideb.inf.DuplicateSemesterException"%>
+<%@page import="hu.unideb.inf.DuplicateTimetableCourseException"%>
+<%@page import="hu.unideb.inf.DuplicateLecturerException"%>
 
 <%@page import="hu.unideb.inf.NoSuchCurriculumException"%>
 <%@page import="hu.unideb.inf.NoSuchSubjectException"%>
 <%@page import="hu.unideb.inf.NoSuchCourseException"%>
 <%@page import="hu.unideb.inf.NoSuchCourseTypeException"%>
 <%@page import="hu.unideb.inf.NoSuchSemesterException"%>
+<%@page import="hu.unideb.inf.NoSuchTimetableCourseException"%>
+<%@page import="hu.unideb.inf.NoSuchLecturerException"%>
 
 <%@page import="hu.unideb.inf.CurriculumCodeException"%>
 <%@page import="hu.unideb.inf.CurriculumNameException"%>
@@ -77,6 +86,13 @@
 <%@page import="hu.unideb.inf.SemesterYearsAreEqualException"%>
 <%@page import="hu.unideb.inf.SemesterYearDifferenceException"%>
 
+<%@page import="hu.unideb.inf.TimetableCourseCodeException"%>
+<%@page import="hu.unideb.inf.TimetableCourseRecommendedTermException"%>
+<%@page import="hu.unideb.inf.TimetableCourseLecturerNameException"%>
+<%@page import="hu.unideb.inf.TimetableCourseLimitException"%>
+<%@page import="hu.unideb.inf.TimetableCourseSubjectTypeException"%>
+
+<%@page import="hu.unideb.inf.LecturerNameException"%>
 
 <portlet:defineObjects />
 <theme:defineObjects />

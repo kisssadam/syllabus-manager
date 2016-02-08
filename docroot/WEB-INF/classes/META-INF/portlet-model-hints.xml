@@ -91,11 +91,19 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="courseId" type="long" />
 		<field name="semesterId" type="long" />
-		<field name="timetableCourseCode" type="String" />
-		<field name="subjectType" type="String" />
+		<field name="timetableCourseCode" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="subjectType" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="recommendedTerm" type="int" />
 		<field name="limit" type="int" />
-		<field name="classScheduleInfo" type="String" />
-		<field name="description" type="String" />
+		<field name="classScheduleInfo" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="description" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 	</model>
 </model-hints>
