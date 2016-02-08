@@ -141,5 +141,10 @@ function updateSubjectIds() {
 			}
 		);
 	}
+	
+	AUI().ready("node", "node-event-simulate", function(A) {
+		var changedNode = A.one('#<portlet:namespace/>subjectId');
+		changedNode.simulate("change");
+	});
 }
 </aui:script>
