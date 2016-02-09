@@ -14,11 +14,19 @@
 
 package hu.unideb.inf.model.impl;
 
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.Validator;
+
+import hu.unideb.inf.model.CourseType;
+import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
+
 /**
- * The extended model implementation for the Course service. Represents a row in the &quot;unideb_syllabus_manager_Course&quot; database table, with each column mapped to a property of this class.
+ * The extended model implementation for the Course service. Represents a row in the
+ * &quot;unideb_syllabus_manager_Course&quot; database table, with each column mapped to a property of this class.
  *
  * <p>
- * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link hu.unideb.inf.model.Course} interface.
+ * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun
+ * ServiceBuilder to copy their definitions into the {@link hu.unideb.inf.model.Course} interface.
  * </p>
  *
  * @author Adam Kiss
@@ -27,8 +35,23 @@ public class CourseImpl extends CourseBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. All methods that expect a course model instance should use the {@link hu.unideb.inf.model.Course} interface instead.
+	 * Never reference this class directly. All methods that expect a course model instance should use the {@link
+	 * hu.unideb.inf.model.Course} interface instead.
 	 */
 	public CourseImpl() {
+	}
+
+	@Override
+	public String toString() {
+		CourseType courseType = null;
+
+		try {
+			courseType = CourseTypeLocalServiceUtil.fetchCourseType(getCourseTypeId());
+		} catch (SystemException e) {
+			e.printStackTrace();
+		}
+
+		return (Validator.isNull(courseType) ? "course type not found" : courseType.getType()) + ": "
+				+ getHoursPerSemester() + " hours per semester, " + getHoursPerWeek() + " hours per week";
 	}
 }

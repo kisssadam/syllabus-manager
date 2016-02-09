@@ -14,7 +14,7 @@
 		courseId = timetableCourse.getCourseId();
 		semesterId = timetableCourse.getSemesterId();
 	}
-	
+
 	if (courseId > 0) {
 		Course course = CourseLocalServiceUtil.getCourse(courseId);
 		subjectId = course.getSubjectId();
@@ -29,20 +29,24 @@
 	request.setAttribute("subjectId", subjectId);
 	request.setAttribute("courseId", courseId);
 	request.setAttribute("semesterId", semesterId);
-	
+
 	request.setAttribute("curriculums", CurriculumLocalServiceUtil.getCurriculums());
 	request.setAttribute("semesters", SemesterLocalServiceUtil.getSemesters());
 %>
 
-<liferay-ui:error exception="<%=DuplicateTimetableCourseException.class%>" message="duplicate-timetable-course-exception" />
+<liferay-ui:error exception="<%=DuplicateTimetableCourseException.class%>"
+	message="duplicate-timetable-course-exception" />
 <liferay-ui:error exception="<%=NoSuchTimetableCourseException.class%>" message="no-such-timetable-course-exception" />
 <liferay-ui:error exception="<%=NoSuchCourseException.class%>" message="no-such-course-exception" />
 <liferay-ui:error exception="<%=NoSuchSubjectException.class%>" message="no-such-subject-exception" />
 <liferay-ui:error exception="<%=TimetableCourseCodeException.class%>" message="timetable-course-code-exception" />
-<liferay-ui:error exception="<%=TimetableCourseRecommendedTermException.class%>" message="timetable-course-recommended-term-exception" />
-<liferay-ui:error exception="<%=TimetableCourseLecturerNameException.class%>" message="timetable-course-lecturer-name-exception" />
+<liferay-ui:error exception="<%=TimetableCourseRecommendedTermException.class%>"
+	message="timetable-course-recommended-term-exception" />
+<liferay-ui:error exception="<%=TimetableCourseLecturerNameException.class%>"
+	message="timetable-course-lecturer-name-exception" />
 <liferay-ui:error exception="<%=TimetableCourseLimitException.class%>" message="timetable-course-limit-exception" />
-<liferay-ui:error exception="<%=TimetableCourseSubjectTypeException.class%>" message="timetable-course-subject-type-exception" />
+<liferay-ui:error exception="<%=TimetableCourseSubjectTypeException.class%>"
+	message="timetable-course-subject-type-exception" />
 
 <liferay-ui:header title="edit-timetable-course" />
 
@@ -67,7 +71,8 @@
 <aui:form action="<%=addTimetableCourseURL%>" name="<portlet:namespace />timetable_course_edit">
 	<aui:model-context bean="<%=timetableCourse%>" model="<%=TimetableCourse.class%>" />
 
-	<aui:input name="timetableCourseId" type="hidden" value='<%=timetableCourse == null ? timetableCourseId : timetableCourse.getTimetableCourseId()%>' />
+	<aui:input name="timetableCourseId" type="hidden"
+		value='<%=timetableCourse == null ? timetableCourseId : timetableCourse.getTimetableCourseId()%>' />
 
 	<aui:fieldset>
 		<aui:select label="curriculum" name="curriculumId" required="true">
@@ -87,7 +92,7 @@
 		</aui:select>
 
 		<aui:select label="subject" name="subjectId" required="true" />
-		
+
 		<aui:select label="course" name="courseId" required="true" />
 
 		<aui:select label="semester" name="semesterId" required="true">
@@ -97,7 +102,7 @@
 				</aui:option>
 			</c:forEach>
 		</aui:select>
-		
+
 		<aui:input name="timetableCourseCode" type="text">
 			<aui:validator name="required" />
 		</aui:input>
@@ -111,19 +116,18 @@
 			<aui:validator name="required" />
 			<aui:validator name="number" />
 		</aui:input>
-		
-		<aui:input name="limit" type="number" min="0"
-			value="<%=timetableCourse == null ? 0 : timetableCourse.getLimit()%>">
+
+		<aui:input name="limit" type="number" min="0" value="<%=timetableCourse == null ? 0 : timetableCourse.getLimit()%>">
 			<aui:validator name="required" />
 			<aui:validator name="number" />
 		</aui:input>
-		
-		<%-- lecturers ide :( --%>
-		
+
+		<%-- lecturers ide :( aui select2 jo lenne --%>
+
 		<aui:input name="classScheduleInfo" type="text">
 			<aui:validator name="required" />
 		</aui:input>
-		
+
 		<aui:input name="description" type="text">
 			<aui:validator name="required" />
 		</aui:input>
@@ -135,92 +139,58 @@
 	</aui:button-row>
 </aui:form>
 
-<%--
-	http://rasul.work/index.php/2015/09/04/liferay-service-builder-json-javascript/
---%>
+<portlet:resourceURL var="resourceURL"></portlet:resourceURL>
 
-<aui:script use="aui-base">
-AUI().ready(
-	function() {
-		updateSubjectIds();
-		updateCourseIds();
-	}
-);
-
-AUI().ready('aui-dialog', "node", function(A) {
-	A.one("#<portlet:namespace />curriculumId").on("change", function(e) {
-		updateSubjectIds();
-		updateCourseIds();
-	});
-});
-
-AUI().ready('aui-dialog', "node", function(A) {
-	A.one("#<portlet:namespace />subjectId").on("change", function(e) {
-		updateCourseIds();
-	});
-});
-
-function updateSubjectIds() {
-	var selectedCurriculumId = A.one("#<portlet:namespace />curriculumId").val();
-	if (selectedCurriculumId > 0) {
-		Liferay.Service(
-			'/unideb-syllabus-manager-portlet.subject/get-subjects-by-curriculum-id',
-			{
-				curriculumId: selectedCurriculumId
-			},
-			function(obj) {
-				A.one("#<portlet:namespace />subjectId").val("");
-				document.getElementById('<portlet:namespace/>subjectId').options.length = obj.length;
-				for(var i = 0; i < obj.length; i++){
-					var subject = obj[i];
+<aui:script>
+AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', function(A) {
+	A.one("#<portlet:namespace/>curriculumId").on('change', function() {
+		A.io.request('<%=resourceURL%>', {
+             method: 'POST',
+             data: {
+            	 "<portlet:namespace/>curriculumId" : A.one("#<portlet:namespace/>curriculumId").val(),
+            	 '<portlet:namespace/>curriculumSelected' :'curriculumSelected'
+            	 },
+             dataType: 'json',
+             on: {
+             	success: function() {
+					var subjects = this.get('responseData');
 					
-					document.getElementById('<portlet:namespace/>subjectId').options[i]= new Option(subject.subjectCode + " - " + subject.subjectName, subject.subjectId);
-					document.getElementById('<portlet:namespace/>subjectId').options[i].selected = subject.subjectId == "${subjectId}" ? true : false;
+	             	A.one('#<portlet:namespace />subjectId').empty();
+	             	A.one('#<portlet:namespace />courseId').empty();
+	
+					for(var i in subjects){
+						A.one('#<portlet:namespace />subjectId').append("<option value='" + subjects[i].subjectId + "' >" + subjects[i].subjectList + "</option> "); 
+					}
+					
+					A.one('#<portlet:namespace/>subjectId').simulate("change");
+				}
+   			}
+		});
+	});
+    
+	A.one("#<portlet:namespace/>subjectId").on('change', function() {
+		A.io.request('<%=resourceURL%>', {
+			method :'POST',
+			data: {
+				'<portlet:namespace/>subjectId' : A.one("#<portlet:namespace/>subjectId").val(),
+				'<portlet:namespace/>subjectSelected' : 'subjectSelected'
+				},
+			dataType: 'json',
+			on: {
+				success: function() {
+					var courses = this.get('responseData');
+					
+					A.one('#<portlet:namespace />courseId').empty();
+					
+					for(var i in courses) {
+						A.one('#<portlet:namespace />courseId').append("<option value='" + courses[i].courseId + "' >" + courses[i].courseList + "</option> ");
+					}
+					
+					// this is required to revalidate the form
+					A.one('#<portlet:namespace/>courseId').simulate("change");
 				}
 			}
-		);
-	}
-	
-	AUI().ready("node", "node-event-simulate", function(A) {
-		var changedNode = A.one('#<portlet:namespace/>subjectId');
-		changedNode.simulate("change");
+		});
 	});
-}
-
-function updateCourseIds() {
-	var selectedSubjectId = A.one("#<portlet:namespace />subjectId").val();
-	if (selectedSubjectId > 0) {
-		Liferay.Service(
-				'/unideb-syllabus-manager-portlet.course/get-courses-by-subject-id',
-			{
-				subjectId: selectedSubjectId
-			},
-			function(obj) {
-				A.one("#<portlet:namespace />courseId").val("");
-				document.getElementById('<portlet:namespace/>courseId').options.length = obj.length;
-				for (var i = 0; i < obj.length; i++) {
-					var course = obj[i];
-					processCourse(course, i);
-				}
-			}
-		);
-	}
-	
-	AUI().ready("node", "node-event-simulate", function(A) {
-		var changedNode = A.one('#<portlet:namespace/>courseId');
-		changedNode.simulate("change");
-	});
-}
-
-function processCourse(course, i) {
-	Liferay.Service(
-			'/unideb-syllabus-manager-portlet.coursetype/get-course-type-by-course-type-id',
-		{
-			courseTypeId: course.courseTypeId
-		},
-		function(courseType) {
-			document.getElementById('<portlet:namespace/>courseId').options[i]= new Option(courseType.type + ": " + course.hoursPerSemester + " hours per semester, " + course.hoursPerWeek + " hours per week");
-			document.getElementById('<portlet:namespace/>courseId').options[i].selected = course.courseId == "${courseId}" ? true : false;			
-	});
-}
+});
 </aui:script>

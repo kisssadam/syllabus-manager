@@ -3,15 +3,25 @@ package hu.unideb.inf.portlet;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
+import javax.portlet.PortletException;
+import javax.portlet.ResourceRequest;
+import javax.portlet.ResourceResponse;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.ServiceContext;
@@ -522,6 +532,56 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		}
 
 		return course;
+	}
+
+	@Override
+	public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+			throws IOException, PortletException {
+		long curriculumId = ParamUtil.getLong(resourceRequest, "curriculumId");
+		String curriculumSelected = ParamUtil.getString(resourceRequest, "curriculumSelected");
+
+		long subjectId = ParamUtil.getLong(resourceRequest, "subjectId");
+		String subjectSelected = ParamUtil.getString(resourceRequest, "subjectSelected");
+
+		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
+
+		if (curriculumSelected.equalsIgnoreCase("curriculumSelected")) {
+			try {
+				List<Subject> subjects = SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculumId);
+
+				for (Subject subject : subjects) {
+					JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+					jsonObject.put("subjectList", HtmlUtil.escapeAttribute(subject.toString()));
+					jsonObject.put("subjectId", subject.getSubjectId());
+
+					jsonArray.put(jsonObject);
+				}
+			} catch (SystemException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (subjectSelected.equalsIgnoreCase("subjectSelected")) {
+			try {
+				List<Course> courses = CourseLocalServiceUtil.getCoursesBySubjectId(subjectId);
+				
+				for (Course course : courses) {
+					JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+					jsonObject.put("courseList", HtmlUtil.escapeAttribute(course.toString()));
+					jsonObject.put("courseId", course.getCourseId());
+
+					jsonArray.put(jsonObject);
+				}
+			} catch (SystemException e) {
+				e.printStackTrace();
+			}
+		}
+
+		PrintWriter writer = resourceResponse.getWriter();
+		writer.write(jsonArray.toString());
+		writer.flush();
 	}
 
 }
