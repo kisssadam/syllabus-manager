@@ -31,6 +31,10 @@ public class CourseTypeServiceClp implements CourseTypeService {
 		_methodName1 = "setBeanIdentifier";
 
 		_methodParameterTypes1 = new String[] { "java.lang.String" };
+
+		_methodName3 = "getCourseTypeByCourseTypeId";
+
+		_methodParameterTypes3 = new String[] { "long" };
 	}
 
 	@Override
@@ -83,9 +87,45 @@ public class CourseTypeServiceClp implements CourseTypeService {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public hu.unideb.inf.model.CourseType getCourseTypeByCourseTypeId(
+		long courseTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchCourseTypeException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName3,
+					_methodParameterTypes3, new Object[] { courseTypeId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof hu.unideb.inf.NoSuchCourseTypeException) {
+				throw (hu.unideb.inf.NoSuchCourseTypeException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.CourseType)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
 	private String _methodName1;
 	private String[] _methodParameterTypes1;
+	private String _methodName3;
+	private String[] _methodParameterTypes3;
 }

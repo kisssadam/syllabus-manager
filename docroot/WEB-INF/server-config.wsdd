@@ -48,8 +48,13 @@
 		<parameter name="wsdlTargetNamespace" value="urn:http.service.inf.unideb.hu" />
 	</service>
 	<service name="Plugin_unideb_syllabus_manager_CourseTypeService" provider="java:RPC" style="rpc" use="encoded">
-		<parameter name="allowedMethods" value="*" />
+		<typeMapping xmlns:ns="http://model.inf.unideb.hu" qname="ns:CourseTypeSoap" type="java:hu.unideb.inf.model.CourseTypeSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.inf.unideb.hu" xmlns:rtns="http://model.inf.unideb.hu" name="getCourseTypeByCourseTypeId" qname="operNS:getCourseTypeByCourseTypeId" returnQName="getCourseTypeByCourseTypeIdReturn" returnType="rtns:CourseTypeSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="courseTypeId" type="tns:long"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="getCourseTypeByCourseTypeId" />
 		<parameter name="className" value="hu.unideb.inf.service.http.CourseTypeServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.inf.unideb.hu" />
 		<parameter name="typeMappingVersion" value="1.2" />
 		<parameter name="wsdlPortType" value="CourseTypeServiceSoap" />
 		<parameter name="wsdlServiceElement" value="CourseTypeServiceSoapService" />

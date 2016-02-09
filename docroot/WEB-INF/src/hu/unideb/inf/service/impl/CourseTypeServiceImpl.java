@@ -14,16 +14,22 @@
 
 package hu.unideb.inf.service.impl;
 
+import com.liferay.portal.kernel.exception.SystemException;
+
+import hu.unideb.inf.NoSuchCourseTypeException;
+import hu.unideb.inf.model.CourseType;
 import hu.unideb.inf.service.base.CourseTypeServiceBaseImpl;
 
 /**
  * The implementation of the course type remote service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link hu.unideb.inf.service.CourseTypeService} interface.
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy
+ * their definitions into the {@link hu.unideb.inf.service.CourseTypeService} interface.
  *
  * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
+ * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS
+ * credentials because this service can be accessed remotely.
  * </p>
  *
  * @author Adam Kiss
@@ -34,6 +40,12 @@ public class CourseTypeServiceImpl extends CourseTypeServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this interface directly. Always use {@link hu.unideb.inf.service.CourseTypeServiceUtil} to access the course type remote service.
+	 * Never reference this interface directly. Always use {@link hu.unideb.inf.service.CourseTypeServiceUtil} to access
+	 * the course type remote service.
 	 */
+
+	public CourseType getCourseTypeByCourseTypeId(long courseTypeId) throws NoSuchCourseTypeException, SystemException {
+		return courseTypePersistence.findByPrimaryKey(courseTypeId);
+	}
+
 }

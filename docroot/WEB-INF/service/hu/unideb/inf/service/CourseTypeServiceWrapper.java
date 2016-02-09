@@ -56,6 +56,14 @@ public class CourseTypeServiceWrapper implements CourseTypeService,
 		return _courseTypeService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
+	public hu.unideb.inf.model.CourseType getCourseTypeByCourseTypeId(
+		long courseTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchCourseTypeException {
+		return _courseTypeService.getCourseTypeByCourseTypeId(courseTypeId);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

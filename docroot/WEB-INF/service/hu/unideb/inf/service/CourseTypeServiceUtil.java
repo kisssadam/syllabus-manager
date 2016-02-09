@@ -63,6 +63,13 @@ public class CourseTypeServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static hu.unideb.inf.model.CourseType getCourseTypeByCourseTypeId(
+		long courseTypeId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchCourseTypeException {
+		return getService().getCourseTypeByCourseTypeId(courseTypeId);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

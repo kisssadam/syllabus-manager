@@ -86,25 +86,9 @@
 			</c:forEach>
 		</aui:select>
 
-		<aui:select label="subject" name="subjectId" required="true">
-			<%-- <c:forEach items="${subjects}" var="subject">
-				<aui:option value="${subject.subjectId}">
-					<c:out value="${subject.subjectCode} - ${subject.subjectName}" />
-				</aui:option>
-			</c:forEach> --%>
-		</aui:select>
+		<aui:select label="subject" name="subjectId" required="true" />
 		
-		<aui:select label="course" name="courseId" required="true">
-			<%-- <c:forEach items="${courses}" var="course">
-				<aui:option value="${course.courseId}">
-					<c:set var="courseTypeId" value="${course.courseTypeId}" />
-					<%
-					CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(GetterUtil.getLong(pageContext.getAttribute("courseTypeId"), 0));
-					%>
-					<c:out value="<%=courseType.getType()%> - hps: ${course.hoursPerSemester} - hpw: ${course.hoursPerWeek}" />
-				</aui:option>
-			</c:forEach> --%>
-		</aui:select>
+		<aui:select label="course" name="courseId" required="true" />
 
 		<aui:select label="semester" name="semesterId" required="true">
 			<c:forEach items="${semesters}" var="semester">
@@ -214,11 +198,9 @@ function updateCourseIds() {
 			function(obj) {
 				A.one("#<portlet:namespace />courseId").val("");
 				document.getElementById('<portlet:namespace/>courseId').options.length = obj.length;
-				for(var i = 0; i < obj.length; i++){
+				for (var i = 0; i < obj.length; i++) {
 					var course = obj[i];
-					
-					document.getElementById('<portlet:namespace/>courseId').options[i]= new Option(course.courseTypeId + " hps: "  + course.hoursPerSemester + " hpw: " + course.hoursPerWeek);
-					document.getElementById('<portlet:namespace/>courseId').options[i].selected = course.courseId == "${courseId}" ? true : false;
+					processCourse(course, i);
 				}
 			}
 		);
@@ -227,6 +209,18 @@ function updateCourseIds() {
 	AUI().ready("node", "node-event-simulate", function(A) {
 		var changedNode = A.one('#<portlet:namespace/>courseId');
 		changedNode.simulate("change");
+	});
+}
+
+function processCourse(course, i) {
+	Liferay.Service(
+			'/unideb-syllabus-manager-portlet.coursetype/get-course-type-by-course-type-id',
+		{
+			courseTypeId: course.courseTypeId
+		},
+		function(courseType) {
+			document.getElementById('<portlet:namespace/>courseId').options[i]= new Option(courseType.type + ": " + course.hoursPerSemester + " hours per semester, " + course.hoursPerWeek + " hours per week");
+			document.getElementById('<portlet:namespace/>courseId').options[i].selected = course.courseId == "${courseId}" ? true : false;			
 	});
 }
 </aui:script>
