@@ -34,19 +34,15 @@
 	request.setAttribute("semesters", SemesterLocalServiceUtil.getSemesters());
 %>
 
-<liferay-ui:error exception="<%=DuplicateTimetableCourseException.class%>"
-	message="duplicate-timetable-course-exception" />
+<liferay-ui:error exception="<%=DuplicateTimetableCourseException.class%>" message="duplicate-timetable-course-exception" />
 <liferay-ui:error exception="<%=NoSuchTimetableCourseException.class%>" message="no-such-timetable-course-exception" />
 <liferay-ui:error exception="<%=NoSuchCourseException.class%>" message="no-such-course-exception" />
 <liferay-ui:error exception="<%=NoSuchSubjectException.class%>" message="no-such-subject-exception" />
 <liferay-ui:error exception="<%=TimetableCourseCodeException.class%>" message="timetable-course-code-exception" />
-<liferay-ui:error exception="<%=TimetableCourseRecommendedTermException.class%>"
-	message="timetable-course-recommended-term-exception" />
-<liferay-ui:error exception="<%=TimetableCourseLecturerNameException.class%>"
-	message="timetable-course-lecturer-name-exception" />
+<liferay-ui:error exception="<%=TimetableCourseRecommendedTermException.class%>" message="timetable-course-recommended-term-exception" />
+<liferay-ui:error exception="<%=TimetableCourseLecturerNameException.class%>" message="timetable-course-lecturer-name-exception" />
 <liferay-ui:error exception="<%=TimetableCourseLimitException.class%>" message="timetable-course-limit-exception" />
-<liferay-ui:error exception="<%=TimetableCourseSubjectTypeException.class%>"
-	message="timetable-course-subject-type-exception" />
+<liferay-ui:error exception="<%=TimetableCourseSubjectTypeException.class%>" message="timetable-course-subject-type-exception" />
 
 <liferay-ui:header title="edit-timetable-course" />
 
@@ -163,6 +159,10 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 					}
 					
 					A.one('#<portlet:namespace/>subjectId').simulate("change");
+				},
+				failure: function() {
+					A.one('#<portlet:namespace />subjectId').empty();
+	             	A.one('#<portlet:namespace />courseId').empty();
 				}
    			}
 		});
@@ -188,6 +188,9 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 					
 					// this is required to revalidate the form
 					A.one('#<portlet:namespace/>courseId').simulate("change");
+				},
+				failure: function() {
+	             	A.one('#<portlet:namespace />courseId').empty();
 				}
 			}
 		});

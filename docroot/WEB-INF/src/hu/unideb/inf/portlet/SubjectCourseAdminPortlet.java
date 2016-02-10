@@ -565,7 +565,7 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		if (subjectSelected.equalsIgnoreCase("subjectSelected")) {
 			try {
 				List<Course> courses = CourseLocalServiceUtil.getCoursesBySubjectId(subjectId);
-				
+
 				for (Course course : courses) {
 					JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
