@@ -537,12 +537,14 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 	@Override
 	public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws IOException, PortletException {
-		long curriculumId = ParamUtil.getLong(resourceRequest, "curriculumId");
+		long curriculumId = ParamUtil.getLong(resourceRequest, "curriculumSelect");
 		String curriculumSelected = ParamUtil.getString(resourceRequest, "curriculumSelected");
 
-		long subjectId = ParamUtil.getLong(resourceRequest, "subjectId");
+		long subjectId = ParamUtil.getLong(resourceRequest, "subjectSelect");
 		String subjectSelected = ParamUtil.getString(resourceRequest, "subjectSelected");
 
+		System.out.println(curriculumId);
+		
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 		if (curriculumSelected.equalsIgnoreCase("curriculumSelected")) {

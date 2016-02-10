@@ -71,7 +71,7 @@
 		value='<%=timetableCourse == null ? timetableCourseId : timetableCourse.getTimetableCourseId()%>' />
 
 	<aui:fieldset>
-		<aui:select label="curriculum" name="curriculumId" required="true">
+		<aui:select label="curriculum" name="curriculumSelect" required="true">
 			<c:forEach items="${curriculums}" var="curriculum">
 				<c:choose>
 					<c:when test="${curriculumId eq curriculum.curriculumId}">
@@ -87,9 +87,9 @@
 			</c:forEach>
 		</aui:select>
 
-		<aui:select label="subject" name="subjectId" required="true" />
+		<aui:select label="subject" name="subjectSelect" required="true" />
 
-		<aui:select label="course" name="courseId" required="true" />
+		<aui:select label="course" name="courseSelect" required="true" />
 
 		<aui:select label="semester" name="semesterId" required="true">
 			<c:forEach items="${semesters}" var="semester">
@@ -120,13 +120,9 @@
 
 		<%-- lecturers ide :( aui select2 jo lenne --%>
 
-		<aui:input name="classScheduleInfo" type="text">
-			<aui:validator name="required" />
-		</aui:input>
+		<aui:input name="classScheduleInfo" type="text" />
 
-		<aui:input name="description" type="text">
-			<aui:validator name="required" />
-		</aui:input>
+		<aui:input name="description" type="text" />
 	</aui:fieldset>
 
 	<aui:button-row>
@@ -139,40 +135,40 @@
 
 <aui:script>
 AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', function(A) {
-	A.one("#<portlet:namespace/>curriculumId").on('change', function() {
+	A.one("#<portlet:namespace/>curriculumSelect").on('change', function() {
 		A.io.request('<%=resourceURL%>', {
              method: 'POST',
              data: {
-            	 "<portlet:namespace/>curriculumId" : A.one("#<portlet:namespace/>curriculumId").val(),
+            	 "<portlet:namespace/>curriculumSelect" : A.one("#<portlet:namespace/>curriculumSelect").val(),
             	 '<portlet:namespace/>curriculumSelected' :'curriculumSelected'
             	 },
              dataType: 'json',
              on: {
              	success: function() {
 					var subjects = this.get('responseData');
-					
-	             	A.one('#<portlet:namespace />subjectId').empty();
-	             	A.one('#<portlet:namespace />courseId').empty();
+					console.log(A.one("#<portlet:namespace/>curriculumSelect").val());
+	             	A.one('#<portlet:namespace />subjectSelect').empty();
+	             	A.one('#<portlet:namespace />courseSelect').empty();
 	
 					for(var i in subjects){
-						A.one('#<portlet:namespace />subjectId').append("<option value='" + subjects[i].subjectId + "' >" + subjects[i].subjectList + "</option> "); 
+						A.one('#<portlet:namespace />subjectSelect').append("<option value='" + subjects[i].subjectId + "' >" + subjects[i].subjectList + "</option> "); 
 					}
 					
-					A.one('#<portlet:namespace/>subjectId').simulate("change");
+					A.one('#<portlet:namespace/>subjectSelect').simulate("change");
 				},
 				failure: function() {
-					A.one('#<portlet:namespace />subjectId').empty();
-	             	A.one('#<portlet:namespace />courseId').empty();
+					A.one('#<portlet:namespace />subjectSelect').empty();
+	             	A.one('#<portlet:namespace />courseSelect').empty();
 				}
    			}
 		});
 	});
     
-	A.one("#<portlet:namespace/>subjectId").on('change', function() {
+	A.one("#<portlet:namespace/>subjectSelect").on('change', function() {
 		A.io.request('<%=resourceURL%>', {
 			method :'POST',
 			data: {
-				'<portlet:namespace/>subjectId' : A.one("#<portlet:namespace/>subjectId").val(),
+				'<portlet:namespace/>subjectSelect' : A.one("#<portlet:namespace/>subjectSelect").val(),
 				'<portlet:namespace/>subjectSelected' : 'subjectSelected'
 				},
 			dataType: 'json',
@@ -180,17 +176,17 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 				success: function() {
 					var courses = this.get('responseData');
 					
-					A.one('#<portlet:namespace />courseId').empty();
+					A.one('#<portlet:namespace />courseSelect').empty();
 					
 					for(var i in courses) {
-						A.one('#<portlet:namespace />courseId').append("<option value='" + courses[i].courseId + "' >" + courses[i].courseList + "</option> ");
+						A.one('#<portlet:namespace />courseSelect').append("<option value='" + courses[i].courseId + "' >" + courses[i].courseList + "</option> ");
 					}
 					
 					// this is required to revalidate the form
-					A.one('#<portlet:namespace/>courseId').simulate("change");
+					A.one('#<portlet:namespace/>courseSelect').simulate("change");
 				},
 				failure: function() {
-	             	A.one('#<portlet:namespace />courseId').empty();
+	             	A.one('#<portlet:namespace />courseSelect').empty();
 				}
 			}
 		});
