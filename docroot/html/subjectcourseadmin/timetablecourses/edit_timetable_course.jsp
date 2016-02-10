@@ -8,7 +8,11 @@
 	long semesterId = ParamUtil.getLong(renderRequest, "semesterId");
 
 	TimetableCourse timetableCourse = null;
-
+	
+	List<Curriculum> curriculums = CurriculumLocalServiceUtil.getCurriculums();
+	List<Subject> subjects = null;
+	List<Course> courses = null;
+	
 	if (timetableCourseId > 0) {
 		timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
 		courseId = timetableCourse.getCourseId();
@@ -24,8 +28,25 @@
 		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
 		curriculumId = subject.getCurriculumId();
 		
-		request.setAttribute("courses", CourseLocalServiceUtil.getCoursesBySubjectId(subjectId));
-		request.setAttribute("subjects", SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculumId));
+		courses = CourseLocalServiceUtil.getCoursesBySubjectId(subjectId);
+	}
+	
+	if (curriculumId <= 0) {
+		if (Validator.isNotNull(curriculums)) {
+			curriculumId = curriculums.get(0).getCurriculumId();
+		}
+	}
+	
+	if (Validator.isNull(subjects)) {
+		if (curriculums.size() > 0) {
+			subjects = SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculumId);
+		}
+	}
+	
+	if (Validator.isNull(courses)) {
+		if (subjects.size() > 0) {
+			courses = CourseLocalServiceUtil.getCoursesBySubjectId(subjects.get(0).getSubjectId());
+		}
 	}
 
 	request.setAttribute("curriculumId", curriculumId);
@@ -33,7 +54,9 @@
 	request.setAttribute("courseId", courseId);
 	request.setAttribute("semesterId", semesterId);
 
-	request.setAttribute("curriculums", CurriculumLocalServiceUtil.getCurriculums());
+	request.setAttribute("curriculums", curriculums);
+	request.setAttribute("subjects", subjects);
+	request.setAttribute("courses", courses);
 	request.setAttribute("semesters", SemesterLocalServiceUtil.getSemesters());
 %>
 
