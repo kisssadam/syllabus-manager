@@ -543,8 +543,6 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		long subjectId = ParamUtil.getLong(resourceRequest, "subjectSelect");
 		String subjectSelected = ParamUtil.getString(resourceRequest, "subjectSelected");
 
-		System.out.println(curriculumId);
-		
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 		if (curriculumSelected.equalsIgnoreCase("curriculumSelected")) {

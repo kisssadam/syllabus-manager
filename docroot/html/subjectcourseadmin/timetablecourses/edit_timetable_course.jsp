@@ -23,6 +23,9 @@
 	if (subjectId > 0) {
 		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
 		curriculumId = subject.getCurriculumId();
+		
+		request.setAttribute("courses", CourseLocalServiceUtil.getCoursesBySubjectId(subjectId));
+		request.setAttribute("subjects", SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculumId));
 	}
 
 	request.setAttribute("curriculumId", curriculumId);
@@ -87,9 +90,37 @@
 			</c:forEach>
 		</aui:select>
 
-		<aui:select label="subject" name="subjectSelect" required="true" />
+		<aui:select label="subject" name="subjectSelect" required="true" >
+			<c:forEach items="${subjects}" var="subject">
+				<c:choose>
+					<c:when test="${subjectId eq subject.subjectId}">
+						<c:set var="isSubjectSelected" value="true" />
+					</c:when>
+					<c:otherwise>
+						<c:set var="isSubjectSelected" value="false" />
+					</c:otherwise>
+				</c:choose>
+				<aui:option selected="${isSubjectSelected}" value="${subject.subjectId}">
+					<c:out value="${subject}" />
+				</aui:option>
+			</c:forEach>
+		</aui:select>
 
-		<aui:select label="course" name="courseSelect" required="true" />
+		<aui:select label="course" name="courseSelect" required="true">
+			<c:forEach items="${courses}" var="course">
+				<c:choose>
+					<c:when test="${courseId eq course.courseId}">
+						<c:set var="isCourseSelected" value="true" />
+					</c:when>
+					<c:otherwise>
+						<c:set var="isCourseSelected" value="false" />
+					</c:otherwise>
+				</c:choose>
+				<aui:option selected="${isCourseSelected}" value="${course.courseId}">
+					<c:out value="${course}" />
+				</aui:option>
+			</c:forEach>
+		</aui:select>
 
 		<aui:select label="semester" name="semesterId" required="true">
 			<c:forEach items="${semesters}" var="semester">
