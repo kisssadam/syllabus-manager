@@ -4,7 +4,7 @@
 	boolean showSemestersLink = GetterUtil.getBoolean(request.getAttribute("showSemestersLink"), false);
 	boolean showCourseTypesLink = GetterUtil.getBoolean(request.getAttribute("showCourseTypesLink"), false);
 	boolean showCurriculumsLink = GetterUtil.getBoolean(request.getAttribute("showCurriculumsLink"), false);
-	
+
 	long curriculumId = GetterUtil.getLong(request.getAttribute("curriculumId"), 0);
 	long subjectId = GetterUtil.getLong(request.getAttribute("subjectId"), 0);
 %>
@@ -48,15 +48,12 @@
 
 	if (curriculumId > 0) {
 		Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(curriculumId);
-		PortalUtil.addPortletBreadcrumbEntry(request,
-				curriculum.getCurriculumCode() + " - " + curriculum.getCurriculumName(),
-				viewSubjectsURL.toString());
+		PortalUtil.addPortletBreadcrumbEntry(request, curriculum.toString(), viewSubjectsURL.toString());
 	}
 
 	if (subjectId > 0) {
 		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
-		PortalUtil.addPortletBreadcrumbEntry(request,
-				subject.getSubjectCode() + " - " + subject.getSubjectName(), viewCoursesURL.toString());
+		PortalUtil.addPortletBreadcrumbEntry(request, subject.toString(), viewCoursesURL.toString());
 	}
 %>
 

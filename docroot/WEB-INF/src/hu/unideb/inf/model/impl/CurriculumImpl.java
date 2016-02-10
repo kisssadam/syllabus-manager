@@ -15,10 +15,12 @@
 package hu.unideb.inf.model.impl;
 
 /**
- * The extended model implementation for the Curriculum service. Represents a row in the &quot;unideb_syllabus_manager_Curriculum&quot; database table, with each column mapped to a property of this class.
+ * The extended model implementation for the Curriculum service. Represents a row in the
+ * &quot;unideb_syllabus_manager_Curriculum&quot; database table, with each column mapped to a property of this class.
  *
  * <p>
- * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link hu.unideb.inf.model.Curriculum} interface.
+ * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun
+ * ServiceBuilder to copy their definitions into the {@link hu.unideb.inf.model.Curriculum} interface.
  * </p>
  *
  * @author Adam Kiss
@@ -27,8 +29,14 @@ public class CurriculumImpl extends CurriculumBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. All methods that expect a curriculum model instance should use the {@link hu.unideb.inf.model.Curriculum} interface instead.
+	 * Never reference this class directly. All methods that expect a curriculum model instance should use the {@link
+	 * hu.unideb.inf.model.Curriculum} interface instead.
 	 */
 	public CurriculumImpl() {
+	}
+
+	@Override
+	public String toString() {
+		return getCurriculumCode() + " - " + getCurriculumName();
 	}
 }
