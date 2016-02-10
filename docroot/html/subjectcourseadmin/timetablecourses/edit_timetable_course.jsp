@@ -1,3 +1,4 @@
+<%@page import="java.util.Collections"%>
 <%@include file="/html/init.jsp"%>
 
 <%
@@ -32,20 +33,26 @@
 	}
 	
 	if (curriculumId <= 0) {
-		if (Validator.isNotNull(curriculums)) {
+		if (Validator.isNotNull(curriculums) && curriculums.size() > 0) {
 			curriculumId = curriculums.get(0).getCurriculumId();
+		} else {
+			curriculums = Collections.emptyList();
 		}
 	}
 	
 	if (Validator.isNull(subjects)) {
 		if (curriculums.size() > 0) {
 			subjects = SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculumId);
+		} else {
+			subjects = Collections.emptyList();
 		}
 	}
 	
 	if (Validator.isNull(courses)) {
 		if (subjects.size() > 0) {
 			courses = CourseLocalServiceUtil.getCoursesBySubjectId(subjects.get(0).getSubjectId());
+		} else {
+			courses = Collections.emptyList();
 		}
 	}
 
