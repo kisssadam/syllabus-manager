@@ -14,7 +14,6 @@
 
 package hu.unideb.inf.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +28,7 @@ import com.liferay.portal.service.ServiceContext;
 import hu.unideb.inf.DuplicateTimetableCourseException;
 import hu.unideb.inf.NoSuchTimetableCourseException;
 import hu.unideb.inf.TimetableCourseCodeException;
-import hu.unideb.inf.TimetableCourseLecturerNameException;
+import hu.unideb.inf.TimetableCourseLecturerException;
 import hu.unideb.inf.TimetableCourseLimitException;
 import hu.unideb.inf.TimetableCourseRecommendedTermException;
 import hu.unideb.inf.TimetableCourseSubjectTypeException;
@@ -100,7 +99,7 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 	}
 
 	public TimetableCourse addTimetableCourse(long courseId, long semesterId, String timetableCourseCode,
-			String subjectType, int recommendedTerm, int limit, String[] lecturerNames, String classScheduleInfo,
+			String subjectType, int recommendedTerm, int limit, long[] lecturerIds, String classScheduleInfo,
 			String description, ServiceContext serviceContext) throws PortalException, SystemException {
 		Date now = new Date();
 
@@ -111,7 +110,7 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 		User user = userPersistence.findByPrimaryKey(userId);
 		String userName = user.getFullName();
 
-		validate(courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit, lecturerNames);
+		validate(courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit, lecturerIds);
 
 		TimetableCourse timetableCourse = timetableCoursePersistence.create(timetableCourseId);
 
@@ -135,20 +134,7 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 		resourceLocalService.addResources(user.getCompanyId(), groupId, userId, TimetableCourse.class.getName(),
 				timetableCourseId, false, true, true);
 
-		List<Lecturer> lecturers = new ArrayList<>();
-
-		for (String lecturerName : lecturerNames) {
-			Lecturer lecturer = null;
-
-			if (LecturerLocalServiceUtil.isLecturerExists(lecturerName)) {
-				lecturer = LecturerLocalServiceUtil.getLecturerByName(lecturerName);
-			} else {
-				final long lecturerUserId = 0;
-				lecturer = LecturerLocalServiceUtil.addLecturer(lecturerName, lecturerUserId, serviceContext);
-			}
-
-			lecturers.add(lecturer);
-		}
+		List<Lecturer> lecturers = LecturerLocalServiceUtil.getLecturersByIds(lecturerIds);
 
 		timetableCoursePersistence.setLecturers(timetableCourseId, lecturers);
 
@@ -156,7 +142,7 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 	}
 
 	public TimetableCourse updateTimetableCourse(long userId, long timetableCourseId, long courseId, long semesterId,
-			String timetableCourseCode, String subjectType, int recommendedTerm, int limit, String[] lecturerNames,
+			String timetableCourseCode, String subjectType, int recommendedTerm, int limit, long[] lecturerIds,
 			String classScheduleInfo, String description, ServiceContext serviceContext)
 					throws PortalException, SystemException {
 		long groupId = serviceContext.getScopeGroupId();
@@ -165,7 +151,7 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 
 		Date now = new Date();
 
-		validate(courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit, lecturerNames);
+		validate(courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit, lecturerIds);
 
 		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
 
@@ -183,20 +169,7 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 
 		timetableCoursePersistence.update(timetableCourse);
 
-		List<Lecturer> lecturers = new ArrayList<>();
-
-		for (String lecturerName : lecturerNames) {
-			Lecturer lecturer = null;
-
-			if (LecturerLocalServiceUtil.isLecturerExists(lecturerName)) {
-				lecturer = LecturerLocalServiceUtil.getLecturerByName(lecturerName);
-			} else {
-				final long lecturerUserId = 0;
-				lecturer = LecturerLocalServiceUtil.addLecturer(lecturerName, lecturerUserId, serviceContext);
-			}
-
-			lecturers.add(lecturer);
-		}
+		List<Lecturer> lecturers = LecturerLocalServiceUtil.getLecturersByIds(lecturerIds);
 
 		timetableCoursePersistence.setLecturers(timetableCourseId, lecturers);
 
@@ -219,7 +192,7 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 	}
 
 	private void validate(long courseId, long semesterId, String timetableCourseCode, String subjectType,
-			int recommendedTerm, int limit, String[] lecturerNames) throws PortalException, SystemException {
+			int recommendedTerm, int limit, long[] lecturerIds) throws PortalException, SystemException {
 		if (Validator.isNull(timetableCourseCode)) {
 			throw new TimetableCourseCodeException();
 		}
@@ -236,8 +209,8 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 			throw new TimetableCourseLimitException();
 		}
 
-		if (ArrayUtil.isEmpty(lecturerNames)) {
-			throw new TimetableCourseLecturerNameException();
+		if (ArrayUtil.isEmpty(lecturerIds)) {
+			throw new TimetableCourseLecturerException();
 		}
 
 		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil

@@ -14,6 +14,7 @@
 
 package hu.unideb.inf.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -57,6 +58,16 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 
 	public List<Lecturer> getLecturers() throws SystemException {
 		return lecturerPersistence.findAll();
+	}
+
+	public List<Lecturer> getLecturersByIds(long[] lecturerIds) throws NoSuchLecturerException, SystemException {
+		List<Lecturer> lecturers = new ArrayList<>();
+
+		for (long lecturerId : lecturerIds) {
+			lecturers.add(lecturerPersistence.findByPrimaryKey(lecturerId));
+		}
+
+		return lecturers;
 	}
 
 	public Lecturer getLecturerByName(String lecturerName) throws NoSuchLecturerException, SystemException {

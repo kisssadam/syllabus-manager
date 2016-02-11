@@ -221,17 +221,16 @@ public class TimetableCourseLocalServiceClpInvoker {
 
 		_methodParameterTypes100 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String", "int",
-				"int", "java.lang.String[][]", "java.lang.String",
-				"java.lang.String", "com.liferay.portal.service.ServiceContext"
+				"int", "long[][]", "java.lang.String", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName101 = "updateTimetableCourse";
 
 		_methodParameterTypes101 = new String[] {
 				"long", "long", "long", "long", "java.lang.String",
-				"java.lang.String", "int", "int", "java.lang.String[][]",
-				"java.lang.String", "java.lang.String",
-				"com.liferay.portal.service.ServiceContext"
+				"java.lang.String", "int", "int", "long[][]", "java.lang.String",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName102 = "deleteTimetableCourse";
@@ -506,8 +505,7 @@ public class TimetableCourseLocalServiceClpInvoker {
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
 				((Integer)arguments[4]).intValue(),
-				((Integer)arguments[5]).intValue(),
-				(java.lang.String[])arguments[6],
+				((Integer)arguments[5]).intValue(), (long[])arguments[6],
 				(java.lang.String)arguments[7], (java.lang.String)arguments[8],
 				(com.liferay.portal.service.ServiceContext)arguments[9]);
 		}
@@ -520,8 +518,7 @@ public class TimetableCourseLocalServiceClpInvoker {
 				((Long)arguments[3]).longValue(),
 				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
 				((Integer)arguments[6]).intValue(),
-				((Integer)arguments[7]).intValue(),
-				(java.lang.String[])arguments[8],
+				((Integer)arguments[7]).intValue(), (long[])arguments[8],
 				(java.lang.String)arguments[9],
 				(java.lang.String)arguments[10],
 				(com.liferay.portal.service.ServiceContext)arguments[11]);

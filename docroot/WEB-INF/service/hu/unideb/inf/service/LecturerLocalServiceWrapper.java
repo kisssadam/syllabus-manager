@@ -459,6 +459,14 @@ public class LecturerLocalServiceWrapper implements LecturerLocalService,
 	}
 
 	@Override
+	public java.util.List<hu.unideb.inf.model.Lecturer> getLecturersByIds(
+		long[] lecturerIds)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchLecturerException {
+		return _lecturerLocalService.getLecturersByIds(lecturerIds);
+	}
+
+	@Override
 	public hu.unideb.inf.model.Lecturer getLecturerByName(
 		java.lang.String lecturerName)
 		throws com.liferay.portal.kernel.exception.SystemException,

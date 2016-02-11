@@ -371,6 +371,12 @@ public interface LecturerLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<hu.unideb.inf.model.Lecturer> getLecturersByIds(
+		long[] lecturerIds)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchLecturerException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public hu.unideb.inf.model.Lecturer getLecturerByName(
 		java.lang.String lecturerName)
 		throws com.liferay.portal.kernel.exception.SystemException,

@@ -83,6 +83,15 @@
             	<aui:nav-item href="<%= addSemesterURL.toString() %>" label="Semester" />
            	</c:if>
            	
+           	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_LECTURER)%>'>
+           		<portlet:renderURL var="addLecturerURL">
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/lecturers/edit_lecturer.jsp" />
+					<portlet:param name="lecturerId" value="${lecturerId}" />
+				</portlet:renderURL>
+            	
+            	<aui:nav-item href="<%= addLecturerURL.toString() %>" label="Lecturer" />
+           	</c:if>
+           	
            	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_TIMETABLE_COURSE)%>'>
            		<portlet:renderURL var="addTimetableCourseURL">
 					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/timetablecourses/edit_timetable_course.jsp" />
@@ -93,15 +102,6 @@
 				</portlet:renderURL>
             	
             	<aui:nav-item href="<%= addTimetableCourseURL.toString() %>" label="TimetableCourse" />
-           	</c:if>
-           	
-           	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_LECTURER)%>'>
-           		<portlet:renderURL var="addLecturerURL">
-					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/lecturers/edit_lecturer.jsp" />
-					<portlet:param name="lecturerId" value="${lecturerId}" />
-				</portlet:renderURL>
-            	
-            	<aui:nav-item href="<%= addLecturerURL.toString() %>" label="Lecturer" />
            	</c:if>
         </aui:nav-item>
         

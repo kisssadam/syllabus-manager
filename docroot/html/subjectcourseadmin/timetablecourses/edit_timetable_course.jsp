@@ -8,11 +8,11 @@
 	long semesterId = ParamUtil.getLong(renderRequest, "semesterId");
 
 	TimetableCourse timetableCourse = null;
-	
+
 	List<Curriculum> curriculums = CurriculumLocalServiceUtil.getCurriculums();
 	List<Subject> subjects = null;
 	List<Course> courses = null;
-	
+
 	if (timetableCourseId > 0) {
 		timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
 		courseId = timetableCourse.getCourseId();
@@ -27,10 +27,10 @@
 	if (subjectId > 0) {
 		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
 		curriculumId = subject.getCurriculumId();
-		
+
 		courses = CourseLocalServiceUtil.getCoursesBySubjectId(subjectId);
 	}
-	
+
 	if (curriculumId <= 0) {
 		if (Validator.isNotNull(curriculums) && curriculums.size() > 0) {
 			curriculumId = curriculums.get(0).getCurriculumId();
@@ -38,7 +38,7 @@
 			curriculums = Collections.emptyList();
 		}
 	}
-	
+
 	if (Validator.isNull(subjects)) {
 		if (curriculums.size() > 0) {
 			subjects = SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculumId);
@@ -46,7 +46,7 @@
 			subjects = Collections.emptyList();
 		}
 	}
-	
+
 	if (Validator.isNull(courses)) {
 		if (subjects.size() > 0) {
 			courses = CourseLocalServiceUtil.getCoursesBySubjectId(subjects.get(0).getSubjectId());
@@ -61,10 +61,11 @@
 	request.setAttribute("semesterId", semesterId);
 
 	if (Validator.isNotNull(timetableCourse)) {
-		List<Lecturer> selectedLecturers = TimetableCourseLocalServiceUtil.getLecutersByTimetableCourseId(timetableCourseId);
+		List<Lecturer> selectedLecturers = TimetableCourseLocalServiceUtil
+				.getLecutersByTimetableCourseId(timetableCourseId);
 		request.setAttribute("selectedLecturers", selectedLecturers);
 	}
-	
+
 	request.setAttribute("lecturers", LecturerLocalServiceUtil.getLecturers());
 	request.setAttribute("curriculums", curriculums);
 	request.setAttribute("subjects", subjects);
@@ -125,7 +126,7 @@
 			</c:forEach>
 		</aui:select>
 
-		<aui:select label="subject" name="subjectSelect" required="true" >
+		<aui:select label="subject" name="subjectSelect" required="true">
 			<c:forEach items="${subjects}" var="subject">
 				<c:choose>
 					<c:when test="${subjectId eq subject.subjectId}">
@@ -184,7 +185,21 @@
 			<aui:validator name="number" />
 		</aui:input>
 
-		<aui:select label="lecuters" name="lecturers" >
+		<div id="lecturer-fields">
+			<div class="lfr-form-row lfr-form-row-inline">
+				<div class="row-fields" style="display: flex;">
+					<aui:select label="lecturer" name="lecturer1">
+						<c:forEach items="${lecturers}" var="lecturer">
+							<aui:option value="${lecturer.lecturerId}">
+								<c:out value="${lecturer.lecturerName}" />
+							</aui:option>
+						</c:forEach>
+					</aui:select>
+				</div>
+			</div>
+		</div>
+
+		<%-- <aui:select label="lecuters" name="lecturers" >
 			<c:forEach items="${lecturers}" var="lecturer">
 				<aui:option value="${lecturer.lecturerId}">
 					<c:out value="${lecturer.lecturerName}" />
@@ -199,9 +214,7 @@
 				</aui:option>
 			</c:forEach>
 		</aui:select>
-
-		<%-- lecturers ide :( aui select2 jo lenne --%>
-
+ --%>
 		<aui:input name="classScheduleInfo" type="text" />
 
 		<aui:input name="description" type="text" />
@@ -214,6 +227,13 @@
 </aui:form>
 
 <portlet:resourceURL var="resourceURL"></portlet:resourceURL>
+
+<aui:script use="liferay-auto-fields">
+new Liferay.AutoFields({
+		contentBox: '#lecturer-fields',
+		fieldIndexes: '<portlet:namespace />rowIndexes'
+}).render();
+</aui:script>
 
 <aui:script>
 AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', function(A) {

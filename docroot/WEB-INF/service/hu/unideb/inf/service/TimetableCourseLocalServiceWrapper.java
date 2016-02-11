@@ -521,28 +521,28 @@ public class TimetableCourseLocalServiceWrapper
 	public hu.unideb.inf.model.TimetableCourse addTimetableCourse(
 		long courseId, long semesterId, java.lang.String timetableCourseCode,
 		java.lang.String subjectType, int recommendedTerm, int limit,
-		java.lang.String[] lecturerNames, java.lang.String classScheduleInfo,
+		long[] lecturerIds, java.lang.String classScheduleInfo,
 		java.lang.String description,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _timetableCourseLocalService.addTimetableCourse(courseId,
 			semesterId, timetableCourseCode, subjectType, recommendedTerm,
-			limit, lecturerNames, classScheduleInfo, description, serviceContext);
+			limit, lecturerIds, classScheduleInfo, description, serviceContext);
 	}
 
 	@Override
 	public hu.unideb.inf.model.TimetableCourse updateTimetableCourse(
 		long userId, long timetableCourseId, long courseId, long semesterId,
 		java.lang.String timetableCourseCode, java.lang.String subjectType,
-		int recommendedTerm, int limit, java.lang.String[] lecturerNames,
+		int recommendedTerm, int limit, long[] lecturerIds,
 		java.lang.String classScheduleInfo, java.lang.String description,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _timetableCourseLocalService.updateTimetableCourse(userId,
 			timetableCourseId, courseId, semesterId, timetableCourseCode,
-			subjectType, recommendedTerm, limit, lecturerNames,
+			subjectType, recommendedTerm, limit, lecturerIds,
 			classScheduleInfo, description, serviceContext);
 	}
 

@@ -236,7 +236,7 @@
         <exception>TimetableCourseSubjectType</exception>
         <exception>TimetableCourseRecommendedTerm</exception>
         <exception>TimetableCourseLimit</exception>
-        <exception>TimetableCourseLecturerName</exception>
+        <exception>TimetableCourseLecturer</exception>
         <exception>DuplicateTimetableCourse</exception>
         <exception>TimetableCourseCode</exception>
     </exceptions>

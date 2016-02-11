@@ -183,34 +183,38 @@ public class LecturerLocalServiceClpInvoker {
 
 		_methodParameterTypes92 = new String[] {  };
 
-		_methodName93 = "getLecturerByName";
+		_methodName93 = "getLecturersByIds";
 
-		_methodParameterTypes93 = new String[] { "java.lang.String" };
+		_methodParameterTypes93 = new String[] { "long[][]" };
 
-		_methodName94 = "fetchLecturerByName";
+		_methodName94 = "getLecturerByName";
 
 		_methodParameterTypes94 = new String[] { "java.lang.String" };
 
-		_methodName95 = "isLecturerExists";
+		_methodName95 = "fetchLecturerByName";
 
 		_methodParameterTypes95 = new String[] { "java.lang.String" };
 
-		_methodName96 = "addLecturer";
+		_methodName96 = "isLecturerExists";
 
-		_methodParameterTypes96 = new String[] {
+		_methodParameterTypes96 = new String[] { "java.lang.String" };
+
+		_methodName97 = "addLecturer";
+
+		_methodParameterTypes97 = new String[] {
 				"java.lang.String", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName97 = "deleteLecturer";
+		_methodName98 = "deleteLecturer";
 
-		_methodParameterTypes97 = new String[] {
+		_methodParameterTypes98 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName98 = "updateLecturer";
+		_methodName99 = "updateLecturer";
 
-		_methodParameterTypes98 = new String[] {
+		_methodParameterTypes99 = new String[] {
 				"long", "long", "java.lang.String", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -439,34 +443,39 @@ public class LecturerLocalServiceClpInvoker {
 
 		if (_methodName93.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes93, parameterTypes)) {
-			return LecturerLocalServiceUtil.getLecturerByName((java.lang.String)arguments[0]);
+			return LecturerLocalServiceUtil.getLecturersByIds((long[])arguments[0]);
 		}
 
 		if (_methodName94.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
-			return LecturerLocalServiceUtil.fetchLecturerByName((java.lang.String)arguments[0]);
+			return LecturerLocalServiceUtil.getLecturerByName((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName95.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
-			return LecturerLocalServiceUtil.isLecturerExists((java.lang.String)arguments[0]);
+			return LecturerLocalServiceUtil.fetchLecturerByName((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName96.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes96, parameterTypes)) {
+			return LecturerLocalServiceUtil.isLecturerExists((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName97.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
 			return LecturerLocalServiceUtil.addLecturer((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[2]);
 		}
 
-		if (_methodName97.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes97, parameterTypes)) {
+		if (_methodName98.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
 			return LecturerLocalServiceUtil.deleteLecturer(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
-		if (_methodName98.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
+		if (_methodName99.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes99, parameterTypes)) {
 			return LecturerLocalServiceUtil.updateLecturer(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2],
@@ -559,4 +568,6 @@ public class LecturerLocalServiceClpInvoker {
 	private String[] _methodParameterTypes97;
 	private String _methodName98;
 	private String[] _methodParameterTypes98;
+	private String _methodName99;
+	private String[] _methodParameterTypes99;
 }

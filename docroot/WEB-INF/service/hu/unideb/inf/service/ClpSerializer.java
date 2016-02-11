@@ -651,9 +651,8 @@ public class ClpSerializer {
 			return new hu.unideb.inf.TimetableCourseCodeException();
 		}
 
-		if (className.equals(
-					"hu.unideb.inf.TimetableCourseLecturerNameException")) {
-			return new hu.unideb.inf.TimetableCourseLecturerNameException();
+		if (className.equals("hu.unideb.inf.TimetableCourseLecturerException")) {
+			return new hu.unideb.inf.TimetableCourseLecturerException();
 		}
 
 		if (className.equals("hu.unideb.inf.TimetableCourseLimitException")) {

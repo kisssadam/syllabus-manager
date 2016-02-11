@@ -423,6 +423,13 @@ public class LecturerLocalServiceUtil {
 		return getService().getLecturers();
 	}
 
+	public static java.util.List<hu.unideb.inf.model.Lecturer> getLecturersByIds(
+		long[] lecturerIds)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchLecturerException {
+		return getService().getLecturersByIds(lecturerIds);
+	}
+
 	public static hu.unideb.inf.model.Lecturer getLecturerByName(
 		java.lang.String lecturerName)
 		throws com.liferay.portal.kernel.exception.SystemException,

@@ -5,7 +5,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -21,6 +23,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -35,12 +38,14 @@ import hu.unideb.inf.model.Curriculum;
 import hu.unideb.inf.model.Lecturer;
 import hu.unideb.inf.model.Semester;
 import hu.unideb.inf.model.Subject;
+import hu.unideb.inf.model.TimetableCourse;
 import hu.unideb.inf.service.CourseLocalServiceUtil;
 import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
 import hu.unideb.inf.service.CurriculumLocalServiceUtil;
 import hu.unideb.inf.service.LecturerLocalServiceUtil;
 import hu.unideb.inf.service.SemesterLocalServiceUtil;
 import hu.unideb.inf.service.SubjectLocalServiceUtil;
+import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 
 /**
  * Portlet implementation class SubjectCourseAdminPortlet
@@ -59,6 +64,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 	private static final String VIEW_LECTURERS = "/html/subjectcourseadmin/lecturers/view_lecturers.jsp";
 
+	private static final String VIEW_TIMETABLE_COURSES = "/html/subjectcourseadmin/timetablecourses/view_timetable_courses.jsp";
+
 	private static final String EDIT_CURRICULUM = "/html/subjectcourseadmin/curriculums/edit_curriculum.jsp";
 
 	private static final String EDIT_SUBJECT = "/html/subjectcourseadmin/subjects/edit_subject.jsp";
@@ -70,6 +77,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 	private static final String EDIT_SEMESTER = "/html/subjectcourseadmin/semesters/edit_semester.jsp";
 
 	private static final String EDIT_LECTURER = "/html/subjectcourseadmin/lecturers/edit_lecturer.jsp";
+
+	private static final String EDIT_TIMETABLE_COURSE = "/html/subjectcourseadmin/timetablecourses/edit_timetable_course.jsp";
 
 	private final static String fileInputName = "fileupload";
 
@@ -233,8 +242,73 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", EDIT_LECTURER);
-			e.printStackTrace();
 		}
+	}
+
+	public void addTimetableCourse(ActionRequest request, ActionResponse response)
+			throws PortalException, SystemException {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
+
+		long timetableCourseId = ParamUtil.getLong(request, "timetableCourseId");
+		long courseId = ParamUtil.getLong(request, "courseSelect");
+		long semesterId = ParamUtil.getLong(request, "semesterId");
+		String timetableCourseCode = ParamUtil.getString(request, "timetableCourseCode");
+		String subjectType = ParamUtil.getString(request, "subjectType");
+		int recommendedTerm = ParamUtil.getInteger(request, "recommendedTerm");
+		int limit = ParamUtil.getInteger(request, "limit");
+		long[] lecturerIds = getLecturerIds(request);
+		String classScheduleInfo = ParamUtil.getString(request, "classScheduleInfo");
+		String description = ParamUtil.getString(request, "description");
+
+		System.out.println("timetableCourseId :" + timetableCourseId);
+		System.out.println("courseId: " + courseId);
+		System.out.println("semesterId: " + semesterId);
+		System.out.println("timetableCourseCode: " + timetableCourseCode);
+		System.out.println("subjectType: " + subjectType);
+		System.out.println("recommendedTerm: " + recommendedTerm);
+		System.out.println("limit: " + limit);
+		for (int i = 0; i < lecturerIds.length; i++) {
+			System.out.println("lecturerIds[" + i + "]: " + lecturerIds[i]);
+		}
+		System.out.println("classScheduleInfo: " + classScheduleInfo);
+		System.out.println("description: " + description);
+		System.out.println();
+
+		try {
+			if (timetableCourseId > 0) {
+				TimetableCourseLocalServiceUtil.updateTimetableCourse(serviceContext.getUserId(), timetableCourseId,
+						courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit, lecturerIds,
+						classScheduleInfo, description, serviceContext);
+
+				SessionMessages.add(request, "timetableCourseUpdated");
+			} else {
+				TimetableCourseLocalServiceUtil.addTimetableCourse(courseId, semesterId, timetableCourseCode,
+						subjectType, recommendedTerm, limit, lecturerIds, classScheduleInfo, description,
+						serviceContext);
+
+				SessionMessages.add(request, "timetableCourseAdded");
+			}
+
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", EDIT_TIMETABLE_COURSE);
+		}
+	}
+
+	private long[] getLecturerIds(ActionRequest request) {
+		Set<Long> lecturerIds = new LinkedHashSet<>();
+
+		int[] rowIndexes = ParamUtil.getIntegerValues(request, "rowIndexes");
+
+		for (int rowIndex : rowIndexes) {
+			long lecturerId = ParamUtil.getLong(request, "lecturer" + rowIndex);
+			lecturerIds.add(lecturerId);
+		}
+
+		return ArrayUtil.toArray(lecturerIds.toArray(new Long[lecturerIds.size()]));
 	}
 
 	public void deleteCurriculum(ActionRequest request, ActionResponse response) {

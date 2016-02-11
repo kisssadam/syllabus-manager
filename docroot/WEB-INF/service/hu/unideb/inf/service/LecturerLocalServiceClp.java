@@ -183,34 +183,38 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 
 		_methodParameterTypes35 = new String[] {  };
 
-		_methodName36 = "getLecturerByName";
+		_methodName36 = "getLecturersByIds";
 
-		_methodParameterTypes36 = new String[] { "java.lang.String" };
+		_methodParameterTypes36 = new String[] { "long[][]" };
 
-		_methodName37 = "fetchLecturerByName";
+		_methodName37 = "getLecturerByName";
 
 		_methodParameterTypes37 = new String[] { "java.lang.String" };
 
-		_methodName38 = "isLecturerExists";
+		_methodName38 = "fetchLecturerByName";
 
 		_methodParameterTypes38 = new String[] { "java.lang.String" };
 
-		_methodName39 = "addLecturer";
+		_methodName39 = "isLecturerExists";
 
-		_methodParameterTypes39 = new String[] {
+		_methodParameterTypes39 = new String[] { "java.lang.String" };
+
+		_methodName40 = "addLecturer";
+
+		_methodParameterTypes40 = new String[] {
 				"java.lang.String", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName40 = "deleteLecturer";
+		_methodName41 = "deleteLecturer";
 
-		_methodParameterTypes40 = new String[] {
+		_methodParameterTypes41 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName41 = "updateLecturer";
+		_methodName42 = "updateLecturer";
 
-		_methodParameterTypes41 = new String[] {
+		_methodParameterTypes42 = new String[] {
 				"long", "long", "java.lang.String", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -1261,8 +1265,8 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 	}
 
 	@Override
-	public hu.unideb.inf.model.Lecturer getLecturerByName(
-		java.lang.String lecturerName)
+	public java.util.List<hu.unideb.inf.model.Lecturer> getLecturersByIds(
+		long[] lecturerIds)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchLecturerException {
 		Object returnObj = null;
@@ -1270,6 +1274,41 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName36,
 					_methodParameterTypes36,
+					new Object[] { ClpSerializer.translateInput(lecturerIds) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof hu.unideb.inf.NoSuchLecturerException) {
+				throw (hu.unideb.inf.NoSuchLecturerException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<hu.unideb.inf.model.Lecturer>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Lecturer getLecturerByName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchLecturerException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName37,
+					_methodParameterTypes37,
 					new Object[] { ClpSerializer.translateInput(lecturerName) });
 		}
 		catch (Throwable t) {
@@ -1302,8 +1341,8 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName37,
-					_methodParameterTypes37,
+			returnObj = _invokableLocalService.invokeMethod(_methodName38,
+					_methodParameterTypes38,
 					new Object[] { ClpSerializer.translateInput(lecturerName) });
 		}
 		catch (Throwable t) {
@@ -1331,8 +1370,8 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName38,
-					_methodParameterTypes38,
+			returnObj = _invokableLocalService.invokeMethod(_methodName39,
+					_methodParameterTypes39,
 					new Object[] { ClpSerializer.translateInput(lecturerName) });
 		}
 		catch (Throwable t) {
@@ -1363,8 +1402,8 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName39,
-					_methodParameterTypes39,
+			returnObj = _invokableLocalService.invokeMethod(_methodName40,
+					_methodParameterTypes40,
 					new Object[] {
 						ClpSerializer.translateInput(lecturerName),
 						
@@ -1404,8 +1443,8 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName40,
-					_methodParameterTypes40,
+			returnObj = _invokableLocalService.invokeMethod(_methodName41,
+					_methodParameterTypes41,
 					new Object[] {
 						lecturerId,
 						
@@ -1444,8 +1483,8 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName41,
-					_methodParameterTypes41,
+			returnObj = _invokableLocalService.invokeMethod(_methodName42,
+					_methodParameterTypes42,
 					new Object[] {
 						userId,
 						
@@ -1564,4 +1603,6 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 	private String[] _methodParameterTypes40;
 	private String _methodName41;
 	private String[] _methodParameterTypes41;
+	private String _methodName42;
+	private String[] _methodParameterTypes42;
 }
