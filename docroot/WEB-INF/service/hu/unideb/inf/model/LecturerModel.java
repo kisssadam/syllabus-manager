@@ -18,11 +18,14 @@ import com.liferay.portal.kernel.bean.AutoEscape;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
+import com.liferay.portal.model.GroupedModel;
 import com.liferay.portal.service.ServiceContext;
 
 import com.liferay.portlet.expando.model.ExpandoBridge;
 
 import java.io.Serializable;
+
+import java.util.Date;
 
 /**
  * The base model interface for the Lecturer service. Represents a row in the &quot;unideb_syllabus_manager_Lecturer&quot; database table, with each column mapped to a property of this class.
@@ -37,7 +40,7 @@ import java.io.Serializable;
  * @see hu.unideb.inf.model.impl.LecturerModelImpl
  * @generated
  */
-public interface LecturerModel extends BaseModel<Lecturer> {
+public interface LecturerModel extends BaseModel<Lecturer>, GroupedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -73,6 +76,120 @@ public interface LecturerModel extends BaseModel<Lecturer> {
 	public void setLecturerId(long lecturerId);
 
 	/**
+	 * Returns the group ID of this lecturer.
+	 *
+	 * @return the group ID of this lecturer
+	 */
+	@Override
+	public long getGroupId();
+
+	/**
+	 * Sets the group ID of this lecturer.
+	 *
+	 * @param groupId the group ID of this lecturer
+	 */
+	@Override
+	public void setGroupId(long groupId);
+
+	/**
+	 * Returns the company ID of this lecturer.
+	 *
+	 * @return the company ID of this lecturer
+	 */
+	@Override
+	public long getCompanyId();
+
+	/**
+	 * Sets the company ID of this lecturer.
+	 *
+	 * @param companyId the company ID of this lecturer
+	 */
+	@Override
+	public void setCompanyId(long companyId);
+
+	/**
+	 * Returns the user ID of this lecturer.
+	 *
+	 * @return the user ID of this lecturer
+	 */
+	@Override
+	public long getUserId();
+
+	/**
+	 * Sets the user ID of this lecturer.
+	 *
+	 * @param userId the user ID of this lecturer
+	 */
+	@Override
+	public void setUserId(long userId);
+
+	/**
+	 * Returns the user uuid of this lecturer.
+	 *
+	 * @return the user uuid of this lecturer
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public String getUserUuid() throws SystemException;
+
+	/**
+	 * Sets the user uuid of this lecturer.
+	 *
+	 * @param userUuid the user uuid of this lecturer
+	 */
+	@Override
+	public void setUserUuid(String userUuid);
+
+	/**
+	 * Returns the user name of this lecturer.
+	 *
+	 * @return the user name of this lecturer
+	 */
+	@AutoEscape
+	@Override
+	public String getUserName();
+
+	/**
+	 * Sets the user name of this lecturer.
+	 *
+	 * @param userName the user name of this lecturer
+	 */
+	@Override
+	public void setUserName(String userName);
+
+	/**
+	 * Returns the create date of this lecturer.
+	 *
+	 * @return the create date of this lecturer
+	 */
+	@Override
+	public Date getCreateDate();
+
+	/**
+	 * Sets the create date of this lecturer.
+	 *
+	 * @param createDate the create date of this lecturer
+	 */
+	@Override
+	public void setCreateDate(Date createDate);
+
+	/**
+	 * Returns the modified date of this lecturer.
+	 *
+	 * @return the modified date of this lecturer
+	 */
+	@Override
+	public Date getModifiedDate();
+
+	/**
+	 * Sets the modified date of this lecturer.
+	 *
+	 * @param modifiedDate the modified date of this lecturer
+	 */
+	@Override
+	public void setModifiedDate(Date modifiedDate);
+
+	/**
 	 * Returns the lecturer name of this lecturer.
 	 *
 	 * @return the lecturer name of this lecturer
@@ -88,33 +205,33 @@ public interface LecturerModel extends BaseModel<Lecturer> {
 	public void setLecturerName(String lecturerName);
 
 	/**
-	 * Returns the user ID of this lecturer.
+	 * Returns the lecturer user ID of this lecturer.
 	 *
-	 * @return the user ID of this lecturer
+	 * @return the lecturer user ID of this lecturer
 	 */
-	public long getUserId();
+	public long getLecturerUserId();
 
 	/**
-	 * Sets the user ID of this lecturer.
+	 * Sets the lecturer user ID of this lecturer.
 	 *
-	 * @param userId the user ID of this lecturer
+	 * @param lecturerUserId the lecturer user ID of this lecturer
 	 */
-	public void setUserId(long userId);
+	public void setLecturerUserId(long lecturerUserId);
 
 	/**
-	 * Returns the user uuid of this lecturer.
+	 * Returns the lecturer user uuid of this lecturer.
 	 *
-	 * @return the user uuid of this lecturer
+	 * @return the lecturer user uuid of this lecturer
 	 * @throws SystemException if a system exception occurred
 	 */
-	public String getUserUuid() throws SystemException;
+	public String getLecturerUserUuid() throws SystemException;
 
 	/**
-	 * Sets the user uuid of this lecturer.
+	 * Sets the lecturer user uuid of this lecturer.
 	 *
-	 * @param userUuid the user uuid of this lecturer
+	 * @param lecturerUserUuid the lecturer user uuid of this lecturer
 	 */
-	public void setUserUuid(String userUuid);
+	public void setLecturerUserUuid(String lecturerUserUuid);
 
 	@Override
 	public boolean isNew();

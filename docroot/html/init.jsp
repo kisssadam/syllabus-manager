@@ -19,10 +19,13 @@
 <%@page import="com.liferay.portal.kernel.util.Validator"%>
 <%@page import="com.liferay.portal.kernel.util.Constants"%>
 
+<%@page import="com.liferay.portal.model.User"%>
+
 <%@page import="com.liferay.portal.util.PortalUtil"%>
 
-<%@page import="java.util.List"%>
+<%@page import="java.util.Collections"%>
 <%@page import="java.util.Calendar"%>
+<%@page import="java.util.List"%>
 
 <%@page import="javax.portlet.PortletURL"%>
 
@@ -33,6 +36,7 @@
 <%@page import="hu.unideb.inf.service.SemesterLocalServiceUtil"%>
 <%@page import="hu.unideb.inf.service.TimetableCourseLocalServiceUtil"%>
 <%@page import="hu.unideb.inf.service.LecturerLocalServiceUtil"%>
+<%@page import="com.liferay.portal.service.UserLocalServiceUtil"%>
 
 <%@page import="hu.unideb.inf.model.Curriculum"%>
 <%@page import="hu.unideb.inf.model.Subject"%>
@@ -53,6 +57,7 @@
 <%@page import="hu.unideb.inf.service.permission.CourseTypePermission"%>
 <%@page import="hu.unideb.inf.service.permission.SemesterPermission"%>
 <%@page import="hu.unideb.inf.service.permission.TimetableCoursePermission"%>
+<%@page import="hu.unideb.inf.service.permission.LecturerPermission"%>
 
 <%@page import="hu.unideb.inf.DuplicateCurriculumException"%>
 <%@page import="hu.unideb.inf.DuplicateSubjectException"%>

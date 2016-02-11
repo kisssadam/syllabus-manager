@@ -1,4 +1,3 @@
-<%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 <%@include file="/html/init.jsp"%>
 
 <!-- 
@@ -23,6 +22,10 @@
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/semesters/view_semesters.jsp" />
 </portlet:renderURL>
 
+<portlet:renderURL var="viewLecturersURL">
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/lecturers/view_lecturers.jsp" />
+</portlet:renderURL>
+
 <aui:nav-bar>
     <aui:nav>
     	<aui:nav-item cssClass="removeCheckedItemsButton" iconCssClass="icon-remove" label="delete" selected='false' style="display: none;" />
@@ -33,6 +36,7 @@
         	<aui:nav-item href="<%=viewCurriculumsURL.toString()%>" label="Curriculums" />
 			<aui:nav-item href="<%=viewCourseTypesURL.toString()%>" label="Course Types" />
 			<aui:nav-item href="<%=viewSemestersURL.toString()%>" label="Semesters" />
+			<aui:nav-item href="<%=viewLecturersURL.toString()%>" label="Lecturers" />
 		</aui:nav-item>
         
         <aui:nav-item dropdown="true" iconCssClass="icon-plus" label="add" selected='false'>
@@ -89,6 +93,15 @@
 				</portlet:renderURL>
             	
             	<aui:nav-item href="<%= addTimetableCourseURL.toString() %>" label="TimetableCourse" />
+           	</c:if>
+           	
+           	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_LECTURER)%>'>
+           		<portlet:renderURL var="addLecturerURL">
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/lecturers/edit_lecturer.jsp" />
+					<portlet:param name="lecturerId" value="${lecturerId}" />
+				</portlet:renderURL>
+            	
+            	<aui:nav-item href="<%= addLecturerURL.toString() %>" label="Lecturer" />
            	</c:if>
         </aui:nav-item>
         

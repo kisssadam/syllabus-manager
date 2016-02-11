@@ -1,4 +1,3 @@
-<%@page import="java.util.Collections"%>
 <%@include file="/html/init.jsp"%>
 
 <%
@@ -61,6 +60,12 @@
 	request.setAttribute("courseId", courseId);
 	request.setAttribute("semesterId", semesterId);
 
+	if (Validator.isNotNull(timetableCourse)) {
+		List<Lecturer> selectedLecturers = TimetableCourseLocalServiceUtil.getLecutersByTimetableCourseId(timetableCourseId);
+		request.setAttribute("selectedLecturers", selectedLecturers);
+	}
+	
+	request.setAttribute("lecturers", LecturerLocalServiceUtil.getLecturers());
 	request.setAttribute("curriculums", curriculums);
 	request.setAttribute("subjects", subjects);
 	request.setAttribute("courses", courses);
@@ -178,6 +183,22 @@
 			<aui:validator name="required" />
 			<aui:validator name="number" />
 		</aui:input>
+
+		<aui:select label="lecuters" name="lecturers" >
+			<c:forEach items="${lecturers}" var="lecturer">
+				<aui:option value="${lecturer.lecturerId}">
+					<c:out value="${lecturer.lecturerName}" />
+				</aui:option>
+			</c:forEach>
+		</aui:select>
+		
+		<aui:select label="selectedLecuters" name="selectedLecturers" >
+			<c:forEach items="${selectedLecturers}" var="selectedLecturer">
+				<aui:option value="${selectedLecturer.lecturerId}">
+					<c:out value="${selectedLecturer.lecturerName}" />
+				</aui:option>
+			</c:forEach>
+		</aui:select>
 
 		<%-- lecturers ide :( aui select2 jo lenne --%>
 

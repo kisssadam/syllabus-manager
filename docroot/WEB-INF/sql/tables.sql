@@ -37,8 +37,14 @@ create table unideb_syllabus_manager_Curriculum (
 
 create table unideb_syllabus_manager_Lecturer (
 	lecturerId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
 	lecturerName VARCHAR(75) null,
-	userId LONG
+	lecturerUserId LONG
 );
 
 create table unideb_syllabus_manager_Lecturers_TimetableCourses (

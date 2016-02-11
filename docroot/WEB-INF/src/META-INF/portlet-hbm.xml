@@ -57,8 +57,14 @@
 		<id name="lecturerId" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="lecturerName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="lecturerName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="lecturerUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
 	<class name="hu.unideb.inf.model.impl.SemesterImpl" table="unideb_syllabus_manager_Semester">
 		<cache usage="read-write" />

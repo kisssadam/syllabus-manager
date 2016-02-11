@@ -14,6 +14,8 @@ public class ActionKeys extends com.liferay.portal.security.permission.ActionKey
 
 	public static final String ADD_TIMETABLE_COURSE = "ADD_TIMETABLE_COURSE";
 
+	public static final String ADD_LECTURER = "ADD_LECTURER";
+
 	public static final String IMPORT_SYLLABUS = "IMPORT_SYLLABUS";
 
 }

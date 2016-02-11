@@ -29,6 +29,7 @@ import java.io.Serializable;
 
 import java.lang.reflect.Method;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,8 +75,14 @@ public class LecturerClp extends BaseModelImpl<Lecturer> implements Lecturer {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("lecturerId", getLecturerId());
-		attributes.put("lecturerName", getLecturerName());
+		attributes.put("groupId", getGroupId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
+		attributes.put("createDate", getCreateDate());
+		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("lecturerName", getLecturerName());
+		attributes.put("lecturerUserId", getLecturerUserId());
 
 		return attributes;
 	}
@@ -88,16 +95,52 @@ public class LecturerClp extends BaseModelImpl<Lecturer> implements Lecturer {
 			setLecturerId(lecturerId);
 		}
 
-		String lecturerName = (String)attributes.get("lecturerName");
+		Long groupId = (Long)attributes.get("groupId");
 
-		if (lecturerName != null) {
-			setLecturerName(lecturerName);
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long userId = (Long)attributes.get("userId");
 
 		if (userId != null) {
 			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
+		}
+
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
+
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
+		}
+
+		String lecturerName = (String)attributes.get("lecturerName");
+
+		if (lecturerName != null) {
+			setLecturerName(lecturerName);
+		}
+
+		Long lecturerUserId = (Long)attributes.get("lecturerUserId");
+
+		if (lecturerUserId != null) {
+			setLecturerUserId(lecturerUserId);
 		}
 	}
 
@@ -125,21 +168,44 @@ public class LecturerClp extends BaseModelImpl<Lecturer> implements Lecturer {
 	}
 
 	@Override
-	public String getLecturerName() {
-		return _lecturerName;
+	public long getGroupId() {
+		return _groupId;
 	}
 
 	@Override
-	public void setLecturerName(String lecturerName) {
-		_lecturerName = lecturerName;
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
 
 		if (_lecturerRemoteModel != null) {
 			try {
 				Class<?> clazz = _lecturerRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setLecturerName", String.class);
+				Method method = clazz.getMethod("setGroupId", long.class);
 
-				method.invoke(_lecturerRemoteModel, lecturerName);
+				method.invoke(_lecturerRemoteModel, groupId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+
+		if (_lecturerRemoteModel != null) {
+			try {
+				Class<?> clazz = _lecturerRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_lecturerRemoteModel, companyId);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -178,6 +244,132 @@ public class LecturerClp extends BaseModelImpl<Lecturer> implements Lecturer {
 	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
+	}
+
+	@Override
+	public String getUserName() {
+		return _userName;
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
+
+		if (_lecturerRemoteModel != null) {
+			try {
+				Class<?> clazz = _lecturerRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserName", String.class);
+
+				method.invoke(_lecturerRemoteModel, userName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	@Override
+	public void setCreateDate(Date createDate) {
+		_createDate = createDate;
+
+		if (_lecturerRemoteModel != null) {
+			try {
+				Class<?> clazz = _lecturerRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_lecturerRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	@Override
+	public void setModifiedDate(Date modifiedDate) {
+		_modifiedDate = modifiedDate;
+
+		if (_lecturerRemoteModel != null) {
+			try {
+				Class<?> clazz = _lecturerRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setModifiedDate", Date.class);
+
+				method.invoke(_lecturerRemoteModel, modifiedDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getLecturerName() {
+		return _lecturerName;
+	}
+
+	@Override
+	public void setLecturerName(String lecturerName) {
+		_lecturerName = lecturerName;
+
+		if (_lecturerRemoteModel != null) {
+			try {
+				Class<?> clazz = _lecturerRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setLecturerName", String.class);
+
+				method.invoke(_lecturerRemoteModel, lecturerName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public long getLecturerUserId() {
+		return _lecturerUserId;
+	}
+
+	@Override
+	public void setLecturerUserId(long lecturerUserId) {
+		_lecturerUserId = lecturerUserId;
+
+		if (_lecturerRemoteModel != null) {
+			try {
+				Class<?> clazz = _lecturerRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setLecturerUserId", long.class);
+
+				method.invoke(_lecturerRemoteModel, lecturerUserId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getLecturerUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getLecturerUserId(), "uuid",
+			_lecturerUserUuid);
+	}
+
+	@Override
+	public void setLecturerUserUuid(String lecturerUserUuid) {
+		_lecturerUserUuid = lecturerUserUuid;
 	}
 
 	public BaseModel<?> getLecturerRemoteModel() {
@@ -250,8 +442,14 @@ public class LecturerClp extends BaseModelImpl<Lecturer> implements Lecturer {
 		LecturerClp clone = new LecturerClp();
 
 		clone.setLecturerId(getLecturerId());
-		clone.setLecturerName(getLecturerName());
+		clone.setGroupId(getGroupId());
+		clone.setCompanyId(getCompanyId());
 		clone.setUserId(getUserId());
+		clone.setUserName(getUserName());
+		clone.setCreateDate(getCreateDate());
+		clone.setModifiedDate(getModifiedDate());
+		clone.setLecturerName(getLecturerName());
+		clone.setLecturerUserId(getLecturerUserId());
 
 		return clone;
 	}
@@ -304,14 +502,26 @@ public class LecturerClp extends BaseModelImpl<Lecturer> implements Lecturer {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{lecturerId=");
 		sb.append(getLecturerId());
-		sb.append(", lecturerName=");
-		sb.append(getLecturerName());
+		sb.append(", groupId=");
+		sb.append(getGroupId());
+		sb.append(", companyId=");
+		sb.append(getCompanyId());
 		sb.append(", userId=");
 		sb.append(getUserId());
+		sb.append(", userName=");
+		sb.append(getUserName());
+		sb.append(", createDate=");
+		sb.append(getCreateDate());
+		sb.append(", modifiedDate=");
+		sb.append(getModifiedDate());
+		sb.append(", lecturerName=");
+		sb.append(getLecturerName());
+		sb.append(", lecturerUserId=");
+		sb.append(getLecturerUserId());
 		sb.append("}");
 
 		return sb.toString();
@@ -319,7 +529,7 @@ public class LecturerClp extends BaseModelImpl<Lecturer> implements Lecturer {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("<model><model-name>");
 		sb.append("hu.unideb.inf.model.Lecturer");
@@ -330,12 +540,36 @@ public class LecturerClp extends BaseModelImpl<Lecturer> implements Lecturer {
 		sb.append(getLecturerId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>lecturerName</column-name><column-value><![CDATA[");
-		sb.append(getLecturerName());
+			"<column><column-name>groupId</column-name><column-value><![CDATA[");
+		sb.append(getGroupId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>companyId</column-name><column-value><![CDATA[");
+		sb.append(getCompanyId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>userId</column-name><column-value><![CDATA[");
 		sb.append(getUserId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>createDate</column-name><column-value><![CDATA[");
+		sb.append(getCreateDate());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
+		sb.append(getModifiedDate());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>lecturerName</column-name><column-value><![CDATA[");
+		sb.append(getLecturerName());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>lecturerUserId</column-name><column-value><![CDATA[");
+		sb.append(getLecturerUserId());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -344,9 +578,16 @@ public class LecturerClp extends BaseModelImpl<Lecturer> implements Lecturer {
 	}
 
 	private long _lecturerId;
-	private String _lecturerName;
+	private long _groupId;
+	private long _companyId;
 	private long _userId;
 	private String _userUuid;
+	private String _userName;
+	private Date _createDate;
+	private Date _modifiedDate;
+	private String _lecturerName;
+	private long _lecturerUserId;
+	private String _lecturerUserUuid;
 	private BaseModel<?> _lecturerRemoteModel;
 	private Class<?> _clpSerializerClass = hu.unideb.inf.service.ClpSerializer.class;
 }

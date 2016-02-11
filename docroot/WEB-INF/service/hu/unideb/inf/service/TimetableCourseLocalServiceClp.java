@@ -215,26 +215,30 @@ public class TimetableCourseLocalServiceClp
 
 		_methodParameterTypes41 = new String[] { "long" };
 
-		_methodName42 = "addTimetableCourse";
+		_methodName42 = "getLecutersByTimetableCourseId";
 
-		_methodParameterTypes42 = new String[] {
+		_methodParameterTypes42 = new String[] { "long" };
+
+		_methodName43 = "addTimetableCourse";
+
+		_methodParameterTypes43 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String", "int",
 				"int", "java.lang.String[][]", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName43 = "updateTimetableCourse";
+		_methodName44 = "updateTimetableCourse";
 
-		_methodParameterTypes43 = new String[] {
+		_methodParameterTypes44 = new String[] {
 				"long", "long", "long", "long", "java.lang.String",
 				"java.lang.String", "int", "int", "java.lang.String[][]",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName44 = "deleteTimetableCourse";
+		_methodName45 = "deleteTimetableCourse";
 
-		_methodParameterTypes44 = new String[] {
+		_methodParameterTypes45 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -1479,6 +1483,35 @@ public class TimetableCourseLocalServiceClp
 	}
 
 	@Override
+	public java.util.List<hu.unideb.inf.model.Lecturer> getLecutersByTimetableCourseId(
+		long timetableCourseId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName42,
+					_methodParameterTypes42, new Object[] { timetableCourseId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<hu.unideb.inf.model.Lecturer>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public hu.unideb.inf.model.TimetableCourse addTimetableCourse(
 		long courseId, long semesterId, java.lang.String timetableCourseCode,
 		java.lang.String subjectType, int recommendedTerm, int limit,
@@ -1490,8 +1523,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName42,
-					_methodParameterTypes42,
+			returnObj = _invokableLocalService.invokeMethod(_methodName43,
+					_methodParameterTypes43,
 					new Object[] {
 						courseId,
 						
@@ -1549,8 +1582,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName43,
-					_methodParameterTypes43,
+			returnObj = _invokableLocalService.invokeMethod(_methodName44,
+					_methodParameterTypes44,
 					new Object[] {
 						userId,
 						
@@ -1609,8 +1642,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName44,
-					_methodParameterTypes44,
+			returnObj = _invokableLocalService.invokeMethod(_methodName45,
+					_methodParameterTypes45,
 					new Object[] {
 						timetableCourseId,
 						
@@ -1729,4 +1762,6 @@ public class TimetableCourseLocalServiceClp
 	private String[] _methodParameterTypes43;
 	private String _methodName44;
 	private String[] _methodParameterTypes44;
+	private String _methodName45;
+	private String[] _methodParameterTypes45;
 }

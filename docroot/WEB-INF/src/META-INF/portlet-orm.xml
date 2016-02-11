@@ -76,8 +76,19 @@
 	<mapped-superclass class="hu.unideb.inf.model.impl.LecturerModelImpl">
 		<attributes>
 			<id name="lecturerId" />
-			<basic name="lecturerName" />
+			<basic name="groupId" />
+			<basic name="companyId" />
 			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="lecturerName" />
+			<basic name="lecturerUserId" />
+			<transient name="lecturerUserUuid" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />

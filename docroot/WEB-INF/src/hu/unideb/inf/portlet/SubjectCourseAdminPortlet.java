@@ -32,11 +32,13 @@ import com.liferay.util.bridges.mvc.MVCPortlet;
 import hu.unideb.inf.model.Course;
 import hu.unideb.inf.model.CourseType;
 import hu.unideb.inf.model.Curriculum;
+import hu.unideb.inf.model.Lecturer;
 import hu.unideb.inf.model.Semester;
 import hu.unideb.inf.model.Subject;
 import hu.unideb.inf.service.CourseLocalServiceUtil;
 import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
 import hu.unideb.inf.service.CurriculumLocalServiceUtil;
+import hu.unideb.inf.service.LecturerLocalServiceUtil;
 import hu.unideb.inf.service.SemesterLocalServiceUtil;
 import hu.unideb.inf.service.SubjectLocalServiceUtil;
 
@@ -55,6 +57,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 	private static final String VIEW_SEMESTERS = "/html/subjectcourseadmin/semesters/view_semesters.jsp";
 
+	private static final String VIEW_LECTURERS = "/html/subjectcourseadmin/lecturers/view_lecturers.jsp";
+
 	private static final String EDIT_CURRICULUM = "/html/subjectcourseadmin/curriculums/edit_curriculum.jsp";
 
 	private static final String EDIT_SUBJECT = "/html/subjectcourseadmin/subjects/edit_subject.jsp";
@@ -64,6 +68,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 	private static final String EDIT_COURSE_TYPE = "/html/subjectcourseadmin/course_types/edit_course_type.jsp";
 
 	private static final String EDIT_SEMESTER = "/html/subjectcourseadmin/semesters/edit_semester.jsp";
+
+	private static final String EDIT_LECTURER = "/html/subjectcourseadmin/lecturers/edit_lecturer.jsp";
 
 	private final static String fileInputName = "fileupload";
 
@@ -204,6 +210,33 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	public void addLecturer(ActionRequest request, ActionResponse response) throws PortalException, SystemException {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Lecturer.class.getName(), request);
+
+		long lecturerId = ParamUtil.getLong(request, "lecturerId");
+		String lecturerName = ParamUtil.getString(request, "lecturerName");
+		long lecturerUserId = ParamUtil.getLong(request, "lecturerUserId");
+
+		try {
+			if (lecturerId > 0) {
+				LecturerLocalServiceUtil.updateLecturer(serviceContext.getUserId(), lecturerId, lecturerName,
+						lecturerUserId, serviceContext);
+				SessionMessages.add(request, "lecturerUpdated");
+			} else {
+				LecturerLocalServiceUtil.addLecturer(lecturerName, lecturerUserId, serviceContext);
+				SessionMessages.add(request, "lecturerAdded");
+			}
+
+			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", EDIT_LECTURER);
+			e.printStackTrace();
+		}
+	}
+
 	public void deleteCurriculum(ActionRequest request, ActionResponse response) {
 		long curriculumId = ParamUtil.getLong(request, "curriculumId");
 
@@ -292,6 +325,23 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
+		}
+	}
+
+	public void deleteLecturer(ActionRequest request, ActionResponse response) {
+		long lecturerId = ParamUtil.getLong(request, "lecturerId");
+
+		try {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(Lecturer.class.getName(), request);
+
+			LecturerLocalServiceUtil.deleteLecturer(lecturerId, serviceContext);
+			SessionMessages.add(request, "lecturerDeleted");
+
+			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
 		}
 	}
 
@@ -405,6 +455,27 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
+		}
+	}
+
+	public void deleteLecturers(ActionRequest request, ActionResponse response) throws Exception {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Lecturer.class.getName(), request);
+
+		try {
+			String[] lecturerIds = ParamUtil.getParameterValues(request, "deleteLecturerIds");
+
+			for (String lecturerIdString : lecturerIds) {
+				long lecturerId = Long.parseLong(lecturerIdString);
+				LecturerLocalServiceUtil.deleteLecturer(lecturerId, serviceContext);
+			}
+
+			SessionMessages.add(request, "lecturersDeleted");
+			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
 		}
 	}
 

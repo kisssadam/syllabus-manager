@@ -14,12 +14,14 @@
 
 package hu.unideb.inf.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
+import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 
 import hu.unideb.inf.DuplicateLecturerException;
@@ -69,20 +71,33 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 		return Validator.isNotNull(lecturerPersistence.fetchByLecturerName(lecturerName));
 	}
 
-	public Lecturer addLecturer(String lecturerName, long userId, ServiceContext serviceContext)
+	public Lecturer addLecturer(String lecturerName, long lecturerUserId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
-		long lecturerId = counterLocalService.increment();
+		Date now = new Date();
 
-		validate(lecturerId, lecturerName, userId);
+		long lecturerId = counterLocalService.increment();
+		long groupId = serviceContext.getScopeGroupId();
+		long companyId = serviceContext.getCompanyId();
+		long userId = serviceContext.getUserId();
+		User user = userPersistence.findByPrimaryKey(userId);
+		String userName = user.getFullName();
+
+		validate(lecturerId, lecturerName, lecturerUserId);
 
 		Lecturer lecturer = lecturerPersistence.create(lecturerId);
-		lecturer.setLecturerName(lecturerName);
+		lecturer.setGroupId(groupId);
+		lecturer.setCompanyId(companyId);
 		lecturer.setUserId(userId);
+		lecturer.setUserName(userName);
+		lecturer.setCreateDate(serviceContext.getCreateDate(now));
+		lecturer.setModifiedDate(serviceContext.getModifiedDate(now));
+		lecturer.setLecturerName(lecturerName);
+		lecturer.setLecturerUserId(lecturerUserId);
 
 		lecturerPersistence.update(lecturer);
 
-		resourceLocalService.addResources(serviceContext.getCompanyId(), serviceContext.getScopeGroupId(), userId,
-				Lecturer.class.getName(), lecturerId, false, true, true);
+		resourceLocalService.addResources(user.getCompanyId(), groupId, userId, Lecturer.class.getName(), lecturerId,
+				false, true, true);
 
 		return lecturer;
 	}
@@ -93,36 +108,45 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 
 		Lecturer lecturer = LecturerLocalServiceUtil.getLecturer(lecturerId);
 
-		resourceLocalService.deleteResource(serviceContext.getCompanyId(), lecturer.getClass().getName(),
+		resourceLocalService.deleteResource(lecturer.getCompanyId(), lecturer.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, lecturerId);
 
 		return deleteLecturer(lecturer);
 	}
 
-	public Lecturer updateLecturer(long lecturerId, String lecturerName, long userId, ServiceContext serviceContext)
-			throws PortalException, SystemException {
-		validate(lecturerId, lecturerName, userId);
+	public Lecturer updateLecturer(long userId, long lecturerId, String lecturerName, long lecturerUserId,
+			ServiceContext serviceContext) throws PortalException, SystemException {
+		long groupId = serviceContext.getScopeGroupId();
+
+		User user = userPersistence.findByPrimaryKey(userId);
+
+		Date now = new Date();
+
+		validate(lecturerId, lecturerName, lecturerUserId);
 
 		Lecturer lecturer = LecturerLocalServiceUtil.getLecturer(lecturerId);
-		lecturer.setLecturerName(lecturerName);
 		lecturer.setUserId(userId);
+		lecturer.setUserName(user.getFullName());
+		lecturer.setModifiedDate(serviceContext.getModifiedDate(now));
+		lecturer.setLecturerName(lecturerName);
+		lecturer.setLecturerUserId(lecturerUserId);
 
 		lecturerPersistence.update(lecturer);
 
-		resourceLocalService.updateResources(serviceContext.getCompanyId(), serviceContext.getScopeGroupId(),
-				Lecturer.class.getName(), lecturerId, serviceContext.getGroupPermissions(),
-				serviceContext.getGuestPermissions());
+		resourceLocalService.updateResources(user.getCompanyId(), groupId, Lecturer.class.getName(), lecturerId,
+				serviceContext.getGroupPermissions(), serviceContext.getGuestPermissions());
 
 		return lecturer;
 	}
 
-	private void validate(long lecturerId, String lecturerName, long userId) throws PortalException, SystemException {
+	private void validate(long lecturerId, String lecturerName, long lecturerUserId)
+			throws PortalException, SystemException {
 		if (Validator.isNull(lecturerName)) {
 			throw new LecturerNameException();
 		}
 
 		Lecturer lecturer = LecturerLocalServiceUtil.fetchLecturerByName(lecturerName);
-		if (Validator.isNull(lecturer)) {
+		if (Validator.isNotNull(lecturer)) {
 			if (!Validator.equals(lecturer.getLecturerId(), lecturerId)) {
 				throw new DuplicateLecturerException();
 			}

@@ -38,6 +38,7 @@ import java.io.Serializable;
 import java.sql.Types;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,10 +67,16 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 	public static final String TABLE_NAME = "unideb_syllabus_manager_Lecturer";
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "lecturerId", Types.BIGINT },
+			{ "groupId", Types.BIGINT },
+			{ "companyId", Types.BIGINT },
+			{ "userId", Types.BIGINT },
+			{ "userName", Types.VARCHAR },
+			{ "createDate", Types.TIMESTAMP },
+			{ "modifiedDate", Types.TIMESTAMP },
 			{ "lecturerName", Types.VARCHAR },
-			{ "userId", Types.BIGINT }
+			{ "lecturerUserId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Lecturer (lecturerId LONG not null primary key,lecturerName VARCHAR(75) null,userId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Lecturer (lecturerId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,lecturerName VARCHAR(75) null,lecturerUserId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table unideb_syllabus_manager_Lecturer";
 	public static final String ORDER_BY_JPQL = " ORDER BY lecturer.lecturerId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY unideb_syllabus_manager_Lecturer.lecturerId ASC";
@@ -102,8 +109,14 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 		Lecturer model = new LecturerImpl();
 
 		model.setLecturerId(soapModel.getLecturerId());
-		model.setLecturerName(soapModel.getLecturerName());
+		model.setGroupId(soapModel.getGroupId());
+		model.setCompanyId(soapModel.getCompanyId());
 		model.setUserId(soapModel.getUserId());
+		model.setUserName(soapModel.getUserName());
+		model.setCreateDate(soapModel.getCreateDate());
+		model.setModifiedDate(soapModel.getModifiedDate());
+		model.setLecturerName(soapModel.getLecturerName());
+		model.setLecturerUserId(soapModel.getLecturerUserId());
 
 		return model;
 	}
@@ -182,8 +195,14 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("lecturerId", getLecturerId());
-		attributes.put("lecturerName", getLecturerName());
+		attributes.put("groupId", getGroupId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
+		attributes.put("createDate", getCreateDate());
+		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("lecturerName", getLecturerName());
+		attributes.put("lecturerUserId", getLecturerUserId());
 
 		return attributes;
 	}
@@ -196,16 +215,52 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 			setLecturerId(lecturerId);
 		}
 
-		String lecturerName = (String)attributes.get("lecturerName");
+		Long groupId = (Long)attributes.get("groupId");
 
-		if (lecturerName != null) {
-			setLecturerName(lecturerName);
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long userId = (Long)attributes.get("userId");
 
 		if (userId != null) {
 			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
+		}
+
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
+
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
+		}
+
+		String lecturerName = (String)attributes.get("lecturerName");
+
+		if (lecturerName != null) {
+			setLecturerName(lecturerName);
+		}
+
+		Long lecturerUserId = (Long)attributes.get("lecturerUserId");
+
+		if (lecturerUserId != null) {
+			setLecturerUserId(lecturerUserId);
 		}
 	}
 
@@ -218,6 +273,87 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 	@Override
 	public void setLecturerId(long lecturerId) {
 		_lecturerId = lecturerId;
+	}
+
+	@JSON
+	@Override
+	public long getGroupId() {
+		return _groupId;
+	}
+
+	@Override
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+	}
+
+	@JSON
+	@Override
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	@Override
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
+	}
+
+	@JSON
+	@Override
+	public long getUserId() {
+		return _userId;
+	}
+
+	@Override
+	public void setUserId(long userId) {
+		_userId = userId;
+	}
+
+	@Override
+	public String getUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
+	}
+
+	@Override
+	public void setUserUuid(String userUuid) {
+		_userUuid = userUuid;
+	}
+
+	@JSON
+	@Override
+	public String getUserName() {
+		if (_userName == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _userName;
+		}
+	}
+
+	@Override
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
+	@JSON
+	@Override
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	@Override
+	public void setCreateDate(Date createDate) {
+		_createDate = createDate;
+	}
+
+	@JSON
+	@Override
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	@Override
+	public void setModifiedDate(Date modifiedDate) {
+		_modifiedDate = modifiedDate;
 	}
 
 	@JSON
@@ -248,23 +384,24 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 
 	@JSON
 	@Override
-	public long getUserId() {
-		return _userId;
+	public long getLecturerUserId() {
+		return _lecturerUserId;
 	}
 
 	@Override
-	public void setUserId(long userId) {
-		_userId = userId;
+	public void setLecturerUserId(long lecturerUserId) {
+		_lecturerUserId = lecturerUserId;
 	}
 
 	@Override
-	public String getUserUuid() throws SystemException {
-		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
+	public String getLecturerUserUuid() throws SystemException {
+		return PortalUtil.getUserValue(getLecturerUserId(), "uuid",
+			_lecturerUserUuid);
 	}
 
 	@Override
-	public void setUserUuid(String userUuid) {
-		_userUuid = userUuid;
+	public void setLecturerUserUuid(String lecturerUserUuid) {
+		_lecturerUserUuid = lecturerUserUuid;
 	}
 
 	public long getColumnBitmask() {
@@ -273,7 +410,7 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 
 	@Override
 	public ExpandoBridge getExpandoBridge() {
-		return ExpandoBridgeFactoryUtil.getExpandoBridge(0,
+		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
 			Lecturer.class.getName(), getPrimaryKey());
 	}
 
@@ -299,8 +436,14 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 		LecturerImpl lecturerImpl = new LecturerImpl();
 
 		lecturerImpl.setLecturerId(getLecturerId());
-		lecturerImpl.setLecturerName(getLecturerName());
+		lecturerImpl.setGroupId(getGroupId());
+		lecturerImpl.setCompanyId(getCompanyId());
 		lecturerImpl.setUserId(getUserId());
+		lecturerImpl.setUserName(getUserName());
+		lecturerImpl.setCreateDate(getCreateDate());
+		lecturerImpl.setModifiedDate(getModifiedDate());
+		lecturerImpl.setLecturerName(getLecturerName());
+		lecturerImpl.setLecturerUserId(getLecturerUserId());
 
 		lecturerImpl.resetOriginalValues();
 
@@ -364,6 +507,38 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 
 		lecturerCacheModel.lecturerId = getLecturerId();
 
+		lecturerCacheModel.groupId = getGroupId();
+
+		lecturerCacheModel.companyId = getCompanyId();
+
+		lecturerCacheModel.userId = getUserId();
+
+		lecturerCacheModel.userName = getUserName();
+
+		String userName = lecturerCacheModel.userName;
+
+		if ((userName != null) && (userName.length() == 0)) {
+			lecturerCacheModel.userName = null;
+		}
+
+		Date createDate = getCreateDate();
+
+		if (createDate != null) {
+			lecturerCacheModel.createDate = createDate.getTime();
+		}
+		else {
+			lecturerCacheModel.createDate = Long.MIN_VALUE;
+		}
+
+		Date modifiedDate = getModifiedDate();
+
+		if (modifiedDate != null) {
+			lecturerCacheModel.modifiedDate = modifiedDate.getTime();
+		}
+		else {
+			lecturerCacheModel.modifiedDate = Long.MIN_VALUE;
+		}
+
 		lecturerCacheModel.lecturerName = getLecturerName();
 
 		String lecturerName = lecturerCacheModel.lecturerName;
@@ -372,21 +547,33 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 			lecturerCacheModel.lecturerName = null;
 		}
 
-		lecturerCacheModel.userId = getUserId();
+		lecturerCacheModel.lecturerUserId = getLecturerUserId();
 
 		return lecturerCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(19);
 
 		sb.append("{lecturerId=");
 		sb.append(getLecturerId());
-		sb.append(", lecturerName=");
-		sb.append(getLecturerName());
+		sb.append(", groupId=");
+		sb.append(getGroupId());
+		sb.append(", companyId=");
+		sb.append(getCompanyId());
 		sb.append(", userId=");
 		sb.append(getUserId());
+		sb.append(", userName=");
+		sb.append(getUserName());
+		sb.append(", createDate=");
+		sb.append(getCreateDate());
+		sb.append(", modifiedDate=");
+		sb.append(getModifiedDate());
+		sb.append(", lecturerName=");
+		sb.append(getLecturerName());
+		sb.append(", lecturerUserId=");
+		sb.append(getLecturerUserId());
 		sb.append("}");
 
 		return sb.toString();
@@ -394,7 +581,7 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(13);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("<model><model-name>");
 		sb.append("hu.unideb.inf.model.Lecturer");
@@ -405,12 +592,36 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 		sb.append(getLecturerId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>lecturerName</column-name><column-value><![CDATA[");
-		sb.append(getLecturerName());
+			"<column><column-name>groupId</column-name><column-value><![CDATA[");
+		sb.append(getGroupId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>companyId</column-name><column-value><![CDATA[");
+		sb.append(getCompanyId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>userId</column-name><column-value><![CDATA[");
 		sb.append(getUserId());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>userName</column-name><column-value><![CDATA[");
+		sb.append(getUserName());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>createDate</column-name><column-value><![CDATA[");
+		sb.append(getCreateDate());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
+		sb.append(getModifiedDate());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>lecturerName</column-name><column-value><![CDATA[");
+		sb.append(getLecturerName());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>lecturerUserId</column-name><column-value><![CDATA[");
+		sb.append(getLecturerUserId());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -423,10 +634,17 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 			Lecturer.class
 		};
 	private long _lecturerId;
-	private String _lecturerName;
-	private String _originalLecturerName;
+	private long _groupId;
+	private long _companyId;
 	private long _userId;
 	private String _userUuid;
+	private String _userName;
+	private Date _createDate;
+	private Date _modifiedDate;
+	private String _lecturerName;
+	private String _originalLecturerName;
+	private long _lecturerUserId;
+	private String _lecturerUserUuid;
 	private long _columnBitmask;
 	private Lecturer _escapedModel;
 }

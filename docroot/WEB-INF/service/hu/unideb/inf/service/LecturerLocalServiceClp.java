@@ -211,7 +211,7 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 		_methodName41 = "updateLecturer";
 
 		_methodParameterTypes41 = new String[] {
-				"long", "java.lang.String", "long",
+				"long", "long", "java.lang.String", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -1356,7 +1356,7 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 
 	@Override
 	public hu.unideb.inf.model.Lecturer addLecturer(
-		java.lang.String lecturerName, long userId,
+		java.lang.String lecturerName, long lecturerUserId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -1368,7 +1368,7 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 					new Object[] {
 						ClpSerializer.translateInput(lecturerName),
 						
-					userId,
+					lecturerUserId,
 						
 					ClpSerializer.translateInput(serviceContext)
 					});
@@ -1436,8 +1436,8 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 	}
 
 	@Override
-	public hu.unideb.inf.model.Lecturer updateLecturer(long lecturerId,
-		java.lang.String lecturerName, long userId,
+	public hu.unideb.inf.model.Lecturer updateLecturer(long userId,
+		long lecturerId, java.lang.String lecturerName, long lecturerUserId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -1447,11 +1447,13 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName41,
 					_methodParameterTypes41,
 					new Object[] {
-						lecturerId,
+						userId,
+						
+					lecturerId,
 						
 					ClpSerializer.translateInput(lecturerName),
 						
-					userId,
+					lecturerUserId,
 						
 					ClpSerializer.translateInput(serviceContext)
 					});

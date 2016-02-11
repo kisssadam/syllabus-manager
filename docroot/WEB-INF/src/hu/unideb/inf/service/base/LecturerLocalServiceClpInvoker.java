@@ -211,7 +211,7 @@ public class LecturerLocalServiceClpInvoker {
 		_methodName98 = "updateLecturer";
 
 		_methodParameterTypes98 = new String[] {
-				"long", "java.lang.String", "long",
+				"long", "long", "java.lang.String", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -468,9 +468,10 @@ public class LecturerLocalServiceClpInvoker {
 		if (_methodName98.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
 			return LecturerLocalServiceUtil.updateLecturer(((Long)arguments[0]).longValue(),
-				(java.lang.String)arguments[1],
-				((Long)arguments[2]).longValue(),
-				(com.liferay.portal.service.ServiceContext)arguments[3]);
+				((Long)arguments[1]).longValue(),
+				(java.lang.String)arguments[2],
+				((Long)arguments[3]).longValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[4]);
 		}
 
 		throw new UnsupportedOperationException();

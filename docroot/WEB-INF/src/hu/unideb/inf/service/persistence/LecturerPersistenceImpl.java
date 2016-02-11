@@ -623,8 +623,14 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 		lecturerImpl.setPrimaryKey(lecturer.getPrimaryKey());
 
 		lecturerImpl.setLecturerId(lecturer.getLecturerId());
-		lecturerImpl.setLecturerName(lecturer.getLecturerName());
+		lecturerImpl.setGroupId(lecturer.getGroupId());
+		lecturerImpl.setCompanyId(lecturer.getCompanyId());
 		lecturerImpl.setUserId(lecturer.getUserId());
+		lecturerImpl.setUserName(lecturer.getUserName());
+		lecturerImpl.setCreateDate(lecturer.getCreateDate());
+		lecturerImpl.setModifiedDate(lecturer.getModifiedDate());
+		lecturerImpl.setLecturerName(lecturer.getLecturerName());
+		lecturerImpl.setLecturerUserId(lecturer.getLecturerUserId());
 
 		return lecturerImpl;
 	}

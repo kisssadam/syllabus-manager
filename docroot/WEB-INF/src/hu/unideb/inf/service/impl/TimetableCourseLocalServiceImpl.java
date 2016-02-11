@@ -95,6 +95,10 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 		return timetableCoursePersistence.countByCourseId(courseId);
 	}
 
+	public List<Lecturer> getLecutersByTimetableCourseId(long timetableCourseId) throws SystemException {
+		return timetableCoursePersistence.getLecturers(timetableCourseId);
+	}
+
 	public TimetableCourse addTimetableCourse(long courseId, long semesterId, String timetableCourseCode,
 			String subjectType, int recommendedTerm, int limit, String[] lecturerNames, String classScheduleInfo,
 			String description, ServiceContext serviceContext) throws PortalException, SystemException {
@@ -204,9 +208,9 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 
 	public TimetableCourse deleteTimetableCourse(long timetableCourseId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
-		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
+		timetableCoursePersistence.clearLecturers(timetableCourseId);
 
-		timetableCoursePersistence.remove(timetableCourseId);
+		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
 
 		resourceLocalService.deleteResource(timetableCourse.getCompanyId(), timetableCourse.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, timetableCourseId);

@@ -442,11 +442,12 @@ public class LecturerLocalServiceUtil {
 	}
 
 	public static hu.unideb.inf.model.Lecturer addLecturer(
-		java.lang.String lecturerName, long userId,
+		java.lang.String lecturerName, long lecturerUserId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().addLecturer(lecturerName, userId, serviceContext);
+		return getService()
+				   .addLecturer(lecturerName, lecturerUserId, serviceContext);
 	}
 
 	public static hu.unideb.inf.model.Lecturer deleteLecturer(long lecturerId,
@@ -456,14 +457,14 @@ public class LecturerLocalServiceUtil {
 		return getService().deleteLecturer(lecturerId, serviceContext);
 	}
 
-	public static hu.unideb.inf.model.Lecturer updateLecturer(long lecturerId,
-		java.lang.String lecturerName, long userId,
+	public static hu.unideb.inf.model.Lecturer updateLecturer(long userId,
+		long lecturerId, java.lang.String lecturerName, long lecturerUserId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateLecturer(lecturerId, lecturerName, userId,
-			serviceContext);
+				   .updateLecturer(userId, lecturerId, lecturerName,
+			lecturerUserId, serviceContext);
 	}
 
 	public static void clearService() {

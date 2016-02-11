@@ -17,6 +17,7 @@ package hu.unideb.inf.model;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,8 +32,14 @@ public class LecturerSoap implements Serializable {
 		LecturerSoap soapModel = new LecturerSoap();
 
 		soapModel.setLecturerId(model.getLecturerId());
-		soapModel.setLecturerName(model.getLecturerName());
+		soapModel.setGroupId(model.getGroupId());
+		soapModel.setCompanyId(model.getCompanyId());
 		soapModel.setUserId(model.getUserId());
+		soapModel.setUserName(model.getUserName());
+		soapModel.setCreateDate(model.getCreateDate());
+		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setLecturerName(model.getLecturerName());
+		soapModel.setLecturerUserId(model.getLecturerUserId());
 
 		return soapModel;
 	}
@@ -93,12 +100,20 @@ public class LecturerSoap implements Serializable {
 		_lecturerId = lecturerId;
 	}
 
-	public String getLecturerName() {
-		return _lecturerName;
+	public long getGroupId() {
+		return _groupId;
 	}
 
-	public void setLecturerName(String lecturerName) {
-		_lecturerName = lecturerName;
+	public void setGroupId(long groupId) {
+		_groupId = groupId;
+	}
+
+	public long getCompanyId() {
+		return _companyId;
+	}
+
+	public void setCompanyId(long companyId) {
+		_companyId = companyId;
 	}
 
 	public long getUserId() {
@@ -109,7 +124,53 @@ public class LecturerSoap implements Serializable {
 		_userId = userId;
 	}
 
+	public String getUserName() {
+		return _userName;
+	}
+
+	public void setUserName(String userName) {
+		_userName = userName;
+	}
+
+	public Date getCreateDate() {
+		return _createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		_createDate = createDate;
+	}
+
+	public Date getModifiedDate() {
+		return _modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		_modifiedDate = modifiedDate;
+	}
+
+	public String getLecturerName() {
+		return _lecturerName;
+	}
+
+	public void setLecturerName(String lecturerName) {
+		_lecturerName = lecturerName;
+	}
+
+	public long getLecturerUserId() {
+		return _lecturerUserId;
+	}
+
+	public void setLecturerUserId(long lecturerUserId) {
+		_lecturerUserId = lecturerUserId;
+	}
+
 	private long _lecturerId;
-	private String _lecturerName;
+	private long _groupId;
+	private long _companyId;
 	private long _userId;
+	private String _userName;
+	private Date _createDate;
+	private Date _modifiedDate;
+	private String _lecturerName;
+	private long _lecturerUserId;
 }

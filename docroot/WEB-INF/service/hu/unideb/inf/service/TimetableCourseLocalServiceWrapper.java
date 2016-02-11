@@ -511,6 +511,13 @@ public class TimetableCourseLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<hu.unideb.inf.model.Lecturer> getLecutersByTimetableCourseId(
+		long timetableCourseId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _timetableCourseLocalService.getLecutersByTimetableCourseId(timetableCourseId);
+	}
+
+	@Override
 	public hu.unideb.inf.model.TimetableCourse addTimetableCourse(
 		long courseId, long semesterId, java.lang.String timetableCourseCode,
 		java.lang.String subjectType, int recommendedTerm, int limit,

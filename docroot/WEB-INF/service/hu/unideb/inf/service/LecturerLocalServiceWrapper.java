@@ -481,11 +481,11 @@ public class LecturerLocalServiceWrapper implements LecturerLocalService,
 
 	@Override
 	public hu.unideb.inf.model.Lecturer addLecturer(
-		java.lang.String lecturerName, long userId,
+		java.lang.String lecturerName, long lecturerUserId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _lecturerLocalService.addLecturer(lecturerName, userId,
+		return _lecturerLocalService.addLecturer(lecturerName, lecturerUserId,
 			serviceContext);
 	}
 
@@ -498,13 +498,13 @@ public class LecturerLocalServiceWrapper implements LecturerLocalService,
 	}
 
 	@Override
-	public hu.unideb.inf.model.Lecturer updateLecturer(long lecturerId,
-		java.lang.String lecturerName, long userId,
+	public hu.unideb.inf.model.Lecturer updateLecturer(long userId,
+		long lecturerId, java.lang.String lecturerName, long lecturerUserId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _lecturerLocalService.updateLecturer(lecturerId, lecturerName,
-			userId, serviceContext);
+		return _lecturerLocalService.updateLecturer(userId, lecturerId,
+			lecturerName, lecturerUserId, serviceContext);
 	}
 
 	/**

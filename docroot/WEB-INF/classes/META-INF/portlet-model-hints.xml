@@ -49,8 +49,14 @@
 	</model>
 	<model name="hu.unideb.inf.model.Lecturer">
 		<field name="lecturerId" type="long" />
-		<field name="lecturerName" type="String" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
 		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="lecturerName" type="String" />
+		<field name="lecturerUserId" type="long" />
 	</model>
 	<model name="hu.unideb.inf.model.Semester">
 		<field name="semesterId" type="long" />

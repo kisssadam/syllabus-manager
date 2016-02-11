@@ -17,6 +17,7 @@ package hu.unideb.inf.model;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,8 +50,14 @@ public class LecturerWrapper implements Lecturer, ModelWrapper<Lecturer> {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
 		attributes.put("lecturerId", getLecturerId());
-		attributes.put("lecturerName", getLecturerName());
+		attributes.put("groupId", getGroupId());
+		attributes.put("companyId", getCompanyId());
 		attributes.put("userId", getUserId());
+		attributes.put("userName", getUserName());
+		attributes.put("createDate", getCreateDate());
+		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("lecturerName", getLecturerName());
+		attributes.put("lecturerUserId", getLecturerUserId());
 
 		return attributes;
 	}
@@ -63,16 +70,52 @@ public class LecturerWrapper implements Lecturer, ModelWrapper<Lecturer> {
 			setLecturerId(lecturerId);
 		}
 
-		String lecturerName = (String)attributes.get("lecturerName");
+		Long groupId = (Long)attributes.get("groupId");
 
-		if (lecturerName != null) {
-			setLecturerName(lecturerName);
+		if (groupId != null) {
+			setGroupId(groupId);
+		}
+
+		Long companyId = (Long)attributes.get("companyId");
+
+		if (companyId != null) {
+			setCompanyId(companyId);
 		}
 
 		Long userId = (Long)attributes.get("userId");
 
 		if (userId != null) {
 			setUserId(userId);
+		}
+
+		String userName = (String)attributes.get("userName");
+
+		if (userName != null) {
+			setUserName(userName);
+		}
+
+		Date createDate = (Date)attributes.get("createDate");
+
+		if (createDate != null) {
+			setCreateDate(createDate);
+		}
+
+		Date modifiedDate = (Date)attributes.get("modifiedDate");
+
+		if (modifiedDate != null) {
+			setModifiedDate(modifiedDate);
+		}
+
+		String lecturerName = (String)attributes.get("lecturerName");
+
+		if (lecturerName != null) {
+			setLecturerName(lecturerName);
+		}
+
+		Long lecturerUserId = (Long)attributes.get("lecturerUserId");
+
+		if (lecturerUserId != null) {
+			setLecturerUserId(lecturerUserId);
 		}
 	}
 
@@ -117,23 +160,43 @@ public class LecturerWrapper implements Lecturer, ModelWrapper<Lecturer> {
 	}
 
 	/**
-	* Returns the lecturer name of this lecturer.
+	* Returns the group ID of this lecturer.
 	*
-	* @return the lecturer name of this lecturer
+	* @return the group ID of this lecturer
 	*/
 	@Override
-	public java.lang.String getLecturerName() {
-		return _lecturer.getLecturerName();
+	public long getGroupId() {
+		return _lecturer.getGroupId();
 	}
 
 	/**
-	* Sets the lecturer name of this lecturer.
+	* Sets the group ID of this lecturer.
 	*
-	* @param lecturerName the lecturer name of this lecturer
+	* @param groupId the group ID of this lecturer
 	*/
 	@Override
-	public void setLecturerName(java.lang.String lecturerName) {
-		_lecturer.setLecturerName(lecturerName);
+	public void setGroupId(long groupId) {
+		_lecturer.setGroupId(groupId);
+	}
+
+	/**
+	* Returns the company ID of this lecturer.
+	*
+	* @return the company ID of this lecturer
+	*/
+	@Override
+	public long getCompanyId() {
+		return _lecturer.getCompanyId();
+	}
+
+	/**
+	* Sets the company ID of this lecturer.
+	*
+	* @param companyId the company ID of this lecturer
+	*/
+	@Override
+	public void setCompanyId(long companyId) {
+		_lecturer.setCompanyId(companyId);
 	}
 
 	/**
@@ -176,6 +239,128 @@ public class LecturerWrapper implements Lecturer, ModelWrapper<Lecturer> {
 	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_lecturer.setUserUuid(userUuid);
+	}
+
+	/**
+	* Returns the user name of this lecturer.
+	*
+	* @return the user name of this lecturer
+	*/
+	@Override
+	public java.lang.String getUserName() {
+		return _lecturer.getUserName();
+	}
+
+	/**
+	* Sets the user name of this lecturer.
+	*
+	* @param userName the user name of this lecturer
+	*/
+	@Override
+	public void setUserName(java.lang.String userName) {
+		_lecturer.setUserName(userName);
+	}
+
+	/**
+	* Returns the create date of this lecturer.
+	*
+	* @return the create date of this lecturer
+	*/
+	@Override
+	public java.util.Date getCreateDate() {
+		return _lecturer.getCreateDate();
+	}
+
+	/**
+	* Sets the create date of this lecturer.
+	*
+	* @param createDate the create date of this lecturer
+	*/
+	@Override
+	public void setCreateDate(java.util.Date createDate) {
+		_lecturer.setCreateDate(createDate);
+	}
+
+	/**
+	* Returns the modified date of this lecturer.
+	*
+	* @return the modified date of this lecturer
+	*/
+	@Override
+	public java.util.Date getModifiedDate() {
+		return _lecturer.getModifiedDate();
+	}
+
+	/**
+	* Sets the modified date of this lecturer.
+	*
+	* @param modifiedDate the modified date of this lecturer
+	*/
+	@Override
+	public void setModifiedDate(java.util.Date modifiedDate) {
+		_lecturer.setModifiedDate(modifiedDate);
+	}
+
+	/**
+	* Returns the lecturer name of this lecturer.
+	*
+	* @return the lecturer name of this lecturer
+	*/
+	@Override
+	public java.lang.String getLecturerName() {
+		return _lecturer.getLecturerName();
+	}
+
+	/**
+	* Sets the lecturer name of this lecturer.
+	*
+	* @param lecturerName the lecturer name of this lecturer
+	*/
+	@Override
+	public void setLecturerName(java.lang.String lecturerName) {
+		_lecturer.setLecturerName(lecturerName);
+	}
+
+	/**
+	* Returns the lecturer user ID of this lecturer.
+	*
+	* @return the lecturer user ID of this lecturer
+	*/
+	@Override
+	public long getLecturerUserId() {
+		return _lecturer.getLecturerUserId();
+	}
+
+	/**
+	* Sets the lecturer user ID of this lecturer.
+	*
+	* @param lecturerUserId the lecturer user ID of this lecturer
+	*/
+	@Override
+	public void setLecturerUserId(long lecturerUserId) {
+		_lecturer.setLecturerUserId(lecturerUserId);
+	}
+
+	/**
+	* Returns the lecturer user uuid of this lecturer.
+	*
+	* @return the lecturer user uuid of this lecturer
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public java.lang.String getLecturerUserUuid()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _lecturer.getLecturerUserUuid();
+	}
+
+	/**
+	* Sets the lecturer user uuid of this lecturer.
+	*
+	* @param lecturerUserUuid the lecturer user uuid of this lecturer
+	*/
+	@Override
+	public void setLecturerUserUuid(java.lang.String lecturerUserUuid) {
+		_lecturer.setLecturerUserUuid(lecturerUserUuid);
 	}
 
 	@Override
