@@ -419,6 +419,24 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	public void deleteTimetableCourse(ActionRequest request, ActionResponse response) {
+		long timetableCourseId = ParamUtil.getLong(request, "timetableCourseId");
+
+		try {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
+
+			TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourseId, serviceContext);
+			SessionMessages.add(request, "timetableCourseDeleted");
+
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+		}
+	}
+
 	public void deleteCurriculums(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
 
@@ -550,6 +568,28 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
+		}
+	}
+
+	public void deleteTimetableCourses(ActionRequest request, ActionResponse response) throws Exception {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
+
+		try {
+			String[] timetableCourseIds = ParamUtil.getParameterValues(request, "timetableCourseIds");
+
+			for (String timetableCourseString : timetableCourseIds) {
+				long timetableCourseId = Long.parseLong(timetableCourseString);
+				TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourseId, serviceContext);
+			}
+
+			SessionMessages.add(request, "timetableCoursesDeleted");
+
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+		} catch (Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
 		}
 	}
 
