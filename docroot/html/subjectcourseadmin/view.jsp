@@ -29,6 +29,8 @@
 				label : 'Course Types'
 			}, {
 				label : 'Semesters'
+			}, {
+				label : 'Lecturers'
 			} ],
 			expanded : true,
 			label : 'Home'
