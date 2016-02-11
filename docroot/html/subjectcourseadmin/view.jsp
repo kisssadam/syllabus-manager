@@ -45,5 +45,9 @@
 </aui:script>
 
 <div>
+	ide ket oszlop: leirasok: manualis hozzaadas lepesei, automatikus hozzadas/feltoltes lepesi.
+</div>
+
+<div>
 	logot is meg lehetne jeleniteni, ki mikor mit modositott.
 </div>
