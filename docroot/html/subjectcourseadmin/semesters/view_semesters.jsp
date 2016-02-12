@@ -28,8 +28,15 @@
 		/>
 		
 		<liferay-ui:search-container-row className="hu.unideb.inf.model.Semester" escapedModel="<%= true %>" modelVar="semester" keyProperty="semesterId">
-			<liferay-ui:search-container-column-text name="semester" value="<%=HtmlUtil.escapeAttribute(semester.toString())%>" />
-			<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/semesters/semester_actions.jsp" align="right" />
+			<c:if test='<%=SemesterPermission.contains(permissionChecker, semester.getSemesterId(), "VIEW")%>'>
+				<portlet:renderURL var="viewTimetableCoursesURL">
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/timetablecourses/view_timetable_courses.jsp" />
+					<portlet:param name="semesterId" value="<%=String.valueOf(semester.getSemesterId())%>" />
+				</portlet:renderURL>
+				
+				<liferay-ui:search-container-column-text name="semester" value="<%=HtmlUtil.escapeAttribute(semester.toString())%>" href="<%=viewTimetableCoursesURL.toString()%>" />
+				<liferay-ui:search-container-column-jsp path="/html/subjectcourseadmin/semesters/semester_actions.jsp" align="right" />
+			</c:if>
 		</liferay-ui:search-container-row>
 		
 		<liferay-ui:search-iterator />

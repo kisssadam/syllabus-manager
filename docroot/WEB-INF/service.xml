@@ -178,6 +178,9 @@
         <finder name="CourseId" return-type="Collection">
             <finder-column name="courseId"></finder-column>
         </finder>
+        <finder name="SemesterId" return-type="Collection">
+            <finder-column name="semesterId"></finder-column>
+        </finder>
 	</entity>
 	<entity name="Lecturer" local-service="true">
 

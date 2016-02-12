@@ -418,6 +418,171 @@ public class TimetableCourseUtil {
 	}
 
 	/**
+	* Returns all the timetable courses where semesterId = &#63;.
+	*
+	* @param semesterId the semester ID
+	* @return the matching timetable courses
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<hu.unideb.inf.model.TimetableCourse> findBySemesterId(
+		long semesterId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findBySemesterId(semesterId);
+	}
+
+	/**
+	* Returns a range of all the timetable courses where semesterId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link hu.unideb.inf.model.impl.TimetableCourseModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param semesterId the semester ID
+	* @param start the lower bound of the range of timetable courses
+	* @param end the upper bound of the range of timetable courses (not inclusive)
+	* @return the range of matching timetable courses
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<hu.unideb.inf.model.TimetableCourse> findBySemesterId(
+		long semesterId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findBySemesterId(semesterId, start, end);
+	}
+
+	/**
+	* Returns an ordered range of all the timetable courses where semesterId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link hu.unideb.inf.model.impl.TimetableCourseModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param semesterId the semester ID
+	* @param start the lower bound of the range of timetable courses
+	* @param end the upper bound of the range of timetable courses (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching timetable courses
+	* @throws SystemException if a system exception occurred
+	*/
+	public static java.util.List<hu.unideb.inf.model.TimetableCourse> findBySemesterId(
+		long semesterId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .findBySemesterId(semesterId, start, end, orderByComparator);
+	}
+
+	/**
+	* Returns the first timetable course in the ordered set where semesterId = &#63;.
+	*
+	* @param semesterId the semester ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching timetable course
+	* @throws hu.unideb.inf.NoSuchTimetableCourseException if a matching timetable course could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static hu.unideb.inf.model.TimetableCourse findBySemesterId_First(
+		long semesterId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchTimetableCourseException {
+		return getPersistence()
+				   .findBySemesterId_First(semesterId, orderByComparator);
+	}
+
+	/**
+	* Returns the first timetable course in the ordered set where semesterId = &#63;.
+	*
+	* @param semesterId the semester ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching timetable course, or <code>null</code> if a matching timetable course could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static hu.unideb.inf.model.TimetableCourse fetchBySemesterId_First(
+		long semesterId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchBySemesterId_First(semesterId, orderByComparator);
+	}
+
+	/**
+	* Returns the last timetable course in the ordered set where semesterId = &#63;.
+	*
+	* @param semesterId the semester ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching timetable course
+	* @throws hu.unideb.inf.NoSuchTimetableCourseException if a matching timetable course could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static hu.unideb.inf.model.TimetableCourse findBySemesterId_Last(
+		long semesterId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchTimetableCourseException {
+		return getPersistence()
+				   .findBySemesterId_Last(semesterId, orderByComparator);
+	}
+
+	/**
+	* Returns the last timetable course in the ordered set where semesterId = &#63;.
+	*
+	* @param semesterId the semester ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching timetable course, or <code>null</code> if a matching timetable course could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static hu.unideb.inf.model.TimetableCourse fetchBySemesterId_Last(
+		long semesterId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchBySemesterId_Last(semesterId, orderByComparator);
+	}
+
+	/**
+	* Returns the timetable courses before and after the current timetable course in the ordered set where semesterId = &#63;.
+	*
+	* @param timetableCourseId the primary key of the current timetable course
+	* @param semesterId the semester ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next timetable course
+	* @throws hu.unideb.inf.NoSuchTimetableCourseException if a timetable course with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static hu.unideb.inf.model.TimetableCourse[] findBySemesterId_PrevAndNext(
+		long timetableCourseId, long semesterId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchTimetableCourseException {
+		return getPersistence()
+				   .findBySemesterId_PrevAndNext(timetableCourseId, semesterId,
+			orderByComparator);
+	}
+
+	/**
+	* Removes all the timetable courses where semesterId = &#63; from the database.
+	*
+	* @param semesterId the semester ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeBySemesterId(long semesterId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeBySemesterId(semesterId);
+	}
+
+	/**
+	* Returns the number of timetable courses where semesterId = &#63;.
+	*
+	* @param semesterId the semester ID
+	* @return the number of matching timetable courses
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countBySemesterId(long semesterId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countBySemesterId(semesterId);
+	}
+
+	/**
 	* Caches the timetable course in the entity cache if it is enabled.
 	*
 	* @param timetableCourse the timetable course
