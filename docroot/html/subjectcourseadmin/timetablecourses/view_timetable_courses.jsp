@@ -10,7 +10,7 @@
 	}
 	
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/subjectcourseadmin/view_timetable_courses.jsp");
+	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/timetablecourses/view_timetable_courses.jsp");
 	iteratorURL.setParameter("semesterId", String.valueOf(semesterId));
 %>
 
