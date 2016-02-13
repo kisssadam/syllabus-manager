@@ -189,15 +189,15 @@ public class TimetableCourseLocalServiceClpInvoker {
 
 		_methodParameterTypes92 = new String[] {  };
 
-		_methodName93 = "getCoursesBySemesterId";
+		_methodName93 = "getTimetableCoursesBySemesterId";
 
 		_methodParameterTypes93 = new String[] { "long" };
 
-		_methodName94 = "getCoursesBySemesterId";
+		_methodName94 = "getTimetableCoursesBySemesterId";
 
 		_methodParameterTypes94 = new String[] { "long", "int", "int" };
 
-		_methodName95 = "getCoursesCountBySemesterId";
+		_methodName95 = "getTimetableCoursesCountBySemesterId";
 
 		_methodParameterTypes95 = new String[] { "long" };
 
@@ -475,19 +475,19 @@ public class TimetableCourseLocalServiceClpInvoker {
 
 		if (_methodName93.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes93, parameterTypes)) {
-			return TimetableCourseLocalServiceUtil.getCoursesBySemesterId(((Long)arguments[0]).longValue());
+			return TimetableCourseLocalServiceUtil.getTimetableCoursesBySemesterId(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName94.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes94, parameterTypes)) {
-			return TimetableCourseLocalServiceUtil.getCoursesBySemesterId(((Long)arguments[0]).longValue(),
+			return TimetableCourseLocalServiceUtil.getTimetableCoursesBySemesterId(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
 		if (_methodName95.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes95, parameterTypes)) {
-			return TimetableCourseLocalServiceUtil.getCoursesCountBySemesterId(((Long)arguments[0]).longValue());
+			return TimetableCourseLocalServiceUtil.getTimetableCoursesCountBySemesterId(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName96.equals(name) &&

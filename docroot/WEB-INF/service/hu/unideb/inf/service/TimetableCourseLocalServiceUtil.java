@@ -426,21 +426,22 @@ public class TimetableCourseLocalServiceUtil {
 		return getService().getTimetableCourses();
 	}
 
-	public static java.util.List<hu.unideb.inf.model.TimetableCourse> getCoursesBySemesterId(
+	public static java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesBySemesterId(
 		long semesterId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getCoursesBySemesterId(semesterId);
+		return getService().getTimetableCoursesBySemesterId(semesterId);
 	}
 
-	public static java.util.List<hu.unideb.inf.model.TimetableCourse> getCoursesBySemesterId(
+	public static java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesBySemesterId(
 		long semesterId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getCoursesBySemesterId(semesterId, start, end);
+		return getService()
+				   .getTimetableCoursesBySemesterId(semesterId, start, end);
 	}
 
-	public static int getCoursesCountBySemesterId(long semesterId)
+	public static int getTimetableCoursesCountBySemesterId(long semesterId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getCoursesCountBySemesterId(semesterId);
+		return getService().getTimetableCoursesCountBySemesterId(semesterId);
 	}
 
 	public static hu.unideb.inf.model.TimetableCourse findTimetableCourseByTimetableCourseCode(

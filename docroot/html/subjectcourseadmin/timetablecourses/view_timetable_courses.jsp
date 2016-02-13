@@ -37,8 +37,8 @@
 		<aui:input name="deleteTimetableCourseIds" type="hidden" />
 		
 		<liferay-ui:search-container-results
-			results="<%=TimetableCourseLocalServiceUtil.getCoursesBySemesterId(semesterId, searchContainer.getStart(), searchContainer.getEnd())%>"
-			total="<%=TimetableCourseLocalServiceUtil.getCoursesCountBySemesterId(semesterId)%>"
+			results="<%=TimetableCourseLocalServiceUtil.getTimetableCoursesBySemesterId(semesterId, searchContainer.getStart(), searchContainer.getEnd())%>"
+			total="<%=TimetableCourseLocalServiceUtil.getTimetableCoursesCountBySemesterId(semesterId)%>"
 		/>
 		
 		<liferay-ui:search-container-row className="hu.unideb.inf.model.TimetableCourse" escapedModel="<%= true %>" modelVar="timetableCourse" keyProperty="timetableCourseId">

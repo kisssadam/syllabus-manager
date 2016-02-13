@@ -375,17 +375,17 @@ public interface TimetableCourseLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<hu.unideb.inf.model.TimetableCourse> getCoursesBySemesterId(
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesBySemesterId(
 		long semesterId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<hu.unideb.inf.model.TimetableCourse> getCoursesBySemesterId(
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesBySemesterId(
 		long semesterId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getCoursesCountBySemesterId(long semesterId)
+	public int getTimetableCoursesCountBySemesterId(long semesterId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public hu.unideb.inf.model.TimetableCourse findTimetableCourseByTimetableCourseCode(
