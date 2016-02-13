@@ -1,10 +1,5 @@
 <%@include file="/html/init.jsp"%>
 
-<liferay-ui:success key="curriculumAdded" message="curriculum-has-been-successfully-added" />
-<liferay-ui:success key="curriculumUpdated" message="curriculum-has-been-successfully-updated" />
-<liferay-ui:success key="curriculumDeleted" message="curriculum-has-been-successfully-deleted" />
-<liferay-ui:success key="everyCurriculumDeleted" message="every-curriculum-has-been-successfully-deleted" />
-
 <jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />
 
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
@@ -28,7 +23,11 @@
 			}, {
 				label : 'Course Types'
 			}, {
-				label : 'Semesters'
+				label : 'Semesters',
+				expanded : true,
+				children : [ {
+					label : 'Timetable Courses'
+				} ]
 			}, {
 				label : 'Lecturers'
 			} ],
@@ -43,11 +42,7 @@
 		}).render();
 	});
 </aui:script>
+	
+<div>ide ket oszlop: leirasok: manualis hozzaadas lepesei, automatikus hozzadas/feltoltes lepesi.</div>
 
-<div>
-	ide ket oszlop: leirasok: manualis hozzaadas lepesei, automatikus hozzadas/feltoltes lepesi.
-</div>
-
-<div>
-	logot is meg lehetne jeleniteni, ki mikor mit modositott.
-</div>
+<div>logot is meg lehetne jeleniteni, ki mikor mit modositott.</div>

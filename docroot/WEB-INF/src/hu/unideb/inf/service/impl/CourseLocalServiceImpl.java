@@ -30,9 +30,11 @@ import hu.unideb.inf.NoSuchCourseException;
 import hu.unideb.inf.NoSuchCourseTypeException;
 import hu.unideb.inf.NoSuchSubjectException;
 import hu.unideb.inf.model.Course;
+import hu.unideb.inf.model.TimetableCourse;
 import hu.unideb.inf.service.CourseLocalServiceUtil;
 import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
 import hu.unideb.inf.service.SubjectLocalServiceUtil;
+import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 import hu.unideb.inf.service.base.CourseLocalServiceBaseImpl;
 
 /**
@@ -74,11 +76,11 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 	public List<Course> getCoursesBySubjectId(long subjectId) throws SystemException {
 		return coursePersistence.findBySubjectId(subjectId);
 	}
-	
+
 	public List<Course> getCoursesBySubjectId(long subjectId, int start, int end) throws SystemException {
 		return coursePersistence.findBySubjectId(subjectId, start, end);
 	}
-	
+
 	public int getCoursesCountBySubjectId(long subjectId) throws SystemException {
 		return coursePersistence.countBySubjectId(subjectId);
 	}
@@ -127,6 +129,12 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 
 	public Course deleteCourse(long courseId, ServiceContext serviceContext) throws PortalException, SystemException {
 		Course course = CourseLocalServiceUtil.getCourse(courseId);
+
+		List<TimetableCourse> timetableCourses = TimetableCourseLocalServiceUtil.getTimetableCourseByCourseId(courseId);
+		for (TimetableCourse timetableCourse : timetableCourses) {
+			TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourse.getTimetableCourseId(),
+					serviceContext);
+		}
 
 		resourceLocalService.deleteResource(course.getCompanyId(), course.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, courseId);

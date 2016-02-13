@@ -290,6 +290,7 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			}
 
 			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+			response.setRenderParameter("semesterId", String.valueOf(semesterId));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 
@@ -425,10 +426,12 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		try {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
 
-			TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourseId, serviceContext);
+			TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourseId,
+					serviceContext);
 			SessionMessages.add(request, "timetableCourseDeleted");
 
 			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+			response.setRenderParameter("semesterId", String.valueOf(timetableCourse.getSemesterId()));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 
@@ -575,16 +578,22 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
 
 		try {
-			String[] timetableCourseIds = ParamUtil.getParameterValues(request, "timetableCourseIds");
+			String[] timetableCourseIds = ParamUtil.getParameterValues(request, "deleteTimetableCourseIds");
+
+			long semesterId = 0L;
 
 			for (String timetableCourseString : timetableCourseIds) {
 				long timetableCourseId = Long.parseLong(timetableCourseString);
-				TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourseId, serviceContext);
+				TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil
+						.deleteTimetableCourse(timetableCourseId, serviceContext);
+
+				semesterId = timetableCourse.getSemesterId();
 			}
 
 			SessionMessages.add(request, "timetableCoursesDeleted");
 
 			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+			response.setRenderParameter("semesterId", String.valueOf(semesterId));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 
