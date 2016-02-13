@@ -4,6 +4,7 @@ import javax.portlet.ActionRequest;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -21,8 +22,9 @@ import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 
 public class TimetableCSVParser {
 
-	public static void parseLine(String line, long semesterId, ActionRequest request)
-			throws PortalException, SystemException {
+	public static void parseLine(String line, ActionRequest request) throws PortalException, SystemException {
+		long semesterId = ParamUtil.getLong(request, "semesterId");
+
 		String[] tokens = line.split(";(?! \")", 12);
 
 		// System.out.println("tokens.length: " + tokens.length);
@@ -107,6 +109,7 @@ public class TimetableCSVParser {
 		// System.out.println();
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
+
 		TimetableCourseLocalServiceUtil.addTimetableCourse(course.getCourseId(), semesterId, timetableCourseCode,
 				subjectType, recommendedTerm, limit, lecturerIds, classScheduleInfo, description, serviceContext);
 	}
