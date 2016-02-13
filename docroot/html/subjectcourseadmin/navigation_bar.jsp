@@ -116,7 +116,14 @@
             	
             	<aui:nav-item href="<%=importSyllabusURL.toString()%>" label="ik_syllabus_ws.csv" />
 			</c:if>
-            <aui:nav-item href="/..." label="ik_orarend_ws.csv" state="disabled" />
+			
+			<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.IMPORT_TIMETABLE)%>'>
+				<portlet:renderURL var="importTimetableURL">
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/import_timetable.jsp" />
+				</portlet:renderURL>
+            	
+            	<aui:nav-item href="<%=importTimetableURL.toString()%>" label="ik_orarend_ws.csv" />
+           	</c:if>
         </aui:nav-item>
     </aui:nav>
 </aui:nav-bar>

@@ -399,23 +399,23 @@ public interface TimetableCourseLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public hu.unideb.inf.model.TimetableCourse getTimetableCourseByC_S(
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesByC_S(
 		long courseId, long semesterId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchTimetableCourseException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesByCourseId(
 		long courseId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesByCourseId(
 		long courseId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getTimetableCourseByCourseIdCount(long courseId)
+	public int getTimetableCourseCountByCourseId(long courseId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)

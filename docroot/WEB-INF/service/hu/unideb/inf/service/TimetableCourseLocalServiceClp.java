@@ -211,19 +211,19 @@ public class TimetableCourseLocalServiceClp
 
 		_methodParameterTypes40 = new String[] { "java.lang.String" };
 
-		_methodName41 = "getTimetableCourseByC_S";
+		_methodName41 = "getTimetableCoursesByC_S";
 
 		_methodParameterTypes41 = new String[] { "long", "long" };
 
-		_methodName42 = "getTimetableCourseByCourseId";
+		_methodName42 = "getTimetableCoursesByCourseId";
 
 		_methodParameterTypes42 = new String[] { "long" };
 
-		_methodName43 = "getTimetableCourseByCourseId";
+		_methodName43 = "getTimetableCoursesByCourseId";
 
 		_methodParameterTypes43 = new String[] { "long", "int", "int" };
 
-		_methodName44 = "getTimetableCourseByCourseIdCount";
+		_methodName44 = "getTimetableCourseCountByCourseId";
 
 		_methodParameterTypes44 = new String[] { "long" };
 
@@ -1459,7 +1459,7 @@ public class TimetableCourseLocalServiceClp
 	}
 
 	@Override
-	public hu.unideb.inf.model.TimetableCourse getTimetableCourseByC_S(
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesByC_S(
 		long courseId, long semesterId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchTimetableCourseException {
@@ -1490,11 +1490,11 @@ public class TimetableCourseLocalServiceClp
 			}
 		}
 
-		return (hu.unideb.inf.model.TimetableCourse)ClpSerializer.translateOutput(returnObj);
+		return (java.util.List<hu.unideb.inf.model.TimetableCourse>)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
-	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesByCourseId(
 		long courseId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -1523,7 +1523,7 @@ public class TimetableCourseLocalServiceClp
 	}
 
 	@Override
-	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesByCourseId(
 		long courseId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -1553,7 +1553,7 @@ public class TimetableCourseLocalServiceClp
 	}
 
 	@Override
-	public int getTimetableCourseByCourseIdCount(long courseId)
+	public int getTimetableCourseCountByCourseId(long courseId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 

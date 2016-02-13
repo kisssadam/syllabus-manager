@@ -209,19 +209,19 @@ public class TimetableCourseLocalServiceClpInvoker {
 
 		_methodParameterTypes97 = new String[] { "java.lang.String" };
 
-		_methodName98 = "getTimetableCourseByC_S";
+		_methodName98 = "getTimetableCoursesByC_S";
 
 		_methodParameterTypes98 = new String[] { "long", "long" };
 
-		_methodName99 = "getTimetableCourseByCourseId";
+		_methodName99 = "getTimetableCoursesByCourseId";
 
 		_methodParameterTypes99 = new String[] { "long" };
 
-		_methodName100 = "getTimetableCourseByCourseId";
+		_methodName100 = "getTimetableCoursesByCourseId";
 
 		_methodParameterTypes100 = new String[] { "long", "int", "int" };
 
-		_methodName101 = "getTimetableCourseByCourseIdCount";
+		_methodName101 = "getTimetableCourseCountByCourseId";
 
 		_methodParameterTypes101 = new String[] { "long" };
 
@@ -502,25 +502,25 @@ public class TimetableCourseLocalServiceClpInvoker {
 
 		if (_methodName98.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes98, parameterTypes)) {
-			return TimetableCourseLocalServiceUtil.getTimetableCourseByC_S(((Long)arguments[0]).longValue(),
+			return TimetableCourseLocalServiceUtil.getTimetableCoursesByC_S(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName99.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes99, parameterTypes)) {
-			return TimetableCourseLocalServiceUtil.getTimetableCourseByCourseId(((Long)arguments[0]).longValue());
+			return TimetableCourseLocalServiceUtil.getTimetableCoursesByCourseId(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName100.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes100, parameterTypes)) {
-			return TimetableCourseLocalServiceUtil.getTimetableCourseByCourseId(((Long)arguments[0]).longValue(),
+			return TimetableCourseLocalServiceUtil.getTimetableCoursesByCourseId(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
 		if (_methodName101.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes101, parameterTypes)) {
-			return TimetableCourseLocalServiceUtil.getTimetableCourseByCourseIdCount(((Long)arguments[0]).longValue());
+			return TimetableCourseLocalServiceUtil.getTimetableCourseCountByCourseId(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName102.equals(name) &&

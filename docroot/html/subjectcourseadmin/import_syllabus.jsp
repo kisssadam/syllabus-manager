@@ -6,6 +6,8 @@
 <h1>Import ik_syllabus_ws.csv</h1>
 
 <aui:form action="<%= uploadFileURL %>" enctype="multipart/form-data" method="post"> 
+	<aui:input name="importType" type="hidden" value="syllabus" />
+	
 	<aui:input type="file" name="fileupload" />
 	
 	<aui:button name="Save" value="Save" type="submit" />

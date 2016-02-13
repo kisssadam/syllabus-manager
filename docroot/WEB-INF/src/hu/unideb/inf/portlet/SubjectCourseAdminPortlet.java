@@ -46,6 +46,7 @@ import hu.unideb.inf.service.LecturerLocalServiceUtil;
 import hu.unideb.inf.service.SemesterLocalServiceUtil;
 import hu.unideb.inf.service.SubjectLocalServiceUtil;
 import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
+import hu.unideb.inf.util.TimetableCSVParser;
 
 /**
  * Portlet implementation class SubjectCourseAdminPortlet
@@ -606,6 +607,9 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(SubjectCourseAdminPortlet.class.getName(),
 				request);
 
+		String importType = ParamUtil.getString(request, "importType");
+		long semesterId = ParamUtil.getLong(request, "semesterId");
+
 		UploadPortletRequest uploadRequest = PortalUtil.getUploadPortletRequest(request);
 
 		File uploadedFile = uploadRequest.getFile(fileInputName);
@@ -616,7 +620,21 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			while ((line = br.readLine()) != null) {
 				try {
 					System.out.println("Parsing: " + line);
-					parseLine(line, serviceContext);
+
+					switch (importType) {
+					case "syllabus":
+						parseLine(line, serviceContext);
+						break;
+
+					case "timetable":
+						TimetableCSVParser.parseLine(line, semesterId, request);
+						break;
+
+					default:
+						System.err.println("Unknown importType: " + importType);
+						break;
+					}
+
 				} catch (Exception e) {
 					System.out.println(e.toString());
 				}

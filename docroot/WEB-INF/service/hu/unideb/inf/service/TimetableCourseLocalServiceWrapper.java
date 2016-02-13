@@ -502,33 +502,33 @@ public class TimetableCourseLocalServiceWrapper
 	}
 
 	@Override
-	public hu.unideb.inf.model.TimetableCourse getTimetableCourseByC_S(
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesByC_S(
 		long courseId, long semesterId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchTimetableCourseException {
-		return _timetableCourseLocalService.getTimetableCourseByC_S(courseId,
+		return _timetableCourseLocalService.getTimetableCoursesByC_S(courseId,
 			semesterId);
 	}
 
 	@Override
-	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesByCourseId(
 		long courseId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _timetableCourseLocalService.getTimetableCourseByCourseId(courseId);
+		return _timetableCourseLocalService.getTimetableCoursesByCourseId(courseId);
 	}
 
 	@Override
-	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+	public java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesByCourseId(
 		long courseId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _timetableCourseLocalService.getTimetableCourseByCourseId(courseId,
+		return _timetableCourseLocalService.getTimetableCoursesByCourseId(courseId,
 			start, end);
 	}
 
 	@Override
-	public int getTimetableCourseByCourseIdCount(long courseId)
+	public int getTimetableCourseCountByCourseId(long courseId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _timetableCourseLocalService.getTimetableCourseByCourseIdCount(courseId);
+		return _timetableCourseLocalService.getTimetableCourseCountByCourseId(courseId);
 	}
 
 	@Override

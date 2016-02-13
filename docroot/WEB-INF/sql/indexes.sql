@@ -2,7 +2,6 @@ create index IX_2DC42CA3 on unideb_syllabus_manager_Course (courseTypeId);
 create index IX_ABDB3CF8 on unideb_syllabus_manager_Course (subjectId);
 create unique index IX_A1C296DC on unideb_syllabus_manager_Course (subjectId, courseTypeId);
 
-create unique index IX_533DE502 on unideb_syllabus_manager_CourseType (courseType);
 create unique index IX_C792E85C on unideb_syllabus_manager_CourseType (type_);
 
 create unique index IX_678CBA5B on unideb_syllabus_manager_Curriculum (curriculumCode);
@@ -18,7 +17,6 @@ create index IX_15B9ABFE on unideb_syllabus_manager_Subject (curriculumId);
 create unique index IX_9FA317D5 on unideb_syllabus_manager_Subject (subjectCode);
 
 create index IX_1BAA0C4E on unideb_syllabus_manager_TimetableCourse (courseId);
-create unique index IX_45351575 on unideb_syllabus_manager_TimetableCourse (courseId, semesterId);
-create index IX_EF43606B on unideb_syllabus_manager_TimetableCourse (lecturers);
+create index IX_45351575 on unideb_syllabus_manager_TimetableCourse (courseId, semesterId);
 create index IX_A3D7FD6B on unideb_syllabus_manager_TimetableCourse (semesterId);
 create unique index IX_82695DD5 on unideb_syllabus_manager_TimetableCourse (timetableCourseCode);

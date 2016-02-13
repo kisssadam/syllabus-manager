@@ -89,21 +89,21 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 		return timetableCoursePersistence.fetchByTimetableCourseCode(timetableCourseCode);
 	}
 
-	public TimetableCourse getTimetableCourseByC_S(long courseId, long semesterId)
+	public List<TimetableCourse> getTimetableCoursesByC_S(long courseId, long semesterId)
 			throws NoSuchTimetableCourseException, SystemException {
 		return timetableCoursePersistence.findByC_S(courseId, semesterId);
 	}
 
-	public List<TimetableCourse> getTimetableCourseByCourseId(long courseId) throws SystemException {
+	public List<TimetableCourse> getTimetableCoursesByCourseId(long courseId) throws SystemException {
 		return timetableCoursePersistence.findByCourseId(courseId);
 	}
 
-	public List<TimetableCourse> getTimetableCourseByCourseId(long courseId, int start, int end)
+	public List<TimetableCourse> getTimetableCoursesByCourseId(long courseId, int start, int end)
 			throws SystemException {
 		return timetableCoursePersistence.findByCourseId(courseId, start, end);
 	}
 
-	public int getTimetableCourseByCourseIdCount(long courseId) throws SystemException {
+	public int getTimetableCourseCountByCourseId(long courseId) throws SystemException {
 		return timetableCoursePersistence.countByCourseId(courseId);
 	}
 
@@ -230,7 +230,8 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 				.fetchTimetableCourseByTimetableCourseCode(timetableCourseCode);
 		if (Validator.isNotNull(timetableCourse)) {
 			if (!Validator.equals(timetableCourse.getCourseId(), courseId)
-					&& !Validator.equals(timetableCourse.getSemesterId(), semesterId)) {
+					&& !Validator.equals(timetableCourse.getSemesterId(), semesterId)
+					&& !Validator.equals(timetableCourse.getTimetableCourseCode(), timetableCourseCode)) {
 				throw new DuplicateTimetableCourseException();
 			}
 		}

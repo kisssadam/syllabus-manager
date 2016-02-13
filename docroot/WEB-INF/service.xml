@@ -171,7 +171,7 @@
         <finder name="TimetableCourseCode" return-type="TimetableCourse" unique="true">
             <finder-column name="timetableCourseCode"></finder-column>
         </finder>
-        <finder name="C_S" return-type="TimetableCourse" unique="true">
+        <finder name="C_S" return-type="Collection" unique="false">
             <finder-column name="courseId"></finder-column>
             <finder-column name="semesterId"></finder-column>
         </finder>

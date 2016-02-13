@@ -35,6 +35,7 @@
 				<action-key>ADD_TIMETABLE_COURSE</action-key>
 				<action-key>ADD_LECTURER</action-key>
 				<action-key>IMPORT_SYLLABUS</action-key>
+				<action-key>IMPORT_TIMETABLE</action-key>
 			</supports>
 			<site-member-defaults>
 				<action-key>ADD_CURRICULUM</action-key>
@@ -45,6 +46,7 @@
 				<action-key>ADD_TIMETABLE_COURSE</action-key>
 				<action-key>ADD_LECTURER</action-key>
 				<action-key>IMPORT_SYLLABUS</action-key>
+				<action-key>IMPORT_TIMETABLE</action-key>
 			</site-member-defaults>
 			<guest-defaults />
 			<guest-unsupported>
@@ -56,6 +58,7 @@
 				<action-key>ADD_TIMETABLE_COURSE</action-key>
 				<action-key>ADD_LECTURER</action-key>
 				<action-key>IMPORT_SYLLABUS</action-key>
+				<action-key>IMPORT_TIMETABLE</action-key>
 			</guest-unsupported>
 		</permissions>
 	</model-resource>

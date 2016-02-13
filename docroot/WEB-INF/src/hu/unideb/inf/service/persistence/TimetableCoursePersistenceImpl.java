@@ -343,9 +343,20 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 		"timetableCourse.timetableCourseCode = ?";
 	private static final String _FINDER_COLUMN_TIMETABLECOURSECODE_TIMETABLECOURSECODE_3 =
 		"(timetableCourse.timetableCourseCode IS NULL OR timetableCourse.timetableCourseCode = '')";
-	public static final FinderPath FINDER_PATH_FETCH_BY_C_S = new FinderPath(TimetableCourseModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_C_S = new FinderPath(TimetableCourseModelImpl.ENTITY_CACHE_ENABLED,
 			TimetableCourseModelImpl.FINDER_CACHE_ENABLED,
-			TimetableCourseImpl.class, FINDER_CLASS_NAME_ENTITY, "fetchByC_S",
+			TimetableCourseImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
+			"findByC_S",
+			new String[] {
+				Long.class.getName(), Long.class.getName(),
+				
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_S = new FinderPath(TimetableCourseModelImpl.ENTITY_CACHE_ENABLED,
+			TimetableCourseModelImpl.FINDER_CACHE_ENABLED,
+			TimetableCourseImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByC_S",
 			new String[] { Long.class.getName(), Long.class.getName() },
 			TimetableCourseModelImpl.COURSEID_COLUMN_BITMASK |
 			TimetableCourseModelImpl.SEMESTERID_COLUMN_BITMASK);
@@ -355,94 +366,117 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 			new String[] { Long.class.getName(), Long.class.getName() });
 
 	/**
-	 * Returns the timetable course where courseId = &#63; and semesterId = &#63; or throws a {@link hu.unideb.inf.NoSuchTimetableCourseException} if it could not be found.
+	 * Returns all the timetable courses where courseId = &#63; and semesterId = &#63;.
 	 *
 	 * @param courseId the course ID
 	 * @param semesterId the semester ID
-	 * @return the matching timetable course
-	 * @throws hu.unideb.inf.NoSuchTimetableCourseException if a matching timetable course could not be found
+	 * @return the matching timetable courses
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public TimetableCourse findByC_S(long courseId, long semesterId)
-		throws NoSuchTimetableCourseException, SystemException {
-		TimetableCourse timetableCourse = fetchByC_S(courseId, semesterId);
-
-		if (timetableCourse == null) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("courseId=");
-			msg.append(courseId);
-
-			msg.append(", semesterId=");
-			msg.append(semesterId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
-			}
-
-			throw new NoSuchTimetableCourseException(msg.toString());
-		}
-
-		return timetableCourse;
-	}
-
-	/**
-	 * Returns the timetable course where courseId = &#63; and semesterId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param courseId the course ID
-	 * @param semesterId the semester ID
-	 * @return the matching timetable course, or <code>null</code> if a matching timetable course could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public TimetableCourse fetchByC_S(long courseId, long semesterId)
+	public List<TimetableCourse> findByC_S(long courseId, long semesterId)
 		throws SystemException {
-		return fetchByC_S(courseId, semesterId, true);
+		return findByC_S(courseId, semesterId, QueryUtil.ALL_POS,
+			QueryUtil.ALL_POS, null);
 	}
 
 	/**
-	 * Returns the timetable course where courseId = &#63; and semesterId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns a range of all the timetable courses where courseId = &#63; and semesterId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link hu.unideb.inf.model.impl.TimetableCourseModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
 	 *
 	 * @param courseId the course ID
 	 * @param semesterId the semester ID
-	 * @param retrieveFromCache whether to use the finder cache
-	 * @return the matching timetable course, or <code>null</code> if a matching timetable course could not be found
+	 * @param start the lower bound of the range of timetable courses
+	 * @param end the upper bound of the range of timetable courses (not inclusive)
+	 * @return the range of matching timetable courses
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public TimetableCourse fetchByC_S(long courseId, long semesterId,
-		boolean retrieveFromCache) throws SystemException {
-		Object[] finderArgs = new Object[] { courseId, semesterId };
+	public List<TimetableCourse> findByC_S(long courseId, long semesterId,
+		int start, int end) throws SystemException {
+		return findByC_S(courseId, semesterId, start, end, null);
+	}
 
-		Object result = null;
+	/**
+	 * Returns an ordered range of all the timetable courses where courseId = &#63; and semesterId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link hu.unideb.inf.model.impl.TimetableCourseModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param courseId the course ID
+	 * @param semesterId the semester ID
+	 * @param start the lower bound of the range of timetable courses
+	 * @param end the upper bound of the range of timetable courses (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching timetable courses
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<TimetableCourse> findByC_S(long courseId, long semesterId,
+		int start, int end, OrderByComparator orderByComparator)
+		throws SystemException {
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
 
-		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_C_S,
-					finderArgs, this);
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			pagination = false;
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_S;
+			finderArgs = new Object[] { courseId, semesterId };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_C_S;
+			finderArgs = new Object[] {
+					courseId, semesterId,
+					
+					start, end, orderByComparator
+				};
 		}
 
-		if (result instanceof TimetableCourse) {
-			TimetableCourse timetableCourse = (TimetableCourse)result;
+		List<TimetableCourse> list = (List<TimetableCourse>)FinderCacheUtil.getResult(finderPath,
+				finderArgs, this);
 
-			if ((courseId != timetableCourse.getCourseId()) ||
-					(semesterId != timetableCourse.getSemesterId())) {
-				result = null;
+		if ((list != null) && !list.isEmpty()) {
+			for (TimetableCourse timetableCourse : list) {
+				if ((courseId != timetableCourse.getCourseId()) ||
+						(semesterId != timetableCourse.getSemesterId())) {
+					list = null;
+
+					break;
+				}
 			}
 		}
 
-		if (result == null) {
-			StringBundler query = new StringBundler(4);
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(4 +
+						(orderByComparator.getOrderByFields().length * 3));
+			}
+			else {
+				query = new StringBundler(4);
+			}
 
 			query.append(_SQL_SELECT_TIMETABLECOURSE_WHERE);
 
 			query.append(_FINDER_COLUMN_C_S_COURSEID_2);
 
 			query.append(_FINDER_COLUMN_C_S_SEMESTERID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+			else
+			 if (pagination) {
+				query.append(TimetableCourseModelImpl.ORDER_BY_JPQL);
+			}
 
 			String sql = query.toString();
 
@@ -459,29 +493,25 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 
 				qPos.add(semesterId);
 
-				List<TimetableCourse> list = q.list();
+				if (!pagination) {
+					list = (List<TimetableCourse>)QueryUtil.list(q,
+							getDialect(), start, end, false);
 
-				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S,
-						finderArgs, list);
+					Collections.sort(list);
+
+					list = new UnmodifiableList<TimetableCourse>(list);
 				}
 				else {
-					TimetableCourse timetableCourse = list.get(0);
-
-					result = timetableCourse;
-
-					cacheResult(timetableCourse);
-
-					if ((timetableCourse.getCourseId() != courseId) ||
-							(timetableCourse.getSemesterId() != semesterId)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S,
-							finderArgs, timetableCourse);
-					}
+					list = (List<TimetableCourse>)QueryUtil.list(q,
+							getDialect(), start, end);
 				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_S,
-					finderArgs);
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
 
 				throw processException(e);
 			}
@@ -490,28 +520,296 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 			}
 		}
 
-		if (result instanceof List<?>) {
+		return list;
+	}
+
+	/**
+	 * Returns the first timetable course in the ordered set where courseId = &#63; and semesterId = &#63;.
+	 *
+	 * @param courseId the course ID
+	 * @param semesterId the semester ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching timetable course
+	 * @throws hu.unideb.inf.NoSuchTimetableCourseException if a matching timetable course could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TimetableCourse findByC_S_First(long courseId, long semesterId,
+		OrderByComparator orderByComparator)
+		throws NoSuchTimetableCourseException, SystemException {
+		TimetableCourse timetableCourse = fetchByC_S_First(courseId,
+				semesterId, orderByComparator);
+
+		if (timetableCourse != null) {
+			return timetableCourse;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("courseId=");
+		msg.append(courseId);
+
+		msg.append(", semesterId=");
+		msg.append(semesterId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTimetableCourseException(msg.toString());
+	}
+
+	/**
+	 * Returns the first timetable course in the ordered set where courseId = &#63; and semesterId = &#63;.
+	 *
+	 * @param courseId the course ID
+	 * @param semesterId the semester ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching timetable course, or <code>null</code> if a matching timetable course could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TimetableCourse fetchByC_S_First(long courseId, long semesterId,
+		OrderByComparator orderByComparator) throws SystemException {
+		List<TimetableCourse> list = findByC_S(courseId, semesterId, 0, 1,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last timetable course in the ordered set where courseId = &#63; and semesterId = &#63;.
+	 *
+	 * @param courseId the course ID
+	 * @param semesterId the semester ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching timetable course
+	 * @throws hu.unideb.inf.NoSuchTimetableCourseException if a matching timetable course could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TimetableCourse findByC_S_Last(long courseId, long semesterId,
+		OrderByComparator orderByComparator)
+		throws NoSuchTimetableCourseException, SystemException {
+		TimetableCourse timetableCourse = fetchByC_S_Last(courseId, semesterId,
+				orderByComparator);
+
+		if (timetableCourse != null) {
+			return timetableCourse;
+		}
+
+		StringBundler msg = new StringBundler(6);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("courseId=");
+		msg.append(courseId);
+
+		msg.append(", semesterId=");
+		msg.append(semesterId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchTimetableCourseException(msg.toString());
+	}
+
+	/**
+	 * Returns the last timetable course in the ordered set where courseId = &#63; and semesterId = &#63;.
+	 *
+	 * @param courseId the course ID
+	 * @param semesterId the semester ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching timetable course, or <code>null</code> if a matching timetable course could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TimetableCourse fetchByC_S_Last(long courseId, long semesterId,
+		OrderByComparator orderByComparator) throws SystemException {
+		int count = countByC_S(courseId, semesterId);
+
+		if (count == 0) {
 			return null;
 		}
+
+		List<TimetableCourse> list = findByC_S(courseId, semesterId, count - 1,
+				count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the timetable courses before and after the current timetable course in the ordered set where courseId = &#63; and semesterId = &#63;.
+	 *
+	 * @param timetableCourseId the primary key of the current timetable course
+	 * @param courseId the course ID
+	 * @param semesterId the semester ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next timetable course
+	 * @throws hu.unideb.inf.NoSuchTimetableCourseException if a timetable course with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TimetableCourse[] findByC_S_PrevAndNext(long timetableCourseId,
+		long courseId, long semesterId, OrderByComparator orderByComparator)
+		throws NoSuchTimetableCourseException, SystemException {
+		TimetableCourse timetableCourse = findByPrimaryKey(timetableCourseId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			TimetableCourse[] array = new TimetableCourseImpl[3];
+
+			array[0] = getByC_S_PrevAndNext(session, timetableCourse, courseId,
+					semesterId, orderByComparator, true);
+
+			array[1] = timetableCourse;
+
+			array[2] = getByC_S_PrevAndNext(session, timetableCourse, courseId,
+					semesterId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected TimetableCourse getByC_S_PrevAndNext(Session session,
+		TimetableCourse timetableCourse, long courseId, long semesterId,
+		OrderByComparator orderByComparator, boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
 		else {
-			return (TimetableCourse)result;
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_TIMETABLECOURSE_WHERE);
+
+		query.append(_FINDER_COLUMN_C_S_COURSEID_2);
+
+		query.append(_FINDER_COLUMN_C_S_SEMESTERID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+		else {
+			query.append(TimetableCourseModelImpl.ORDER_BY_JPQL);
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(courseId);
+
+		qPos.add(semesterId);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(timetableCourse);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<TimetableCourse> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
 		}
 	}
 
 	/**
-	 * Removes the timetable course where courseId = &#63; and semesterId = &#63; from the database.
+	 * Removes all the timetable courses where courseId = &#63; and semesterId = &#63; from the database.
 	 *
 	 * @param courseId the course ID
 	 * @param semesterId the semester ID
-	 * @return the timetable course that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public TimetableCourse removeByC_S(long courseId, long semesterId)
-		throws NoSuchTimetableCourseException, SystemException {
-		TimetableCourse timetableCourse = findByC_S(courseId, semesterId);
-
-		return remove(timetableCourse);
+	public void removeByC_S(long courseId, long semesterId)
+		throws SystemException {
+		for (TimetableCourse timetableCourse : findByC_S(courseId, semesterId,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
+			remove(timetableCourse);
+		}
 	}
 
 	/**
@@ -1584,11 +1882,6 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 			new Object[] { timetableCourse.getTimetableCourseCode() },
 			timetableCourse);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S,
-			new Object[] {
-				timetableCourse.getCourseId(), timetableCourse.getSemesterId()
-			}, timetableCourse);
-
 		timetableCourse.resetOriginalValues();
 	}
 
@@ -1673,16 +1966,6 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 				args, Long.valueOf(1));
 			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE,
 				args, timetableCourse);
-
-			args = new Object[] {
-					timetableCourse.getCourseId(),
-					timetableCourse.getSemesterId()
-				};
-
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_S, args,
-				Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S, args,
-				timetableCourse);
 		}
 		else {
 			TimetableCourseModelImpl timetableCourseModelImpl = (TimetableCourseModelImpl)timetableCourse;
@@ -1697,19 +1980,6 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 					args, Long.valueOf(1));
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE,
 					args, timetableCourse);
-			}
-
-			if ((timetableCourseModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_C_S.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						timetableCourse.getCourseId(),
-						timetableCourse.getSemesterId()
-					};
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_S, args,
-					Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S, args,
-					timetableCourse);
 			}
 		}
 	}
@@ -1734,24 +2004,6 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 				args);
 			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE,
 				args);
-		}
-
-		args = new Object[] {
-				timetableCourse.getCourseId(), timetableCourse.getSemesterId()
-			};
-
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S, args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_S, args);
-
-		if ((timetableCourseModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_C_S.getColumnBitmask()) != 0) {
-			args = new Object[] {
-					timetableCourseModelImpl.getOriginalCourseId(),
-					timetableCourseModelImpl.getOriginalSemesterId()
-				};
-
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_S, args);
 		}
 	}
 
@@ -1899,6 +2151,27 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 		}
 
 		else {
+			if ((timetableCourseModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_S.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						timetableCourseModelImpl.getOriginalCourseId(),
+						timetableCourseModelImpl.getOriginalSemesterId()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_S,
+					args);
+
+				args = new Object[] {
+						timetableCourseModelImpl.getCourseId(),
+						timetableCourseModelImpl.getSemesterId()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_S,
+					args);
+			}
+
 			if ((timetableCourseModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COURSEID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {

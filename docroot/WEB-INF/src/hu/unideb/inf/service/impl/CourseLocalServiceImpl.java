@@ -130,7 +130,8 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 	public Course deleteCourse(long courseId, ServiceContext serviceContext) throws PortalException, SystemException {
 		Course course = CourseLocalServiceUtil.getCourse(courseId);
 
-		List<TimetableCourse> timetableCourses = TimetableCourseLocalServiceUtil.getTimetableCourseByCourseId(courseId);
+		List<TimetableCourse> timetableCourses = TimetableCourseLocalServiceUtil
+				.getTimetableCoursesByCourseId(courseId);
 		for (TimetableCourse timetableCourse : timetableCourses) {
 			TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourse.getTimetableCourseId(),
 					serviceContext);

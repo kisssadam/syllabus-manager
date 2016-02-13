@@ -459,28 +459,28 @@ public class TimetableCourseLocalServiceUtil {
 				   .fetchTimetableCourseByTimetableCourseCode(timetableCourseCode);
 	}
 
-	public static hu.unideb.inf.model.TimetableCourse getTimetableCourseByC_S(
+	public static java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesByC_S(
 		long courseId, long semesterId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchTimetableCourseException {
-		return getService().getTimetableCourseByC_S(courseId, semesterId);
+		return getService().getTimetableCoursesByC_S(courseId, semesterId);
 	}
 
-	public static java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+	public static java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesByCourseId(
 		long courseId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getTimetableCourseByCourseId(courseId);
+		return getService().getTimetableCoursesByCourseId(courseId);
 	}
 
-	public static java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCourseByCourseId(
+	public static java.util.List<hu.unideb.inf.model.TimetableCourse> getTimetableCoursesByCourseId(
 		long courseId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getTimetableCourseByCourseId(courseId, start, end);
+		return getService().getTimetableCoursesByCourseId(courseId, start, end);
 	}
 
-	public static int getTimetableCourseByCourseIdCount(long courseId)
+	public static int getTimetableCourseCountByCourseId(long courseId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getTimetableCourseByCourseIdCount(courseId);
+		return getService().getTimetableCourseCountByCourseId(courseId);
 	}
 
 	public static java.util.List<hu.unideb.inf.model.Lecturer> getLecutersByTimetableCourseId(
