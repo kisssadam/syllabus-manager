@@ -33,10 +33,10 @@
         <aui:nav-item href="<%=viewHomeURL.toString()%>" iconCssClass="icon-home" label="home" selected='false' />
         
         <aui:nav-item dropdown="true" iconCssClass="icon-list" label="view" selected='false'>
-        	<aui:nav-item href="<%=viewCurriculumsURL.toString()%>" label="Curriculums" />
-			<aui:nav-item href="<%=viewCourseTypesURL.toString()%>" label="Course Types" />
-			<aui:nav-item href="<%=viewSemestersURL.toString()%>" label="Semesters" />
-			<aui:nav-item href="<%=viewLecturersURL.toString()%>" label="Lecturers" />
+        	<aui:nav-item href="<%=viewCurriculumsURL.toString()%>" label="curriculums" />
+			<aui:nav-item href="<%=viewCourseTypesURL.toString()%>" label="course-types" />
+			<aui:nav-item href="<%=viewSemestersURL.toString()%>" label="semesters" />
+			<aui:nav-item href="<%=viewLecturersURL.toString()%>" label="lecturers" />
 		</aui:nav-item>
         
         <aui:nav-item dropdown="true" iconCssClass="icon-plus" label="add" selected='false'>
@@ -45,7 +45,7 @@
 					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/curriculums/edit_curriculum.jsp" />
 				</portlet:renderURL>
             	
-            	<aui:nav-item href="<%=addCurriculumURL.toString()%>" label="Curriculum" />
+            	<aui:nav-item href="<%=addCurriculumURL.toString()%>" label="curriculum" />
 			</c:if>
             
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SUBJECT)%>'>
@@ -54,7 +54,7 @@
 					<portlet:param name="curriculumId" value="${curriculumId}" />
 				</portlet:renderURL>
             	
-            	<aui:nav-item href="<%=addSubjectURL.toString()%>" label="Subject" />
+            	<aui:nav-item href="<%=addSubjectURL.toString()%>" label="subject" />
 			</c:if>
 			
 			<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_COURSE)%>'>
@@ -64,7 +64,7 @@
 					<portlet:param name="curriculumId" value="${curriculumId}" />
 				</portlet:renderURL>
             	
-            	<aui:nav-item href="<%=addCourseURL.toString()%>" label="Course" />
+            	<aui:nav-item href="<%=addCourseURL.toString()%>" label="course" />
            	</c:if>
             
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_COURSE_TYPE)%>'>
@@ -72,7 +72,7 @@
 					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/course_types/edit_course_type.jsp" />
 				</portlet:renderURL>
             	
-            	<aui:nav-item href="<%= addCourseTypeURL.toString() %>" label="Course Type" />
+            	<aui:nav-item href="<%= addCourseTypeURL.toString() %>" label="course-type" />
            	</c:if>
            	
            	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SEMESTER)%>'>
@@ -80,7 +80,7 @@
 					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/semesters/edit_semester.jsp" />
 				</portlet:renderURL>
             	
-            	<aui:nav-item href="<%= addSemesterURL.toString() %>" label="Semester" />
+            	<aui:nav-item href="<%= addSemesterURL.toString() %>" label="semester" />
            	</c:if>
            	
            	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_LECTURER)%>'>
@@ -89,7 +89,7 @@
 					<portlet:param name="lecturerId" value="${lecturerId}" />
 				</portlet:renderURL>
             	
-            	<aui:nav-item href="<%= addLecturerURL.toString() %>" label="Lecturer" />
+            	<aui:nav-item href="<%= addLecturerURL.toString() %>" label="lecturer" />
            	</c:if>
            	
            	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_TIMETABLE_COURSE)%>'>
@@ -101,7 +101,7 @@
 					<portlet:param name="semesterId" value="${semesterId}" />
 				</portlet:renderURL>
             	
-            	<aui:nav-item href="<%= addTimetableCourseURL.toString() %>" label="TimetableCourse" />
+            	<aui:nav-item href="<%= addTimetableCourseURL.toString() %>" label="timetable-course" />
            	</c:if>
         </aui:nav-item>
         

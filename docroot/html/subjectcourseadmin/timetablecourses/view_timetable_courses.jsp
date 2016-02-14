@@ -28,12 +28,6 @@
 
 <aui:form method="post" name="fmTimetableCourse">
 	<liferay-ui:search-container emptyResultsMessage="timetable-courses-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
-		
-		
-		<%-- ez minek kell IDE????????? --%>
-		
-		
-		<aui:input name="semesterId" type="hidden" value="${semesterId}" />
 		<aui:input name="deleteTimetableCourseIds" type="hidden" />
 		
 		<liferay-ui:search-container-results
