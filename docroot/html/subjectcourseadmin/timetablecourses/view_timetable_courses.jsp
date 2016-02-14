@@ -77,7 +77,7 @@
 				
 				for (int i = 0; i < lecturers.size(); i++) {
 					if (i > 0) {
-						lecturerNames.append(", ");
+						lecturerNames.append(System.lineSeparator());
 					}
 					lecturerNames.append(lecturers.get(i).getLecturerName());
 				}
