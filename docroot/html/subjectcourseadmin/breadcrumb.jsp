@@ -5,6 +5,8 @@
 	boolean showCourseTypesLink = GetterUtil.getBoolean(request.getAttribute("showCourseTypesLink"), false);
 	boolean showSemestersLink = GetterUtil.getBoolean(request.getAttribute("showSemestersLink"), false);
 	boolean showLecturersLink = GetterUtil.getBoolean(request.getAttribute("showLecturersLink"), false);
+	boolean showImportSyllabusLink = GetterUtil.getBoolean(request.getAttribute("showImportSyllabusLink"), false);
+	boolean showImportTimetableLink = GetterUtil.getBoolean(request.getAttribute("showImportTimetableLink"), false);
 
 	long curriculumId = GetterUtil.getLong(request.getAttribute("curriculumId"), 0);
 	long subjectId = GetterUtil.getLong(request.getAttribute("subjectId"), 0);
@@ -42,6 +44,14 @@
 	<portlet:param name="semesterId" value="${semesterId}" />
 </portlet:renderURL>
 
+<portlet:renderURL var="importSyllabusURL">
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/import_syllabus.jsp" />
+</portlet:renderURL>
+
+<portlet:renderURL var="importTimetableURL">
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/import_timetable.jsp" />
+</portlet:renderURL>
+
 <%
 	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "home"), viewHomeURL.toString());
 
@@ -53,6 +63,10 @@
 		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "semesters"), viewSemestersURL.toString());
 	} else if (showLecturersLink) {
 		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "lecturers"), viewSemestersURL.toString());
+	} else if (showImportSyllabusLink) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "import-syllabus"), importSyllabusURL.toString());
+	} else if (showImportTimetableLink) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "import-timetable"), importTimetableURL.toString());
 	}
 
 	if (curriculumId > 0) {

@@ -1,5 +1,11 @@
 <%@include file="/html/init.jsp"%>
 
+<c:set var="showImportSyllabusLink" value="<%= true %>" scope="request"/>
+
+<jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />
+
+<jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
+
 <!-- File upload form from http://www.codeyouneed.com/liferay-portlet-file-upload-tutorial/ -->
 <portlet:actionURL name="upload" var="uploadFileURL"></portlet:actionURL>
 
