@@ -7,6 +7,7 @@
 
 	long curriculumId = GetterUtil.getLong(request.getAttribute("curriculumId"), 0);
 	long subjectId = GetterUtil.getLong(request.getAttribute("subjectId"), 0);
+	long semesterId = GetterUtil.getLong(request.getAttribute("semesterId"), 0);
 %>
 
 <portlet:renderURL var="viewHomeURL">
@@ -35,6 +36,11 @@
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/semesters/view_semesters.jsp" />
 </portlet:renderURL>
 
+<portlet:renderURL var="viewTimetableCoursesURL">
+	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/timetablecourses/view_timetable_courses.jsp" />
+	<portlet:param name="semesterId" value="${semesterId}" />
+</portlet:renderURL>
+
 <%
 	PortalUtil.addPortletBreadcrumbEntry(request, "Home", viewHomeURL.toString());
 
@@ -54,6 +60,11 @@
 	if (subjectId > 0) {
 		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
 		PortalUtil.addPortletBreadcrumbEntry(request, subject.toString(), viewCoursesURL.toString());
+	}
+
+	if (semesterId > 0) {
+		Semester semester = SemesterLocalServiceUtil.getSemester(semesterId);
+		PortalUtil.addPortletBreadcrumbEntry(request, semester.toString(), viewTimetableCoursesURL.toString());
 	}
 %>
 

@@ -19,8 +19,8 @@
 <liferay-ui:success key="timetableCourseDeleted" message="timetable-course-has-been-successfully-deleted" />
 <liferay-ui:success key="timetableCoursesDeleted" message="timetable-courses-have-been-successfully-deleted" />
 
-<c:set var="showTimetableCoursesLink" value="<%= true %>" scope="request"/>
-<c:set var="semesterId" value="${semesterId}" scope="request"/>
+<c:set var="showSemestersLink" value="<%= true %>" scope="request"/>
+<c:set var="semesterId" value="<%=semesterId%>" scope="request"/>
 
 <jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />
 

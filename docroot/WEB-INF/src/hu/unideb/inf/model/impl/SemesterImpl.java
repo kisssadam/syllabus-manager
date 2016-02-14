@@ -33,7 +33,7 @@ public class SemesterImpl extends SemesterBaseImpl {
 	 * hu.unideb.inf.model.Semester} interface instead.
 	 */
 
-	private static final String SEPARATOR = " / ";
+	private static final String SEPARATOR = "/";
 
 	public SemesterImpl() {
 	}
