@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 
 <model-hints>
-	<!-- http://www.liferay.com/community/wiki/-/wiki/Main/Customize+DB+Column+Sizes#section-Customize+DB+Column+Sizes-Model+Hint+Values
-		http://stackoverflow.com/questions/11990284/how-to-set-size-of-string-column-using-service-xml-or-service-builder
+	<!-- http://www.liferay.com/community/wiki/-/wiki/Main/Customize+DB+Column+Sizes#section-Customize+DB+Column+Sizes-Model+Hint+Values 
+		http://stackoverflow.com/questions/11990284/how-to-set-size-of-string-column-using-service-xml-or-service-builder 
 		https://dev.liferay.com/develop/tutorials/-/knowledge_base/6-1/using-model-hints?notice=1 -->
 	<hint-collection name="TEXTAREA">
 		<hint name="max-length">10000</hint>
@@ -55,7 +55,9 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="lecturerName" type="String" />
+		<field name="lecturerName" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="lecturerUserId" type="long" />
 	</model>
 	<model name="hu.unideb.inf.model.Semester">
