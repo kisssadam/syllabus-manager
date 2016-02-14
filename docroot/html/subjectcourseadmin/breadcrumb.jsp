@@ -1,9 +1,10 @@
 <%@include file="/html/init.jsp"%>
 
 <%
-	boolean showSemestersLink = GetterUtil.getBoolean(request.getAttribute("showSemestersLink"), false);
-	boolean showCourseTypesLink = GetterUtil.getBoolean(request.getAttribute("showCourseTypesLink"), false);
 	boolean showCurriculumsLink = GetterUtil.getBoolean(request.getAttribute("showCurriculumsLink"), false);
+	boolean showCourseTypesLink = GetterUtil.getBoolean(request.getAttribute("showCourseTypesLink"), false);
+	boolean showSemestersLink = GetterUtil.getBoolean(request.getAttribute("showSemestersLink"), false);
+	boolean showLecturersLink = GetterUtil.getBoolean(request.getAttribute("showLecturersLink"), false);
 
 	long curriculumId = GetterUtil.getLong(request.getAttribute("curriculumId"), 0);
 	long subjectId = GetterUtil.getLong(request.getAttribute("subjectId"), 0);
@@ -50,6 +51,8 @@
 		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "course-types"), viewCourseTypesURL.toString());
 	} else if (showSemestersLink) {
 		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "semesters"), viewSemestersURL.toString());
+	} else if (showLecturersLink) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "lecturers"), viewSemestersURL.toString());
 	}
 
 	if (curriculumId > 0) {
