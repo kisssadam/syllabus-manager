@@ -42,14 +42,14 @@
 </portlet:renderURL>
 
 <%
-	PortalUtil.addPortletBreadcrumbEntry(request, "Home", viewHomeURL.toString());
+	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "home"), viewHomeURL.toString());
 
 	if (showCurriculumsLink) {
-		PortalUtil.addPortletBreadcrumbEntry(request, "Curriculums", viewCurriculumsURL.toString());
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "curriculums"), viewCurriculumsURL.toString());
 	} else if (showCourseTypesLink) {
-		PortalUtil.addPortletBreadcrumbEntry(request, "Course Types", viewCourseTypesURL.toString());
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "course-types"), viewCourseTypesURL.toString());
 	} else if (showSemestersLink) {
-		PortalUtil.addPortletBreadcrumbEntry(request, "Semesters", viewSemestersURL.toString());
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, "semesters"), viewSemestersURL.toString());
 	}
 
 	if (curriculumId > 0) {
