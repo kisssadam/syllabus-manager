@@ -203,53 +203,59 @@ public class TimetableCourseLocalServiceClp
 
 		_methodParameterTypes38 = new String[] { "long" };
 
-		_methodName39 = "findTimetableCourseByTimetableCourseCode";
+		_methodName39 = "fetchTimetableCourseByC_S_T";
 
-		_methodParameterTypes39 = new String[] { "java.lang.String" };
+		_methodParameterTypes39 = new String[] {
+				"long", "long", "java.lang.String"
+			};
 
-		_methodName40 = "fetchTimetableCourseByTimetableCourseCode";
+		_methodName40 = "findTimetableCourseByTimetableCourseCode";
 
 		_methodParameterTypes40 = new String[] { "java.lang.String" };
 
-		_methodName41 = "getTimetableCoursesByC_S";
+		_methodName41 = "fetchTimetableCourseByTimetableCourseCode";
 
-		_methodParameterTypes41 = new String[] { "long", "long" };
+		_methodParameterTypes41 = new String[] { "java.lang.String" };
 
-		_methodName42 = "getTimetableCoursesByCourseId";
+		_methodName42 = "getTimetableCoursesByC_S";
 
-		_methodParameterTypes42 = new String[] { "long" };
+		_methodParameterTypes42 = new String[] { "long", "long" };
 
 		_methodName43 = "getTimetableCoursesByCourseId";
 
-		_methodParameterTypes43 = new String[] { "long", "int", "int" };
+		_methodParameterTypes43 = new String[] { "long" };
 
-		_methodName44 = "getTimetableCourseCountByCourseId";
+		_methodName44 = "getTimetableCoursesByCourseId";
 
-		_methodParameterTypes44 = new String[] { "long" };
+		_methodParameterTypes44 = new String[] { "long", "int", "int" };
 
-		_methodName45 = "getLecutersByTimetableCourseId";
+		_methodName45 = "getTimetableCourseCountByCourseId";
 
 		_methodParameterTypes45 = new String[] { "long" };
 
-		_methodName46 = "addTimetableCourse";
+		_methodName46 = "getLecutersByTimetableCourseId";
 
-		_methodParameterTypes46 = new String[] {
+		_methodParameterTypes46 = new String[] { "long" };
+
+		_methodName47 = "addTimetableCourse";
+
+		_methodParameterTypes47 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String", "int",
 				"int", "long[][]", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName47 = "updateTimetableCourse";
+		_methodName48 = "updateTimetableCourse";
 
-		_methodParameterTypes47 = new String[] {
+		_methodParameterTypes48 = new String[] {
 				"long", "long", "long", "long", "java.lang.String",
 				"java.lang.String", "int", "int", "long[][]", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName48 = "deleteTimetableCourse";
+		_methodName49 = "deleteTimetableCourse";
 
-		_methodParameterTypes48 = new String[] {
+		_methodParameterTypes49 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -1390,6 +1396,42 @@ public class TimetableCourseLocalServiceClp
 	}
 
 	@Override
+	public hu.unideb.inf.model.TimetableCourse fetchTimetableCourseByC_S_T(
+		long courseId, long semesterId, java.lang.String timetableCourseCode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName39,
+					_methodParameterTypes39,
+					new Object[] {
+						courseId,
+						
+					semesterId,
+						
+					ClpSerializer.translateInput(timetableCourseCode)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.unideb.inf.model.TimetableCourse)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public hu.unideb.inf.model.TimetableCourse findTimetableCourseByTimetableCourseCode(
 		java.lang.String timetableCourseCode)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -1397,8 +1439,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName39,
-					_methodParameterTypes39,
+			returnObj = _invokableLocalService.invokeMethod(_methodName40,
+					_methodParameterTypes40,
 					new Object[] {
 						ClpSerializer.translateInput(timetableCourseCode)
 					});
@@ -1433,8 +1475,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName40,
-					_methodParameterTypes40,
+			returnObj = _invokableLocalService.invokeMethod(_methodName41,
+					_methodParameterTypes41,
 					new Object[] {
 						ClpSerializer.translateInput(timetableCourseCode)
 					});
@@ -1466,8 +1508,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName41,
-					_methodParameterTypes41,
+			returnObj = _invokableLocalService.invokeMethod(_methodName42,
+					_methodParameterTypes42,
 					new Object[] { courseId, semesterId });
 		}
 		catch (Throwable t) {
@@ -1500,8 +1542,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName42,
-					_methodParameterTypes42, new Object[] { courseId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName43,
+					_methodParameterTypes43, new Object[] { courseId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1529,8 +1571,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName43,
-					_methodParameterTypes43,
+			returnObj = _invokableLocalService.invokeMethod(_methodName44,
+					_methodParameterTypes44,
 					new Object[] { courseId, start, end });
 		}
 		catch (Throwable t) {
@@ -1558,8 +1600,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName44,
-					_methodParameterTypes44, new Object[] { courseId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName45,
+					_methodParameterTypes45, new Object[] { courseId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1587,8 +1629,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName45,
-					_methodParameterTypes45, new Object[] { timetableCourseId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName46,
+					_methodParameterTypes46, new Object[] { timetableCourseId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1621,8 +1663,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName46,
-					_methodParameterTypes46,
+			returnObj = _invokableLocalService.invokeMethod(_methodName47,
+					_methodParameterTypes47,
 					new Object[] {
 						courseId,
 						
@@ -1680,8 +1722,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName47,
-					_methodParameterTypes47,
+			returnObj = _invokableLocalService.invokeMethod(_methodName48,
+					_methodParameterTypes48,
 					new Object[] {
 						userId,
 						
@@ -1740,8 +1782,8 @@ public class TimetableCourseLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName48,
-					_methodParameterTypes48,
+			returnObj = _invokableLocalService.invokeMethod(_methodName49,
+					_methodParameterTypes49,
 					new Object[] {
 						timetableCourseId,
 						
@@ -1868,4 +1910,6 @@ public class TimetableCourseLocalServiceClp
 	private String[] _methodParameterTypes47;
 	private String _methodName48;
 	private String[] _methodParameterTypes48;
+	private String _methodName49;
+	private String[] _methodParameterTypes49;
 }

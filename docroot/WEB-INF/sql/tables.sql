@@ -20,7 +20,7 @@ create table unideb_syllabus_manager_CourseType (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	typeName VARCHAR(75) null
+	typeName TEXT null
 );
 
 create table unideb_syllabus_manager_Curriculum (

@@ -487,6 +487,14 @@ public class TimetableCourseLocalServiceWrapper
 	}
 
 	@Override
+	public hu.unideb.inf.model.TimetableCourse fetchTimetableCourseByC_S_T(
+		long courseId, long semesterId, java.lang.String timetableCourseCode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _timetableCourseLocalService.fetchTimetableCourseByC_S_T(courseId,
+			semesterId, timetableCourseCode);
+	}
+
+	@Override
 	public hu.unideb.inf.model.TimetableCourse findTimetableCourseByTimetableCourseCode(
 		java.lang.String timetableCourseCode)
 		throws com.liferay.portal.kernel.exception.SystemException,

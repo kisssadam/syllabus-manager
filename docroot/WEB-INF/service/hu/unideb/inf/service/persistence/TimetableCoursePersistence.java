@@ -520,6 +520,76 @@ public interface TimetableCoursePersistence extends BasePersistence<TimetableCou
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; or throws a {@link hu.unideb.inf.NoSuchTimetableCourseException} if it could not be found.
+	*
+	* @param courseId the course ID
+	* @param semesterId the semester ID
+	* @param timetableCourseCode the timetable course code
+	* @return the matching timetable course
+	* @throws hu.unideb.inf.NoSuchTimetableCourseException if a matching timetable course could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public hu.unideb.inf.model.TimetableCourse findByC_S_T(long courseId,
+		long semesterId, java.lang.String timetableCourseCode)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchTimetableCourseException;
+
+	/**
+	* Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param courseId the course ID
+	* @param semesterId the semester ID
+	* @param timetableCourseCode the timetable course code
+	* @return the matching timetable course, or <code>null</code> if a matching timetable course could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public hu.unideb.inf.model.TimetableCourse fetchByC_S_T(long courseId,
+		long semesterId, java.lang.String timetableCourseCode)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param courseId the course ID
+	* @param semesterId the semester ID
+	* @param timetableCourseCode the timetable course code
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching timetable course, or <code>null</code> if a matching timetable course could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public hu.unideb.inf.model.TimetableCourse fetchByC_S_T(long courseId,
+		long semesterId, java.lang.String timetableCourseCode,
+		boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; from the database.
+	*
+	* @param courseId the course ID
+	* @param semesterId the semester ID
+	* @param timetableCourseCode the timetable course code
+	* @return the timetable course that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public hu.unideb.inf.model.TimetableCourse removeByC_S_T(long courseId,
+		long semesterId, java.lang.String timetableCourseCode)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.NoSuchTimetableCourseException;
+
+	/**
+	* Returns the number of timetable courses where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63;.
+	*
+	* @param courseId the course ID
+	* @param semesterId the semester ID
+	* @param timetableCourseCode the timetable course code
+	* @return the number of matching timetable courses
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByC_S_T(long courseId, long semesterId,
+		java.lang.String timetableCourseCode)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Caches the timetable course in the entity cache if it is enabled.
 	*
 	* @param timetableCourse the timetable course

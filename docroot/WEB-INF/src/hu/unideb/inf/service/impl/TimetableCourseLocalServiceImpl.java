@@ -79,6 +79,11 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 		return timetableCoursePersistence.countBySemesterId(semesterId);
 	}
 
+	public TimetableCourse fetchTimetableCourseByC_S_T(long courseId, long semesterId, String timetableCourseCode)
+			throws SystemException {
+		return timetableCoursePersistence.fetchByC_S_T(courseId, semesterId, timetableCourseCode);
+	}
+
 	public TimetableCourse findTimetableCourseByTimetableCourseCode(String timetableCourseCode)
 			throws SystemException, NoSuchTimetableCourseException {
 		return timetableCoursePersistence.findByTimetableCourseCode(timetableCourseCode);

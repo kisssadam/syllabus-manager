@@ -110,8 +110,20 @@ public class TimetableCSVParser {
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
 
-		TimetableCourseLocalServiceUtil.addTimetableCourse(course.getCourseId(), semesterId, timetableCourseCode,
-				subjectType, recommendedTerm, limit, lecturerIds, classScheduleInfo, description, serviceContext);
+		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil
+				.fetchTimetableCourseByC_S_T(course.getCourseId(), semesterId, timetableCourseCode);
+
+		if (Validator.isNull(timetableCourse)) {
+			timetableCourse = TimetableCourseLocalServiceUtil.addTimetableCourse(course.getCourseId(), semesterId,
+					timetableCourseCode, subjectType, recommendedTerm, limit, lecturerIds, classScheduleInfo,
+					description, serviceContext);
+		} else {
+			timetableCourse = TimetableCourseLocalServiceUtil.updateTimetableCourse(serviceContext.getUserId(),
+					timetableCourse.getTimetableCourseId(), course.getCourseId(), semesterId, timetableCourseCode,
+					subjectType, recommendedTerm, limit, lecturerIds, classScheduleInfo, description, serviceContext);
+		}
+
+		System.out.println("Successfully parsed: " + timetableCourse);
 	}
 
 }
