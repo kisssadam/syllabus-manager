@@ -3,6 +3,8 @@
 <%
 	PortletURL iteratorURL = renderResponse.createRenderURL();
 	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/semesters/view_semesters.jsp");
+	
+	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
 <liferay-ui:success key="semesterAdded" message="semester-has-been-successfully-added" />
@@ -19,7 +21,7 @@
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <aui:form method="post" name="fmSemester">
-	<liferay-ui:search-container emptyResultsMessage="semesters-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
+	<liferay-ui:search-container delta="<%=delta%>" emptyResultsMessage="semesters-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
 		<aui:input name="deleteSemesterIds" type="hidden" />
 		
 		<liferay-ui:search-container-results

@@ -12,6 +12,8 @@
 	PortletURL iteratorURL = renderResponse.createRenderURL();
 	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/timetablecourses/view_timetable_courses.jsp");
 	iteratorURL.setParameter("semesterId", String.valueOf(semesterId));
+	
+	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
 <liferay-ui:success key="timetableCourseAdded" message="timetable-course-has-been-successfully-updated" />
@@ -27,7 +29,7 @@
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <aui:form method="post" name="fmTimetableCourse">
-	<liferay-ui:search-container emptyResultsMessage="timetable-courses-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
+	<liferay-ui:search-container delta="<%=delta%>" emptyResultsMessage="timetable-courses-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
 		<aui:input name="deleteTimetableCourseIds" type="hidden" />
 		
 		<liferay-ui:search-container-results
@@ -89,6 +91,10 @@
 	</liferay-ui:search-container>	
 </aui:form>
 
+<portlet:actionURL name="deleteTimetableCourses" var="deleteTimetableCoursesURL">
+	<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
+</portlet:actionURL>
+
 <aui:script use="aui-base">
 	A.one('.removeCheckedItemsButton').on(
 		'click',
@@ -104,7 +110,7 @@
             if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-permanently-delete-the-selected-items") %>'))  {
 				document.<portlet:namespace />fmTimetableCourse.method = "post";
 				document.<portlet:namespace />fmTimetableCourse.<portlet:namespace />deleteTimetableCourseIds.value = Liferay.Util.listCheckedExcept(document.<portlet:namespace />fmTimetableCourse, '<portlet:namespace />allRowIds');
-				submitForm(document.<portlet:namespace />fmTimetableCourse, '<portlet:actionURL name="deleteTimetableCourses"></portlet:actionURL>');
+				submitForm(document.<portlet:namespace />fmTimetableCourse, "<%=deleteTimetableCoursesURL.toString()%>");
             }
         },
         ['liferay-util-list-fields']

@@ -5,6 +5,8 @@
 	ResultRow row = (ResultRow) request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 	TimetableCourse timetableCourse = (TimetableCourse) row.getObject();
 	long timetableCourseId = timetableCourse.getTimetableCourseId();
+	
+	int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 %>
 
 <liferay-ui:icon-menu>
@@ -27,6 +29,7 @@
 	<c:if test="<%=TimetableCoursePermission.contains(permissionChecker, timetableCourseId, ActionKeys.DELETE)%>">
 		<portlet:actionURL name="deleteTimetableCourse" var="deleteURL">
 			<portlet:param name="timetableCourseId" value="<%=String.valueOf(timetableCourseId)%>" />
+			<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon-delete url="<%=deleteURL.toString()%>" />

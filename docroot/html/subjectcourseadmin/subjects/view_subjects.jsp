@@ -12,6 +12,8 @@
 	PortletURL iteratorURL = renderResponse.createRenderURL();
 	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/subjects/view_subjects.jsp");
 	iteratorURL.setParameter("curriculumId", String.valueOf(curriculumId));
+	
+	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
 <liferay-ui:success key="subjectAdded" message="subject-has-been-successfully-updated" />
@@ -27,7 +29,7 @@
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <aui:form method="post" name="fmSubject">
-	<liferay-ui:search-container emptyResultsMessage="subjects-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
+	<liferay-ui:search-container delta="<%=delta%>" emptyResultsMessage="subjects-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
 		<aui:input name="curriculumId" type="hidden" value="<%= curriculumId %>" />
 		<aui:input name="deleteSubjectIds" type="hidden" />
 		
@@ -54,6 +56,10 @@
 	</liferay-ui:search-container>	
 </aui:form>
 
+<portlet:actionURL name="deleteSubjects" var="deleteSubjectsURL">
+	<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
+</portlet:actionURL>
+
 <aui:script use="aui-base">
 	A.one('.removeCheckedItemsButton').on(
 		'click',
@@ -69,7 +75,7 @@
             if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-permanently-delete-the-selected-items") %>'))  {
 				document.<portlet:namespace />fmSubject.method = "post";
 				document.<portlet:namespace />fmSubject.<portlet:namespace />deleteSubjectIds.value = Liferay.Util.listCheckedExcept(document.<portlet:namespace />fmSubject, '<portlet:namespace />allRowIds');
-				submitForm(document.<portlet:namespace />fmSubject, '<portlet:actionURL name="deleteSubjects"></portlet:actionURL>');
+				submitForm(document.<portlet:namespace />fmSubject, "<%=deleteSubjectsURL.toString()%>");
             }
         },
         ['liferay-util-list-fields']

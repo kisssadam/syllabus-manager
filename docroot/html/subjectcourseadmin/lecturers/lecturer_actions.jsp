@@ -5,6 +5,8 @@
 	ResultRow row = (ResultRow) request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 	Lecturer lecturer = (Lecturer) row.getObject();
 	long lecturerId = lecturer.getLecturerId();
+	
+	int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 %>
 
 <liferay-ui:icon-menu>
@@ -27,6 +29,7 @@
 	<c:if test="<%=LecturerPermission.contains(permissionChecker, lecturerId, ActionKeys.DELETE)%>">
 		<portlet:actionURL name="deleteLecturer" var="deleteURL">
 			<portlet:param name="lecturerId" value="<%=String.valueOf(lecturerId)%>" />
+			<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon-delete url="<%=deleteURL.toString()%>" />

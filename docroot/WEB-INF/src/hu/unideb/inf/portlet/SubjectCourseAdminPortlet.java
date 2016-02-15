@@ -15,6 +15,7 @@ import javax.portlet.PortletException;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
+import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
@@ -316,6 +317,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 	public void deleteCurriculum(ActionRequest request, ActionResponse response) {
 		long curriculumId = ParamUtil.getLong(request, "curriculumId");
 
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+
 		try {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
 
@@ -327,11 +330,15 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteSubject(ActionRequest request, ActionResponse response) {
 		long subjectId = ParamUtil.getLong(request, "subjectId");
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		try {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(Subject.class.getName(), request);
@@ -346,11 +353,15 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteCourse(ActionRequest request, ActionResponse response) {
 		long courseId = ParamUtil.getLong(request, "courseId");
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		try {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(Course.class.getName(), request);
@@ -365,11 +376,15 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_COURSES);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteCourseType(ActionRequest request, ActionResponse response) {
 		long courseTypeId = ParamUtil.getLong(request, "courseTypeId");
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		try {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(CourseType.class.getName(), request);
@@ -383,11 +398,15 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteSemester(ActionRequest request, ActionResponse response) {
 		long semesterId = ParamUtil.getLong(request, "semesterId");
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		try {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(Semester.class.getName(), request);
@@ -401,11 +420,15 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteLecturer(ActionRequest request, ActionResponse response) {
 		long lecturerId = ParamUtil.getLong(request, "lecturerId");
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		try {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(Lecturer.class.getName(), request);
@@ -418,11 +441,15 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteTimetableCourse(ActionRequest request, ActionResponse response) {
 		long timetableCourseId = ParamUtil.getLong(request, "timetableCourseId");
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		try {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
@@ -438,11 +465,15 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteCurriculums(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		try {
 			String[] curriculumIds = ParamUtil.getParameterValues(request, "deleteCurriculumIds");
@@ -459,11 +490,16 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteSubjects(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Subject.class.getName(), request);
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+
 		try {
 			Long curriculumId = ParamUtil.getLong(request, "curriculumId");
 
@@ -483,11 +519,16 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteCourses(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Course.class.getName(), request);
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+
 		try {
 			Long subjectId = ParamUtil.getLong(request, "subjectId");
 
@@ -507,11 +548,15 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_COURSES);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteCourseTypes(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(CourseType.class.getName(), request);
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		try {
 			String[] courseTypeIds = ParamUtil.getParameterValues(request, "deleteCourseTypeIds");
@@ -529,11 +574,15 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteSemesters(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Semester.class.getName(), request);
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		try {
 			String[] semesterIds = ParamUtil.getParameterValues(request, "deleteSemesterIds");
@@ -551,11 +600,15 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteLecturers(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Lecturer.class.getName(), request);
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		try {
 			String[] lecturerIds = ParamUtil.getParameterValues(request, "deleteLecturerIds");
@@ -572,11 +625,15 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteTimetableCourses(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
+
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		try {
 			String[] timetableCourseIds = ParamUtil.getParameterValues(request, "deleteTimetableCourseIds");
@@ -600,6 +657,8 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+		} finally {
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 

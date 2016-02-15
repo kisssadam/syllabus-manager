@@ -3,6 +3,8 @@
 <%
 	PortletURL iteratorURL = renderResponse.createRenderURL();
 	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/curriculums/view_curriculums.jsp");
+	
+	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
 <liferay-ui:success key="curriculumAdded" message="curriculum-has-been-successfully-added" />
@@ -17,7 +19,7 @@
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <aui:form method="post" name="fmCurriculum">
-	<liferay-ui:search-container emptyResultsMessage="curriculums-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
+	<liferay-ui:search-container delta="<%=delta%>" emptyResultsMessage="curriculums-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
 		<aui:input name="deleteCurriculumIds" type="hidden" />
 	
 		<liferay-ui:search-container-results
@@ -52,6 +54,10 @@ https://github.com/liferay/liferay-portal/blob/6.1.x/portal-web/docroot/html/por
 https://github.com/eduardolundgren/alloy-ui-exercises/blob/master/01-basics/08-show-hide.html#L54
 -->
 
+<portlet:actionURL name="deleteCurriculums" var="deleteCurriculumsURL">
+	<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
+</portlet:actionURL>
+
 <aui:script use="aui-base">
 	A.one('.removeCheckedItemsButton').on(
 		'click',
@@ -67,7 +73,7 @@ https://github.com/eduardolundgren/alloy-ui-exercises/blob/master/01-basics/08-s
             if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-permanently-delete-the-selected-items") %>'))  {
 				document.<portlet:namespace />fmCurriculum.method = "post";                
 				document.<portlet:namespace />fmCurriculum.<portlet:namespace />deleteCurriculumIds.value = Liferay.Util.listCheckedExcept(document.<portlet:namespace />fmCurriculum, '<portlet:namespace />allRowIds');
-				submitForm(document.<portlet:namespace />fmCurriculum, '<portlet:actionURL name="deleteCurriculums"></portlet:actionURL>');
+				submitForm(document.<portlet:namespace />fmCurriculum, "<%=deleteCurriculumsURL.toString()%>");
             }
         },
         ['liferay-util-list-fields']

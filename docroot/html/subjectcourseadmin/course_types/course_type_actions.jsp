@@ -5,6 +5,8 @@
 	ResultRow row = (ResultRow) request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 	CourseType courseType = (CourseType) row.getObject();
 	long courseTypeId = courseType.getCourseTypeId();
+	
+	int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 %>
 
 <liferay-ui:icon-menu>
@@ -27,6 +29,7 @@
 	<c:if test="<%=CourseTypePermission.contains(permissionChecker, courseTypeId, ActionKeys.DELETE)%>">
 		<portlet:actionURL name="deleteCourseType" var="deleteURL">
 			<portlet:param name="courseTypeId" value="<%=String.valueOf(courseTypeId)%>" />
+			<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon-delete url="<%=deleteURL.toString()%>" />

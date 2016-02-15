@@ -3,6 +3,8 @@
 <%
 	PortletURL iteratorURL = renderResponse.createRenderURL();
 	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/lecturers/view_lecturers.jsp");
+	
+	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
 <liferay-ui:success key="lecturerAdded" message="lecturer-has-been-successfully-added" />
@@ -17,7 +19,7 @@
 <jsp:include page="/html/subjectcourseadmin/navigation_bar.jsp" />
 
 <aui:form method="post" name="fmLecturer">
-	<liferay-ui:search-container emptyResultsMessage="lecturers-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
+	<liferay-ui:search-container delta="<%=delta%>" emptyResultsMessage="lecturers-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
 		<aui:input name="deleteLecturerIds" type="hidden" />
 	
 		<liferay-ui:search-container-results
@@ -47,6 +49,10 @@
 	</liferay-ui:search-container>
 </aui:form>
 
+<portlet:actionURL name="deleteLecturers" var="deleteLecturersURL">
+	<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
+</portlet:actionURL>
+
 <aui:script use="aui-base">
 	A.one('.removeCheckedItemsButton').on(
 		'click',
@@ -62,7 +68,7 @@
             if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-permanently-delete-the-selected-items") %>'))  {
 				document.<portlet:namespace />fmLecturer.method = "post";                
 				document.<portlet:namespace />fmLecturer.<portlet:namespace />deleteLecturerIds.value = Liferay.Util.listCheckedExcept(document.<portlet:namespace />fmLecturer, '<portlet:namespace />allRowIds');
-				submitForm(document.<portlet:namespace />fmLecturer, '<portlet:actionURL name="deleteLecturers"></portlet:actionURL>');
+				submitForm(document.<portlet:namespace />fmLecturer, "<%=deleteLecturersURL.toString()%>");
             }
         },
         ['liferay-util-list-fields']
