@@ -48,15 +48,13 @@
 	});
 </aui:script>
 	
-
-
 <div>
 	<h1>Ami kellene:</h1>
 	<ol>
 		<li>Megfelelő xlsx vagy csv állomány vagy állományok megfelelő attribútumokkal. Lásd: aszalós.xlsx vagy
 			ik_syllabus_ws.xlsx ik_timetable_ws.xlsx</li>
-		<li>Tantárgyfelelőst jó ha kézzel kell bejeleöltetni? Lenne egy külön tábla Lecturer és TimetableCourse között,
-			és a timetableCourse felvitelénél kellene meghatározni a tantárgyfelelőst</li>
+		<li>Tantárgyfelelőst jó ha kézzel kell bejelöltetni? Lenne egy külön tábla Lecturer és TimetableCourse között. A
+			timetableCourse-ok felvitelénél kellene meghatározni a tantárgyfelelőst</li>
 		<li>Számít a sorrend egy tantárgy oktatói során vagy jó ha mindig rendezett sorrendben jelenik meg?</li>
 		<li>Külön portlet a tanári oldalra, ahol be a portlethez tartozó konfigurációs menüben be lehet állítani, hogy
 			mely sillabuszokat listázza ki. Ötlet: erre aui panelek használata célszerű lehet.</li>
