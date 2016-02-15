@@ -17,7 +17,11 @@
 					label : 'Subjects',
 					expanded : true,
 					children : [ {
-						label : 'Courses'
+						label : 'Courses',
+						expanded : true,
+						children : [ {
+							label : 'Timetable Courses'
+						} ]
 					} ]
 				} ]
 			}, {
