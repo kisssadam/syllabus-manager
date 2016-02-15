@@ -168,9 +168,6 @@
         <column name="lecturers" type="Collection" mapping-table="Lecturers_TimetableCourses" entity="Lecturer"></column>
         <column name="classScheduleInfo" type="String"></column>
         <column name="description" type="String"></column>
-        <finder name="TimetableCourseCode" return-type="TimetableCourse" unique="true">
-            <finder-column name="timetableCourseCode"></finder-column>
-        </finder>
         <finder name="C_S" return-type="Collection" unique="false">
             <finder-column name="courseId"></finder-column>
             <finder-column name="semesterId"></finder-column>
@@ -181,10 +178,11 @@
         <finder name="SemesterId" return-type="Collection">
             <finder-column name="semesterId"></finder-column>
         </finder>
-        <finder name="C_S_T" return-type="TimetableCourse" unique="true">
+        <finder name="C_S_T_S" return-type="TimetableCourse" unique="true">
             <finder-column name="courseId"></finder-column>
             <finder-column name="semesterId"></finder-column>
             <finder-column name="timetableCourseCode"></finder-column>
+            <finder-column name="subjectType"></finder-column>
         </finder>
 	</entity>
 	<entity name="Lecturer" local-service="true">

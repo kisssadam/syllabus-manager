@@ -79,19 +79,9 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 		return timetableCoursePersistence.countBySemesterId(semesterId);
 	}
 
-	public TimetableCourse fetchTimetableCourseByC_S_T(long courseId, long semesterId, String timetableCourseCode)
-			throws SystemException {
-		return timetableCoursePersistence.fetchByC_S_T(courseId, semesterId, timetableCourseCode);
-	}
-
-	public TimetableCourse findTimetableCourseByTimetableCourseCode(String timetableCourseCode)
-			throws SystemException, NoSuchTimetableCourseException {
-		return timetableCoursePersistence.findByTimetableCourseCode(timetableCourseCode);
-	}
-
-	public TimetableCourse fetchTimetableCourseByTimetableCourseCode(String timetableCourseCode)
-			throws SystemException {
-		return timetableCoursePersistence.fetchByTimetableCourseCode(timetableCourseCode);
+	public TimetableCourse fetchTimetableCourseByC_S_T_S(long courseId, long semesterId, String timetableCourseCode,
+			String subjectType) throws SystemException {
+		return timetableCoursePersistence.fetchByC_S_T_S(courseId, semesterId, timetableCourseCode, subjectType);
 	}
 
 	public List<TimetableCourse> getTimetableCoursesByC_S(long courseId, long semesterId)
@@ -128,7 +118,8 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 		User user = userPersistence.findByPrimaryKey(userId);
 		String userName = user.getFullName();
 
-		validate(courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit, lecturerIds);
+		validate(timetableCourseId, courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit,
+				lecturerIds);
 
 		TimetableCourse timetableCourse = timetableCoursePersistence.create(timetableCourseId);
 
@@ -169,7 +160,8 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 
 		Date now = new Date();
 
-		validate(courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit, lecturerIds);
+		validate(timetableCourseId, courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit,
+				lecturerIds);
 
 		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
 
@@ -209,8 +201,9 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 		return deleteTimetableCourse(timetableCourse);
 	}
 
-	private void validate(long courseId, long semesterId, String timetableCourseCode, String subjectType,
-			int recommendedTerm, int limit, long[] lecturerIds) throws PortalException, SystemException {
+	private void validate(long timetableCourseId, long courseId, long semesterId, String timetableCourseCode,
+			String subjectType, int recommendedTerm, int limit, long[] lecturerIds)
+					throws PortalException, SystemException {
 		if (Validator.isNull(timetableCourseCode)) {
 			throw new TimetableCourseCodeException();
 		}
@@ -231,12 +224,10 @@ public class TimetableCourseLocalServiceImpl extends TimetableCourseLocalService
 			throw new TimetableCourseLecturerException();
 		}
 
-		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil
-				.fetchTimetableCourseByTimetableCourseCode(timetableCourseCode);
+		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.fetchTimetableCourseByC_S_T_S(courseId,
+				semesterId, timetableCourseCode, subjectType);
 		if (Validator.isNotNull(timetableCourse)) {
-			if (!Validator.equals(timetableCourse.getCourseId(), courseId)
-					&& !Validator.equals(timetableCourse.getSemesterId(), semesterId)
-					&& !Validator.equals(timetableCourse.getTimetableCourseCode(), timetableCourseCode)) {
+			if (!Validator.equals(timetableCourse.getTimetableCourseId(), timetableCourseId)) {
 				throw new DuplicateTimetableCourseException();
 			}
 		}

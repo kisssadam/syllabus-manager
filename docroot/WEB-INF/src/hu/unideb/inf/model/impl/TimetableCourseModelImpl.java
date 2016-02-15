@@ -100,8 +100,9 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 			true);
 	public static long COURSEID_COLUMN_BITMASK = 1L;
 	public static long SEMESTERID_COLUMN_BITMASK = 2L;
-	public static long TIMETABLECOURSECODE_COLUMN_BITMASK = 4L;
-	public static long TIMETABLECOURSEID_COLUMN_BITMASK = 8L;
+	public static long SUBJECTTYPE_COLUMN_BITMASK = 4L;
+	public static long TIMETABLECOURSECODE_COLUMN_BITMASK = 8L;
+	public static long TIMETABLECOURSEID_COLUMN_BITMASK = 16L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -499,7 +500,17 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 
 	@Override
 	public void setSubjectType(String subjectType) {
+		_columnBitmask |= SUBJECTTYPE_COLUMN_BITMASK;
+
+		if (_originalSubjectType == null) {
+			_originalSubjectType = _subjectType;
+		}
+
 		_subjectType = subjectType;
+	}
+
+	public String getOriginalSubjectType() {
+		return GetterUtil.getString(_originalSubjectType);
 	}
 
 	@JSON
@@ -663,6 +674,8 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 		timetableCourseModelImpl._setOriginalSemesterId = false;
 
 		timetableCourseModelImpl._originalTimetableCourseCode = timetableCourseModelImpl._timetableCourseCode;
+
+		timetableCourseModelImpl._originalSubjectType = timetableCourseModelImpl._subjectType;
 
 		timetableCourseModelImpl._columnBitmask = 0;
 	}
@@ -883,6 +896,7 @@ public class TimetableCourseModelImpl extends BaseModelImpl<TimetableCourse>
 	private String _timetableCourseCode;
 	private String _originalTimetableCourseCode;
 	private String _subjectType;
+	private String _originalSubjectType;
 	private int _recommendedTerm;
 	private int _limit;
 	private String _classScheduleInfo;

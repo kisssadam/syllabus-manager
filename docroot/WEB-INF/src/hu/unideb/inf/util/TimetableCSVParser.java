@@ -111,7 +111,7 @@ public class TimetableCSVParser {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
 
 		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil
-				.fetchTimetableCourseByC_S_T(course.getCourseId(), semesterId, timetableCourseCode);
+				.fetchTimetableCourseByC_S_T_S(course.getCourseId(), semesterId, timetableCourseCode, subjectType);
 
 		if (Validator.isNull(timetableCourse)) {
 			timetableCourse = TimetableCourseLocalServiceUtil.addTimetableCourse(course.getCourseId(), semesterId,

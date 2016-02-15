@@ -91,258 +91,6 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(TimetableCourseModelImpl.ENTITY_CACHE_ENABLED,
 			TimetableCourseModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-	public static final FinderPath FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE = new FinderPath(TimetableCourseModelImpl.ENTITY_CACHE_ENABLED,
-			TimetableCourseModelImpl.FINDER_CACHE_ENABLED,
-			TimetableCourseImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchByTimetableCourseCode",
-			new String[] { String.class.getName() },
-			TimetableCourseModelImpl.TIMETABLECOURSECODE_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_TIMETABLECOURSECODE = new FinderPath(TimetableCourseModelImpl.ENTITY_CACHE_ENABLED,
-			TimetableCourseModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countByTimetableCourseCode",
-			new String[] { String.class.getName() });
-
-	/**
-	 * Returns the timetable course where timetableCourseCode = &#63; or throws a {@link hu.unideb.inf.NoSuchTimetableCourseException} if it could not be found.
-	 *
-	 * @param timetableCourseCode the timetable course code
-	 * @return the matching timetable course
-	 * @throws hu.unideb.inf.NoSuchTimetableCourseException if a matching timetable course could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public TimetableCourse findByTimetableCourseCode(String timetableCourseCode)
-		throws NoSuchTimetableCourseException, SystemException {
-		TimetableCourse timetableCourse = fetchByTimetableCourseCode(timetableCourseCode);
-
-		if (timetableCourse == null) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("timetableCourseCode=");
-			msg.append(timetableCourseCode);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
-			}
-
-			throw new NoSuchTimetableCourseException(msg.toString());
-		}
-
-		return timetableCourse;
-	}
-
-	/**
-	 * Returns the timetable course where timetableCourseCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param timetableCourseCode the timetable course code
-	 * @return the matching timetable course, or <code>null</code> if a matching timetable course could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public TimetableCourse fetchByTimetableCourseCode(
-		String timetableCourseCode) throws SystemException {
-		return fetchByTimetableCourseCode(timetableCourseCode, true);
-	}
-
-	/**
-	 * Returns the timetable course where timetableCourseCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param timetableCourseCode the timetable course code
-	 * @param retrieveFromCache whether to use the finder cache
-	 * @return the matching timetable course, or <code>null</code> if a matching timetable course could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public TimetableCourse fetchByTimetableCourseCode(
-		String timetableCourseCode, boolean retrieveFromCache)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { timetableCourseCode };
-
-		Object result = null;
-
-		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE,
-					finderArgs, this);
-		}
-
-		if (result instanceof TimetableCourse) {
-			TimetableCourse timetableCourse = (TimetableCourse)result;
-
-			if (!Validator.equals(timetableCourseCode,
-						timetableCourse.getTimetableCourseCode())) {
-				result = null;
-			}
-		}
-
-		if (result == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_SELECT_TIMETABLECOURSE_WHERE);
-
-			boolean bindTimetableCourseCode = false;
-
-			if (timetableCourseCode == null) {
-				query.append(_FINDER_COLUMN_TIMETABLECOURSECODE_TIMETABLECOURSECODE_1);
-			}
-			else if (timetableCourseCode.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_TIMETABLECOURSECODE_TIMETABLECOURSECODE_3);
-			}
-			else {
-				bindTimetableCourseCode = true;
-
-				query.append(_FINDER_COLUMN_TIMETABLECOURSECODE_TIMETABLECOURSECODE_2);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (bindTimetableCourseCode) {
-					qPos.add(timetableCourseCode);
-				}
-
-				List<TimetableCourse> list = q.list();
-
-				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE,
-						finderArgs, list);
-				}
-				else {
-					TimetableCourse timetableCourse = list.get(0);
-
-					result = timetableCourse;
-
-					cacheResult(timetableCourse);
-
-					if ((timetableCourse.getTimetableCourseCode() == null) ||
-							!timetableCourse.getTimetableCourseCode()
-												.equals(timetableCourseCode)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE,
-							finderArgs, timetableCourse);
-					}
-				}
-			}
-			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE,
-					finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		if (result instanceof List<?>) {
-			return null;
-		}
-		else {
-			return (TimetableCourse)result;
-		}
-	}
-
-	/**
-	 * Removes the timetable course where timetableCourseCode = &#63; from the database.
-	 *
-	 * @param timetableCourseCode the timetable course code
-	 * @return the timetable course that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public TimetableCourse removeByTimetableCourseCode(
-		String timetableCourseCode)
-		throws NoSuchTimetableCourseException, SystemException {
-		TimetableCourse timetableCourse = findByTimetableCourseCode(timetableCourseCode);
-
-		return remove(timetableCourse);
-	}
-
-	/**
-	 * Returns the number of timetable courses where timetableCourseCode = &#63;.
-	 *
-	 * @param timetableCourseCode the timetable course code
-	 * @return the number of matching timetable courses
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public int countByTimetableCourseCode(String timetableCourseCode)
-		throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_TIMETABLECOURSECODE;
-
-		Object[] finderArgs = new Object[] { timetableCourseCode };
-
-		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
-				this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_TIMETABLECOURSE_WHERE);
-
-			boolean bindTimetableCourseCode = false;
-
-			if (timetableCourseCode == null) {
-				query.append(_FINDER_COLUMN_TIMETABLECOURSECODE_TIMETABLECOURSECODE_1);
-			}
-			else if (timetableCourseCode.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_TIMETABLECOURSECODE_TIMETABLECOURSECODE_3);
-			}
-			else {
-				bindTimetableCourseCode = true;
-
-				query.append(_FINDER_COLUMN_TIMETABLECOURSECODE_TIMETABLECOURSECODE_2);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (bindTimetableCourseCode) {
-					qPos.add(timetableCourseCode);
-				}
-
-				count = (Long)q.uniqueResult();
-
-				FinderCacheUtil.putResult(finderPath, finderArgs, count);
-			}
-			catch (Exception e) {
-				FinderCacheUtil.removeResult(finderPath, finderArgs);
-
-				throw processException(e);
-			}
-			finally {
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	private static final String _FINDER_COLUMN_TIMETABLECOURSECODE_TIMETABLECOURSECODE_1 =
-		"timetableCourse.timetableCourseCode IS NULL";
-	private static final String _FINDER_COLUMN_TIMETABLECOURSECODE_TIMETABLECOURSECODE_2 =
-		"timetableCourse.timetableCourseCode = ?";
-	private static final String _FINDER_COLUMN_TIMETABLECOURSECODE_TIMETABLECOURSECODE_3 =
-		"(timetableCourse.timetableCourseCode IS NULL OR timetableCourse.timetableCourseCode = '')";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_C_S = new FinderPath(TimetableCourseModelImpl.ENTITY_CACHE_ENABLED,
 			TimetableCourseModelImpl.FINDER_CACHE_ENABLED,
 			TimetableCourseImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
@@ -1862,44 +1610,46 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 	}
 
 	private static final String _FINDER_COLUMN_SEMESTERID_SEMESTERID_2 = "timetableCourse.semesterId = ?";
-	public static final FinderPath FINDER_PATH_FETCH_BY_C_S_T = new FinderPath(TimetableCourseModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_FETCH_BY_C_S_T_S = new FinderPath(TimetableCourseModelImpl.ENTITY_CACHE_ENABLED,
 			TimetableCourseModelImpl.FINDER_CACHE_ENABLED,
 			TimetableCourseImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchByC_S_T",
+			"fetchByC_S_T_S",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
-				String.class.getName()
+				String.class.getName(), String.class.getName()
 			},
 			TimetableCourseModelImpl.COURSEID_COLUMN_BITMASK |
 			TimetableCourseModelImpl.SEMESTERID_COLUMN_BITMASK |
-			TimetableCourseModelImpl.TIMETABLECOURSECODE_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_C_S_T = new FinderPath(TimetableCourseModelImpl.ENTITY_CACHE_ENABLED,
+			TimetableCourseModelImpl.TIMETABLECOURSECODE_COLUMN_BITMASK |
+			TimetableCourseModelImpl.SUBJECTTYPE_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_C_S_T_S = new FinderPath(TimetableCourseModelImpl.ENTITY_CACHE_ENABLED,
 			TimetableCourseModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_S_T",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_S_T_S",
 			new String[] {
 				Long.class.getName(), Long.class.getName(),
-				String.class.getName()
+				String.class.getName(), String.class.getName()
 			});
 
 	/**
-	 * Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; or throws a {@link hu.unideb.inf.NoSuchTimetableCourseException} if it could not be found.
+	 * Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; and subjectType = &#63; or throws a {@link hu.unideb.inf.NoSuchTimetableCourseException} if it could not be found.
 	 *
 	 * @param courseId the course ID
 	 * @param semesterId the semester ID
 	 * @param timetableCourseCode the timetable course code
+	 * @param subjectType the subject type
 	 * @return the matching timetable course
 	 * @throws hu.unideb.inf.NoSuchTimetableCourseException if a matching timetable course could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public TimetableCourse findByC_S_T(long courseId, long semesterId,
-		String timetableCourseCode)
+	public TimetableCourse findByC_S_T_S(long courseId, long semesterId,
+		String timetableCourseCode, String subjectType)
 		throws NoSuchTimetableCourseException, SystemException {
-		TimetableCourse timetableCourse = fetchByC_S_T(courseId, semesterId,
-				timetableCourseCode);
+		TimetableCourse timetableCourse = fetchByC_S_T_S(courseId, semesterId,
+				timetableCourseCode, subjectType);
 
 		if (timetableCourse == null) {
-			StringBundler msg = new StringBundler(8);
+			StringBundler msg = new StringBundler(10);
 
 			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
@@ -1911,6 +1661,9 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 
 			msg.append(", timetableCourseCode=");
 			msg.append(timetableCourseCode);
+
+			msg.append(", subjectType=");
+			msg.append(subjectType);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -1925,42 +1678,46 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 	}
 
 	/**
-	 * Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; and subjectType = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param courseId the course ID
 	 * @param semesterId the semester ID
 	 * @param timetableCourseCode the timetable course code
+	 * @param subjectType the subject type
 	 * @return the matching timetable course, or <code>null</code> if a matching timetable course could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public TimetableCourse fetchByC_S_T(long courseId, long semesterId,
-		String timetableCourseCode) throws SystemException {
-		return fetchByC_S_T(courseId, semesterId, timetableCourseCode, true);
+	public TimetableCourse fetchByC_S_T_S(long courseId, long semesterId,
+		String timetableCourseCode, String subjectType)
+		throws SystemException {
+		return fetchByC_S_T_S(courseId, semesterId, timetableCourseCode,
+			subjectType, true);
 	}
 
 	/**
-	 * Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; and subjectType = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param courseId the course ID
 	 * @param semesterId the semester ID
 	 * @param timetableCourseCode the timetable course code
+	 * @param subjectType the subject type
 	 * @param retrieveFromCache whether to use the finder cache
 	 * @return the matching timetable course, or <code>null</code> if a matching timetable course could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public TimetableCourse fetchByC_S_T(long courseId, long semesterId,
-		String timetableCourseCode, boolean retrieveFromCache)
-		throws SystemException {
+	public TimetableCourse fetchByC_S_T_S(long courseId, long semesterId,
+		String timetableCourseCode, String subjectType,
+		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] {
-				courseId, semesterId, timetableCourseCode
+				courseId, semesterId, timetableCourseCode, subjectType
 			};
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_C_S_T,
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_C_S_T_S,
 					finderArgs, this);
 		}
 
@@ -1970,32 +1727,48 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 			if ((courseId != timetableCourse.getCourseId()) ||
 					(semesterId != timetableCourse.getSemesterId()) ||
 					!Validator.equals(timetableCourseCode,
-						timetableCourse.getTimetableCourseCode())) {
+						timetableCourse.getTimetableCourseCode()) ||
+					!Validator.equals(subjectType,
+						timetableCourse.getSubjectType())) {
 				result = null;
 			}
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(5);
+			StringBundler query = new StringBundler(6);
 
 			query.append(_SQL_SELECT_TIMETABLECOURSE_WHERE);
 
-			query.append(_FINDER_COLUMN_C_S_T_COURSEID_2);
+			query.append(_FINDER_COLUMN_C_S_T_S_COURSEID_2);
 
-			query.append(_FINDER_COLUMN_C_S_T_SEMESTERID_2);
+			query.append(_FINDER_COLUMN_C_S_T_S_SEMESTERID_2);
 
 			boolean bindTimetableCourseCode = false;
 
 			if (timetableCourseCode == null) {
-				query.append(_FINDER_COLUMN_C_S_T_TIMETABLECOURSECODE_1);
+				query.append(_FINDER_COLUMN_C_S_T_S_TIMETABLECOURSECODE_1);
 			}
 			else if (timetableCourseCode.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_C_S_T_TIMETABLECOURSECODE_3);
+				query.append(_FINDER_COLUMN_C_S_T_S_TIMETABLECOURSECODE_3);
 			}
 			else {
 				bindTimetableCourseCode = true;
 
-				query.append(_FINDER_COLUMN_C_S_T_TIMETABLECOURSECODE_2);
+				query.append(_FINDER_COLUMN_C_S_T_S_TIMETABLECOURSECODE_2);
+			}
+
+			boolean bindSubjectType = false;
+
+			if (subjectType == null) {
+				query.append(_FINDER_COLUMN_C_S_T_S_SUBJECTTYPE_1);
+			}
+			else if (subjectType.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_C_S_T_S_SUBJECTTYPE_3);
+			}
+			else {
+				bindSubjectType = true;
+
+				query.append(_FINDER_COLUMN_C_S_T_S_SUBJECTTYPE_2);
 			}
 
 			String sql = query.toString();
@@ -2017,10 +1790,14 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 					qPos.add(timetableCourseCode);
 				}
 
+				if (bindSubjectType) {
+					qPos.add(subjectType);
+				}
+
 				List<TimetableCourse> list = q.list();
 
 				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S_T,
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S_T_S,
 						finderArgs, list);
 				}
 				else {
@@ -2034,14 +1811,16 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 							(timetableCourse.getSemesterId() != semesterId) ||
 							(timetableCourse.getTimetableCourseCode() == null) ||
 							!timetableCourse.getTimetableCourseCode()
-												.equals(timetableCourseCode)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S_T,
+												.equals(timetableCourseCode) ||
+							(timetableCourse.getSubjectType() == null) ||
+							!timetableCourse.getSubjectType().equals(subjectType)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S_T_S,
 							finderArgs, timetableCourse);
 					}
 				}
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_S_T,
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_S_T_S,
 					finderArgs);
 
 				throw processException(e);
@@ -2060,66 +1839,83 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 	}
 
 	/**
-	 * Removes the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; from the database.
+	 * Removes the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; and subjectType = &#63; from the database.
 	 *
 	 * @param courseId the course ID
 	 * @param semesterId the semester ID
 	 * @param timetableCourseCode the timetable course code
+	 * @param subjectType the subject type
 	 * @return the timetable course that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public TimetableCourse removeByC_S_T(long courseId, long semesterId,
-		String timetableCourseCode)
+	public TimetableCourse removeByC_S_T_S(long courseId, long semesterId,
+		String timetableCourseCode, String subjectType)
 		throws NoSuchTimetableCourseException, SystemException {
-		TimetableCourse timetableCourse = findByC_S_T(courseId, semesterId,
-				timetableCourseCode);
+		TimetableCourse timetableCourse = findByC_S_T_S(courseId, semesterId,
+				timetableCourseCode, subjectType);
 
 		return remove(timetableCourse);
 	}
 
 	/**
-	 * Returns the number of timetable courses where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63;.
+	 * Returns the number of timetable courses where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; and subjectType = &#63;.
 	 *
 	 * @param courseId the course ID
 	 * @param semesterId the semester ID
 	 * @param timetableCourseCode the timetable course code
+	 * @param subjectType the subject type
 	 * @return the number of matching timetable courses
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int countByC_S_T(long courseId, long semesterId,
-		String timetableCourseCode) throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_S_T;
+	public int countByC_S_T_S(long courseId, long semesterId,
+		String timetableCourseCode, String subjectType)
+		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_S_T_S;
 
 		Object[] finderArgs = new Object[] {
-				courseId, semesterId, timetableCourseCode
+				courseId, semesterId, timetableCourseCode, subjectType
 			};
 
 		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
 				this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(4);
+			StringBundler query = new StringBundler(5);
 
 			query.append(_SQL_COUNT_TIMETABLECOURSE_WHERE);
 
-			query.append(_FINDER_COLUMN_C_S_T_COURSEID_2);
+			query.append(_FINDER_COLUMN_C_S_T_S_COURSEID_2);
 
-			query.append(_FINDER_COLUMN_C_S_T_SEMESTERID_2);
+			query.append(_FINDER_COLUMN_C_S_T_S_SEMESTERID_2);
 
 			boolean bindTimetableCourseCode = false;
 
 			if (timetableCourseCode == null) {
-				query.append(_FINDER_COLUMN_C_S_T_TIMETABLECOURSECODE_1);
+				query.append(_FINDER_COLUMN_C_S_T_S_TIMETABLECOURSECODE_1);
 			}
 			else if (timetableCourseCode.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_C_S_T_TIMETABLECOURSECODE_3);
+				query.append(_FINDER_COLUMN_C_S_T_S_TIMETABLECOURSECODE_3);
 			}
 			else {
 				bindTimetableCourseCode = true;
 
-				query.append(_FINDER_COLUMN_C_S_T_TIMETABLECOURSECODE_2);
+				query.append(_FINDER_COLUMN_C_S_T_S_TIMETABLECOURSECODE_2);
+			}
+
+			boolean bindSubjectType = false;
+
+			if (subjectType == null) {
+				query.append(_FINDER_COLUMN_C_S_T_S_SUBJECTTYPE_1);
+			}
+			else if (subjectType.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_C_S_T_S_SUBJECTTYPE_3);
+			}
+			else {
+				bindSubjectType = true;
+
+				query.append(_FINDER_COLUMN_C_S_T_S_SUBJECTTYPE_2);
 			}
 
 			String sql = query.toString();
@@ -2139,6 +1935,10 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 
 				if (bindTimetableCourseCode) {
 					qPos.add(timetableCourseCode);
+				}
+
+				if (bindSubjectType) {
+					qPos.add(subjectType);
 				}
 
 				count = (Long)q.uniqueResult();
@@ -2158,11 +1958,14 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_C_S_T_COURSEID_2 = "timetableCourse.courseId = ? AND ";
-	private static final String _FINDER_COLUMN_C_S_T_SEMESTERID_2 = "timetableCourse.semesterId = ? AND ";
-	private static final String _FINDER_COLUMN_C_S_T_TIMETABLECOURSECODE_1 = "timetableCourse.timetableCourseCode IS NULL";
-	private static final String _FINDER_COLUMN_C_S_T_TIMETABLECOURSECODE_2 = "timetableCourse.timetableCourseCode = ?";
-	private static final String _FINDER_COLUMN_C_S_T_TIMETABLECOURSECODE_3 = "(timetableCourse.timetableCourseCode IS NULL OR timetableCourse.timetableCourseCode = '')";
+	private static final String _FINDER_COLUMN_C_S_T_S_COURSEID_2 = "timetableCourse.courseId = ? AND ";
+	private static final String _FINDER_COLUMN_C_S_T_S_SEMESTERID_2 = "timetableCourse.semesterId = ? AND ";
+	private static final String _FINDER_COLUMN_C_S_T_S_TIMETABLECOURSECODE_1 = "timetableCourse.timetableCourseCode IS NULL AND ";
+	private static final String _FINDER_COLUMN_C_S_T_S_TIMETABLECOURSECODE_2 = "timetableCourse.timetableCourseCode = ? AND ";
+	private static final String _FINDER_COLUMN_C_S_T_S_TIMETABLECOURSECODE_3 = "(timetableCourse.timetableCourseCode IS NULL OR timetableCourse.timetableCourseCode = '') AND ";
+	private static final String _FINDER_COLUMN_C_S_T_S_SUBJECTTYPE_1 = "timetableCourse.subjectType IS NULL";
+	private static final String _FINDER_COLUMN_C_S_T_S_SUBJECTTYPE_2 = "timetableCourse.subjectType = ?";
+	private static final String _FINDER_COLUMN_C_S_T_S_SUBJECTTYPE_3 = "(timetableCourse.subjectType IS NULL OR timetableCourse.subjectType = '')";
 
 	public TimetableCoursePersistenceImpl() {
 		setModelClass(TimetableCourse.class);
@@ -2179,14 +1982,11 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 			TimetableCourseImpl.class, timetableCourse.getPrimaryKey(),
 			timetableCourse);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE,
-			new Object[] { timetableCourse.getTimetableCourseCode() },
-			timetableCourse);
-
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S_T,
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S_T_S,
 			new Object[] {
 				timetableCourse.getCourseId(), timetableCourse.getSemesterId(),
-				timetableCourse.getTimetableCourseCode()
+				timetableCourse.getTimetableCourseCode(),
+				timetableCourse.getSubjectType()
 			}, timetableCourse);
 
 		timetableCourse.resetOriginalValues();
@@ -2266,51 +2066,32 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 	protected void cacheUniqueFindersCache(TimetableCourse timetableCourse) {
 		if (timetableCourse.isNew()) {
 			Object[] args = new Object[] {
-					timetableCourse.getTimetableCourseCode()
-				};
-
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_TIMETABLECOURSECODE,
-				args, Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE,
-				args, timetableCourse);
-
-			args = new Object[] {
 					timetableCourse.getCourseId(),
 					timetableCourse.getSemesterId(),
-					timetableCourse.getTimetableCourseCode()
+					timetableCourse.getTimetableCourseCode(),
+					timetableCourse.getSubjectType()
 				};
 
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_S_T, args,
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_S_T_S, args,
 				Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S_T, args,
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S_T_S, args,
 				timetableCourse);
 		}
 		else {
 			TimetableCourseModelImpl timetableCourseModelImpl = (TimetableCourseModelImpl)timetableCourse;
 
 			if ((timetableCourseModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						timetableCourse.getTimetableCourseCode()
-					};
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_TIMETABLECOURSECODE,
-					args, Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE,
-					args, timetableCourse);
-			}
-
-			if ((timetableCourseModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_C_S_T.getColumnBitmask()) != 0) {
+					FINDER_PATH_FETCH_BY_C_S_T_S.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
 						timetableCourse.getCourseId(),
 						timetableCourse.getSemesterId(),
-						timetableCourse.getTimetableCourseCode()
+						timetableCourse.getTimetableCourseCode(),
+						timetableCourse.getSubjectType()
 					};
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_S_T, args,
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_S_T_S, args,
 					Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S_T, args,
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S_T_S, args,
 					timetableCourse);
 			}
 		}
@@ -2319,43 +2100,26 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 	protected void clearUniqueFindersCache(TimetableCourse timetableCourse) {
 		TimetableCourseModelImpl timetableCourseModelImpl = (TimetableCourseModelImpl)timetableCourse;
 
-		Object[] args = new Object[] { timetableCourse.getTimetableCourseCode() };
-
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TIMETABLECOURSECODE,
-			args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE,
-			args);
-
-		if ((timetableCourseModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE.getColumnBitmask()) != 0) {
-			args = new Object[] {
-					timetableCourseModelImpl.getOriginalTimetableCourseCode()
-				};
-
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TIMETABLECOURSECODE,
-				args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TIMETABLECOURSECODE,
-				args);
-		}
-
-		args = new Object[] {
+		Object[] args = new Object[] {
 				timetableCourse.getCourseId(), timetableCourse.getSemesterId(),
-				timetableCourse.getTimetableCourseCode()
+				timetableCourse.getTimetableCourseCode(),
+				timetableCourse.getSubjectType()
 			};
 
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S_T, args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_S_T, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S_T_S, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_S_T_S, args);
 
 		if ((timetableCourseModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_C_S_T.getColumnBitmask()) != 0) {
+				FINDER_PATH_FETCH_BY_C_S_T_S.getColumnBitmask()) != 0) {
 			args = new Object[] {
 					timetableCourseModelImpl.getOriginalCourseId(),
 					timetableCourseModelImpl.getOriginalSemesterId(),
-					timetableCourseModelImpl.getOriginalTimetableCourseCode()
+					timetableCourseModelImpl.getOriginalTimetableCourseCode(),
+					timetableCourseModelImpl.getOriginalSubjectType()
 				};
 
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S_T, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_S_T, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S_T_S, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_S_T_S, args);
 		}
 	}
 

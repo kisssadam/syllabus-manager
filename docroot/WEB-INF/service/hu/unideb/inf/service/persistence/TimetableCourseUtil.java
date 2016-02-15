@@ -111,77 +111,6 @@ public class TimetableCourseUtil {
 	}
 
 	/**
-	* Returns the timetable course where timetableCourseCode = &#63; or throws a {@link hu.unideb.inf.NoSuchTimetableCourseException} if it could not be found.
-	*
-	* @param timetableCourseCode the timetable course code
-	* @return the matching timetable course
-	* @throws hu.unideb.inf.NoSuchTimetableCourseException if a matching timetable course could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static hu.unideb.inf.model.TimetableCourse findByTimetableCourseCode(
-		java.lang.String timetableCourseCode)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			hu.unideb.inf.NoSuchTimetableCourseException {
-		return getPersistence().findByTimetableCourseCode(timetableCourseCode);
-	}
-
-	/**
-	* Returns the timetable course where timetableCourseCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	*
-	* @param timetableCourseCode the timetable course code
-	* @return the matching timetable course, or <code>null</code> if a matching timetable course could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static hu.unideb.inf.model.TimetableCourse fetchByTimetableCourseCode(
-		java.lang.String timetableCourseCode)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByTimetableCourseCode(timetableCourseCode);
-	}
-
-	/**
-	* Returns the timetable course where timetableCourseCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	*
-	* @param timetableCourseCode the timetable course code
-	* @param retrieveFromCache whether to use the finder cache
-	* @return the matching timetable course, or <code>null</code> if a matching timetable course could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static hu.unideb.inf.model.TimetableCourse fetchByTimetableCourseCode(
-		java.lang.String timetableCourseCode, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence()
-				   .fetchByTimetableCourseCode(timetableCourseCode,
-			retrieveFromCache);
-	}
-
-	/**
-	* Removes the timetable course where timetableCourseCode = &#63; from the database.
-	*
-	* @param timetableCourseCode the timetable course code
-	* @return the timetable course that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public static hu.unideb.inf.model.TimetableCourse removeByTimetableCourseCode(
-		java.lang.String timetableCourseCode)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			hu.unideb.inf.NoSuchTimetableCourseException {
-		return getPersistence().removeByTimetableCourseCode(timetableCourseCode);
-	}
-
-	/**
-	* Returns the number of timetable courses where timetableCourseCode = &#63;.
-	*
-	* @param timetableCourseCode the timetable course code
-	* @return the number of matching timetable courses
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByTimetableCourseCode(
-		java.lang.String timetableCourseCode)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByTimetableCourseCode(timetableCourseCode);
-	}
-
-	/**
 	* Returns all the timetable courses where courseId = &#63; and semesterId = &#63;.
 	*
 	* @param courseId the course ID
@@ -685,89 +614,101 @@ public class TimetableCourseUtil {
 	}
 
 	/**
-	* Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; or throws a {@link hu.unideb.inf.NoSuchTimetableCourseException} if it could not be found.
+	* Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; and subjectType = &#63; or throws a {@link hu.unideb.inf.NoSuchTimetableCourseException} if it could not be found.
 	*
 	* @param courseId the course ID
 	* @param semesterId the semester ID
 	* @param timetableCourseCode the timetable course code
+	* @param subjectType the subject type
 	* @return the matching timetable course
 	* @throws hu.unideb.inf.NoSuchTimetableCourseException if a matching timetable course could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static hu.unideb.inf.model.TimetableCourse findByC_S_T(
-		long courseId, long semesterId, java.lang.String timetableCourseCode)
+	public static hu.unideb.inf.model.TimetableCourse findByC_S_T_S(
+		long courseId, long semesterId, java.lang.String timetableCourseCode,
+		java.lang.String subjectType)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchTimetableCourseException {
 		return getPersistence()
-				   .findByC_S_T(courseId, semesterId, timetableCourseCode);
+				   .findByC_S_T_S(courseId, semesterId, timetableCourseCode,
+			subjectType);
 	}
 
 	/**
-	* Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; and subjectType = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param courseId the course ID
 	* @param semesterId the semester ID
 	* @param timetableCourseCode the timetable course code
+	* @param subjectType the subject type
 	* @return the matching timetable course, or <code>null</code> if a matching timetable course could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static hu.unideb.inf.model.TimetableCourse fetchByC_S_T(
-		long courseId, long semesterId, java.lang.String timetableCourseCode)
+	public static hu.unideb.inf.model.TimetableCourse fetchByC_S_T_S(
+		long courseId, long semesterId, java.lang.String timetableCourseCode,
+		java.lang.String subjectType)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .fetchByC_S_T(courseId, semesterId, timetableCourseCode);
+				   .fetchByC_S_T_S(courseId, semesterId, timetableCourseCode,
+			subjectType);
 	}
 
 	/**
-	* Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; and subjectType = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
 	* @param courseId the course ID
 	* @param semesterId the semester ID
 	* @param timetableCourseCode the timetable course code
+	* @param subjectType the subject type
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching timetable course, or <code>null</code> if a matching timetable course could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static hu.unideb.inf.model.TimetableCourse fetchByC_S_T(
+	public static hu.unideb.inf.model.TimetableCourse fetchByC_S_T_S(
 		long courseId, long semesterId, java.lang.String timetableCourseCode,
-		boolean retrieveFromCache)
+		java.lang.String subjectType, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .fetchByC_S_T(courseId, semesterId, timetableCourseCode,
-			retrieveFromCache);
+				   .fetchByC_S_T_S(courseId, semesterId, timetableCourseCode,
+			subjectType, retrieveFromCache);
 	}
 
 	/**
-	* Removes the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; from the database.
+	* Removes the timetable course where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; and subjectType = &#63; from the database.
 	*
 	* @param courseId the course ID
 	* @param semesterId the semester ID
 	* @param timetableCourseCode the timetable course code
+	* @param subjectType the subject type
 	* @return the timetable course that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public static hu.unideb.inf.model.TimetableCourse removeByC_S_T(
-		long courseId, long semesterId, java.lang.String timetableCourseCode)
+	public static hu.unideb.inf.model.TimetableCourse removeByC_S_T_S(
+		long courseId, long semesterId, java.lang.String timetableCourseCode,
+		java.lang.String subjectType)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchTimetableCourseException {
 		return getPersistence()
-				   .removeByC_S_T(courseId, semesterId, timetableCourseCode);
+				   .removeByC_S_T_S(courseId, semesterId, timetableCourseCode,
+			subjectType);
 	}
 
 	/**
-	* Returns the number of timetable courses where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63;.
+	* Returns the number of timetable courses where courseId = &#63; and semesterId = &#63; and timetableCourseCode = &#63; and subjectType = &#63;.
 	*
 	* @param courseId the course ID
 	* @param semesterId the semester ID
 	* @param timetableCourseCode the timetable course code
+	* @param subjectType the subject type
 	* @return the number of matching timetable courses
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByC_S_T(long courseId, long semesterId,
-		java.lang.String timetableCourseCode)
+	public static int countByC_S_T_S(long courseId, long semesterId,
+		java.lang.String timetableCourseCode, java.lang.String subjectType)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .countByC_S_T(courseId, semesterId, timetableCourseCode);
+				   .countByC_S_T_S(courseId, semesterId, timetableCourseCode,
+			subjectType);
 	}
 
 	/**
