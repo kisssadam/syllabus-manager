@@ -28,7 +28,14 @@
 <liferay-ui:error exception="<%=NoSuchSubjectException.class%>" message="no-such-subject-exception" />
 <liferay-ui:error exception="<%=CourseHoursException.class%>" message="course-hours-exception" />
 
-<liferay-ui:header title="edit-course" />
+<c:choose>
+	<c:when test="<%=courseId > 0%>">
+		<liferay-ui:header title="edit-course" />
+	</c:when>
+	<c:otherwise>
+		<liferay-ui:header title="add-course" />
+	</c:otherwise>
+</c:choose>
 
 <portlet:renderURL var="viewURL">
 	<c:choose>

@@ -13,7 +13,14 @@
 <liferay-ui:error exception="<%=DuplicateCourseTypeException.class%>" message="duplicate-course-type-exception" />
 <liferay-ui:error exception="<%=CourseTypeException.class%>" message="course-type-exception" />
 
-<liferay-ui:header title="edit-course-type" />
+<c:choose>
+	<c:when test="<%=courseTypeId > 0%>">
+		<liferay-ui:header title="edit-course-type" />
+	</c:when>
+	<c:otherwise>
+		<liferay-ui:header title="add-course-type" />
+	</c:otherwise>
+</c:choose>
 
 <portlet:renderURL var="viewURL">
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/course_types/view_course_types.jsp" />

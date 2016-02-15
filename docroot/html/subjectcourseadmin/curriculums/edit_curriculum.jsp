@@ -14,7 +14,14 @@
 <liferay-ui:error exception="<%=CurriculumCodeException.class%>" message="curriculum-code-exception" />
 <liferay-ui:error exception="<%=CurriculumNameException.class%>" message="curriculum-name-exception" />
 
-<liferay-ui:header title="edit-curriculum" />
+<c:choose>
+	<c:when test="<%=curriculumId > 0%>">
+		<liferay-ui:header title="edit-curriculum" />
+	</c:when>
+	<c:otherwise>
+		<liferay-ui:header title="add-curriculum" />
+	</c:otherwise>
+</c:choose>
 
 <portlet:renderURL var="viewURL">
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/curriculums/view_curriculums.jsp" />

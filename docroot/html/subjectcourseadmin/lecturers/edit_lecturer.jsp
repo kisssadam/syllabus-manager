@@ -22,7 +22,14 @@
 <liferay-ui:error exception="<%=LecturerNameException.class%>" message="lecturer-name-exception" />
 <liferay-ui:error exception="<%=NoSuchUserException.class%>" message="no-such-user-exception" />
 
-<liferay-ui:header title="edit-lecturer" />
+<c:choose>
+	<c:when test="<%=lecturerId > 0%>">
+		<liferay-ui:header title="edit-lecturer" />
+	</c:when>
+	<c:otherwise>
+		<liferay-ui:header title="add-lecturer" />
+	</c:otherwise>
+</c:choose>
 
 <portlet:renderURL var="viewURL">
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/lecturers/view_lecturers.jsp" />

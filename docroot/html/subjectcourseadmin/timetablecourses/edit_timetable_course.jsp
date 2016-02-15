@@ -83,7 +83,14 @@
 <liferay-ui:error exception="<%=TimetableCourseLimitException.class%>" message="timetable-course-limit-exception" />
 <liferay-ui:error exception="<%=TimetableCourseSubjectTypeException.class%>" message="timetable-course-subject-type-exception" />
 
-<liferay-ui:header title="edit-timetable-course" />
+<c:choose>
+	<c:when test="<%=timetableCourseId > 0%>">
+		<liferay-ui:header title="edit-timetable-course" />
+	</c:when>
+	<c:otherwise>
+		<liferay-ui:header title="add-timetable-course" />
+	</c:otherwise>
+</c:choose>
 
 <portlet:renderURL var="viewURL">
 	<c:choose>

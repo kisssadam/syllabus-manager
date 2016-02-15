@@ -30,6 +30,15 @@
 <liferay-ui:error exception="<%=SemesterYearOverlapException.class%>" message="semester-year-overlap-exception" />
 <liferay-ui:error exception="<%=SemesterDivisionException.class%>" message="semester-division-exception" />
 
+<c:choose>
+	<c:when test="<%=semesterId > 0%>">
+		<liferay-ui:header title="edit-semester" />
+	</c:when>
+	<c:otherwise>
+		<liferay-ui:header title="add-semester" />
+	</c:otherwise>
+</c:choose>
+
 <portlet:renderURL var="viewURL">
 	<portlet:param name="mvcPath" value="/html/subjectcourseadmin/semesters/view_semesters.jsp" />
 </portlet:renderURL>

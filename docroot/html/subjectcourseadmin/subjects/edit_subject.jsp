@@ -20,7 +20,14 @@
 <liferay-ui:error exception="<%=SubjectCreditException.class%>" message="subject-credit-exception" />
 <liferay-ui:error exception="<%=SubjectNameException.class%>" message="subject-name-exception" />
 
-<liferay-ui:header title="edit-subject" />
+<c:choose>
+	<c:when test="<%=subjectId > 0%>">
+		<liferay-ui:header title="edit-subject" />
+	</c:when>
+	<c:otherwise>
+		<liferay-ui:header title="add-subject" />
+	</c:otherwise>
+</c:choose>
 
 <portlet:renderURL var="viewURL">
 	<c:choose>
