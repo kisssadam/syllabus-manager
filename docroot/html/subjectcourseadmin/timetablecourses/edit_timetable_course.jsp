@@ -11,6 +11,7 @@
 
 	List<Curriculum> curriculums = CurriculumLocalServiceUtil.getCurriculums();
 	List<Lecturer> lecturers = LecturerLocalServiceUtil.getLecturers();
+	List<Lecturer> selectedLecturers = Collections.emptyList();
 	List<Subject> subjects = null;
 	List<Course> courses = null;
 
@@ -60,12 +61,9 @@
 	request.setAttribute("subjectId", subjectId);
 	request.setAttribute("courseId", courseId);
 	request.setAttribute("semesterId", semesterId);
-
-	List<Lecturer> selectedLecturers = Collections.emptyList();
 	
 	if (Validator.isNotNull(timetableCourse)) {
 		selectedLecturers = TimetableCourseLocalServiceUtil.getLecutersByTimetableCourseId(timetableCourseId);
-		request.setAttribute("selectedLecturers", selectedLecturers);
 		
 		for (Lecturer lecturer : selectedLecturers) {
 			System.out.println("Selected Lecturer: " + lecturer);
@@ -73,6 +71,7 @@
 		System.out.println();
 	}
 	
+	request.setAttribute("selectedLecturers", selectedLecturers);
 	request.setAttribute("lecturers", lecturers);
 	request.setAttribute("curriculums", curriculums);
 	request.setAttribute("subjects", subjects);
@@ -198,47 +197,54 @@
 			<aui:validator name="required" />
 			<aui:validator name="number" />
 		</aui:input>
-
 		
 		<div id="lecturer-fields">
-			<%
-			if (selectedLecturers.size() > 0) {
-				for (int i = 0; i < selectedLecturers.size(); i++) {
-				%>
+			<c:choose>
+				<c:when test="${empty selectedLecturers}">
+					
 					<div class="lfr-form-row lfr-form-row-inline">
 						<div class="row-fields" style="display: flex;">
-							<aui:select label="lecturer" name='<%="lecturer" + (i + 1)%>'>
-								<%
-								Lecturer currentSelectedLecturer = selectedLecturers.get(i);
-								for (Lecturer lecturer : lecturers) {
-								%>
-									<aui:option value="<%=lecturer.getLecturerId()%>" selected="<%=currentSelectedLecturer.equals(lecturer)%>">
-										<c:out value="<%=lecturer.getLecturerName()%>" />
+							
+							<aui:select label="lecturer" name="lecturer1">
+							
+								<c:forEach items="${lecturers}" var="lecturer">
+									
+									<aui:option value="${lecturer.lecturerId}">
+										<c:out value="${lecturer.lecturerName}" />
 									</aui:option>
-								<%
-								}
-								%>
+									
+								</c:forEach>
+								
 							</aui:select>
+							
 						</div>
 					</div>
-				<%
-				}
-			} else {
-			%>
-				<div class="lfr-form-row lfr-form-row-inline">
-					<div class="row-fields" style="display: flex;">
-						<aui:select label="lecturer" name="lecturer1">
-							<c:forEach items="${lecturers}" var="lecturer">
-								<aui:option value="${lecturer.lecturerId}">
-									<c:out value="${lecturer.lecturerName}" />
-								</aui:option>
-							</c:forEach>
-						</aui:select>
-					</div>
-				</div>
-			<%
-			}
-			%>
+					
+				</c:when>
+				<c:otherwise>
+				
+					<c:forEach items="${selectedLecturers}" var="selectedlecturer" varStatus="selectedLecturerStatus">
+						<div class="lfr-form-row lfr-form-row-inline">
+							<div class="row-fields" style="display: flex;">
+								
+								<aui:select label="lecturer" name="lecturer${selectedLecturerStatus.index + 1}">
+									
+									<c:forEach items="${lecturers}" var="lecturer">
+									
+										<aui:option value="${lecturer.lecturerId}" selected="${lecturer eq selectedlecturer}">
+											<c:out value="${lecturer.lecturerName}" />
+										</aui:option>
+										
+									</c:forEach>
+									
+								</aui:select>
+								
+							</div>
+						</div>
+					</c:forEach>
+					
+				</c:otherwise>
+			</c:choose>
 		</div>
 
 		<aui:input name="classScheduleInfo" type="text" />
