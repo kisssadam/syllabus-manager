@@ -218,9 +218,6 @@
 								<%
 								}
 								%>
-								<c:forEach items="${lecturers}" var="lecturer">
-									
-								</c:forEach>
 							</aui:select>
 						</div>
 					</div>
