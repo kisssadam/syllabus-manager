@@ -34,6 +34,7 @@
 				<action-key>ADD_SEMESTER</action-key>
 				<action-key>ADD_TIMETABLE_COURSE</action-key>
 				<action-key>ADD_LECTURER</action-key>
+				<action-key>ADD_SYLLABUS</action-key>
 				<action-key>IMPORT_SYLLABUS</action-key>
 				<action-key>IMPORT_TIMETABLE</action-key>
 			</supports>
@@ -45,6 +46,7 @@
 				<action-key>ADD_SEMESTER</action-key>
 				<action-key>ADD_TIMETABLE_COURSE</action-key>
 				<action-key>ADD_LECTURER</action-key>
+				<action-key>ADD_SYLLABUS</action-key>
 				<action-key>IMPORT_SYLLABUS</action-key>
 				<action-key>IMPORT_TIMETABLE</action-key>
 			</site-member-defaults>
@@ -57,6 +59,7 @@
 				<action-key>ADD_SEMESTER</action-key>
 				<action-key>ADD_TIMETABLE_COURSE</action-key>
 				<action-key>ADD_LECTURER</action-key>
+				<action-key>ADD_SYLLABUS</action-key>
 				<action-key>IMPORT_SYLLABUS</action-key>
 				<action-key>IMPORT_TIMETABLE</action-key>
 			</guest-unsupported>
@@ -216,6 +219,31 @@
 	</model-resource>
 	<model-resource>
 		<model-name>hu.unideb.inf.model.Lecturer</model-name>
+		<portlet-ref>
+			<portlet-name>subject-course-admin</portlet-name>
+		</portlet-ref>
+		<permissions>
+			<supports>
+				<action-key>DELETE</action-key>
+				<action-key>PERMISSIONS</action-key>
+				<action-key>UPDATE</action-key>
+				<action-key>VIEW</action-key>
+			</supports>
+			<site-member-defaults>
+				<action-key>VIEW</action-key>
+			</site-member-defaults>
+			<guest-defaults>
+				<action-key>VIEW</action-key>
+			</guest-defaults>
+			<guest-unsupported>
+				<action-key>DELETE</action-key>
+				<action-key>PERMISSIONS</action-key>
+				<action-key>UPDATE</action-key>
+			</guest-unsupported>
+		</permissions>
+	</model-resource>
+	<model-resource>
+		<model-name>hu.unideb.inf.model.Syllabus</model-name>
 		<portlet-ref>
 			<portlet-name>subject-course-admin</portlet-name>
 		</portlet-ref>

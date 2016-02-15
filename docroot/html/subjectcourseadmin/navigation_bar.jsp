@@ -103,6 +103,19 @@
             	
             	<aui:nav-item href="<%= addTimetableCourseURL.toString() %>" label="timetable-course" />
            	</c:if>
+           	
+           	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SYLLABUS)%>'>
+           		<portlet:renderURL var="addSyllabusURL">
+					<portlet:param name="mvcPath" value="/html/subjectcourseadmin/syllabuses/edit_syllabus.jsp" />
+					<portlet:param name="curriculumId" value="${curriculumId}" />
+					<portlet:param name="subjectId" value="${subjectId}" />
+					<portlet:param name="courseId" value="${courseId}" />
+					<portlet:param name="semesterId" value="${semesterId}" />
+					<portlet:param name="timetableCourseId" value="${timetableCourseId}" />
+				</portlet:renderURL>
+            	
+            	<aui:nav-item state="disabled" href="<%= addSyllabusURL.toString() %>" label="syllabus" />
+           	</c:if>
         </aui:nav-item>
         
         <%--
