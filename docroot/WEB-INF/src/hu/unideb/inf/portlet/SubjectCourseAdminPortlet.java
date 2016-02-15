@@ -324,13 +324,11 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			CurriculumLocalServiceUtil.deleteCurriculum(curriculumId, serviceContext);
 			SessionMessages.add(request, "curriculumDeleted");
-
-			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -346,14 +344,12 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			Subject deletedSubject = SubjectLocalServiceUtil.deleteSubject(subjectId, serviceContext);
 			SessionMessages.add(request, "subjectDeleted");
 
-			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
 			response.setRenderParameter("curriculumId", String.valueOf(deletedSubject.getCurriculumId()));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
-
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -369,14 +365,12 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			Course deletedCourse = CourseLocalServiceUtil.deleteCourse(courseId, serviceContext);
 			SessionMessages.add(request, "courseDeleted");
 
-			response.setRenderParameter("mvcPath", VIEW_COURSES);
 			response.setRenderParameter("subjectId", String.valueOf(deletedCourse.getSubjectId()));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
-
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_COURSES);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_COURSES);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -391,14 +385,11 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			CourseTypeLocalServiceUtil.deleteCourseType(courseTypeId, serviceContext);
 			SessionMessages.add(request, "courseTypeDeleted");
-
-			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
-
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -413,14 +404,11 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			SemesterLocalServiceUtil.deleteSemester(semesterId, serviceContext);
 			SessionMessages.add(request, "semesterDeleted");
-
-			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
-
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -435,13 +423,11 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 
 			LecturerLocalServiceUtil.deleteLecturer(lecturerId, serviceContext);
 			SessionMessages.add(request, "lecturerDeleted");
-
-			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -458,14 +444,12 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 					serviceContext);
 			SessionMessages.add(request, "timetableCourseDeleted");
 
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
 			response.setRenderParameter("semesterId", String.valueOf(timetableCourse.getSemesterId()));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
-
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -484,13 +468,11 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			}
 
 			SessionMessages.add(request, "curriculumsDeleted");
-			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
-
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -511,15 +493,12 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			}
 
 			SessionMessages.add(request, "subjectsDeleted");
-
-			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
-
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -540,15 +519,13 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			}
 
 			SessionMessages.add(request, "coursesDeleted");
-
-			response.setRenderParameter("mvcPath", VIEW_COURSES);
 			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_COURSES);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_COURSES);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -567,14 +544,11 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			}
 
 			SessionMessages.add(request, "courseTypesDeleted");
-
-			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
-
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -593,14 +567,11 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			}
 
 			SessionMessages.add(request, "semestersDeleted");
-
-			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
-
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -619,13 +590,11 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			}
 
 			SessionMessages.add(request, "lecturersDeleted");
-			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
-
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -649,15 +618,12 @@ public class SubjectCourseAdminPortlet extends MVCPortlet {
 			}
 
 			SessionMessages.add(request, "timetableCoursesDeleted");
-
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
 			response.setRenderParameter("semesterId", String.valueOf(semesterId));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
-
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
 		} finally {
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
