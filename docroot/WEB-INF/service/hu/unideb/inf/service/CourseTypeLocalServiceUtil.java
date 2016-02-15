@@ -280,30 +280,30 @@ public class CourseTypeLocalServiceUtil {
 		return getService().getCourseTypes();
 	}
 
-	public static hu.unideb.inf.model.CourseType getCourseTypeByType(
-		java.lang.String type)
+	public static hu.unideb.inf.model.CourseType getCourseTypeByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchCourseTypeException {
-		return getService().getCourseTypeByType(type);
+		return getService().getCourseTypeByTypeName(typeName);
 	}
 
-	public static hu.unideb.inf.model.CourseType fetchCourseTypeByType(
-		java.lang.String type)
+	public static hu.unideb.inf.model.CourseType fetchCourseTypeByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().fetchCourseTypeByType(type);
+		return getService().fetchCourseTypeByTypeName(typeName);
 	}
 
-	public static boolean isCourseExistsWithType(java.lang.String type)
+	public static boolean isCourseExistsWithTypeName(java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().isCourseExistsWithType(type);
+		return getService().isCourseExistsWithTypeName(typeName);
 	}
 
 	public static hu.unideb.inf.model.CourseType addCourseType(
-		java.lang.String type,
+		java.lang.String typeName,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().addCourseType(type, serviceContext);
+		return getService().addCourseType(typeName, serviceContext);
 	}
 
 	public static hu.unideb.inf.model.CourseType deleteCourseType(
@@ -315,12 +315,13 @@ public class CourseTypeLocalServiceUtil {
 	}
 
 	public static hu.unideb.inf.model.CourseType updateCourseType(long userId,
-		long courseTypeId, java.lang.String type,
+		long courseTypeId, java.lang.String typeName,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateCourseType(userId, courseTypeId, type, serviceContext);
+				   .updateCourseType(userId, courseTypeId, typeName,
+			serviceContext);
 	}
 
 	public static void clearService() {

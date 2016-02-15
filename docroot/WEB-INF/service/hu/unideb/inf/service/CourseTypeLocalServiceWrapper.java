@@ -290,32 +290,33 @@ public class CourseTypeLocalServiceWrapper implements CourseTypeLocalService,
 	}
 
 	@Override
-	public hu.unideb.inf.model.CourseType getCourseTypeByType(
-		java.lang.String type)
+	public hu.unideb.inf.model.CourseType getCourseTypeByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchCourseTypeException {
-		return _courseTypeLocalService.getCourseTypeByType(type);
+		return _courseTypeLocalService.getCourseTypeByTypeName(typeName);
 	}
 
 	@Override
-	public hu.unideb.inf.model.CourseType fetchCourseTypeByType(
-		java.lang.String type)
+	public hu.unideb.inf.model.CourseType fetchCourseTypeByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _courseTypeLocalService.fetchCourseTypeByType(type);
+		return _courseTypeLocalService.fetchCourseTypeByTypeName(typeName);
 	}
 
 	@Override
-	public boolean isCourseExistsWithType(java.lang.String type)
+	public boolean isCourseExistsWithTypeName(java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _courseTypeLocalService.isCourseExistsWithType(type);
+		return _courseTypeLocalService.isCourseExistsWithTypeName(typeName);
 	}
 
 	@Override
-	public hu.unideb.inf.model.CourseType addCourseType(java.lang.String type,
+	public hu.unideb.inf.model.CourseType addCourseType(
+		java.lang.String typeName,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _courseTypeLocalService.addCourseType(type, serviceContext);
+		return _courseTypeLocalService.addCourseType(typeName, serviceContext);
 	}
 
 	@Override
@@ -329,12 +330,12 @@ public class CourseTypeLocalServiceWrapper implements CourseTypeLocalService,
 
 	@Override
 	public hu.unideb.inf.model.CourseType updateCourseType(long userId,
-		long courseTypeId, java.lang.String type,
+		long courseTypeId, java.lang.String typeName,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _courseTypeLocalService.updateCourseType(userId, courseTypeId,
-			type, serviceContext);
+			typeName, serviceContext);
 	}
 
 	/**

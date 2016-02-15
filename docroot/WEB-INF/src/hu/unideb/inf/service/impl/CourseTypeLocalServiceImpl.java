@@ -61,19 +61,19 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 		return courseTypePersistence.findAll();
 	}
 
-	public CourseType getCourseTypeByType(String type) throws NoSuchCourseTypeException, SystemException {
-		return courseTypePersistence.findByType(type);
+	public CourseType getCourseTypeByTypeName(String typeName) throws NoSuchCourseTypeException, SystemException {
+		return courseTypePersistence.findByTypeName(typeName);
 	}
 
-	public CourseType fetchCourseTypeByType(String type) throws SystemException {
-		return courseTypePersistence.fetchByType(type);
+	public CourseType fetchCourseTypeByTypeName(String typeName) throws SystemException {
+		return courseTypePersistence.fetchByTypeName(typeName);
 	}
 
-	public boolean isCourseExistsWithType(String type) throws SystemException {
-		return courseTypePersistence.countByType(type) > 0;
+	public boolean isCourseExistsWithTypeName(String typeName) throws SystemException {
+		return courseTypePersistence.countByTypeName(typeName) > 0;
 	}
 
-	public CourseType addCourseType(String type, ServiceContext serviceContext)
+	public CourseType addCourseType(String typeName, ServiceContext serviceContext)
 			throws SystemException, PortalException {
 		Date now = new Date();
 
@@ -84,7 +84,7 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 		User user = userPersistence.findByPrimaryKey(userId);
 		String userName = user.getFullName();
 
-		validate(courseTypeId, type);
+		validate(courseTypeId, typeName);
 
 		CourseType courseType = courseTypePersistence.create(courseTypeId);
 
@@ -94,7 +94,7 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 		courseType.setUserName(userName);
 		courseType.setCreateDate(serviceContext.getCreateDate(now));
 		courseType.setModifiedDate(serviceContext.getModifiedDate(now));
-		courseType.setType(type);
+		courseType.setTypeName(typeName);
 
 		courseTypePersistence.update(courseType);
 
@@ -119,7 +119,7 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 		return deleteCourseType(courseType);
 	}
 
-	public CourseType updateCourseType(long userId, long courseTypeId, String type, ServiceContext serviceContext)
+	public CourseType updateCourseType(long userId, long courseTypeId, String typeName, ServiceContext serviceContext)
 			throws SystemException, PortalException {
 		long groupId = serviceContext.getScopeGroupId();
 
@@ -127,14 +127,14 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 
 		Date now = new Date();
 
-		validate(courseTypeId, type);
+		validate(courseTypeId, typeName);
 
 		CourseType courseType = getCourseType(courseTypeId);
 
 		courseType.setUserId(userId);
 		courseType.setUserName(user.getFullName());
 		courseType.setModifiedDate(serviceContext.getModifiedDate(now));
-		courseType.setType(type);
+		courseType.setTypeName(typeName);
 
 		courseTypePersistence.update(courseType);
 
@@ -144,12 +144,12 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 		return courseType;
 	}
 
-	protected void validate(long courseTypeId, String type) throws PortalException, SystemException {
-		if (Validator.isNull(type)) {
+	protected void validate(long courseTypeId, String typeName) throws PortalException, SystemException {
+		if (Validator.isNull(typeName)) {
 			throw new CourseTypeException();
 		}
 
-		CourseType courseType = CourseTypeLocalServiceUtil.fetchCourseTypeByType(type);
+		CourseType courseType = CourseTypeLocalServiceUtil.fetchCourseTypeByTypeName(typeName);
 		if (Validator.isNotNull(courseType)) {
 			if (!Validator.equals(courseType.getCourseTypeId(), courseTypeId)) {
 				throw new DuplicateCourseTypeException();

@@ -2,7 +2,7 @@ create index IX_2DC42CA3 on unideb_syllabus_manager_Course (courseTypeId);
 create index IX_ABDB3CF8 on unideb_syllabus_manager_Course (subjectId);
 create unique index IX_A1C296DC on unideb_syllabus_manager_Course (subjectId, courseTypeId);
 
-create unique index IX_C792E85C on unideb_syllabus_manager_CourseType (type_);
+create unique index IX_86F8E6B2 on unideb_syllabus_manager_CourseType (typeName);
 
 create unique index IX_678CBA5B on unideb_syllabus_manager_Curriculum (curriculumCode);
 

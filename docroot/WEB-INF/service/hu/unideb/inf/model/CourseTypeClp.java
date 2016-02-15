@@ -82,7 +82,7 @@ public class CourseTypeClp extends BaseModelImpl<CourseType>
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("type", getType());
+		attributes.put("typeName", getTypeName());
 
 		return attributes;
 	}
@@ -131,10 +131,10 @@ public class CourseTypeClp extends BaseModelImpl<CourseType>
 			setModifiedDate(modifiedDate);
 		}
 
-		String type = (String)attributes.get("type");
+		String typeName = (String)attributes.get("typeName");
 
-		if (type != null) {
-			setType(type);
+		if (typeName != null) {
+			setTypeName(typeName);
 		}
 	}
 
@@ -310,21 +310,21 @@ public class CourseTypeClp extends BaseModelImpl<CourseType>
 	}
 
 	@Override
-	public String getType() {
-		return _type;
+	public String getTypeName() {
+		return _typeName;
 	}
 
 	@Override
-	public void setType(String type) {
-		_type = type;
+	public void setTypeName(String typeName) {
+		_typeName = typeName;
 
 		if (_courseTypeRemoteModel != null) {
 			try {
 				Class<?> clazz = _courseTypeRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setType", String.class);
+				Method method = clazz.getMethod("setTypeName", String.class);
 
-				method.invoke(_courseTypeRemoteModel, type);
+				method.invoke(_courseTypeRemoteModel, typeName);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -408,7 +408,7 @@ public class CourseTypeClp extends BaseModelImpl<CourseType>
 		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
-		clone.setType(getType());
+		clone.setTypeName(getTypeName());
 
 		return clone;
 	}
@@ -417,7 +417,7 @@ public class CourseTypeClp extends BaseModelImpl<CourseType>
 	public int compareTo(CourseType courseType) {
 		int value = 0;
 
-		value = getType().compareTo(courseType.getType());
+		value = getTypeName().compareTo(courseType.getTypeName());
 
 		if (value != 0) {
 			return value;
@@ -475,8 +475,8 @@ public class CourseTypeClp extends BaseModelImpl<CourseType>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", type=");
-		sb.append(getType());
+		sb.append(", typeName=");
+		sb.append(getTypeName());
 		sb.append("}");
 
 		return sb.toString();
@@ -519,8 +519,8 @@ public class CourseTypeClp extends BaseModelImpl<CourseType>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>type</column-name><column-value><![CDATA[");
-		sb.append(getType());
+			"<column><column-name>typeName</column-name><column-value><![CDATA[");
+		sb.append(getTypeName());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -536,7 +536,7 @@ public class CourseTypeClp extends BaseModelImpl<CourseType>
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private String _type;
+	private String _typeName;
 	private BaseModel<?> _courseTypeRemoteModel;
 	private Class<?> _clpSerializerClass = hu.unideb.inf.service.ClpSerializer.class;
 }

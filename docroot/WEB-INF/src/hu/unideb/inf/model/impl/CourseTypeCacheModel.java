@@ -54,8 +54,8 @@ public class CourseTypeCacheModel implements CacheModel<CourseType>,
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
-		sb.append(", type=");
-		sb.append(type);
+		sb.append(", typeName=");
+		sb.append(typeName);
 		sb.append("}");
 
 		return sb.toString();
@@ -91,11 +91,11 @@ public class CourseTypeCacheModel implements CacheModel<CourseType>,
 			courseTypeImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
-		if (type == null) {
-			courseTypeImpl.setType(StringPool.BLANK);
+		if (typeName == null) {
+			courseTypeImpl.setTypeName(StringPool.BLANK);
 		}
 		else {
-			courseTypeImpl.setType(type);
+			courseTypeImpl.setTypeName(typeName);
 		}
 
 		courseTypeImpl.resetOriginalValues();
@@ -112,7 +112,7 @@ public class CourseTypeCacheModel implements CacheModel<CourseType>,
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
-		type = objectInput.readUTF();
+		typeName = objectInput.readUTF();
 	}
 
 	@Override
@@ -133,11 +133,11 @@ public class CourseTypeCacheModel implements CacheModel<CourseType>,
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
 
-		if (type == null) {
+		if (typeName == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
-			objectOutput.writeUTF(type);
+			objectOutput.writeUTF(typeName);
 		}
 	}
 
@@ -148,5 +148,5 @@ public class CourseTypeCacheModel implements CacheModel<CourseType>,
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
-	public String type;
+	public String typeName;
 }

@@ -51,7 +51,7 @@ public class CourseImpl extends CourseBaseImpl {
 			e.printStackTrace();
 		}
 
-		return (Validator.isNull(courseType) ? "course type not found" : courseType.getType()) + ": "
+		return (Validator.isNull(courseType) ? "course type not found" : courseType.getTypeName()) + ": "
 				+ getHoursPerSemester() + " hours per semester, " + getHoursPerWeek() + " hours per week";
 	}
 }

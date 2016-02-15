@@ -113,15 +113,15 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 
 		_methodParameterTypes19 = new String[] {  };
 
-		_methodName20 = "getCourseTypeByType";
+		_methodName20 = "getCourseTypeByTypeName";
 
 		_methodParameterTypes20 = new String[] { "java.lang.String" };
 
-		_methodName21 = "fetchCourseTypeByType";
+		_methodName21 = "fetchCourseTypeByTypeName";
 
 		_methodParameterTypes21 = new String[] { "java.lang.String" };
 
-		_methodName22 = "isCourseExistsWithType";
+		_methodName22 = "isCourseExistsWithTypeName";
 
 		_methodParameterTypes22 = new String[] { "java.lang.String" };
 
@@ -720,8 +720,8 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 	}
 
 	@Override
-	public hu.unideb.inf.model.CourseType getCourseTypeByType(
-		java.lang.String type)
+	public hu.unideb.inf.model.CourseType getCourseTypeByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchCourseTypeException {
 		Object returnObj = null;
@@ -729,7 +729,7 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName20,
 					_methodParameterTypes20,
-					new Object[] { ClpSerializer.translateInput(type) });
+					new Object[] { ClpSerializer.translateInput(typeName) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -755,15 +755,15 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 	}
 
 	@Override
-	public hu.unideb.inf.model.CourseType fetchCourseTypeByType(
-		java.lang.String type)
+	public hu.unideb.inf.model.CourseType fetchCourseTypeByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName21,
 					_methodParameterTypes21,
-					new Object[] { ClpSerializer.translateInput(type) });
+					new Object[] { ClpSerializer.translateInput(typeName) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -785,14 +785,14 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 	}
 
 	@Override
-	public boolean isCourseExistsWithType(java.lang.String type)
+	public boolean isCourseExistsWithTypeName(java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName22,
 					_methodParameterTypes22,
-					new Object[] { ClpSerializer.translateInput(type) });
+					new Object[] { ClpSerializer.translateInput(typeName) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -814,7 +814,8 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 	}
 
 	@Override
-	public hu.unideb.inf.model.CourseType addCourseType(java.lang.String type,
+	public hu.unideb.inf.model.CourseType addCourseType(
+		java.lang.String typeName,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -824,7 +825,7 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName23,
 					_methodParameterTypes23,
 					new Object[] {
-						ClpSerializer.translateInput(type),
+						ClpSerializer.translateInput(typeName),
 						
 					ClpSerializer.translateInput(serviceContext)
 					});
@@ -893,7 +894,7 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 
 	@Override
 	public hu.unideb.inf.model.CourseType updateCourseType(long userId,
-		long courseTypeId, java.lang.String type,
+		long courseTypeId, java.lang.String typeName,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -907,7 +908,7 @@ public class CourseTypeLocalServiceClp implements CourseTypeLocalService {
 						
 					courseTypeId,
 						
-					ClpSerializer.translateInput(type),
+					ClpSerializer.translateInput(typeName),
 						
 					ClpSerializer.translateInput(serviceContext)
 					});

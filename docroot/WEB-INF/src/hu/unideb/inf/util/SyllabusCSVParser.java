@@ -95,18 +95,18 @@ public class SyllabusCSVParser {
 		System.out.println("Success: " + course);
 	}
 
-	private static CourseType parseCourseType(String typeOfCourse, ActionRequest request)
+	private static CourseType parseCourseType(String courseTypeName, ActionRequest request)
 			throws PortalException, SystemException {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(CourseType.class.getName(), request);
 
 		CourseType courseType;
 
-		if (CourseTypeLocalServiceUtil.isCourseExistsWithType(typeOfCourse)) {
-			courseType = CourseTypeLocalServiceUtil.getCourseTypeByType(typeOfCourse);
+		if (CourseTypeLocalServiceUtil.isCourseExistsWithTypeName(courseTypeName)) {
+			courseType = CourseTypeLocalServiceUtil.getCourseTypeByTypeName(courseTypeName);
 			courseType = CourseTypeLocalServiceUtil.updateCourseType(serviceContext.getUserId(),
-					courseType.getCourseTypeId(), typeOfCourse, serviceContext);
+					courseType.getCourseTypeId(), courseTypeName, serviceContext);
 		} else {
-			courseType = CourseTypeLocalServiceUtil.addCourseType(typeOfCourse, serviceContext);
+			courseType = CourseTypeLocalServiceUtil.addCourseType(courseTypeName, serviceContext);
 		}
 
 		return courseType;

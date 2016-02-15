@@ -35,7 +35,7 @@
 		value='<%=courseType == null ? courseTypeId : courseType.getCourseTypeId()%>' />
 
 	<aui:fieldset>
-		<aui:input name="type" type="text">
+		<aui:input name="typeName" type="text">
 			<aui:validator name="required" />
 		</aui:input>
 	</aui:fieldset>

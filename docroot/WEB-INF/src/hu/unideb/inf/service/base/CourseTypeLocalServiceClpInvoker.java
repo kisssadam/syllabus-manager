@@ -112,15 +112,15 @@ public class CourseTypeLocalServiceClpInvoker {
 
 		_methodParameterTypes76 = new String[] {  };
 
-		_methodName77 = "getCourseTypeByType";
+		_methodName77 = "getCourseTypeByTypeName";
 
 		_methodParameterTypes77 = new String[] { "java.lang.String" };
 
-		_methodName78 = "fetchCourseTypeByType";
+		_methodName78 = "fetchCourseTypeByTypeName";
 
 		_methodParameterTypes78 = new String[] { "java.lang.String" };
 
-		_methodName79 = "isCourseExistsWithType";
+		_methodName79 = "isCourseExistsWithTypeName";
 
 		_methodParameterTypes79 = new String[] { "java.lang.String" };
 
@@ -252,17 +252,17 @@ public class CourseTypeLocalServiceClpInvoker {
 
 		if (_methodName77.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes77, parameterTypes)) {
-			return CourseTypeLocalServiceUtil.getCourseTypeByType((java.lang.String)arguments[0]);
+			return CourseTypeLocalServiceUtil.getCourseTypeByTypeName((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName78.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes78, parameterTypes)) {
-			return CourseTypeLocalServiceUtil.fetchCourseTypeByType((java.lang.String)arguments[0]);
+			return CourseTypeLocalServiceUtil.fetchCourseTypeByTypeName((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName79.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
-			return CourseTypeLocalServiceUtil.isCourseExistsWithType((java.lang.String)arguments[0]);
+			return CourseTypeLocalServiceUtil.isCourseExistsWithTypeName((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName80.equals(name) &&

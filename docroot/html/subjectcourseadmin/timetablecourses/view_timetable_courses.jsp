@@ -54,7 +54,7 @@
 				<liferay-ui:search-container-column-text name="subject-name" value="<%=HtmlUtil.escapeAttribute(subject.getSubjectName())%>" />
 				<liferay-ui:search-container-column-text name="credit" value="<%=String.valueOf(subject.getCredit())%>" />
 				
-				<liferay-ui:search-container-column-text name="course-type" value="<%=HtmlUtil.escapeAttribute(courseType.getType())%>" />
+				<liferay-ui:search-container-column-text name="course-type" value="<%=HtmlUtil.escapeAttribute(courseType.getTypeName())%>" />
 				
 				<liferay-ui:search-container-column-text name="hours-per-semester" value="<%=String.valueOf(course.getHoursPerSemester())%>" />
 				<liferay-ui:search-container-column-text name="hours-per-week" value="<%=String.valueOf(course.getHoursPerWeek())%>" />

@@ -71,12 +71,12 @@
         <column name="userName" type="String"></column>
         <column name="createDate" type="Date"></column>
         <column name="modifiedDate" type="Date"></column>
-        <column name="type" type="String"></column>
+        <column name="typeName" type="String"></column>
         <order by="asc">
-            <order-column name="type" order-by="asc"></order-column>
+            <order-column name="typeName" order-by="asc"></order-column>
         </order>
-        <finder name="Type" return-type="CourseType" unique="true">
-            <finder-column name="type"></finder-column>
+        <finder name="TypeName" return-type="CourseType" unique="true">
+            <finder-column name="typeName"></finder-column>
         </finder>
     </entity>
 	<entity name="Course" local-service="true">

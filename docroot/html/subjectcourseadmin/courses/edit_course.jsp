@@ -99,7 +99,7 @@
 		<aui:select label="courseType" name="courseTypeId" required="true">
 			<c:forEach items="${courseTypes}" var="courseType">
 				<aui:option value="${courseType.courseTypeId}">
-					<c:out value="${courseType.type}" />
+					<c:out value="${courseType.typeName}" />
 				</aui:option>
 			</c:forEach>
 		</aui:select>

@@ -38,7 +38,7 @@ public class CourseTypeSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setType(model.getType());
+		soapModel.setTypeName(model.getTypeName());
 
 		return soapModel;
 	}
@@ -147,12 +147,12 @@ public class CourseTypeSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
-	public String getType() {
-		return _type;
+	public String getTypeName() {
+		return _typeName;
 	}
 
-	public void setType(String type) {
-		_type = type;
+	public void setTypeName(String typeName) {
+		_typeName = typeName;
 	}
 
 	private long _courseTypeId;
@@ -162,5 +162,5 @@ public class CourseTypeSoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private String _type;
+	private String _typeName;
 }

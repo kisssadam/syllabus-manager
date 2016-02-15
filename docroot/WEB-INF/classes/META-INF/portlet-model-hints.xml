@@ -28,7 +28,7 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="type" type="String">
+		<field name="typeName" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>
 	</model>

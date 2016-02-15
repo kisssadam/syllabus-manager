@@ -36,7 +36,7 @@
 		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="type" type="com.liferay.portal.dao.orm.hibernate.StringType" column="type_" />
+		<property name="typeName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="hu.unideb.inf.model.impl.CurriculumImpl" table="unideb_syllabus_manager_Curriculum">
 		<cache usage="read-write" />

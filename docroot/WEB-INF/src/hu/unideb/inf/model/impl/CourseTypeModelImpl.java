@@ -73,12 +73,12 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 			{ "userName", Types.VARCHAR },
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
-			{ "type_", Types.VARCHAR }
+			{ "typeName", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_CourseType (courseTypeId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,type_ TEXT null)";
+	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_CourseType (courseTypeId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeName VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table unideb_syllabus_manager_CourseType";
-	public static final String ORDER_BY_JPQL = " ORDER BY courseType.type ASC";
-	public static final String ORDER_BY_SQL = " ORDER BY unideb_syllabus_manager_CourseType.type_ ASC";
+	public static final String ORDER_BY_JPQL = " ORDER BY courseType.typeName ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY unideb_syllabus_manager_CourseType.typeName ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -91,7 +91,7 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.hu.unideb.inf.model.CourseType"),
 			true);
-	public static long TYPE_COLUMN_BITMASK = 1L;
+	public static long TYPENAME_COLUMN_BITMASK = 1L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -113,7 +113,7 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 		model.setUserName(soapModel.getUserName());
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
-		model.setType(soapModel.getType());
+		model.setTypeName(soapModel.getTypeName());
 
 		return model;
 	}
@@ -185,7 +185,7 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("type", getType());
+		attributes.put("typeName", getTypeName());
 
 		return attributes;
 	}
@@ -234,10 +234,10 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 			setModifiedDate(modifiedDate);
 		}
 
-		String type = (String)attributes.get("type");
+		String typeName = (String)attributes.get("typeName");
 
-		if (type != null) {
-			setType(type);
+		if (typeName != null) {
+			setTypeName(typeName);
 		}
 	}
 
@@ -335,28 +335,28 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 
 	@JSON
 	@Override
-	public String getType() {
-		if (_type == null) {
+	public String getTypeName() {
+		if (_typeName == null) {
 			return StringPool.BLANK;
 		}
 		else {
-			return _type;
+			return _typeName;
 		}
 	}
 
 	@Override
-	public void setType(String type) {
+	public void setTypeName(String typeName) {
 		_columnBitmask = -1L;
 
-		if (_originalType == null) {
-			_originalType = _type;
+		if (_originalTypeName == null) {
+			_originalTypeName = _typeName;
 		}
 
-		_type = type;
+		_typeName = typeName;
 	}
 
-	public String getOriginalType() {
-		return GetterUtil.getString(_originalType);
+	public String getOriginalTypeName() {
+		return GetterUtil.getString(_originalTypeName);
 	}
 
 	public long getColumnBitmask() {
@@ -397,7 +397,7 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 		courseTypeImpl.setUserName(getUserName());
 		courseTypeImpl.setCreateDate(getCreateDate());
 		courseTypeImpl.setModifiedDate(getModifiedDate());
-		courseTypeImpl.setType(getType());
+		courseTypeImpl.setTypeName(getTypeName());
 
 		courseTypeImpl.resetOriginalValues();
 
@@ -408,7 +408,7 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 	public int compareTo(CourseType courseType) {
 		int value = 0;
 
-		value = getType().compareTo(courseType.getType());
+		value = getTypeName().compareTo(courseType.getTypeName());
 
 		if (value != 0) {
 			return value;
@@ -448,7 +448,7 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 	public void resetOriginalValues() {
 		CourseTypeModelImpl courseTypeModelImpl = this;
 
-		courseTypeModelImpl._originalType = courseTypeModelImpl._type;
+		courseTypeModelImpl._originalTypeName = courseTypeModelImpl._typeName;
 
 		courseTypeModelImpl._columnBitmask = 0;
 	}
@@ -491,12 +491,12 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 			courseTypeCacheModel.modifiedDate = Long.MIN_VALUE;
 		}
 
-		courseTypeCacheModel.type = getType();
+		courseTypeCacheModel.typeName = getTypeName();
 
-		String type = courseTypeCacheModel.type;
+		String typeName = courseTypeCacheModel.typeName;
 
-		if ((type != null) && (type.length() == 0)) {
-			courseTypeCacheModel.type = null;
+		if ((typeName != null) && (typeName.length() == 0)) {
+			courseTypeCacheModel.typeName = null;
 		}
 
 		return courseTypeCacheModel;
@@ -520,8 +520,8 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
-		sb.append(", type=");
-		sb.append(getType());
+		sb.append(", typeName=");
+		sb.append(getTypeName());
 		sb.append("}");
 
 		return sb.toString();
@@ -564,8 +564,8 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>type</column-name><column-value><![CDATA[");
-		sb.append(getType());
+			"<column><column-name>typeName</column-name><column-value><![CDATA[");
+		sb.append(getTypeName());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -585,8 +585,8 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
-	private String _type;
-	private String _originalType;
+	private String _typeName;
+	private String _originalTypeName;
 	private long _columnBitmask;
 	private CourseType _escapedModel;
 }

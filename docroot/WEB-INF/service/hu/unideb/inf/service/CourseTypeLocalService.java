@@ -255,21 +255,22 @@ public interface CourseTypeLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public hu.unideb.inf.model.CourseType getCourseTypeByType(
-		java.lang.String type)
+	public hu.unideb.inf.model.CourseType getCourseTypeByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchCourseTypeException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public hu.unideb.inf.model.CourseType fetchCourseTypeByType(
-		java.lang.String type)
+	public hu.unideb.inf.model.CourseType fetchCourseTypeByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean isCourseExistsWithType(java.lang.String type)
+	public boolean isCourseExistsWithTypeName(java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
-	public hu.unideb.inf.model.CourseType addCourseType(java.lang.String type,
+	public hu.unideb.inf.model.CourseType addCourseType(
+		java.lang.String typeName,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
@@ -280,7 +281,7 @@ public interface CourseTypeLocalService extends BaseLocalService,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	public hu.unideb.inf.model.CourseType updateCourseType(long userId,
-		long courseTypeId, java.lang.String type,
+		long courseTypeId, java.lang.String typeName,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

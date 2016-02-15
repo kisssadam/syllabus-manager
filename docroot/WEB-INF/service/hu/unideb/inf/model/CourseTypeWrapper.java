@@ -56,7 +56,7 @@ public class CourseTypeWrapper implements CourseType, ModelWrapper<CourseType> {
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("type", getType());
+		attributes.put("typeName", getTypeName());
 
 		return attributes;
 	}
@@ -105,10 +105,10 @@ public class CourseTypeWrapper implements CourseType, ModelWrapper<CourseType> {
 			setModifiedDate(modifiedDate);
 		}
 
-		String type = (String)attributes.get("type");
+		String typeName = (String)attributes.get("typeName");
 
-		if (type != null) {
-			setType(type);
+		if (typeName != null) {
+			setTypeName(typeName);
 		}
 	}
 
@@ -295,23 +295,23 @@ public class CourseTypeWrapper implements CourseType, ModelWrapper<CourseType> {
 	}
 
 	/**
-	* Returns the type of this course type.
+	* Returns the type name of this course type.
 	*
-	* @return the type of this course type
+	* @return the type name of this course type
 	*/
 	@Override
-	public java.lang.String getType() {
-		return _courseType.getType();
+	public java.lang.String getTypeName() {
+		return _courseType.getTypeName();
 	}
 
 	/**
-	* Sets the type of this course type.
+	* Sets the type name of this course type.
 	*
-	* @param type the type of this course type
+	* @param typeName the type name of this course type
 	*/
 	@Override
-	public void setType(java.lang.String type) {
-		_courseType.setType(type);
+	public void setTypeName(java.lang.String typeName) {
+		_courseType.setTypeName(typeName);
 	}
 
 	@Override

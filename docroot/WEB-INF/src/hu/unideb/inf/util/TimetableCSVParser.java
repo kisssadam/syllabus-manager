@@ -44,7 +44,7 @@ public class TimetableCSVParser {
 		}
 
 		int credit = Integer.parseInt(tokens[5]);
-		String courseTypeString = tokens[6];
+		String courseTypeName = tokens[6];
 		int limit = Integer.parseInt(tokens[7]);
 		int studentCount = Integer.parseInt(tokens[8]); // DO NOT STORE!
 
@@ -68,10 +68,10 @@ public class TimetableCSVParser {
 
 		Subject subject = SubjectLocalServiceUtil.getSubjectByCode(subjectCode);
 
-		CourseType courseType = CourseTypeLocalServiceUtil.fetchCourseTypeByType(courseTypeString);
+		CourseType courseType = CourseTypeLocalServiceUtil.fetchCourseTypeByTypeName(courseTypeName);
 		if (Validator.isNull(courseType)) {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(CourseType.class.getName(), request);
-			courseType = CourseTypeLocalServiceUtil.addCourseType(courseTypeString, serviceContext);
+			courseType = CourseTypeLocalServiceUtil.addCourseType(courseTypeName, serviceContext);
 		}
 
 		// ha egy course type nincs bent a db-ben, akkor ez NoSuchCourseException-t valt ki...
@@ -98,7 +98,7 @@ public class TimetableCSVParser {
 		// System.out.println("subjectType: " + subjectType);
 		// System.out.println("recommendedTerm: " + recommendedTerm);
 		// System.out.println("credit: " + credit);
-		// System.out.println("courseType: " + courseTypeString);
+		// System.out.println("courseTypeName: " + courseTypeName);
 		// System.out.println("limit: " + limit);
 		// System.out.println("studentCount: " + studentCount);
 		// for (int i = 0; i < lecturerNames.length; i++) {

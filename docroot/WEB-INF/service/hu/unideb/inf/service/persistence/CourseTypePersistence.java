@@ -38,58 +38,61 @@ public interface CourseTypePersistence extends BasePersistence<CourseType> {
 	 */
 
 	/**
-	* Returns the course type where type = &#63; or throws a {@link hu.unideb.inf.NoSuchCourseTypeException} if it could not be found.
+	* Returns the course type where typeName = &#63; or throws a {@link hu.unideb.inf.NoSuchCourseTypeException} if it could not be found.
 	*
-	* @param type the type
+	* @param typeName the type name
 	* @return the matching course type
 	* @throws hu.unideb.inf.NoSuchCourseTypeException if a matching course type could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public hu.unideb.inf.model.CourseType findByType(java.lang.String type)
+	public hu.unideb.inf.model.CourseType findByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchCourseTypeException;
 
 	/**
-	* Returns the course type where type = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the course type where typeName = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
-	* @param type the type
+	* @param typeName the type name
 	* @return the matching course type, or <code>null</code> if a matching course type could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public hu.unideb.inf.model.CourseType fetchByType(java.lang.String type)
+	public hu.unideb.inf.model.CourseType fetchByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the course type where type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the course type where typeName = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
-	* @param type the type
+	* @param typeName the type name
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching course type, or <code>null</code> if a matching course type could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public hu.unideb.inf.model.CourseType fetchByType(java.lang.String type,
-		boolean retrieveFromCache)
+	public hu.unideb.inf.model.CourseType fetchByTypeName(
+		java.lang.String typeName, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Removes the course type where type = &#63; from the database.
+	* Removes the course type where typeName = &#63; from the database.
 	*
-	* @param type the type
+	* @param typeName the type name
 	* @return the course type that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public hu.unideb.inf.model.CourseType removeByType(java.lang.String type)
+	public hu.unideb.inf.model.CourseType removeByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchCourseTypeException;
 
 	/**
-	* Returns the number of course types where type = &#63;.
+	* Returns the number of course types where typeName = &#63;.
 	*
-	* @param type the type
+	* @param typeName the type name
 	* @return the number of matching course types
 	* @throws SystemException if a system exception occurred
 	*/
-	public int countByType(java.lang.String type)
+	public int countByTypeName(java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

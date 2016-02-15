@@ -30,7 +30,6 @@ import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
-import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -50,7 +49,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 /**
  * The persistence implementation for the course type service.
@@ -85,36 +83,36 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(CourseTypeModelImpl.ENTITY_CACHE_ENABLED,
 			CourseTypeModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-	public static final FinderPath FINDER_PATH_FETCH_BY_TYPE = new FinderPath(CourseTypeModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_FETCH_BY_TYPENAME = new FinderPath(CourseTypeModelImpl.ENTITY_CACHE_ENABLED,
 			CourseTypeModelImpl.FINDER_CACHE_ENABLED, CourseTypeImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByType",
+			FINDER_CLASS_NAME_ENTITY, "fetchByTypeName",
 			new String[] { String.class.getName() },
-			CourseTypeModelImpl.TYPE_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_TYPE = new FinderPath(CourseTypeModelImpl.ENTITY_CACHE_ENABLED,
+			CourseTypeModelImpl.TYPENAME_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_TYPENAME = new FinderPath(CourseTypeModelImpl.ENTITY_CACHE_ENABLED,
 			CourseTypeModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByType",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByTypeName",
 			new String[] { String.class.getName() });
 
 	/**
-	 * Returns the course type where type = &#63; or throws a {@link hu.unideb.inf.NoSuchCourseTypeException} if it could not be found.
+	 * Returns the course type where typeName = &#63; or throws a {@link hu.unideb.inf.NoSuchCourseTypeException} if it could not be found.
 	 *
-	 * @param type the type
+	 * @param typeName the type name
 	 * @return the matching course type
 	 * @throws hu.unideb.inf.NoSuchCourseTypeException if a matching course type could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public CourseType findByType(String type)
+	public CourseType findByTypeName(String typeName)
 		throws NoSuchCourseTypeException, SystemException {
-		CourseType courseType = fetchByType(type);
+		CourseType courseType = fetchByTypeName(typeName);
 
 		if (courseType == null) {
 			StringBundler msg = new StringBundler(4);
 
 			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("type=");
-			msg.append(type);
+			msg.append("typeName=");
+			msg.append(typeName);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -129,41 +127,42 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 	}
 
 	/**
-	 * Returns the course type where type = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the course type where typeName = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
-	 * @param type the type
+	 * @param typeName the type name
 	 * @return the matching course type, or <code>null</code> if a matching course type could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public CourseType fetchByType(String type) throws SystemException {
-		return fetchByType(type, true);
+	public CourseType fetchByTypeName(String typeName)
+		throws SystemException {
+		return fetchByTypeName(typeName, true);
 	}
 
 	/**
-	 * Returns the course type where type = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the course type where typeName = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
-	 * @param type the type
+	 * @param typeName the type name
 	 * @param retrieveFromCache whether to use the finder cache
 	 * @return the matching course type, or <code>null</code> if a matching course type could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public CourseType fetchByType(String type, boolean retrieveFromCache)
+	public CourseType fetchByTypeName(String typeName, boolean retrieveFromCache)
 		throws SystemException {
-		Object[] finderArgs = new Object[] { type };
+		Object[] finderArgs = new Object[] { typeName };
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_TYPE,
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_TYPENAME,
 					finderArgs, this);
 		}
 
 		if (result instanceof CourseType) {
 			CourseType courseType = (CourseType)result;
 
-			if (!Validator.equals(type, courseType.getType())) {
+			if (!Validator.equals(typeName, courseType.getTypeName())) {
 				result = null;
 			}
 		}
@@ -173,18 +172,18 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 
 			query.append(_SQL_SELECT_COURSETYPE_WHERE);
 
-			boolean bindType = false;
+			boolean bindTypeName = false;
 
-			if (type == null) {
-				query.append(_FINDER_COLUMN_TYPE_TYPE_1);
+			if (typeName == null) {
+				query.append(_FINDER_COLUMN_TYPENAME_TYPENAME_1);
 			}
-			else if (type.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_TYPE_TYPE_3);
+			else if (typeName.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_TYPENAME_TYPENAME_3);
 			}
 			else {
-				bindType = true;
+				bindTypeName = true;
 
-				query.append(_FINDER_COLUMN_TYPE_TYPE_2);
+				query.append(_FINDER_COLUMN_TYPENAME_TYPENAME_2);
 			}
 
 			String sql = query.toString();
@@ -198,14 +197,14 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (bindType) {
-					qPos.add(type);
+				if (bindTypeName) {
+					qPos.add(typeName);
 				}
 
 				List<CourseType> list = q.list();
 
 				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TYPE,
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TYPENAME,
 						finderArgs, list);
 				}
 				else {
@@ -215,15 +214,15 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 
 					cacheResult(courseType);
 
-					if ((courseType.getType() == null) ||
-							!courseType.getType().equals(type)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TYPE,
+					if ((courseType.getTypeName() == null) ||
+							!courseType.getTypeName().equals(typeName)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TYPENAME,
 							finderArgs, courseType);
 					}
 				}
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TYPE,
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TYPENAME,
 					finderArgs);
 
 				throw processException(e);
@@ -242,32 +241,32 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 	}
 
 	/**
-	 * Removes the course type where type = &#63; from the database.
+	 * Removes the course type where typeName = &#63; from the database.
 	 *
-	 * @param type the type
+	 * @param typeName the type name
 	 * @return the course type that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public CourseType removeByType(String type)
+	public CourseType removeByTypeName(String typeName)
 		throws NoSuchCourseTypeException, SystemException {
-		CourseType courseType = findByType(type);
+		CourseType courseType = findByTypeName(typeName);
 
 		return remove(courseType);
 	}
 
 	/**
-	 * Returns the number of course types where type = &#63;.
+	 * Returns the number of course types where typeName = &#63;.
 	 *
-	 * @param type the type
+	 * @param typeName the type name
 	 * @return the number of matching course types
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int countByType(String type) throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_TYPE;
+	public int countByTypeName(String typeName) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_TYPENAME;
 
-		Object[] finderArgs = new Object[] { type };
+		Object[] finderArgs = new Object[] { typeName };
 
 		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
 				this);
@@ -277,18 +276,18 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 
 			query.append(_SQL_COUNT_COURSETYPE_WHERE);
 
-			boolean bindType = false;
+			boolean bindTypeName = false;
 
-			if (type == null) {
-				query.append(_FINDER_COLUMN_TYPE_TYPE_1);
+			if (typeName == null) {
+				query.append(_FINDER_COLUMN_TYPENAME_TYPENAME_1);
 			}
-			else if (type.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_TYPE_TYPE_3);
+			else if (typeName.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_TYPENAME_TYPENAME_3);
 			}
 			else {
-				bindType = true;
+				bindTypeName = true;
 
-				query.append(_FINDER_COLUMN_TYPE_TYPE_2);
+				query.append(_FINDER_COLUMN_TYPENAME_TYPENAME_2);
 			}
 
 			String sql = query.toString();
@@ -302,8 +301,8 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (bindType) {
-					qPos.add(type);
+				if (bindTypeName) {
+					qPos.add(typeName);
 				}
 
 				count = (Long)q.uniqueResult();
@@ -323,9 +322,9 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_TYPE_TYPE_1 = "courseType.type IS NULL";
-	private static final String _FINDER_COLUMN_TYPE_TYPE_2 = "courseType.type = ?";
-	private static final String _FINDER_COLUMN_TYPE_TYPE_3 = "(courseType.type IS NULL OR courseType.type = '')";
+	private static final String _FINDER_COLUMN_TYPENAME_TYPENAME_1 = "courseType.typeName IS NULL";
+	private static final String _FINDER_COLUMN_TYPENAME_TYPENAME_2 = "courseType.typeName = ?";
+	private static final String _FINDER_COLUMN_TYPENAME_TYPENAME_3 = "(courseType.typeName IS NULL OR courseType.typeName = '')";
 
 	public CourseTypePersistenceImpl() {
 		setModelClass(CourseType.class);
@@ -341,8 +340,8 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 		EntityCacheUtil.putResult(CourseTypeModelImpl.ENTITY_CACHE_ENABLED,
 			CourseTypeImpl.class, courseType.getPrimaryKey(), courseType);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TYPE,
-			new Object[] { courseType.getType() }, courseType);
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TYPENAME,
+			new Object[] { courseType.getTypeName() }, courseType);
 
 		courseType.resetOriginalValues();
 	}
@@ -419,23 +418,23 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 
 	protected void cacheUniqueFindersCache(CourseType courseType) {
 		if (courseType.isNew()) {
-			Object[] args = new Object[] { courseType.getType() };
+			Object[] args = new Object[] { courseType.getTypeName() };
 
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_TYPE, args,
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_TYPENAME, args,
 				Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TYPE, args,
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TYPENAME, args,
 				courseType);
 		}
 		else {
 			CourseTypeModelImpl courseTypeModelImpl = (CourseTypeModelImpl)courseType;
 
 			if ((courseTypeModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_TYPE.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] { courseType.getType() };
+					FINDER_PATH_FETCH_BY_TYPENAME.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] { courseType.getTypeName() };
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_TYPE, args,
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_TYPENAME, args,
 					Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TYPE, args,
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_TYPENAME, args,
 					courseType);
 			}
 		}
@@ -444,17 +443,17 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 	protected void clearUniqueFindersCache(CourseType courseType) {
 		CourseTypeModelImpl courseTypeModelImpl = (CourseTypeModelImpl)courseType;
 
-		Object[] args = new Object[] { courseType.getType() };
+		Object[] args = new Object[] { courseType.getTypeName() };
 
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TYPE, args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TYPE, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TYPENAME, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TYPENAME, args);
 
 		if ((courseTypeModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_TYPE.getColumnBitmask()) != 0) {
-			args = new Object[] { courseTypeModelImpl.getOriginalType() };
+				FINDER_PATH_FETCH_BY_TYPENAME.getColumnBitmask()) != 0) {
+			args = new Object[] { courseTypeModelImpl.getOriginalTypeName() };
 
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TYPE, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TYPE, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_TYPENAME, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_TYPENAME, args);
 		}
 	}
 
@@ -622,7 +621,7 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 		courseTypeImpl.setUserName(courseType.getUserName());
 		courseTypeImpl.setCreateDate(courseType.getCreateDate());
 		courseTypeImpl.setModifiedDate(courseType.getModifiedDate());
-		courseTypeImpl.setType(courseType.getType());
+		courseTypeImpl.setTypeName(courseType.getTypeName());
 
 		return courseTypeImpl;
 	}
@@ -900,11 +899,6 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 		return count.intValue();
 	}
 
-	@Override
-	protected Set<String> getBadColumnNames() {
-		return _badColumnNames;
-	}
-
 	/**
 	 * Initializes the course type persistence.
 	 */
@@ -947,9 +941,6 @@ public class CourseTypePersistenceImpl extends BasePersistenceImpl<CourseType>
 	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
 				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
 	private static Log _log = LogFactoryUtil.getLog(CourseTypePersistenceImpl.class);
-	private static Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
-				"type"
-			});
 	private static CourseType _nullCourseType = new CourseTypeImpl() {
 			@Override
 			public Object clone() {

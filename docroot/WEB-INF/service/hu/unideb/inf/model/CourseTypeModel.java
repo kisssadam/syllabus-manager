@@ -190,19 +190,19 @@ public interface CourseTypeModel extends BaseModel<CourseType>, GroupedModel {
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
-	 * Returns the type of this course type.
+	 * Returns the type name of this course type.
 	 *
-	 * @return the type of this course type
+	 * @return the type name of this course type
 	 */
 	@AutoEscape
-	public String getType();
+	public String getTypeName();
 
 	/**
-	 * Sets the type of this course type.
+	 * Sets the type name of this course type.
 	 *
-	 * @param type the type of this course type
+	 * @param typeName the type name of this course type
 	 */
-	public void setType(String type);
+	public void setTypeName(String typeName);
 
 	@Override
 	public boolean isNew();
