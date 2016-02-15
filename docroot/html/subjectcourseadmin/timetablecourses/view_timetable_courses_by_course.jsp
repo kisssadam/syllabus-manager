@@ -1,17 +1,25 @@
 <%@include file="/html/init.jsp"%>
 
 <%
-	long semesterId = ParamUtil.getLong(renderRequest, "semesterId");
-
-	Semester semester = null;
+	long courseId = ParamUtil.getLong(renderRequest, "courseId");
+	long subjectId = ParamUtil.getLong(renderRequest, "subjectId");
+	long curriculumId = ParamUtil.getLong(renderRequest, "curriculumId");
 	
-	if (semesterId > 0) {
-		semester = SemesterLocalServiceUtil.getSemester(semesterId);
+	Course course = null;
+	
+	if (courseId > 0) {
+		course = CourseLocalServiceUtil.getCourse(courseId);
+		subjectId = course.getSubjectId();
+	}
+	
+	if (subjectId > 0) {
+		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
+		curriculumId = subject.getCurriculumId();
 	}
 	
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/timetablecourses/view_timetable_courses.jsp");
-	iteratorURL.setParameter("semesterId", String.valueOf(semesterId));
+	iteratorURL.setParameter("jspPage", "/html/subjectcourseadmin/timetablecourses/view_timetable_courses_by_course.jsp");
+	iteratorURL.setParameter("courseId", String.valueOf(courseId));
 	
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
@@ -21,8 +29,10 @@
 <liferay-ui:success key="timetableCourseDeleted" message="timetable-course-has-been-successfully-deleted" />
 <liferay-ui:success key="timetableCoursesDeleted" message="timetable-courses-have-been-successfully-deleted" />
 
-<c:set var="showSemestersLink" value="<%= true %>" scope="request"/>
-<c:set var="semesterId" value="<%=semesterId%>" scope="request"/>
+<c:set var="showCourseTypesLink" value="<%= true %>" scope="request"/>
+<c:set var="curriculumId" value="<%=curriculumId%>" scope="request"/>
+<c:set var="subjectId" value="<%=subjectId%>" scope="request"/>
+<c:set var="courseId" value="<%=courseId%>" scope="request"/>
 
 <jsp:include page="/html/subjectcourseadmin/breadcrumb.jsp" />
 
@@ -30,19 +40,19 @@
 
 <aui:form method="post" name="fmTimetableCourse">
 	<liferay-ui:search-container delta="<%=delta%>" emptyResultsMessage="timetable-courses-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>">
-		<aui:input name="semesterId" type="hidden" value="<%= semesterId %>" />
+		<aui:input name="courseId" type="hidden" value="<%= courseId %>" />
 		
 		<aui:input name="deleteTimetableCourseIds" type="hidden" />
 		
 		<liferay-ui:search-container-results
-			results="<%=TimetableCourseLocalServiceUtil.getTimetableCoursesBySemesterId(semesterId, searchContainer.getStart(), searchContainer.getEnd())%>"
-			total="<%=TimetableCourseLocalServiceUtil.getTimetableCoursesCountBySemesterId(semesterId)%>"
+			results="<%=TimetableCourseLocalServiceUtil.getTimetableCoursesByCourseId(courseId, searchContainer.getStart(), searchContainer.getEnd())%>"
+			total="<%=TimetableCourseLocalServiceUtil.getTimetableCourseCountByCourseId(courseId)%>"
 		/>
 		
 		<liferay-ui:search-container-row className="hu.unideb.inf.model.TimetableCourse" escapedModel="<%= true %>" modelVar="timetableCourse" keyProperty="timetableCourseId">
 			<c:if test='<%=TimetableCoursePermission.contains(permissionChecker, timetableCourse.getTimetableCourseId(), "VIEW")%>'>				
 				<%
-				Course course = CourseLocalServiceUtil.getCourse(timetableCourse.getCourseId());
+				Semester semester = SemesterLocalServiceUtil.getSemester(timetableCourse.getSemesterId());
 				
 				CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(course.getCourseTypeId());
 				
@@ -50,6 +60,7 @@
 				
 				Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(subject.getCurriculumId());
 				%>
+				<liferay-ui:search-container-column-text name="semester" value="<%=HtmlUtil.escapeAttribute(semester.toString())%>" />
 				
 				<liferay-ui:search-container-column-text name="curriculum-code" value="<%=HtmlUtil.escapeAttribute(curriculum.getCurriculumCode())%>" />
 				<liferay-ui:search-container-column-text name="curriculum-name" value="<%=HtmlUtil.escapeAttribute(curriculum.getCurriculumName())%>" />

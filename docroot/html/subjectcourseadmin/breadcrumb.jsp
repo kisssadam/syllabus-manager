@@ -10,6 +10,7 @@
 
 	long curriculumId = GetterUtil.getLong(request.getAttribute("curriculumId"), 0);
 	long subjectId = GetterUtil.getLong(request.getAttribute("subjectId"), 0);
+	long courseId = GetterUtil.getLong(request.getAttribute("courseId"), 0);
 	long semesterId = GetterUtil.getLong(request.getAttribute("semesterId"), 0);
 %>
 
@@ -82,6 +83,11 @@
 	if (semesterId > 0) {
 		Semester semester = SemesterLocalServiceUtil.getSemester(semesterId);
 		PortalUtil.addPortletBreadcrumbEntry(request, semester.toString(), viewTimetableCoursesURL.toString());
+	}
+	
+	if (courseId > 0) {
+		Course course = CourseLocalServiceUtil.getCourse(courseId);
+		PortalUtil.addPortletBreadcrumbEntry(request, course.toString(), viewCoursesURL.toString());
 	}
 %>
 
