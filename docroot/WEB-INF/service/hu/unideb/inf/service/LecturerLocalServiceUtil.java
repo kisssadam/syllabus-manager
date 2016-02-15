@@ -443,11 +443,6 @@ public class LecturerLocalServiceUtil {
 		return getService().fetchLecturerByName(lecturerName);
 	}
 
-	public static boolean isLecturerExists(java.lang.String lecturerName)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().isLecturerExists(lecturerName);
-	}
-
 	public static hu.unideb.inf.model.Lecturer addLecturer(
 		java.lang.String lecturerName, long lecturerUserId,
 		com.liferay.portal.service.ServiceContext serviceContext)

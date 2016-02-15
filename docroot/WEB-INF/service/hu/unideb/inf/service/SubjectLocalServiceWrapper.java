@@ -286,18 +286,18 @@ public class SubjectLocalServiceWrapper implements SubjectLocalService,
 	}
 
 	@Override
-	public hu.unideb.inf.model.Subject getSubjectByCode(
+	public hu.unideb.inf.model.Subject getSubjectByC_S(long curriculumId,
 		java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchSubjectException {
-		return _subjectLocalService.getSubjectByCode(subjectCode);
+		return _subjectLocalService.getSubjectByC_S(curriculumId, subjectCode);
 	}
 
 	@Override
-	public hu.unideb.inf.model.Subject fetchSubjectByCode(
+	public hu.unideb.inf.model.Subject fetchSubjectByC_S(long curriculumId,
 		java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _subjectLocalService.fetchSubjectByCode(subjectCode);
+		return _subjectLocalService.fetchSubjectByC_S(curriculumId, subjectCode);
 	}
 
 	@Override
@@ -319,12 +319,6 @@ public class SubjectLocalServiceWrapper implements SubjectLocalService,
 	public int getSubjectsCountByCurriculumId(long curriculumId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _subjectLocalService.getSubjectsCountByCurriculumId(curriculumId);
-	}
-
-	@Override
-	public boolean isSubjectExistsWithCode(java.lang.String subjectCode)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _subjectLocalService.isSubjectExistsWithCode(subjectCode);
 	}
 
 	@Override

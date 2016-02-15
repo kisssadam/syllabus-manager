@@ -482,12 +482,6 @@ public class LecturerLocalServiceWrapper implements LecturerLocalService,
 	}
 
 	@Override
-	public boolean isLecturerExists(java.lang.String lecturerName)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _lecturerLocalService.isLecturerExists(lecturerName);
-	}
-
-	@Override
 	public hu.unideb.inf.model.Lecturer addLecturer(
 		java.lang.String lecturerName, long lecturerUserId,
 		com.liferay.portal.service.ServiceContext serviceContext)

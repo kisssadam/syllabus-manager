@@ -305,12 +305,6 @@ public class CourseTypeLocalServiceWrapper implements CourseTypeLocalService,
 	}
 
 	@Override
-	public boolean isCourseExistsWithTypeName(java.lang.String typeName)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _courseTypeLocalService.isCourseExistsWithTypeName(typeName);
-	}
-
-	@Override
 	public hu.unideb.inf.model.CourseType addCourseType(
 		java.lang.String typeName,
 		com.liferay.portal.service.ServiceContext serviceContext)

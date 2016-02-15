@@ -265,10 +265,6 @@ public interface CourseTypeLocalService extends BaseLocalService,
 		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean isCourseExistsWithTypeName(java.lang.String typeName)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
 	public hu.unideb.inf.model.CourseType addCourseType(
 		java.lang.String typeName,
 		com.liferay.portal.service.ServiceContext serviceContext)

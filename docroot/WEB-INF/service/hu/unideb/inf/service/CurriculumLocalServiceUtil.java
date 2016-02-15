@@ -293,12 +293,6 @@ public class CurriculumLocalServiceUtil {
 		return getService().fetchCurriculumByCode(curriculumCode);
 	}
 
-	public static boolean isCurriculumExistsWithCode(
-		java.lang.String curriculumCode)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().isCurriculumExistsWithCode(curriculumCode);
-	}
-
 	public static hu.unideb.inf.model.Curriculum addCurriculum(
 		java.lang.String curriculumCode, java.lang.String curriculumName,
 		com.liferay.portal.service.ServiceContext serviceContext)

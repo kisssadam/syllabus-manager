@@ -387,10 +387,6 @@ public interface LecturerLocalService extends BaseLocalService,
 		java.lang.String lecturerName)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean isLecturerExists(java.lang.String lecturerName)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
 	public hu.unideb.inf.model.Lecturer addLecturer(
 		java.lang.String lecturerName, long lecturerUserId,
 		com.liferay.portal.service.ServiceContext serviceContext)

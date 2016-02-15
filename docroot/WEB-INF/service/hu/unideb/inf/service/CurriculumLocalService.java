@@ -265,10 +265,6 @@ public interface CurriculumLocalService extends BaseLocalService,
 		java.lang.String curriculumCode)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean isCurriculumExistsWithCode(java.lang.String curriculumCode)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
 	public hu.unideb.inf.model.Curriculum addCurriculum(
 		java.lang.String curriculumCode, java.lang.String curriculumName,
 		com.liferay.portal.service.ServiceContext serviceContext)

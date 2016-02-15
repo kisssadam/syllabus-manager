@@ -276,17 +276,17 @@ public class SubjectLocalServiceUtil {
 		return getService().getSubjects();
 	}
 
-	public static hu.unideb.inf.model.Subject getSubjectByCode(
-		java.lang.String subjectCode)
+	public static hu.unideb.inf.model.Subject getSubjectByC_S(
+		long curriculumId, java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchSubjectException {
-		return getService().getSubjectByCode(subjectCode);
+		return getService().getSubjectByC_S(curriculumId, subjectCode);
 	}
 
-	public static hu.unideb.inf.model.Subject fetchSubjectByCode(
-		java.lang.String subjectCode)
+	public static hu.unideb.inf.model.Subject fetchSubjectByC_S(
+		long curriculumId, java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().fetchSubjectByCode(subjectCode);
+		return getService().fetchSubjectByC_S(curriculumId, subjectCode);
 	}
 
 	public static java.util.List<hu.unideb.inf.model.Subject> getSubjectsByCurriculumId(
@@ -304,11 +304,6 @@ public class SubjectLocalServiceUtil {
 	public static int getSubjectsCountByCurriculumId(long curriculumId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().getSubjectsCountByCurriculumId(curriculumId);
-	}
-
-	public static boolean isSubjectExistsWithCode(java.lang.String subjectCode)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().isSubjectExistsWithCode(subjectCode);
 	}
 
 	public static hu.unideb.inf.model.Subject addSubject(

@@ -83,35 +83,40 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(SubjectModelImpl.ENTITY_CACHE_ENABLED,
 			SubjectModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-	public static final FinderPath FINDER_PATH_FETCH_BY_SUBJECTCODE = new FinderPath(SubjectModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_FETCH_BY_C_S = new FinderPath(SubjectModelImpl.ENTITY_CACHE_ENABLED,
 			SubjectModelImpl.FINDER_CACHE_ENABLED, SubjectImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchBySubjectCode",
-			new String[] { String.class.getName() },
+			FINDER_CLASS_NAME_ENTITY, "fetchByC_S",
+			new String[] { Long.class.getName(), String.class.getName() },
+			SubjectModelImpl.CURRICULUMID_COLUMN_BITMASK |
 			SubjectModelImpl.SUBJECTCODE_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_SUBJECTCODE = new FinderPath(SubjectModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_COUNT_BY_C_S = new FinderPath(SubjectModelImpl.ENTITY_CACHE_ENABLED,
 			SubjectModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySubjectCode",
-			new String[] { String.class.getName() });
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_S",
+			new String[] { Long.class.getName(), String.class.getName() });
 
 	/**
-	 * Returns the subject where subjectCode = &#63; or throws a {@link hu.unideb.inf.NoSuchSubjectException} if it could not be found.
+	 * Returns the subject where curriculumId = &#63; and subjectCode = &#63; or throws a {@link hu.unideb.inf.NoSuchSubjectException} if it could not be found.
 	 *
+	 * @param curriculumId the curriculum ID
 	 * @param subjectCode the subject code
 	 * @return the matching subject
 	 * @throws hu.unideb.inf.NoSuchSubjectException if a matching subject could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Subject findBySubjectCode(String subjectCode)
+	public Subject findByC_S(long curriculumId, String subjectCode)
 		throws NoSuchSubjectException, SystemException {
-		Subject subject = fetchBySubjectCode(subjectCode);
+		Subject subject = fetchByC_S(curriculumId, subjectCode);
 
 		if (subject == null) {
-			StringBundler msg = new StringBundler(4);
+			StringBundler msg = new StringBundler(6);
 
 			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
-			msg.append("subjectCode=");
+			msg.append("curriculumId=");
+			msg.append(curriculumId);
+
+			msg.append(", subjectCode=");
 			msg.append(subjectCode);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
@@ -127,63 +132,68 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 	}
 
 	/**
-	 * Returns the subject where subjectCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the subject where curriculumId = &#63; and subjectCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
+	 * @param curriculumId the curriculum ID
 	 * @param subjectCode the subject code
 	 * @return the matching subject, or <code>null</code> if a matching subject could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Subject fetchBySubjectCode(String subjectCode)
+	public Subject fetchByC_S(long curriculumId, String subjectCode)
 		throws SystemException {
-		return fetchBySubjectCode(subjectCode, true);
+		return fetchByC_S(curriculumId, subjectCode, true);
 	}
 
 	/**
-	 * Returns the subject where subjectCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the subject where curriculumId = &#63; and subjectCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
+	 * @param curriculumId the curriculum ID
 	 * @param subjectCode the subject code
 	 * @param retrieveFromCache whether to use the finder cache
 	 * @return the matching subject, or <code>null</code> if a matching subject could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Subject fetchBySubjectCode(String subjectCode,
+	public Subject fetchByC_S(long curriculumId, String subjectCode,
 		boolean retrieveFromCache) throws SystemException {
-		Object[] finderArgs = new Object[] { subjectCode };
+		Object[] finderArgs = new Object[] { curriculumId, subjectCode };
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_SUBJECTCODE,
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_C_S,
 					finderArgs, this);
 		}
 
 		if (result instanceof Subject) {
 			Subject subject = (Subject)result;
 
-			if (!Validator.equals(subjectCode, subject.getSubjectCode())) {
+			if ((curriculumId != subject.getCurriculumId()) ||
+					!Validator.equals(subjectCode, subject.getSubjectCode())) {
 				result = null;
 			}
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler query = new StringBundler(4);
 
 			query.append(_SQL_SELECT_SUBJECT_WHERE);
+
+			query.append(_FINDER_COLUMN_C_S_CURRICULUMID_2);
 
 			boolean bindSubjectCode = false;
 
 			if (subjectCode == null) {
-				query.append(_FINDER_COLUMN_SUBJECTCODE_SUBJECTCODE_1);
+				query.append(_FINDER_COLUMN_C_S_SUBJECTCODE_1);
 			}
 			else if (subjectCode.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_SUBJECTCODE_SUBJECTCODE_3);
+				query.append(_FINDER_COLUMN_C_S_SUBJECTCODE_3);
 			}
 			else {
 				bindSubjectCode = true;
 
-				query.append(_FINDER_COLUMN_SUBJECTCODE_SUBJECTCODE_2);
+				query.append(_FINDER_COLUMN_C_S_SUBJECTCODE_2);
 			}
 
 			String sql = query.toString();
@@ -197,6 +207,8 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
+				qPos.add(curriculumId);
+
 				if (bindSubjectCode) {
 					qPos.add(subjectCode);
 				}
@@ -204,7 +216,7 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 				List<Subject> list = q.list();
 
 				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SUBJECTCODE,
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S,
 						finderArgs, list);
 				}
 				else {
@@ -214,15 +226,16 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 
 					cacheResult(subject);
 
-					if ((subject.getSubjectCode() == null) ||
+					if ((subject.getCurriculumId() != curriculumId) ||
+							(subject.getSubjectCode() == null) ||
 							!subject.getSubjectCode().equals(subjectCode)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SUBJECTCODE,
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S,
 							finderArgs, subject);
 					}
 				}
 			}
 			catch (Exception e) {
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SUBJECTCODE,
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_S,
 					finderArgs);
 
 				throw processException(e);
@@ -241,53 +254,58 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 	}
 
 	/**
-	 * Removes the subject where subjectCode = &#63; from the database.
+	 * Removes the subject where curriculumId = &#63; and subjectCode = &#63; from the database.
 	 *
+	 * @param curriculumId the curriculum ID
 	 * @param subjectCode the subject code
 	 * @return the subject that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public Subject removeBySubjectCode(String subjectCode)
+	public Subject removeByC_S(long curriculumId, String subjectCode)
 		throws NoSuchSubjectException, SystemException {
-		Subject subject = findBySubjectCode(subjectCode);
+		Subject subject = findByC_S(curriculumId, subjectCode);
 
 		return remove(subject);
 	}
 
 	/**
-	 * Returns the number of subjects where subjectCode = &#63;.
+	 * Returns the number of subjects where curriculumId = &#63; and subjectCode = &#63;.
 	 *
+	 * @param curriculumId the curriculum ID
 	 * @param subjectCode the subject code
 	 * @return the number of matching subjects
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int countBySubjectCode(String subjectCode) throws SystemException {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_SUBJECTCODE;
+	public int countByC_S(long curriculumId, String subjectCode)
+		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_S;
 
-		Object[] finderArgs = new Object[] { subjectCode };
+		Object[] finderArgs = new Object[] { curriculumId, subjectCode };
 
 		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
 				this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler query = new StringBundler(3);
 
 			query.append(_SQL_COUNT_SUBJECT_WHERE);
+
+			query.append(_FINDER_COLUMN_C_S_CURRICULUMID_2);
 
 			boolean bindSubjectCode = false;
 
 			if (subjectCode == null) {
-				query.append(_FINDER_COLUMN_SUBJECTCODE_SUBJECTCODE_1);
+				query.append(_FINDER_COLUMN_C_S_SUBJECTCODE_1);
 			}
 			else if (subjectCode.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_SUBJECTCODE_SUBJECTCODE_3);
+				query.append(_FINDER_COLUMN_C_S_SUBJECTCODE_3);
 			}
 			else {
 				bindSubjectCode = true;
 
-				query.append(_FINDER_COLUMN_SUBJECTCODE_SUBJECTCODE_2);
+				query.append(_FINDER_COLUMN_C_S_SUBJECTCODE_2);
 			}
 
 			String sql = query.toString();
@@ -300,6 +318,8 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 				Query q = session.createQuery(sql);
 
 				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(curriculumId);
 
 				if (bindSubjectCode) {
 					qPos.add(subjectCode);
@@ -322,9 +342,10 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_SUBJECTCODE_SUBJECTCODE_1 = "subject.subjectCode IS NULL";
-	private static final String _FINDER_COLUMN_SUBJECTCODE_SUBJECTCODE_2 = "subject.subjectCode = ?";
-	private static final String _FINDER_COLUMN_SUBJECTCODE_SUBJECTCODE_3 = "(subject.subjectCode IS NULL OR subject.subjectCode = '')";
+	private static final String _FINDER_COLUMN_C_S_CURRICULUMID_2 = "subject.curriculumId = ? AND ";
+	private static final String _FINDER_COLUMN_C_S_SUBJECTCODE_1 = "subject.subjectCode IS NULL";
+	private static final String _FINDER_COLUMN_C_S_SUBJECTCODE_2 = "subject.subjectCode = ?";
+	private static final String _FINDER_COLUMN_C_S_SUBJECTCODE_3 = "(subject.subjectCode IS NULL OR subject.subjectCode = '')";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_CURRICULUM =
 		new FinderPath(SubjectModelImpl.ENTITY_CACHE_ENABLED,
 			SubjectModelImpl.FINDER_CACHE_ENABLED, SubjectImpl.class,
@@ -838,8 +859,9 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 		EntityCacheUtil.putResult(SubjectModelImpl.ENTITY_CACHE_ENABLED,
 			SubjectImpl.class, subject.getPrimaryKey(), subject);
 
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SUBJECTCODE,
-			new Object[] { subject.getSubjectCode() }, subject);
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S,
+			new Object[] { subject.getCurriculumId(), subject.getSubjectCode() },
+			subject);
 
 		subject.resetOriginalValues();
 	}
@@ -916,24 +938,27 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 
 	protected void cacheUniqueFindersCache(Subject subject) {
 		if (subject.isNew()) {
-			Object[] args = new Object[] { subject.getSubjectCode() };
+			Object[] args = new Object[] {
+					subject.getCurriculumId(), subject.getSubjectCode()
+				};
 
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SUBJECTCODE, args,
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_S, args,
 				Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SUBJECTCODE, args,
-				subject);
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S, args, subject);
 		}
 		else {
 			SubjectModelImpl subjectModelImpl = (SubjectModelImpl)subject;
 
 			if ((subjectModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_SUBJECTCODE.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] { subject.getSubjectCode() };
+					FINDER_PATH_FETCH_BY_C_S.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						subject.getCurriculumId(), subject.getSubjectCode()
+					};
 
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SUBJECTCODE,
-					args, Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SUBJECTCODE,
-					args, subject);
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_S, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_S, args,
+					subject);
 			}
 		}
 	}
@@ -941,17 +966,22 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 	protected void clearUniqueFindersCache(Subject subject) {
 		SubjectModelImpl subjectModelImpl = (SubjectModelImpl)subject;
 
-		Object[] args = new Object[] { subject.getSubjectCode() };
+		Object[] args = new Object[] {
+				subject.getCurriculumId(), subject.getSubjectCode()
+			};
 
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SUBJECTCODE, args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SUBJECTCODE, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_S, args);
 
 		if ((subjectModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_SUBJECTCODE.getColumnBitmask()) != 0) {
-			args = new Object[] { subjectModelImpl.getOriginalSubjectCode() };
+				FINDER_PATH_FETCH_BY_C_S.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					subjectModelImpl.getOriginalCurriculumId(),
+					subjectModelImpl.getOriginalSubjectCode()
+				};
 
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SUBJECTCODE, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SUBJECTCODE, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_S, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_S, args);
 		}
 	}
 

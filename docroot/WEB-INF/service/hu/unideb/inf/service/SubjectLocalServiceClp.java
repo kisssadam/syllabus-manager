@@ -112,13 +112,13 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 
 		_methodParameterTypes19 = new String[] {  };
 
-		_methodName20 = "getSubjectByCode";
+		_methodName20 = "getSubjectByC_S";
 
-		_methodParameterTypes20 = new String[] { "java.lang.String" };
+		_methodParameterTypes20 = new String[] { "long", "java.lang.String" };
 
-		_methodName21 = "fetchSubjectByCode";
+		_methodName21 = "fetchSubjectByC_S";
 
-		_methodParameterTypes21 = new String[] { "java.lang.String" };
+		_methodParameterTypes21 = new String[] { "long", "java.lang.String" };
 
 		_methodName22 = "getSubjectsByCurriculumId";
 
@@ -132,26 +132,22 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 
 		_methodParameterTypes24 = new String[] { "long" };
 
-		_methodName25 = "isSubjectExistsWithCode";
+		_methodName25 = "addSubject";
 
-		_methodParameterTypes25 = new String[] { "java.lang.String" };
-
-		_methodName26 = "addSubject";
-
-		_methodParameterTypes26 = new String[] {
+		_methodParameterTypes25 = new String[] {
 				"java.lang.String", "java.lang.String", "int", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName27 = "deleteSubject";
+		_methodName26 = "deleteSubject";
 
-		_methodParameterTypes27 = new String[] {
+		_methodParameterTypes26 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName28 = "updateSubject";
+		_methodName27 = "updateSubject";
 
-		_methodParameterTypes28 = new String[] {
+		_methodParameterTypes27 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String", "int",
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
@@ -731,7 +727,7 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 	}
 
 	@Override
-	public hu.unideb.inf.model.Subject getSubjectByCode(
+	public hu.unideb.inf.model.Subject getSubjectByC_S(long curriculumId,
 		java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchSubjectException {
@@ -740,7 +736,11 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName20,
 					_methodParameterTypes20,
-					new Object[] { ClpSerializer.translateInput(subjectCode) });
+					new Object[] {
+						curriculumId,
+						
+					ClpSerializer.translateInput(subjectCode)
+					});
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -766,7 +766,7 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 	}
 
 	@Override
-	public hu.unideb.inf.model.Subject fetchSubjectByCode(
+	public hu.unideb.inf.model.Subject fetchSubjectByC_S(long curriculumId,
 		java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -774,7 +774,11 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName21,
 					_methodParameterTypes21,
-					new Object[] { ClpSerializer.translateInput(subjectCode) });
+					new Object[] {
+						curriculumId,
+						
+					ClpSerializer.translateInput(subjectCode)
+					});
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -883,35 +887,6 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 	}
 
 	@Override
-	public boolean isSubjectExistsWithCode(java.lang.String subjectCode)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName25,
-					_methodParameterTypes25,
-					new Object[] { ClpSerializer.translateInput(subjectCode) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return ((Boolean)returnObj).booleanValue();
-	}
-
-	@Override
 	public hu.unideb.inf.model.Subject addSubject(
 		java.lang.String subjectCode, java.lang.String subjectName, int credit,
 		long curriculumId,
@@ -921,8 +896,8 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName26,
-					_methodParameterTypes26,
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25,
 					new Object[] {
 						ClpSerializer.translateInput(subjectCode),
 						
@@ -966,8 +941,8 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName27,
-					_methodParameterTypes27,
+			returnObj = _invokableLocalService.invokeMethod(_methodName26,
+					_methodParameterTypes26,
 					new Object[] {
 						subjectId,
 						
@@ -1007,8 +982,8 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName28,
-					_methodParameterTypes28,
+			returnObj = _invokableLocalService.invokeMethod(_methodName27,
+					_methodParameterTypes27,
 					new Object[] {
 						userId,
 						
@@ -1103,6 +1078,4 @@ public class SubjectLocalServiceClp implements SubjectLocalService {
 	private String[] _methodParameterTypes26;
 	private String _methodName27;
 	private String[] _methodParameterTypes27;
-	private String _methodName28;
-	private String[] _methodParameterTypes28;
 }

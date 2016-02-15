@@ -78,10 +78,6 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 		return lecturerPersistence.fetchByLecturerName(lecturerName);
 	}
 
-	public boolean isLecturerExists(String lecturerName) throws SystemException {
-		return Validator.isNotNull(lecturerPersistence.fetchByLecturerName(lecturerName));
-	}
-
 	public Lecturer addLecturer(String lecturerName, long lecturerUserId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
 		Date now = new Date();

@@ -195,26 +195,22 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 
 		_methodParameterTypes38 = new String[] { "java.lang.String" };
 
-		_methodName39 = "isLecturerExists";
+		_methodName39 = "addLecturer";
 
-		_methodParameterTypes39 = new String[] { "java.lang.String" };
-
-		_methodName40 = "addLecturer";
-
-		_methodParameterTypes40 = new String[] {
+		_methodParameterTypes39 = new String[] {
 				"java.lang.String", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName41 = "deleteLecturer";
+		_methodName40 = "deleteLecturer";
 
-		_methodParameterTypes41 = new String[] {
+		_methodParameterTypes40 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName42 = "updateLecturer";
+		_methodName41 = "updateLecturer";
 
-		_methodParameterTypes42 = new String[] {
+		_methodParameterTypes41 = new String[] {
 				"long", "long", "java.lang.String", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -1365,35 +1361,6 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 	}
 
 	@Override
-	public boolean isLecturerExists(java.lang.String lecturerName)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName39,
-					_methodParameterTypes39,
-					new Object[] { ClpSerializer.translateInput(lecturerName) });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return ((Boolean)returnObj).booleanValue();
-	}
-
-	@Override
 	public hu.unideb.inf.model.Lecturer addLecturer(
 		java.lang.String lecturerName, long lecturerUserId,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -1402,8 +1369,8 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName40,
-					_methodParameterTypes40,
+			returnObj = _invokableLocalService.invokeMethod(_methodName39,
+					_methodParameterTypes39,
 					new Object[] {
 						ClpSerializer.translateInput(lecturerName),
 						
@@ -1443,8 +1410,8 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName41,
-					_methodParameterTypes41,
+			returnObj = _invokableLocalService.invokeMethod(_methodName40,
+					_methodParameterTypes40,
 					new Object[] {
 						lecturerId,
 						
@@ -1483,8 +1450,8 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName42,
-					_methodParameterTypes42,
+			returnObj = _invokableLocalService.invokeMethod(_methodName41,
+					_methodParameterTypes41,
 					new Object[] {
 						userId,
 						
@@ -1603,6 +1570,4 @@ public class LecturerLocalServiceClp implements LecturerLocalService {
 	private String[] _methodParameterTypes40;
 	private String _methodName41;
 	private String[] _methodParameterTypes41;
-	private String _methodName42;
-	private String[] _methodParameterTypes42;
 }

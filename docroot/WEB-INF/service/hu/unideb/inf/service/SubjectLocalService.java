@@ -254,13 +254,13 @@ public interface SubjectLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public hu.unideb.inf.model.Subject getSubjectByCode(
+	public hu.unideb.inf.model.Subject getSubjectByC_S(long curriculumId,
 		java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchSubjectException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public hu.unideb.inf.model.Subject fetchSubjectByCode(
+	public hu.unideb.inf.model.Subject fetchSubjectByC_S(long curriculumId,
 		java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
@@ -276,10 +276,6 @@ public interface SubjectLocalService extends BaseLocalService,
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getSubjectsCountByCurriculumId(long curriculumId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public boolean isSubjectExistsWithCode(java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public hu.unideb.inf.model.Subject addSubject(

@@ -110,72 +110,77 @@ public class SubjectUtil {
 	}
 
 	/**
-	* Returns the subject where subjectCode = &#63; or throws a {@link hu.unideb.inf.NoSuchSubjectException} if it could not be found.
+	* Returns the subject where curriculumId = &#63; and subjectCode = &#63; or throws a {@link hu.unideb.inf.NoSuchSubjectException} if it could not be found.
 	*
+	* @param curriculumId the curriculum ID
 	* @param subjectCode the subject code
 	* @return the matching subject
 	* @throws hu.unideb.inf.NoSuchSubjectException if a matching subject could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static hu.unideb.inf.model.Subject findBySubjectCode(
+	public static hu.unideb.inf.model.Subject findByC_S(long curriculumId,
 		java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchSubjectException {
-		return getPersistence().findBySubjectCode(subjectCode);
+		return getPersistence().findByC_S(curriculumId, subjectCode);
 	}
 
 	/**
-	* Returns the subject where subjectCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the subject where curriculumId = &#63; and subjectCode = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
+	* @param curriculumId the curriculum ID
 	* @param subjectCode the subject code
 	* @return the matching subject, or <code>null</code> if a matching subject could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static hu.unideb.inf.model.Subject fetchBySubjectCode(
+	public static hu.unideb.inf.model.Subject fetchByC_S(long curriculumId,
 		java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchBySubjectCode(subjectCode);
+		return getPersistence().fetchByC_S(curriculumId, subjectCode);
 	}
 
 	/**
-	* Returns the subject where subjectCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the subject where curriculumId = &#63; and subjectCode = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
+	* @param curriculumId the curriculum ID
 	* @param subjectCode the subject code
 	* @param retrieveFromCache whether to use the finder cache
 	* @return the matching subject, or <code>null</code> if a matching subject could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static hu.unideb.inf.model.Subject fetchBySubjectCode(
+	public static hu.unideb.inf.model.Subject fetchByC_S(long curriculumId,
 		java.lang.String subjectCode, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .fetchBySubjectCode(subjectCode, retrieveFromCache);
+				   .fetchByC_S(curriculumId, subjectCode, retrieveFromCache);
 	}
 
 	/**
-	* Removes the subject where subjectCode = &#63; from the database.
+	* Removes the subject where curriculumId = &#63; and subjectCode = &#63; from the database.
 	*
+	* @param curriculumId the curriculum ID
 	* @param subjectCode the subject code
 	* @return the subject that was removed
 	* @throws SystemException if a system exception occurred
 	*/
-	public static hu.unideb.inf.model.Subject removeBySubjectCode(
+	public static hu.unideb.inf.model.Subject removeByC_S(long curriculumId,
 		java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.NoSuchSubjectException {
-		return getPersistence().removeBySubjectCode(subjectCode);
+		return getPersistence().removeByC_S(curriculumId, subjectCode);
 	}
 
 	/**
-	* Returns the number of subjects where subjectCode = &#63;.
+	* Returns the number of subjects where curriculumId = &#63; and subjectCode = &#63;.
 	*
+	* @param curriculumId the curriculum ID
 	* @param subjectCode the subject code
 	* @return the number of matching subjects
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countBySubjectCode(java.lang.String subjectCode)
+	public static int countByC_S(long curriculumId, java.lang.String subjectCode)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countBySubjectCode(subjectCode);
+		return getPersistence().countByC_S(curriculumId, subjectCode);
 	}
 
 	/**

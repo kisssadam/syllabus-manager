@@ -312,12 +312,6 @@ public class CourseLocalServiceUtil {
 		return getService().getCoursesByCourseTypeId(courseTypeId);
 	}
 
-	public static boolean isCourseExistsWithS_CT(long subjectId,
-		long courseTypeId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().isCourseExistsWithS_CT(subjectId, courseTypeId);
-	}
-
 	public static hu.unideb.inf.model.Course addCourse(long subjectId,
 		int hoursPerSemester, int hoursPerWeek, long courseTypeId,
 		com.liferay.portal.service.ServiceContext serviceContext)

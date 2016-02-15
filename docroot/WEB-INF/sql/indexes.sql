@@ -14,7 +14,7 @@ create index IX_97DBE28C on unideb_syllabus_manager_Lecturers_TimetableCourses (
 create unique index IX_B23FA52F on unideb_syllabus_manager_Semester (beginYear, endYear, division);
 
 create index IX_15B9ABFE on unideb_syllabus_manager_Subject (curriculumId);
-create unique index IX_9FA317D5 on unideb_syllabus_manager_Subject (subjectCode);
+create unique index IX_24D8D7EB on unideb_syllabus_manager_Subject (curriculumId, subjectCode);
 
 create index IX_1BAA0C4E on unideb_syllabus_manager_TimetableCourse (courseId);
 create index IX_45351575 on unideb_syllabus_manager_TimetableCourse (courseId, semesterId);

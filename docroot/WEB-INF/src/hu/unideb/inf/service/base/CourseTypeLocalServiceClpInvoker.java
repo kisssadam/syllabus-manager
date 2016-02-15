@@ -120,25 +120,21 @@ public class CourseTypeLocalServiceClpInvoker {
 
 		_methodParameterTypes78 = new String[] { "java.lang.String" };
 
-		_methodName79 = "isCourseExistsWithTypeName";
+		_methodName79 = "addCourseType";
 
-		_methodParameterTypes79 = new String[] { "java.lang.String" };
-
-		_methodName80 = "addCourseType";
-
-		_methodParameterTypes80 = new String[] {
+		_methodParameterTypes79 = new String[] {
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName81 = "deleteCourseType";
+		_methodName80 = "deleteCourseType";
 
-		_methodParameterTypes81 = new String[] {
+		_methodParameterTypes80 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName82 = "updateCourseType";
+		_methodName81 = "updateCourseType";
 
-		_methodParameterTypes82 = new String[] {
+		_methodParameterTypes81 = new String[] {
 				"long", "long", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -262,23 +258,18 @@ public class CourseTypeLocalServiceClpInvoker {
 
 		if (_methodName79.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes79, parameterTypes)) {
-			return CourseTypeLocalServiceUtil.isCourseExistsWithTypeName((java.lang.String)arguments[0]);
+			return CourseTypeLocalServiceUtil.addCourseType((java.lang.String)arguments[0],
+				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
 		if (_methodName80.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes80, parameterTypes)) {
-			return CourseTypeLocalServiceUtil.addCourseType((java.lang.String)arguments[0],
+			return CourseTypeLocalServiceUtil.deleteCourseType(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
 		if (_methodName81.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes81, parameterTypes)) {
-			return CourseTypeLocalServiceUtil.deleteCourseType(((Long)arguments[0]).longValue(),
-				(com.liferay.portal.service.ServiceContext)arguments[1]);
-		}
-
-		if (_methodName82.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes82, parameterTypes)) {
 			return CourseTypeLocalServiceUtil.updateCourseType(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2],
@@ -336,6 +327,4 @@ public class CourseTypeLocalServiceClpInvoker {
 	private String[] _methodParameterTypes80;
 	private String _methodName81;
 	private String[] _methodParameterTypes81;
-	private String _methodName82;
-	private String[] _methodParameterTypes82;
 }

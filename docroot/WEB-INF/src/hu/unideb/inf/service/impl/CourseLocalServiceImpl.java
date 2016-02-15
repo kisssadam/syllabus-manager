@@ -89,10 +89,6 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 		return coursePersistence.findByCourseType(courseTypeId);
 	}
 
-	public boolean isCourseExistsWithS_CT(long subjectId, long courseTypeId) throws SystemException {
-		return coursePersistence.countByS_CT(subjectId, courseTypeId) > 0;
-	}
-
 	public Course addCourse(long subjectId, int hoursPerSemester, int hoursPerWeek, long courseTypeId,
 			ServiceContext serviceContext) throws SystemException, PortalException {
 		Date now = new Date();

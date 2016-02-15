@@ -65,12 +65,13 @@ public class SubjectLocalServiceImpl extends SubjectLocalServiceBaseImpl {
 		return subjectPersistence.findAll();
 	}
 
-	public Subject getSubjectByCode(String subjectCode) throws SystemException, NoSuchSubjectException {
-		return subjectPersistence.findBySubjectCode(subjectCode);
+	public Subject getSubjectByC_S(long curriculumId, String subjectCode)
+			throws SystemException, NoSuchSubjectException {
+		return subjectPersistence.findByC_S(curriculumId, subjectCode);
 	}
 
-	public Subject fetchSubjectByCode(String subjectCode) throws SystemException {
-		return subjectPersistence.fetchBySubjectCode(subjectCode);
+	public Subject fetchSubjectByC_S(long curriculumId, String subjectCode) throws SystemException {
+		return subjectPersistence.fetchByC_S(curriculumId, subjectCode);
 	}
 
 	public List<Subject> getSubjectsByCurriculumId(long curriculumId) throws SystemException {
@@ -83,10 +84,6 @@ public class SubjectLocalServiceImpl extends SubjectLocalServiceBaseImpl {
 
 	public int getSubjectsCountByCurriculumId(long curriculumId) throws SystemException {
 		return subjectPersistence.countByCurriculum(curriculumId);
-	}
-
-	public boolean isSubjectExistsWithCode(String subjectCode) throws SystemException {
-		return subjectPersistence.countBySubjectCode(subjectCode) > 0;
 	}
 
 	public Subject addSubject(String subjectCode, String subjectName, int credit, long curriculumId,
@@ -186,7 +183,7 @@ public class SubjectLocalServiceImpl extends SubjectLocalServiceBaseImpl {
 			throw new NoSuchCurriculumException();
 		}
 
-		Subject subject = SubjectLocalServiceUtil.fetchSubjectByCode(subjectCode);
+		Subject subject = SubjectLocalServiceUtil.fetchSubjectByC_S(curriculumId, subjectCode);
 		if (Validator.isNotNull(subject)) {
 			if (!Validator.equals(subject.getSubjectId(), subjectId)) {
 				throw new DuplicateSubjectException();

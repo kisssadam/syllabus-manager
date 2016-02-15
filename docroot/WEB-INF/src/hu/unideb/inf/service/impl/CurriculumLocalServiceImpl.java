@@ -70,10 +70,6 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 		return curriculumPersistence.fetchByCode(curriculumCode);
 	}
 
-	public boolean isCurriculumExistsWithCode(String curriculumCode) throws SystemException {
-		return curriculumPersistence.countByCode(curriculumCode) > 0;
-	}
-
 	public Curriculum addCurriculum(String curriculumCode, String curriculumName, ServiceContext serviceContext)
 			throws PortalException, SystemException {
 		Date now = new Date();

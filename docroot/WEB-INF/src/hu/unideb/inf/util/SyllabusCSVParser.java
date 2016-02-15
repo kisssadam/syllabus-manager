@@ -53,14 +53,12 @@ public class SyllabusCSVParser {
 			throws PortalException, SystemException {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
 
-		Curriculum curriculum;
-
-		if (CurriculumLocalServiceUtil.isCurriculumExistsWithCode(curriculumCode)) {
-			curriculum = CurriculumLocalServiceUtil.getCurriculumByCode(curriculumCode);
+		Curriculum curriculum = CurriculumLocalServiceUtil.fetchCurriculumByCode(curriculumCode);
+		if (Validator.isNull(curriculum)) {
+			curriculum = CurriculumLocalServiceUtil.addCurriculum(curriculumCode, curriculumName, serviceContext);
+		} else {
 			curriculum = CurriculumLocalServiceUtil.updateCurriculum(serviceContext.getUserId(),
 					curriculum.getCurriculumId(), curriculumCode, curriculumName, serviceContext);
-		} else {
-			curriculum = CurriculumLocalServiceUtil.addCurriculum(curriculumCode, curriculumName, serviceContext);
 		}
 
 		return curriculum;
@@ -70,15 +68,13 @@ public class SyllabusCSVParser {
 			ActionRequest request) throws PortalException, SystemException {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Subject.class.getName(), request);
 
-		Subject subject;
-
-		if (SubjectLocalServiceUtil.isSubjectExistsWithCode(subjectCode)) {
-			subject = SubjectLocalServiceUtil.getSubjectByCode(subjectCode);
-			subject = SubjectLocalServiceUtil.updateSubject(serviceContext.getUserId(), subject.getSubjectId(),
-					subjectCode, subjectName, credit, curriculum.getCurriculumId(), serviceContext);
-		} else {
+		Subject subject = SubjectLocalServiceUtil.fetchSubjectByC_S(curriculum.getCurriculumId(), subjectCode);
+		if (Validator.isNull(subject)) {
 			subject = SubjectLocalServiceUtil.addSubject(subjectCode, subjectName, credit, curriculum.getCurriculumId(),
 					serviceContext);
+		} else {
+			subject = SubjectLocalServiceUtil.updateSubject(serviceContext.getUserId(), subject.getSubjectId(),
+					subjectCode, subjectName, credit, curriculum.getCurriculumId(), serviceContext);
 		}
 
 		return subject;
@@ -99,14 +95,12 @@ public class SyllabusCSVParser {
 			throws PortalException, SystemException {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(CourseType.class.getName(), request);
 
-		CourseType courseType;
-
-		if (CourseTypeLocalServiceUtil.isCourseExistsWithTypeName(courseTypeName)) {
-			courseType = CourseTypeLocalServiceUtil.getCourseTypeByTypeName(courseTypeName);
+		CourseType courseType = CourseTypeLocalServiceUtil.fetchCourseTypeByTypeName(courseTypeName);
+		if (Validator.isNull(courseType)) {
+			courseType = CourseTypeLocalServiceUtil.addCourseType(courseTypeName, serviceContext);
+		} else {
 			courseType = CourseTypeLocalServiceUtil.updateCourseType(serviceContext.getUserId(),
 					courseType.getCourseTypeId(), courseTypeName, serviceContext);
-		} else {
-			courseType = CourseTypeLocalServiceUtil.addCourseType(courseTypeName, serviceContext);
 		}
 
 		return courseType;
@@ -116,16 +110,14 @@ public class SyllabusCSVParser {
 			ActionRequest request) throws PortalException, SystemException {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Course.class.getName(), request);
 
-		Course course;
-
-		if (CourseLocalServiceUtil.isCourseExistsWithS_CT(subject.getSubjectId(), courseType.getCourseTypeId())) {
-			course = CourseLocalServiceUtil.getCourseByS_CT(subject.getSubjectId(), courseType.getCourseTypeId());
+		Course course = CourseLocalServiceUtil.fetchCourseByS_CT(subject.getSubjectId(), courseType.getCourseTypeId());
+		if (Validator.isNull(course)) {
+			course = CourseLocalServiceUtil.addCourse(subject.getSubjectId(), hoursPerSemester, hoursPerWeek,
+					courseType.getCourseTypeId(), serviceContext);
+		} else {
 			course = CourseLocalServiceUtil.updateCourse(serviceContext.getUserId(), course.getCourseId(),
 					subject.getSubjectId(), hoursPerSemester, hoursPerWeek, courseType.getCourseTypeId(),
 					serviceContext);
-		} else {
-			course = CourseLocalServiceUtil.addCourse(subject.getSubjectId(), hoursPerSemester, hoursPerWeek,
-					courseType.getCourseTypeId(), serviceContext);
 		}
 
 		return course;
