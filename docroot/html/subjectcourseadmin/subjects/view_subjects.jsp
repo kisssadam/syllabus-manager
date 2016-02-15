@@ -56,28 +56,30 @@
 	</liferay-ui:search-container>	
 </aui:form>
 
-<portlet:actionURL name="deleteSubjects" var="deleteSubjectsURL">
-	<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
-</portlet:actionURL>
-
-<aui:script use="aui-base">
-	A.one('.removeCheckedItemsButton').on(
-		'click',
-		function(event) {
-			<portlet:namespace />deleteSubjects();
-		}
-	);
+<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.DELETE_SUBJECTS)%>'>
+	<portlet:actionURL name="deleteSubjects" var="deleteSubjectsURL">
+		<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
+	</portlet:actionURL>
 	
-    Liferay.provide(
-        window,
-        '<portlet:namespace />deleteSubjects',
-        function() {
-            if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-permanently-delete-the-selected-items") %>'))  {
-				document.<portlet:namespace />fmSubject.method = "post";
-				document.<portlet:namespace />fmSubject.<portlet:namespace />deleteSubjectIds.value = Liferay.Util.listCheckedExcept(document.<portlet:namespace />fmSubject, '<portlet:namespace />allRowIds');
-				submitForm(document.<portlet:namespace />fmSubject, "<%=deleteSubjectsURL.toString()%>");
-            }
-        },
-        ['liferay-util-list-fields']
-    );
-</aui:script>
+	<aui:script use="aui-base">
+		A.one('.removeCheckedItemsButton').on(
+			'click',
+			function(event) {
+				<portlet:namespace />deleteSubjects();
+			}
+		);
+		
+	    Liferay.provide(
+	        window,
+	        '<portlet:namespace />deleteSubjects',
+	        function() {
+	            if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-permanently-delete-the-selected-items") %>'))  {
+					document.<portlet:namespace />fmSubject.method = "post";
+					document.<portlet:namespace />fmSubject.<portlet:namespace />deleteSubjectIds.value = Liferay.Util.listCheckedExcept(document.<portlet:namespace />fmSubject, '<portlet:namespace />allRowIds');
+					submitForm(document.<portlet:namespace />fmSubject, "<%=deleteSubjectsURL.toString()%>");
+	            }
+	        },
+	        ['liferay-util-list-fields']
+	    );
+	</aui:script>
+</c:if>

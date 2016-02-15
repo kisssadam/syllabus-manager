@@ -35,6 +35,14 @@
 				<action-key>ADD_TIMETABLE_COURSE</action-key>
 				<action-key>ADD_LECTURER</action-key>
 				<action-key>ADD_SYLLABUS</action-key>
+				<action-key>DELETE_CURRICULUMS</action-key>
+				<action-key>DELETE_SUBJECTS</action-key>
+				<action-key>DELETE_COURSES</action-key>
+				<action-key>DELETE_COURSE_TYPES</action-key>
+				<action-key>DELETE_SEMESTERS</action-key>
+				<action-key>DELETE_TIMETABLE_COURSES</action-key>
+				<action-key>DELETE_LECTURERS</action-key>
+				<action-key>DELETE_SYLLABUSES</action-key>
 				<action-key>IMPORT_SYLLABUS</action-key>
 				<action-key>IMPORT_TIMETABLE</action-key>
 			</supports>
@@ -47,6 +55,14 @@
 				<action-key>ADD_TIMETABLE_COURSE</action-key>
 				<action-key>ADD_LECTURER</action-key>
 				<action-key>ADD_SYLLABUS</action-key>
+				<action-key>DELETE_CURRICULUMS</action-key>
+				<action-key>DELETE_SUBJECTS</action-key>
+				<action-key>DELETE_COURSES</action-key>
+				<action-key>DELETE_COURSE_TYPES</action-key>
+				<action-key>DELETE_SEMESTERS</action-key>
+				<action-key>DELETE_TIMETABLE_COURSES</action-key>
+				<action-key>DELETE_LECTURERS</action-key>
+				<action-key>DELETE_SYLLABUSES</action-key>
 				<action-key>IMPORT_SYLLABUS</action-key>
 				<action-key>IMPORT_TIMETABLE</action-key>
 			</site-member-defaults>
@@ -60,6 +76,14 @@
 				<action-key>ADD_TIMETABLE_COURSE</action-key>
 				<action-key>ADD_LECTURER</action-key>
 				<action-key>ADD_SYLLABUS</action-key>
+				<action-key>DELETE_CURRICULUMS</action-key>
+				<action-key>DELETE_SUBJECTS</action-key>
+				<action-key>DELETE_COURSES</action-key>
+				<action-key>DELETE_COURSE_TYPES</action-key>
+				<action-key>DELETE_SEMESTERS</action-key>
+				<action-key>DELETE_TIMETABLE_COURSES</action-key>
+				<action-key>DELETE_LECTURERS</action-key>
+				<action-key>DELETE_SYLLABUSES</action-key>
 				<action-key>IMPORT_SYLLABUS</action-key>
 				<action-key>IMPORT_TIMETABLE</action-key>
 			</guest-unsupported>

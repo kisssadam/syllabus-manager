@@ -45,28 +45,30 @@
 	</liferay-ui:search-container>
 </aui:form>
 
-<portlet:actionURL name="deleteSemesters" var="deleteSemestersURL">
-	<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
-</portlet:actionURL>
-
-<aui:script use="aui-base">
-	A.one('.removeCheckedItemsButton').on(
-		'click',
-		function(event) {
-			<portlet:namespace />deleteSemesters();
-		}
-	);
+<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, ActionKeys.DELETE_SEMESTERS)%>'>
+	<portlet:actionURL name="deleteSemesters" var="deleteSemestersURL">
+		<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
+	</portlet:actionURL>
 	
-    Liferay.provide(
-        window,
-        '<portlet:namespace />deleteSemesters',
-        function() {
-            if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-permanently-delete-the-selected-items") %>'))  {
-				document.<portlet:namespace />fmSemester.method = "post";                
-				document.<portlet:namespace />fmSemester.<portlet:namespace />deleteSemesterIds.value = Liferay.Util.listCheckedExcept(document.<portlet:namespace />fmSemester, '<portlet:namespace />allRowIds');
-				submitForm(document.<portlet:namespace />fmSemester, "<%=deleteSemestersURL.toString()%>");
-            }
-        },
-        ['liferay-util-list-fields']
-    );
-</aui:script>
+	<aui:script use="aui-base">
+		A.one('.removeCheckedItemsButton').on(
+			'click',
+			function(event) {
+				<portlet:namespace />deleteSemesters();
+			}
+		);
+		
+	    Liferay.provide(
+	        window,
+	        '<portlet:namespace />deleteSemesters',
+	        function() {
+	            if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-permanently-delete-the-selected-items") %>'))  {
+					document.<portlet:namespace />fmSemester.method = "post";                
+					document.<portlet:namespace />fmSemester.<portlet:namespace />deleteSemesterIds.value = Liferay.Util.listCheckedExcept(document.<portlet:namespace />fmSemester, '<portlet:namespace />allRowIds');
+					submitForm(document.<portlet:namespace />fmSemester, "<%=deleteSemestersURL.toString()%>");
+	            }
+	        },
+	        ['liferay-util-list-fields']
+	    );
+	</aui:script>
+</c:if>
