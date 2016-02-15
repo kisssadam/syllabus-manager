@@ -85,6 +85,14 @@
 			</c:forEach>
 		</aui:select>
 
+		<aui:select label="courseType" name="courseTypeId" required="true">
+			<c:forEach items="${courseTypes}" var="courseType">
+				<aui:option value="${courseType.courseTypeId}">
+					<c:out value="${courseType.typeName}" />
+				</aui:option>
+			</c:forEach>
+		</aui:select>
+
 		<aui:input name="hoursPerSemester" type="number" min="0"
 			value="<%=course == null ? 0 : course.getHoursPerSemester()%>">
 			<aui:validator name="required" />
@@ -95,14 +103,6 @@
 			<aui:validator name="required" />
 			<aui:validator name="number" />
 		</aui:input>
-
-		<aui:select label="courseType" name="courseTypeId" required="true">
-			<c:forEach items="${courseTypes}" var="courseType">
-				<aui:option value="${courseType.courseTypeId}">
-					<c:out value="${courseType.typeName}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
 	</aui:fieldset>
 
 	<aui:button-row>
