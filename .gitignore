@@ -7,6 +7,12 @@ syllabus-manager-service/bin/**/*
 syllabus-manager-web/build/**/*
 syllabus-manager-web/bin/**/*
 
+# JDT-specific (Eclipse Java Development Tools)
+**/.classpath
+
+# Eclipse Core
+**/.project
+
 **/docroot/WEB-INF/classes/*
 
 !/sql/update-*.sql
