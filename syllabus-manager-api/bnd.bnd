@@ -1,0 +1,7 @@
+Bundle-SymbolicName: syllabus.manager-api
+Bundle-Version: 1.0.0
+Export-Package:\
+	hu.unideb.inf.exception,\
+	hu.unideb.inf.model,\
+	hu.unideb.inf.service,\
+	hu.unideb.inf.service.persistence
