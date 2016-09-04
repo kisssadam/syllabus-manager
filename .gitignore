@@ -1,8 +1,11 @@
 .gradle/
 build/**/*
 syllabus-manager-api/build/**/*
+syllabus-manager-api/bin/**/*
 syllabus-manager-service/build/**/*
+syllabus-manager-service/bin/**/*
 syllabus-manager-web/build/**/*
+syllabus-manager-web/bin/**/*
 
 **/docroot/WEB-INF/classes/*
 
