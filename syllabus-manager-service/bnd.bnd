@@ -2,3 +2,6 @@ Bundle-SymbolicName: syllabus.manager-service
 Bundle-Version: 1.0.0
 Liferay-Require-SchemaVersion: 1.0.0
 Liferay-Service: true
+Export-Package: \
+	hu.unideb.inf.service.util,\
+	hu.unideb.inf.service.permission

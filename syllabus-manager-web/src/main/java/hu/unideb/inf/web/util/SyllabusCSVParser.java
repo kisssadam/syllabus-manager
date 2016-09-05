@@ -1,4 +1,4 @@
-package hu.unideb.inf.util;
+package hu.unideb.inf.web.util;
 
 import javax.portlet.ActionRequest;
 

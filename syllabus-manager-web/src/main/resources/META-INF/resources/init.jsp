@@ -9,8 +9,6 @@
 <%@ taglib uri="http://liferay.com/tld/security" prefix="liferay-security" %>
 <%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@ taglib uri="http://alloy.liferay.com/tld/aui" prefix="aui" %>
-
 <%@ page import="com.liferay.portal.kernel.dao.search.SearchContainer" %>
 <%@ page import="com.liferay.portal.kernel.dao.search.SearchEntry" %>
 <%@ page import="com.liferay.portal.kernel.dao.search.ResultRow" %>
@@ -52,7 +50,7 @@
 <%@ page import="hu.unideb.inf.model.TimetableCourse" %>
 <%@ page import="hu.unideb.inf.model.Lecturer" %>
 
-<%@ page import="hu.unideb.inf.util.WebKeys" %>
+<%@ page import="hu.unideb.inf.web.util.WebKeys" %>
 <%@ page import="hu.unideb.inf.util.ActionKeys" %>
 <%@ page import="hu.unideb.inf.service.util.SemesterHelper" %>
 

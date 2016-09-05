@@ -1,4 +1,4 @@
-package hu.unideb.inf.util;
+package hu.unideb.inf.web.util;
 
 public class WebKeys implements com.liferay.portal.kernel.util.WebKeys {
 
