@@ -4,8 +4,8 @@ import com.liferay.application.list.BasePanelApp;
 import com.liferay.application.list.PanelApp;
 import com.liferay.portal.kernel.model.Portlet;
 
-import hu.unideb.inf.web.constants.SyllabusManagerPanelAppPanelCategoryKeys;
-import hu.unideb.inf.web.constants.SyllabusManagerPanelAppPortletKeys;
+import hu.unideb.inf.web.constants.SyllabusManagerPanelCategoryKeys;
+import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -14,20 +14,20 @@ import org.osgi.service.component.annotations.Reference;
 	immediate = true,
 	property = {
 		"panel.app.order:Integer=100",
-		"panel.category.key=" + SyllabusManagerPanelAppPanelCategoryKeys.CONTROL_PANEL_CATEGORY
+		"panel.category.key=" + SyllabusManagerPanelCategoryKeys.CONTROL_PANEL_CATEGORY
 	},
 	service = PanelApp.class
 )
-public class SyllabusManagerPanelAppPanelApp extends BasePanelApp {
+public class SyllabusManagerPanelApp extends BasePanelApp {
 
 	@Override
 	public String getPortletId() {
-		return SyllabusManagerPanelAppPortletKeys.SyllabusManagerPanelApp;
+		return SyllabusManagerPortletKeys.SyllabusManagerAdmin;
 	}
 
 	@Override
 	@Reference(
-		target = "(javax.portlet.name=" + SyllabusManagerPanelAppPortletKeys.SyllabusManagerPanelApp + ")",
+		target = "(javax.portlet.name=" + SyllabusManagerPortletKeys.SyllabusManagerAdmin + ")",
 		unbind = "-"
 	)
 	public void setPortlet(Portlet portlet) {

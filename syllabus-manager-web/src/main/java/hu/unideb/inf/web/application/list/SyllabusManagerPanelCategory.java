@@ -6,7 +6,7 @@ import com.liferay.application.list.constants.PanelCategoryKeys;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 
-import hu.unideb.inf.web.constants.SyllabusManagerPanelAppPanelCategoryKeys;
+import hu.unideb.inf.web.constants.SyllabusManagerPanelCategoryKeys;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -21,11 +21,11 @@ import org.osgi.service.component.annotations.Component;
 	},
 	service = PanelCategory.class
 )
-public class SyllabusManagerPanelAppPanelCategory extends BasePanelCategory {
+public class SyllabusManagerPanelCategory extends BasePanelCategory {
 
 	@Override
 	public String getKey() {
-		return SyllabusManagerPanelAppPanelCategoryKeys.CONTROL_PANEL_CATEGORY;
+		return SyllabusManagerPanelCategoryKeys.CONTROL_PANEL_CATEGORY;
 	}
 
 	@Override
