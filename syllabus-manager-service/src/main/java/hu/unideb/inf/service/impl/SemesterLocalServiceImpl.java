@@ -37,6 +37,7 @@ import hu.unideb.inf.exception.SemesterYearOverlapException;
 import hu.unideb.inf.exception.SemesterYearsAreEqualException;
 import hu.unideb.inf.model.Semester;
 import hu.unideb.inf.model.TimetableCourse;
+import hu.unideb.inf.model.impl.SemesterImpl;
 import hu.unideb.inf.service.SemesterLocalServiceUtil;
 import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 import hu.unideb.inf.service.base.SemesterLocalServiceBaseImpl;
@@ -75,7 +76,7 @@ public class SemesterLocalServiceImpl extends SemesterLocalServiceBaseImpl {
 	}
 
 	public Semester getLatestSemester() throws SystemException, NoSuchSemesterException {
-		DynamicQuery latestSemesterQuery = DynamicQueryFactoryUtil.forClass(Semester.class)
+		DynamicQuery latestSemesterQuery = DynamicQueryFactoryUtil.forClass(SemesterImpl.class)
 				.addOrder(PropertyFactoryUtil.forName("beginYear").desc())
 				.addOrder(PropertyFactoryUtil.forName("endYear").desc())
 				.addOrder(PropertyFactoryUtil.forName("division").desc());
