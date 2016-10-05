@@ -81,7 +81,6 @@ public class SemesterLocalServiceImpl extends SemesterLocalServiceBaseImpl {
 				.addOrder(PropertyFactoryUtil.forName("endYear").desc())
 				.addOrder(PropertyFactoryUtil.forName("division").desc());
 
-		@SuppressWarnings("unchecked")
 		List<Semester> queriedSemesters = dynamicQuery(latestSemesterQuery, 0, 1);
 
 		if (queriedSemesters.isEmpty()) {
