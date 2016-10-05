@@ -27,8 +27,8 @@
 	<portlet:param name="mvcPath" value="/admin/lecturers/view_lecturers.jsp" />
 </portlet:renderURL>
 
-<aui:nav-bar>
-    <aui:nav>
+<aui:nav-bar cssClass="collapse-basic-search">
+    <aui:nav cssClass="navbar-nav">
     	<aui:nav-item cssClass="removeCheckedItemsButton" iconCssClass="icon-remove" label="delete" selected='false' style="display: none;" />
     	
         <aui:nav-item href="<%=viewHomeURL.toString()%>" iconCssClass="icon-home" label="home" selected='false' />
