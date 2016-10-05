@@ -1,6 +1,3 @@
-<%@page import="com.liferay.portal.NoSuchUserException"%>
-<%@page import="com.liferay.portal.kernel.dao.orm.QueryUtil"%>
-<%@page import="com.liferay.portal.service.UserLocalServiceUtil"%>
 <%@include file="/init.jsp"%>
 
 <%

@@ -244,6 +244,7 @@
 		<exception>TimetableCourseRecommendedTerm</exception>
 		<exception>TimetableCourseLimit</exception>
 		<exception>TimetableCourseLecturer</exception>
+		<exception>TimetableCourseLecturerName</exception>
 		<exception>DuplicateTimetableCourse</exception>
 		<exception>TimetableCourseCode</exception>
 	</exceptions>

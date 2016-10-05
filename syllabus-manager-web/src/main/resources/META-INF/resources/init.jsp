@@ -9,21 +9,23 @@
 <%@ taglib uri="http://liferay.com/tld/security" prefix="liferay-security"%>
 <%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util"%>
 
+<%@ page import="com.liferay.portal.kernel.dao.orm.QueryUtil"%>
 <%@ page import="com.liferay.portal.kernel.dao.search.SearchContainer"%>
 <%@ page import="com.liferay.portal.kernel.dao.search.SearchEntry"%>
 <%@ page import="com.liferay.portal.kernel.dao.search.ResultRow"%>
 <%@ page import="com.liferay.portal.kernel.dao.search.RowChecker"%>
+<%@ page import="com.liferay.portal.kernel.exception.NoSuchUserException"%>
 <%@ page import="com.liferay.portal.kernel.language.LanguageUtil"%>
 <%@ page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil"%>
+<%@ page import="com.liferay.portal.kernel.model.User"%>
 <%@ page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
+<%@ page import="com.liferay.portal.kernel.service.UserLocalServiceUtil"%>
 <%@ page import="com.liferay.portal.kernel.util.ParamUtil"%>
 <%@ page import="com.liferay.portal.kernel.util.HtmlUtil"%>
 <%@ page import="com.liferay.portal.kernel.util.GetterUtil"%>
 <%@ page import="com.liferay.portal.kernel.util.StringPool"%>
 <%@ page import="com.liferay.portal.kernel.util.Validator"%>
 <%@ page import="com.liferay.portal.kernel.util.Constants"%>
-
-<%@ page import="com.liferay.portal.kernel.model.User"%>
 
 <%@ page import="com.liferay.portal.kernel.util.PortalUtil"%>
 
