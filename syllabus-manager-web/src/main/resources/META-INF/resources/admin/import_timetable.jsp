@@ -6,9 +6,9 @@ request.setAttribute("semesters", SemesterLocalServiceUtil.getSemesters());
 
 <c:set var="showImportTimetableLink" value="<%= true %>" scope="request"/>
 
-<jsp:include page="/admin/breadcrumb.jsp" />
-
 <jsp:include page="/admin/navigation_bar.jsp" />
+
+<jsp:include page="/admin/breadcrumb.jsp" />
 
 <!-- File upload form from http://www.codeyouneed.com/liferay-portlet-file-upload-tutorial/ -->
 <portlet:actionURL name="upload" var="uploadFileURL"></portlet:actionURL>

@@ -14,9 +14,9 @@
 
 <c:set var="showLecturersLink" value="<%= true %>" scope="request"/>
 
-<jsp:include page="/admin/breadcrumb.jsp" />
-
 <jsp:include page="/admin/navigation_bar.jsp" />
+
+<jsp:include page="/admin/breadcrumb.jsp" />
 
 <aui:form method="post" name="fmLecturer">
 	<liferay-ui:search-container delta="<%=delta%>" emptyResultsMessage="lecturers-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>" total="<%=LecturerLocalServiceUtil.getLecturersCount()%>">

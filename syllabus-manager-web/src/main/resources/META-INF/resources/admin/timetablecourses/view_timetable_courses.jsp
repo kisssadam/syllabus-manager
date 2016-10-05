@@ -24,9 +24,9 @@
 <c:set var="showSemestersLink" value="<%= true %>" scope="request"/>
 <c:set var="semesterId" value="<%=semesterId%>" scope="request"/>
 
-<jsp:include page="/admin/breadcrumb.jsp" />
-
 <jsp:include page="/admin/navigation_bar.jsp" />
+
+<jsp:include page="/admin/breadcrumb.jsp" />
 
 <aui:form method="post" name="fmTimetableCourse">
 	<liferay-ui:search-container delta="<%=delta%>" emptyResultsMessage="timetable-courses-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>" total="<%=TimetableCourseLocalServiceUtil.getTimetableCoursesCountBySemesterId(semesterId)%>">

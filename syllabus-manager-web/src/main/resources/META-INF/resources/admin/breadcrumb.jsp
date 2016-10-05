@@ -92,4 +92,4 @@
 %>
 
 <!-- https://docs.liferay.com/portal/6.2/propertiesdoc/portal.properties.html#Breadcrumb%20Portlet -->
-<%-- <liferay-ui:breadcrumb displayStyle="horizontal" showLayout="false" showPortletBreadcrumb="true" /> --%>
+<liferay-ui:breadcrumb showLayout="false" showPortletBreadcrumb="true" />

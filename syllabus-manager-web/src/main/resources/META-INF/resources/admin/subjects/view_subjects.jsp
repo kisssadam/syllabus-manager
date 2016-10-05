@@ -24,9 +24,9 @@
 <c:set var="showCurriculumsLink" value="<%= true %>" scope="request"/>
 <c:set var="curriculumId" value="<%= curriculum.getCurriculumId() %>" scope="request"/>
 
-<jsp:include page="/admin/breadcrumb.jsp" />
-
 <jsp:include page="/admin/navigation_bar.jsp" />
+
+<jsp:include page="/admin/breadcrumb.jsp" />
 
 <aui:form method="post" name="fmSubject">
 	<liferay-ui:search-container delta="<%=delta%>" emptyResultsMessage="subjects-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>" total="<%=SubjectLocalServiceUtil.getSubjectsCountByCurriculumId(curriculumId)%>">

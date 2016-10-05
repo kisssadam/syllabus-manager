@@ -25,9 +25,9 @@
 <c:set var="curriculumId" value="<%= subject.getCurriculumId() %>" scope="request"/>
 <c:set var="subjectId" value="<%= subject.getSubjectId() %>" scope="request"/>
 
-<jsp:include page="/admin/breadcrumb.jsp" />
-
 <jsp:include page="/admin/navigation_bar.jsp" />
+
+<jsp:include page="/admin/breadcrumb.jsp" />
 
 <aui:form method="post" name="fmCourse">
 	<liferay-ui:search-container delta="<%=delta%>" emptyResultsMessage="courses-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>" total="<%=CourseLocalServiceUtil.getCoursesCountBySubjectId(subjectId)%>">

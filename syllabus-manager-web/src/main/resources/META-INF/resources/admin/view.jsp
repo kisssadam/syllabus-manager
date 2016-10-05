@@ -1,9 +1,9 @@
 <%@ include file="/init.jsp"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 
-<jsp:include page="/admin/breadcrumb.jsp" />
-
 <jsp:include page="/admin/navigation_bar.jsp" />
+
+<jsp:include page="/admin/breadcrumb.jsp" />
 
 <div id="myTreeView"></div>
 
