@@ -64,11 +64,6 @@
 	
 	if (Validator.isNotNull(timetableCourse)) {
 		selectedLecturers = TimetableCourseLocalServiceUtil.getLecutersByTimetableCourseId(timetableCourseId);
-		
-		for (Lecturer lecturer : selectedLecturers) {
-			System.out.println("Selected Lecturer: " + lecturer);
-		}
-		System.out.println();
 	}
 	
 	request.setAttribute("selectedLecturers", selectedLecturers);
