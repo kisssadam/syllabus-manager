@@ -4,9 +4,11 @@ import javax.portlet.ActionRequest;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
+import com.liferay.portal.kernel.util.Validator;
 
 import hu.unideb.inf.model.Course;
 import hu.unideb.inf.model.CourseType;
@@ -18,6 +20,8 @@ import hu.unideb.inf.service.CurriculumLocalServiceUtil;
 import hu.unideb.inf.service.SubjectLocalServiceUtil;
 
 public class SyllabusCSVParser {
+
+	private static final Log log = LogFactoryUtil.getLog(SyllabusCSVParser.class);
 
 	public static void parseLine(String line, ActionRequest request) throws PortalException, SystemException {
 		String[] tokens = line.split(";");
@@ -43,7 +47,9 @@ public class SyllabusCSVParser {
 
 			parseCourse(subject, hoursPerSemesterField, hoursPerWeekField, typeOfCourse, request);
 		}
-		System.out.println("i: " + i);
+		if (log.isDebugEnabled()) {
+			log.debug("i: " + i);
+		}
 		if (i != tokens.length) {
 			throw new RuntimeException("Failed to parse some Courses.");
 		}
@@ -88,7 +94,9 @@ public class SyllabusCSVParser {
 		CourseType courseType = parseCourseType(typeOfCourse, request);
 		Course course = parseCourse(subject, courseType, hoursPerSemester, hoursPerWeek, request);
 
-		System.out.println("Success: " + course);
+		if (log.isTraceEnabled()) {
+			log.trace("Success: " + course);
+		}
 	}
 
 	private static CourseType parseCourseType(String courseTypeName, ActionRequest request)
