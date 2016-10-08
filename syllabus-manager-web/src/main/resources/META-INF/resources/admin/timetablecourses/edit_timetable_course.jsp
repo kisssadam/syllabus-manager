@@ -205,7 +205,7 @@
 					<div class="lfr-form-row lfr-form-row-inline">
 						<div class="row-fields" style="display: flex;">
 							
-							<aui:select label="lecturer" name="lecturer1">
+							<aui:select label="lecturer" name="lecturer1" required="true">
 							
 								<c:forEach items="${lecturers}" var="lecturer">
 									
@@ -227,7 +227,7 @@
 						<div class="lfr-form-row lfr-form-row-inline">
 							<div class="row-fields" style="display: flex;">
 								
-								<aui:select label="lecturer" name="lecturer${selectedLecturerStatus.index + 1}">
+								<aui:select label="lecturer" name="lecturer${selectedLecturerStatus.index + 1}" required="true">
 									
 									<c:forEach items="${lecturers}" var="lecturer">
 									
