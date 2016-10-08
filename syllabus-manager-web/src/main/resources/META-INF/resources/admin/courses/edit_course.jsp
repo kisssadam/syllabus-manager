@@ -132,7 +132,7 @@ function updateSubjectIds() {
 	var selectedCurriculumId = A.one("#<portlet:namespace />curriculumId").val();
 	if (selectedCurriculumId > 0) {
 		Liferay.Service(
-			'/unideb-syllabus-manager-portlet.subject/get-subjects-by-curriculum-id',
+			'/unideb_syllabus_manager.subject/get-subjects-by-curriculum-id',
 			{
 				curriculumId: selectedCurriculumId
 			},
