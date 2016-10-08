@@ -5,6 +5,9 @@
 	long subjectId = ParamUtil.getLong(renderRequest, "subjectId");
 	long curriculumId = ParamUtil.getLong(renderRequest, "curriculumId");
 
+	List<Curriculum> curriculums = CurriculumLocalServiceUtil.getCurriculums();
+	List<CourseType> courseTypes = CourseTypeLocalServiceUtil.getCourseTypes();
+	List<Subject> subjects = null;
 	Course course = null;
 
 	if (courseId > 0) {
@@ -16,11 +19,22 @@
 		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
 		curriculumId = subject.getCurriculumId();
 	}
+	
+	if (curriculumId > 0) {
+		subjects = SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculumId);
+	} else {
+		if (Validator.isNotNull(curriculums) && curriculums.size() > 0) {
+			subjects = SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculums.get(0).getCurriculumId());
+		} else {
+			subjects = Collections.emptyList();
+		}
+	}
 
 	request.setAttribute("curriculumId", curriculumId);
 	request.setAttribute("subjectId", subjectId);
-	request.setAttribute("curriculums", CurriculumLocalServiceUtil.getCurriculums());
-	request.setAttribute("courseTypes", CourseTypeLocalServiceUtil.getCourseTypes());
+	request.setAttribute("curriculums", curriculums);
+	request.setAttribute("courseTypes", courseTypes);
+	request.setAttribute("subjects", subjects);
 %>
 
 <liferay-ui:error exception="<%=DuplicateCourseException.class%>" message="duplicate-course-exception" />
@@ -61,7 +75,7 @@
 	<aui:input name="courseId" type="hidden" value='<%=course == null ? courseId : course.getCourseId()%>' />
 
 	<aui:fieldset>
-		<aui:select label="curriculum" name="curriculumId" required="true">
+		<aui:select label="curriculum" name="curriculumSelect" required="true">
 			<c:forEach items="${curriculums}" var="curriculum">
 				<c:choose>
 					<c:when test="${curriculumId eq curriculum.curriculumId}">
@@ -77,9 +91,17 @@
 			</c:forEach>
 		</aui:select>
 
-		<aui:select label="subject" name="subjectId" required="true">
+		<aui:select label="subject" name="subjectSelect" required="true">
 			<c:forEach items="${subjects}" var="subject">
-				<aui:option value="${subject.subjectId}">
+				<c:choose>
+					<c:when test="${subjectId eq subject.subjectId}">
+						<c:set var="isSubjectSelected" value="true" />
+					</c:when>
+					<c:otherwise>
+						<c:set var="isSubjectSelected" value="false" />
+					</c:otherwise>
+				</c:choose>
+				<aui:option selected="${isSubjectSelected}" value="${subject.subjectId}">
 					<c:out value="${subject.subjectCode} - ${subject.subjectName}" />
 				</aui:option>
 			</c:forEach>
@@ -115,43 +137,35 @@
 	http://rasul.work/index.php/2015/09/04/liferay-service-builder-json-javascript/
 --%>
 
-<aui:script use="aui-base">
-AUI().ready(
-	function() {
-		updateSubjectIds();
-	}
-);
+<portlet:resourceURL var="resourceURL"></portlet:resourceURL>
 
-AUI().ready('aui-dialog', "node", function(A) {
-	A.one("#<portlet:namespace />curriculumId").on("change", function(e) {
-		updateSubjectIds();
+<aui:script>
+AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', function(A) {
+	A.one("#<portlet:namespace/>curriculumSelect").on('change', function() {
+		A.io.request('<%=resourceURL%>', {
+             method: 'POST',
+             data: {
+            	 "<portlet:namespace/>curriculumSelect" : A.one("#<portlet:namespace/>curriculumSelect").val(),
+            	 '<portlet:namespace/>curriculumSelected' :'curriculumSelected'
+            	 },
+             dataType: 'json',
+             on: {
+             	success: function() {
+					var subjects = this.get('responseData');
+					console.log(A.one("#<portlet:namespace/>curriculumSelect").val());
+	             	A.one('#<portlet:namespace />subjectSelect').empty();
+	
+					for(var i in subjects){
+						A.one('#<portlet:namespace />subjectSelect').append("<option value='" + subjects[i].subjectId + "' >" + subjects[i].subjectList + "</option> "); 
+					}
+					
+					A.one('#<portlet:namespace/>subjectSelect').simulate("change");
+				},
+				failure: function() {
+					A.one('#<portlet:namespace />subjectSelect').empty();
+				}
+   			}
+		});
 	});
 });
-
-function updateSubjectIds() {
-	var selectedCurriculumId = A.one("#<portlet:namespace />curriculumId").val();
-	if (selectedCurriculumId > 0) {
-		Liferay.Service(
-			'/unideb_syllabus_manager.subject/get-subjects-by-curriculum-id',
-			{
-				curriculumId: selectedCurriculumId
-			},
-			function(obj) {
-				A.one("#<portlet:namespace />subjectId").val("");
-				document.getElementById('<portlet:namespace/>subjectId').options.length = obj.length;
-				for(var i = 0; i < obj.length; i++){
-					var subject = obj[i];
-					
-					document.getElementById('<portlet:namespace/>subjectId').options[i]= new Option(subject.subjectCode + " - " + subject.subjectName, subject.subjectId);
-					document.getElementById('<portlet:namespace/>subjectId').options[i].selected = subject.subjectId == "${subjectId}" ? true : false;
-				}
-			}
-		);
-	}
-	
-	AUI().ready("node", "node-event-simulate", function(A) {
-		var changedNode = A.one('#<portlet:namespace/>subjectId');
-		changedNode.simulate("change");
-	});
-}
 </aui:script>

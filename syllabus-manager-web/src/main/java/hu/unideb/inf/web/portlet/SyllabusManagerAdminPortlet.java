@@ -165,7 +165,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Course.class.getName(), request);
 
 		long courseId = ParamUtil.getLong(request, "courseId");
-		long subjectId = ParamUtil.getLong(request, "subjectId");
+		long subjectId = ParamUtil.getLong(request, "subjectSelect");
 		int hoursPerSemester = ParamUtil.getInteger(request, "hoursPerSemester");
 		int hoursPerWeek = ParamUtil.getInteger(request, "hoursPerWeek");
 		long courseTypeId = ParamUtil.getLong(request, "courseTypeId");
