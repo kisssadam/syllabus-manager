@@ -32,6 +32,6 @@
 			<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
 		</portlet:actionURL>
 
-		<liferay-ui:icon-delete url="<%=deleteURL.toString()%>" />
+		<liferay-ui:icon image="delete" url="<%=deleteURL.toString()%>" />
 	</c:if>
 </liferay-ui:icon-menu>
