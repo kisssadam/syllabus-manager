@@ -8,6 +8,7 @@
 	<import class="hu.unideb.inf.model.Lecturer" />
 	<import class="hu.unideb.inf.model.Semester" />
 	<import class="hu.unideb.inf.model.Subject" />
+	<import class="hu.unideb.inf.model.Syllabus" />
 	<import class="hu.unideb.inf.model.TimetableCourse" />
 	<class name="hu.unideb.inf.model.impl.CourseImpl" table="unideb_syllabus_manager_Course">
 		<id name="courseId" type="long">
@@ -90,6 +91,24 @@
 		<property name="subjectName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="credit" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="curriculumId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="hu.unideb.inf.model.impl.SyllabusImpl" table="unideb_syllabus_manager_Syllabus">
+		<id name="syllabusId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="timetableCourseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="semesterId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="competence" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="ethicalStandards" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="topics" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="educationalMaterials" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="recommendedLiterature" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="hu.unideb.inf.model.impl.TimetableCourseImpl" table="unideb_syllabus_manager_TimetableCourse">
 		<id name="timetableCourseId" type="long">

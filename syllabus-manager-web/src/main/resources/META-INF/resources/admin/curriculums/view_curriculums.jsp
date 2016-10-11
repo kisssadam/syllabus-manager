@@ -12,7 +12,7 @@
 <liferay-ui:success key="curriculumDeleted" message="curriculum-has-been-successfully-deleted" />
 <liferay-ui:success key="curriculumsDeleted" message="curriculums-have-been-successfully-deleted" />
 
-<c:set var="showCurriculumsLink" value="<%= true %>" scope="request"/>
+<c:set var="home" value="curriculums" scope="request" />
 
 <jsp:include page="/admin/navigation_bar.jsp" />
 

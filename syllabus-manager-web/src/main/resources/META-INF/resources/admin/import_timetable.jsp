@@ -4,7 +4,8 @@
 request.setAttribute("semesters", SemesterLocalServiceUtil.getSemesters());
 %>
 
-<c:set var="showImportTimetableLink" value="<%= true %>" scope="request"/>
+<c:set var="home" value="import" scope="request"/>
+<c:set var="importType" value="timetable" scope="request"/>
 
 <jsp:include page="/admin/navigation_bar.jsp" />
 

@@ -19,6 +19,9 @@
 	<bean class="hu.unideb.inf.service.impl.SubjectLocalServiceImpl" id="hu.unideb.inf.service.SubjectLocalService" />
 	<bean class="hu.unideb.inf.service.impl.SubjectServiceImpl" id="hu.unideb.inf.service.SubjectService" />
 	<bean class="hu.unideb.inf.service.persistence.impl.SubjectPersistenceImpl" id="hu.unideb.inf.service.persistence.SubjectPersistence" parent="basePersistence" />
+	<bean class="hu.unideb.inf.service.impl.SyllabusLocalServiceImpl" id="hu.unideb.inf.service.SyllabusLocalService" />
+	<bean class="hu.unideb.inf.service.impl.SyllabusServiceImpl" id="hu.unideb.inf.service.SyllabusService" />
+	<bean class="hu.unideb.inf.service.persistence.impl.SyllabusPersistenceImpl" id="hu.unideb.inf.service.persistence.SyllabusPersistence" parent="basePersistence" />
 	<bean class="hu.unideb.inf.service.impl.TimetableCourseLocalServiceImpl" id="hu.unideb.inf.service.TimetableCourseLocalService" />
 	<bean class="hu.unideb.inf.service.impl.TimetableCourseServiceImpl" id="hu.unideb.inf.service.TimetableCourseService" />
 	<bean class="hu.unideb.inf.service.persistence.impl.TimetableCoursePersistenceImpl" id="hu.unideb.inf.service.persistence.TimetableCoursePersistence" parent="basePersistence" />

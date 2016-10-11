@@ -25,6 +25,6 @@ public class TimetableCoursePermission {
 
 		return permissionChecker.hasPermission(timetableCourse.getGroupId(), TimetableCourse.class.getName(),
 				timetableCourse.getTimetableCourseId(), actionId);
-
 	}
+
 }

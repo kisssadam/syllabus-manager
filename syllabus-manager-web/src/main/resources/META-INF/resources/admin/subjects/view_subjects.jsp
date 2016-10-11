@@ -21,8 +21,8 @@
 <liferay-ui:success key="subjectDeleted" message="subject-has-been-successfully-deleted" />
 <liferay-ui:success key="subjectsDeleted" message="subjects-have-been-successfully-deleted" />
 
-<c:set var="showCurriculumsLink" value="<%= true %>" scope="request"/>
-<c:set var="curriculumId" value="<%= curriculum.getCurriculumId() %>" scope="request"/>
+<c:set var="home" value="curriculums" scope="request" />
+<c:set var="curriculumId" value="<%=curriculumId%>" scope="request" />
 
 <jsp:include page="/admin/navigation_bar.jsp" />
 

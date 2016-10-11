@@ -24,6 +24,7 @@
 <%@ page import="com.liferay.portal.kernel.util.HtmlUtil"%>
 <%@ page import="com.liferay.portal.kernel.util.GetterUtil"%>
 <%@ page import="com.liferay.portal.kernel.util.StringPool"%>
+<%@ page import="com.liferay.portal.kernel.util.StringUtil"%>
 <%@ page import="com.liferay.portal.kernel.util.Validator"%>
 <%@ page import="com.liferay.portal.kernel.util.Constants"%>
 
@@ -35,30 +36,14 @@
 
 <%@ page import="javax.portlet.PortletURL"%>
 
-<%@ page import="hu.unideb.inf.service.CurriculumLocalServiceUtil"%>
-<%@ page import="hu.unideb.inf.service.SubjectLocalServiceUtil"%>
-<%@ page import="hu.unideb.inf.service.CourseLocalServiceUtil"%>
-<%@ page import="hu.unideb.inf.service.CourseTypeLocalServiceUtil"%>
-<%@ page import="hu.unideb.inf.service.SemesterLocalServiceUtil"%>
-<%@ page import="hu.unideb.inf.service.TimetableCourseLocalServiceUtil"%>
-<%@ page import="hu.unideb.inf.service.LecturerLocalServiceUtil"%>
-<%@ page import="com.liferay.portal.kernel.service.UserLocalServiceUtil"%>
-
-<%@ page import="hu.unideb.inf.model.Curriculum"%>
-<%@ page import="hu.unideb.inf.model.Subject"%>
-<%@ page import="hu.unideb.inf.model.Course"%>
-<%@ page import="hu.unideb.inf.model.CourseType"%>
-<%@ page import="hu.unideb.inf.model.Semester"%>
-<%@ page import="hu.unideb.inf.model.TimetableCourse"%>
-<%@ page import="hu.unideb.inf.model.Lecturer"%>
+<%@ page import="hu.unideb.inf.exception.*"%>
+<%@ page import="hu.unideb.inf.model.*"%>
+<%@ page import="hu.unideb.inf.service.*"%>
+<%@ page import="hu.unideb.inf.service.permission.*"%>
 
 <%@ page import="hu.unideb.inf.web.util.WebKeys"%>
 <%@ page import="hu.unideb.inf.util.SyllabusActionKeys"%>
 <%@ page import="hu.unideb.inf.service.util.SemesterHelper"%>
-
-<%@ page import="hu.unideb.inf.service.permission.*"%>
-
-<%@ page import="hu.unideb.inf.exception.*"%>
 
 <liferay-theme:defineObjects />
 

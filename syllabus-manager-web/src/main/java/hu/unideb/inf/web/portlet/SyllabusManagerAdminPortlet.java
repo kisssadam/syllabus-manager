@@ -55,16 +55,25 @@ import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 import hu.unideb.inf.web.util.SyllabusCSVParser;
 import hu.unideb.inf.web.util.TimetableCSVParser;
 
-@Component(immediate = true, property = { "com.liferay.portlet.add-default-resource=true",
-		"com.liferay.portlet.display-category=category.hidden", "com.liferay.portlet.layout-cacheable=true",
-		"com.liferay.portlet.private-request-attributes=false", "com.liferay.portlet.private-session-attributes=false",
-		"com.liferay.portlet.render-weight=50", "com.liferay.portlet.use-default-template=true",
-		"javax.portlet.display-name=Syllabus Manager PanelApp Portlet", "javax.portlet.expiration-cache=0",
-		"javax.portlet.init-param.template-path=/admin/", "javax.portlet.init-param.view-template=/admin/view.jsp",
+@Component(immediate = true, property = { 
+		"com.liferay.portlet.add-default-resource=true",
+		"com.liferay.portlet.display-category=category.hidden",
+		"com.liferay.portlet.layout-cacheable=true",
+		"com.liferay.portlet.private-request-attributes=false",
+		"com.liferay.portlet.private-session-attributes=false",
+		"com.liferay.portlet.render-weight=50",
+		"com.liferay.portlet.use-default-template=true",
+		"javax.portlet.display-name=Syllabus Manager PanelApp Portlet",
+		"javax.portlet.expiration-cache=0",
+		"javax.portlet.init-param.template-path=/admin/",
+		"javax.portlet.init-param.view-template=/admin/view.jsp",
 		"javax.portlet.name=" + SyllabusManagerPortletKeys.SyllabusManagerAdmin,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=administrator,power-user,user",
-		"javax.portlet.supports.mime-type=text/html" }, service = Portlet.class)
+		"javax.portlet.supports.mime-type=text/html"
+	},
+	service = Portlet.class
+)
 public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 	private static final String VIEW_CURRICULUMS = "/admin/curriculums/view_curriculums.jsp";
@@ -79,7 +88,9 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 	private static final String VIEW_LECTURERS = "/admin/lecturers/view_lecturers.jsp";
 
-	private static final String VIEW_TIMETABLE_COURSES = "/admin/timetablecourses/view_timetable_courses.jsp";
+	private static final String VIEW_TIMETABLE_COURSES_BY_SEMESTER = "/admin/timetablecourses/view_timetable_courses_by_semester.jsp";
+	
+	private static final String VIEW_TIMETABLE_COURSES_BY_COURSE = "/admin/timetablecourses/view_timetable_courses_by_course.jsp";
 
 	private static final String EDIT_CURRICULUM = "/admin/curriculums/edit_curriculum.jsp";
 
@@ -384,7 +395,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "timetableCourseAdded");
 			}
 
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_SEMESTER);
 			response.setRenderParameter("semesterId", String.valueOf(semesterId));
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
@@ -622,7 +633,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_SEMESTER);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -905,7 +916,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_SEMESTER);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}

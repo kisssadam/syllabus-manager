@@ -213,14 +213,42 @@
 		<finder name="LecturerName" return-type="Lecturer" unique="true">
 			<finder-column name="lecturerName"></finder-column>
 		</finder>
+	</entity>
+    <entity name="Syllabus" local-service="true">
+    	<!-- PK fields -->
 
-
-		<!-- PK fields -->
+		<column name="syllabusId" type="long" primary="true"></column>
 
 		<!-- Group instance -->
 
+		<column name="groupId" type="long"></column>
+
 		<!-- Audit fields -->
-	</entity>
+
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+		<column name="timetableCourseId" type="long"></column>
+		<column name="semesterId" type="long"></column>
+        <column name="competence" type="String"></column>
+        <column name="ethicalStandards" type="String"></column>
+        <column name="topics" type="String"></column>
+        <column name="educationalMaterials" type="String"></column>
+        <column name="recommendedLiterature" type="String"></column>
+		
+		<finder name="T_S" return-type="Syllabus" unique="true">
+			<finder-column name="timetableCourseId"></finder-column>
+			<finder-column name="semesterId"></finder-column>
+		</finder>
+		<finder name="TimetableCourseId" return-type="Collection">
+			<finder-column name="timetableCourseId"></finder-column>
+		</finder>
+		<finder name="SemesterId" return-type="Collection">
+			<finder-column name="semesterId"></finder-column>
+		</finder>
+    </entity>
 	<exceptions>
 		<exception>CurriculumCode</exception>
 		<exception>CurriculumName</exception>

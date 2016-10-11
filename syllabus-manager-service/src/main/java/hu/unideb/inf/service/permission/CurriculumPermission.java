@@ -25,6 +25,6 @@ public class CurriculumPermission {
 
 		return permissionChecker.hasPermission(curriculum.getGroupId(), Curriculum.class.getName(),
 				curriculum.getCurriculumId(), actionId);
-
 	}
+
 }

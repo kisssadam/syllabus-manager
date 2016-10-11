@@ -49,6 +49,7 @@ import hu.unideb.inf.service.persistence.CurriculumPersistence;
 import hu.unideb.inf.service.persistence.LecturerPersistence;
 import hu.unideb.inf.service.persistence.SemesterPersistence;
 import hu.unideb.inf.service.persistence.SubjectPersistence;
+import hu.unideb.inf.service.persistence.SyllabusPersistence;
 import hu.unideb.inf.service.persistence.TimetableCoursePersistence;
 
 import java.io.Serializable;
@@ -685,6 +686,43 @@ public abstract class TimetableCourseLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the syllabus local service.
+	 *
+	 * @return the syllabus local service
+	 */
+	public hu.unideb.inf.service.SyllabusLocalService getSyllabusLocalService() {
+		return syllabusLocalService;
+	}
+
+	/**
+	 * Sets the syllabus local service.
+	 *
+	 * @param syllabusLocalService the syllabus local service
+	 */
+	public void setSyllabusLocalService(
+		hu.unideb.inf.service.SyllabusLocalService syllabusLocalService) {
+		this.syllabusLocalService = syllabusLocalService;
+	}
+
+	/**
+	 * Returns the syllabus persistence.
+	 *
+	 * @return the syllabus persistence
+	 */
+	public SyllabusPersistence getSyllabusPersistence() {
+		return syllabusPersistence;
+	}
+
+	/**
+	 * Sets the syllabus persistence.
+	 *
+	 * @param syllabusPersistence the syllabus persistence
+	 */
+	public void setSyllabusPersistence(SyllabusPersistence syllabusPersistence) {
+		this.syllabusPersistence = syllabusPersistence;
+	}
+
+	/**
 	 * Returns the timetable course local service.
 	 *
 	 * @return the timetable course local service
@@ -911,6 +949,10 @@ public abstract class TimetableCourseLocalServiceBaseImpl
 	protected hu.unideb.inf.service.SubjectLocalService subjectLocalService;
 	@BeanReference(type = SubjectPersistence.class)
 	protected SubjectPersistence subjectPersistence;
+	@BeanReference(type = hu.unideb.inf.service.SyllabusLocalService.class)
+	protected hu.unideb.inf.service.SyllabusLocalService syllabusLocalService;
+	@BeanReference(type = SyllabusPersistence.class)
+	protected SyllabusPersistence syllabusPersistence;
 	@BeanReference(type = TimetableCourseLocalService.class)
 	protected TimetableCourseLocalService timetableCourseLocalService;
 	@BeanReference(type = TimetableCoursePersistence.class)

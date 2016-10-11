@@ -25,6 +25,6 @@ public class SemesterPermission {
 
 		return permissionChecker.hasPermission(semester.getGroupId(), Semester.class.getName(),
 				semester.getSemesterId(), actionId);
-
 	}
+
 }

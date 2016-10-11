@@ -26,4 +26,5 @@ public class LecturerPermission {
 		return permissionChecker.hasPermission(lecturer.getGroupId(), Lecturer.class.getName(),
 				lecturer.getLecturerId(), actionId);
 	}
+
 }

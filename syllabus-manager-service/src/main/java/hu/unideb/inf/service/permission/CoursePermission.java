@@ -25,6 +25,6 @@ public class CoursePermission {
 
 		return permissionChecker.hasPermission(course.getGroupId(), Course.class.getName(), course.getCourseId(),
 				actionId);
-
 	}
+
 }

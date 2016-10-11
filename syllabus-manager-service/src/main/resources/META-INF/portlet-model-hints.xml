@@ -71,6 +71,22 @@
 		<field name="credit" type="int" />
 		<field name="curriculumId" type="long" />
 	</model>
+	<model name="hu.unideb.inf.model.Syllabus">
+		<field name="syllabusId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="timetableCourseId" type="long" />
+		<field name="semesterId" type="long" />
+		<field name="competence" type="String" />
+		<field name="ethicalStandards" type="String" />
+		<field name="topics" type="String" />
+		<field name="educationalMaterials" type="String" />
+		<field name="recommendedLiterature" type="String" />
+	</model>
 	<model name="hu.unideb.inf.model.TimetableCourse">
 		<field name="timetableCourseId" type="long" />
 		<field name="groupId" type="long" />

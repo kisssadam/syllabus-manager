@@ -25,6 +25,6 @@ public class SubjectPermission {
 
 		return permissionChecker.hasPermission(subject.getGroupId(), Subject.class.getName(), subject.getSubjectId(),
 				actionId);
-
 	}
+
 }

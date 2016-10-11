@@ -12,7 +12,7 @@
 <liferay-ui:success key="lecturerDeleted" message="lecturer-has-been-successfully-deleted" />
 <liferay-ui:success key="lecturersDeleted" message="lecturers-have-been-successfully-deleted" />
 
-<c:set var="showLecturersLink" value="<%= true %>" scope="request"/>
+<c:set var="home" value="lecturers" scope="request" />
 
 <jsp:include page="/admin/navigation_bar.jsp" />
 

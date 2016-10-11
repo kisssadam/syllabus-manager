@@ -1,6 +1,7 @@
 <%@include file="/init.jsp"%>
 
-<c:set var="showImportSyllabusLink" value="<%= true %>" scope="request"/>
+<c:set var="home" value="import" scope="request"/>
+<c:set var="importType" value="syllabus" scope="request"/>
 
 <jsp:include page="/admin/navigation_bar.jsp" />
 

@@ -2,11 +2,13 @@
 
 <%
 	long subjectId = ParamUtil.getLong(renderRequest, "subjectId");
+	long curriculumId = ParamUtil.getLong(renderRequest, "curriculumId");
 
 	Subject subject = null;
 	
 	if (subjectId > 0) {
 		subject = SubjectLocalServiceUtil.getSubject(subjectId);
+		curriculumId = subject.getCurriculumId();
 	}
 	
 	PortletURL iteratorURL = renderResponse.createRenderURL();
@@ -21,9 +23,9 @@
 <liferay-ui:success key="courseDeleted" message="course-has-been-successfully-deleted" />
 <liferay-ui:success key="coursesDeleted" message="courses-have-been-successfully-deleted" />
 
-<c:set var="showCurriculumsLink" value="<%= true %>" scope="request"/>
-<c:set var="curriculumId" value="<%= subject.getCurriculumId() %>" scope="request"/>
-<c:set var="subjectId" value="<%= subject.getSubjectId() %>" scope="request"/>
+<c:set var="home" value="curriculums" scope="request" />
+<c:set var="curriculumId" value="<%=curriculumId%>" scope="request" />
+<c:set var="subjectId" value="<%=subjectId%>" scope="request" />
 
 <jsp:include page="/admin/navigation_bar.jsp" />
 

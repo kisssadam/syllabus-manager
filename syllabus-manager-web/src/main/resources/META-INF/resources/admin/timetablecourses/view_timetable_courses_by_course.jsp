@@ -29,10 +29,10 @@
 <liferay-ui:success key="timetableCourseDeleted" message="timetable-course-has-been-successfully-deleted" />
 <liferay-ui:success key="timetableCoursesDeleted" message="timetable-courses-have-been-successfully-deleted" />
 
-<c:set var="showCourseTypesLink" value="<%= true %>" scope="request"/>
-<c:set var="curriculumId" value="<%=curriculumId%>" scope="request"/>
-<c:set var="subjectId" value="<%=subjectId%>" scope="request"/>
-<c:set var="courseId" value="<%=courseId%>" scope="request"/>
+<c:set var="home" value="curriculums" scope="request" />
+<c:set var="curriculumId" value="<%=curriculumId%>" scope="request" />
+<c:set var="subjectId" value="<%=subjectId%>" scope="request" />
+<c:set var="courseId" value="<%=courseId%>" scope="request" />
 
 <jsp:include page="/admin/navigation_bar.jsp" />
 
@@ -86,7 +86,7 @@
 				<liferay-ui:search-container-column-text name="class-schedule-info" property="classScheduleInfo" />
 				<liferay-ui:search-container-column-text name="description" property="description" />
 				
-				<liferay-ui:search-container-column-jsp path="/admin/timetablecourses/timetable_course_actions.jsp" align="right" />
+				<liferay-ui:search-container-column-jsp path="/admin/timetablecourses/timetable_course_actions_by_course.jsp" align="right" />
 			</c:if>
 		</liferay-ui:search-container-row>
 		

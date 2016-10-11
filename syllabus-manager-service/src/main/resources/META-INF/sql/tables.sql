@@ -81,6 +81,23 @@ create table unideb_syllabus_manager_Subject (
 	curriculumId LONG
 );
 
+create table unideb_syllabus_manager_Syllabus (
+	syllabusId LONG not null primary key,
+	groupId LONG,
+	companyId LONG,
+	userId LONG,
+	userName VARCHAR(75) null,
+	createDate DATE null,
+	modifiedDate DATE null,
+	timetableCourseId LONG,
+	semesterId LONG,
+	competence VARCHAR(75) null,
+	ethicalStandards VARCHAR(75) null,
+	topics VARCHAR(75) null,
+	educationalMaterials VARCHAR(75) null,
+	recommendedLiterature VARCHAR(75) null
+);
+
 create table unideb_syllabus_manager_TimetableCourse (
 	timetableCourseId LONG not null primary key,
 	groupId LONG,

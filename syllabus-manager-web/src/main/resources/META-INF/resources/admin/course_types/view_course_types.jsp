@@ -14,6 +14,8 @@
 
 <c:set var="showCourseTypesLink" value="<%= true %>" scope="request"/>
 
+<c:set var="home" value="course_types" scope="request" />
+
 <jsp:include page="/admin/navigation_bar.jsp" />
 
 <jsp:include page="/admin/breadcrumb.jsp" />
