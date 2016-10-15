@@ -77,15 +77,7 @@
 	<aui:fieldset>
 		<aui:select label="curriculum" name="curriculumSelect" required="true">
 			<c:forEach items="${curriculums}" var="curriculum">
-				<c:choose>
-					<c:when test="${curriculumId eq curriculum.curriculumId}">
-						<c:set var="isCurriculumSelected" value="true" />
-					</c:when>
-					<c:otherwise>
-						<c:set var="isCurriculumSelected" value="false" />
-					</c:otherwise>
-				</c:choose>
-				<aui:option selected="${isCurriculumSelected}" value="${curriculum.curriculumId}">
+				<aui:option selected="${curriculumId eq curriculum.curriculumId}" value="${curriculum.curriculumId}">
 					<c:out value="${curriculum.curriculumCode} - ${curriculum.curriculumName}" />
 				</aui:option>
 			</c:forEach>
@@ -93,15 +85,7 @@
 
 		<aui:select label="subject" name="subjectSelect" required="true">
 			<c:forEach items="${subjects}" var="subject">
-				<c:choose>
-					<c:when test="${subjectId eq subject.subjectId}">
-						<c:set var="isSubjectSelected" value="true" />
-					</c:when>
-					<c:otherwise>
-						<c:set var="isSubjectSelected" value="false" />
-					</c:otherwise>
-				</c:choose>
-				<aui:option selected="${isSubjectSelected}" value="${subject.subjectId}">
+				<aui:option selected="${subjectId eq subject.subjectId}" value="${subject.subjectId}">
 					<c:out value="${subject.subjectCode} - ${subject.subjectName}" />
 				</aui:option>
 			</c:forEach>

@@ -27,6 +27,8 @@
 	if (courseId > 0) {
 		Course course = CourseLocalServiceUtil.getCourse(courseId);
 		subjectId = course.getSubjectId();
+		
+		timetableCourses = TimetableCourseLocalServiceUtil.getTimetableCoursesByCourseId(courseId);
 	}
 
 	if (subjectId > 0) {
