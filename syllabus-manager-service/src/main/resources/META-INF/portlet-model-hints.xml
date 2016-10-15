@@ -80,7 +80,6 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="timetableCourseId" type="long" />
-		<field name="semesterId" type="long" />
 		<field name="competence" type="String" />
 		<field name="ethicalStandards" type="String" />
 		<field name="topics" type="String" />

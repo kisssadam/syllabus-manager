@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
-import hu.unideb.inf.exception.NoSuchSyllabusException;
 import hu.unideb.inf.model.Syllabus;
 
 import java.io.Serializable;
@@ -120,9 +119,6 @@ public interface SyllabusLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Syllabus fetchSyllabus(long syllabusId);
 
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Syllabus fetchSyllabusByT_S(long timetableCourseId, long semesterId);
-
 	/**
 	* Returns the syllabus with the primary key.
 	*
@@ -132,10 +128,6 @@ public interface SyllabusLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Syllabus getSyllabus(long syllabusId) throws PortalException;
-
-	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Syllabus getSyllabusByT_S(long timetableCourseId, long semesterId)
-		throws NoSuchSyllabusException;
 
 	/**
 	* Updates the syllabus in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

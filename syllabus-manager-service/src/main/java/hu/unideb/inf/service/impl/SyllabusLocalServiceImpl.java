@@ -19,7 +19,6 @@ import java.util.List;
 import com.liferay.portal.kernel.exception.SystemException;
 
 import aQute.bnd.annotation.ProviderType;
-import hu.unideb.inf.exception.NoSuchSyllabusException;
 import hu.unideb.inf.model.Syllabus;
 import hu.unideb.inf.service.base.SyllabusLocalServiceBaseImpl;
 
@@ -47,14 +46,5 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 	public List<Syllabus> getSyllabuses() throws SystemException {
 		return syllabusPersistence.findAll();
 	}
-	
-	public Syllabus getSyllabusByT_S(long timetableCourseId, long semesterId) throws NoSuchSyllabusException {
-		return syllabusPersistence.findByT_S(timetableCourseId, semesterId);
-	}
-	
-	public Syllabus fetchSyllabusByT_S(long timetableCourseId, long semesterId) {
-		return syllabusPersistence.fetchByT_S(timetableCourseId, semesterId);
-	}
-	
 	
 }

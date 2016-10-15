@@ -116,11 +116,6 @@ public class SyllabusLocalServiceUtil {
 		return getService().fetchSyllabus(syllabusId);
 	}
 
-	public static hu.unideb.inf.model.Syllabus fetchSyllabusByT_S(
-		long timetableCourseId, long semesterId) {
-		return getService().fetchSyllabusByT_S(timetableCourseId, semesterId);
-	}
-
 	/**
 	* Returns the syllabus with the primary key.
 	*
@@ -131,12 +126,6 @@ public class SyllabusLocalServiceUtil {
 	public static hu.unideb.inf.model.Syllabus getSyllabus(long syllabusId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return getService().getSyllabus(syllabusId);
-	}
-
-	public static hu.unideb.inf.model.Syllabus getSyllabusByT_S(
-		long timetableCourseId, long semesterId)
-		throws hu.unideb.inf.exception.NoSuchSyllabusException {
-		return getService().getSyllabusByT_S(timetableCourseId, semesterId);
 	}
 
 	/**

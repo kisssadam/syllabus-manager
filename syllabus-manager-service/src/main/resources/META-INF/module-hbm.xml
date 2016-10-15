@@ -103,7 +103,6 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="timetableCourseId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
-		<property name="semesterId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="competence" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="ethicalStandards" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="topics" type="com.liferay.portal.dao.orm.hibernate.StringType" />

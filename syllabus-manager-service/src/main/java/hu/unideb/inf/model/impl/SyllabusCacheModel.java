@@ -65,7 +65,7 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{syllabusId=");
 		sb.append(syllabusId);
@@ -83,8 +83,6 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 		sb.append(modifiedDate);
 		sb.append(", timetableCourseId=");
 		sb.append(timetableCourseId);
-		sb.append(", semesterId=");
-		sb.append(semesterId);
 		sb.append(", competence=");
 		sb.append(competence);
 		sb.append(", ethicalStandards=");
@@ -131,7 +129,6 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 		}
 
 		syllabusImpl.setTimetableCourseId(timetableCourseId);
-		syllabusImpl.setSemesterId(semesterId);
 
 		if (competence == null) {
 			syllabusImpl.setCompetence(StringPool.BLANK);
@@ -187,8 +184,6 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 		modifiedDate = objectInput.readLong();
 
 		timetableCourseId = objectInput.readLong();
-
-		semesterId = objectInput.readLong();
 		competence = objectInput.readUTF();
 		ethicalStandards = objectInput.readUTF();
 		topics = objectInput.readUTF();
@@ -218,8 +213,6 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 		objectOutput.writeLong(modifiedDate);
 
 		objectOutput.writeLong(timetableCourseId);
-
-		objectOutput.writeLong(semesterId);
 
 		if (competence == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -265,7 +258,6 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 	public long createDate;
 	public long modifiedDate;
 	public long timetableCourseId;
-	public long semesterId;
 	public String competence;
 	public String ethicalStandards;
 	public String topics;

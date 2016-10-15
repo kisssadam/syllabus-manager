@@ -78,7 +78,6 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "timetableCourseId", Types.BIGINT },
-			{ "semesterId", Types.BIGINT },
 			{ "competence", Types.VARCHAR },
 			{ "ethicalStandards", Types.VARCHAR },
 			{ "topics", Types.VARCHAR },
@@ -96,7 +95,6 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		TABLE_COLUMNS_MAP.put("createDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("modifiedDate", Types.TIMESTAMP);
 		TABLE_COLUMNS_MAP.put("timetableCourseId", Types.BIGINT);
-		TABLE_COLUMNS_MAP.put("semesterId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("competence", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("ethicalStandards", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("topics", Types.VARCHAR);
@@ -104,7 +102,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		TABLE_COLUMNS_MAP.put("recommendedLiterature", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Syllabus (syllabusId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,timetableCourseId LONG,semesterId LONG,competence VARCHAR(75) null,ethicalStandards VARCHAR(75) null,topics VARCHAR(75) null,educationalMaterials VARCHAR(75) null,recommendedLiterature VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Syllabus (syllabusId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,timetableCourseId LONG,competence VARCHAR(75) null,ethicalStandards VARCHAR(75) null,topics VARCHAR(75) null,educationalMaterials VARCHAR(75) null,recommendedLiterature VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table unideb_syllabus_manager_Syllabus";
 	public static final String ORDER_BY_JPQL = " ORDER BY syllabus.syllabusId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY unideb_syllabus_manager_Syllabus.syllabusId ASC";
@@ -120,9 +118,8 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(hu.unideb.inf.service.util.PropsUtil.get(
 				"value.object.column.bitmask.enabled.hu.unideb.inf.model.Syllabus"),
 			true);
-	public static final long SEMESTERID_COLUMN_BITMASK = 1L;
-	public static final long TIMETABLECOURSEID_COLUMN_BITMASK = 2L;
-	public static final long SYLLABUSID_COLUMN_BITMASK = 4L;
+	public static final long TIMETABLECOURSEID_COLUMN_BITMASK = 1L;
+	public static final long SYLLABUSID_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -145,7 +142,6 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		model.setCreateDate(soapModel.getCreateDate());
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setTimetableCourseId(soapModel.getTimetableCourseId());
-		model.setSemesterId(soapModel.getSemesterId());
 		model.setCompetence(soapModel.getCompetence());
 		model.setEthicalStandards(soapModel.getEthicalStandards());
 		model.setTopics(soapModel.getTopics());
@@ -223,7 +219,6 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("timetableCourseId", getTimetableCourseId());
-		attributes.put("semesterId", getSemesterId());
 		attributes.put("competence", getCompetence());
 		attributes.put("ethicalStandards", getEthicalStandards());
 		attributes.put("topics", getTopics());
@@ -284,12 +279,6 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 		if (timetableCourseId != null) {
 			setTimetableCourseId(timetableCourseId);
-		}
-
-		Long semesterId = (Long)attributes.get("semesterId");
-
-		if (semesterId != null) {
-			setSemesterId(semesterId);
 		}
 
 		String competence = (String)attributes.get("competence");
@@ -454,29 +443,6 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 	@JSON
 	@Override
-	public long getSemesterId() {
-		return _semesterId;
-	}
-
-	@Override
-	public void setSemesterId(long semesterId) {
-		_columnBitmask |= SEMESTERID_COLUMN_BITMASK;
-
-		if (!_setOriginalSemesterId) {
-			_setOriginalSemesterId = true;
-
-			_originalSemesterId = _semesterId;
-		}
-
-		_semesterId = semesterId;
-	}
-
-	public long getOriginalSemesterId() {
-		return _originalSemesterId;
-	}
-
-	@JSON
-	@Override
 	public String getCompetence() {
 		if (_competence == null) {
 			return StringPool.BLANK;
@@ -594,7 +560,6 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		syllabusImpl.setCreateDate(getCreateDate());
 		syllabusImpl.setModifiedDate(getModifiedDate());
 		syllabusImpl.setTimetableCourseId(getTimetableCourseId());
-		syllabusImpl.setSemesterId(getSemesterId());
 		syllabusImpl.setCompetence(getCompetence());
 		syllabusImpl.setEthicalStandards(getEthicalStandards());
 		syllabusImpl.setTopics(getTopics());
@@ -668,10 +633,6 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 		syllabusModelImpl._setOriginalTimetableCourseId = false;
 
-		syllabusModelImpl._originalSemesterId = syllabusModelImpl._semesterId;
-
-		syllabusModelImpl._setOriginalSemesterId = false;
-
 		syllabusModelImpl._columnBitmask = 0;
 	}
 
@@ -714,8 +675,6 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		}
 
 		syllabusCacheModel.timetableCourseId = getTimetableCourseId();
-
-		syllabusCacheModel.semesterId = getSemesterId();
 
 		syllabusCacheModel.competence = getCompetence();
 
@@ -764,7 +723,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{syllabusId=");
 		sb.append(getSyllabusId());
@@ -782,8 +741,6 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		sb.append(getModifiedDate());
 		sb.append(", timetableCourseId=");
 		sb.append(getTimetableCourseId());
-		sb.append(", semesterId=");
-		sb.append(getSemesterId());
 		sb.append(", competence=");
 		sb.append(getCompetence());
 		sb.append(", ethicalStandards=");
@@ -801,7 +758,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(46);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("<model><model-name>");
 		sb.append("hu.unideb.inf.model.Syllabus");
@@ -838,10 +795,6 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		sb.append(
 			"<column><column-name>timetableCourseId</column-name><column-value><![CDATA[");
 		sb.append(getTimetableCourseId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>semesterId</column-name><column-value><![CDATA[");
-		sb.append(getSemesterId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>competence</column-name><column-value><![CDATA[");
@@ -884,9 +837,6 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 	private long _timetableCourseId;
 	private long _originalTimetableCourseId;
 	private boolean _setOriginalTimetableCourseId;
-	private long _semesterId;
-	private long _originalSemesterId;
-	private boolean _setOriginalSemesterId;
 	private String _competence;
 	private String _ethicalStandards;
 	private String _topics;

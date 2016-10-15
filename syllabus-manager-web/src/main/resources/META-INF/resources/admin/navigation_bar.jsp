@@ -111,11 +111,11 @@
 					<portlet:param name="curriculumId" value="${curriculumId}" />
 					<portlet:param name="subjectId" value="${subjectId}" />
 					<portlet:param name="courseId" value="${courseId}" />
-					<portlet:param name="semesterId" value="${semesterId}" />
 					<portlet:param name="timetableCourseId" value="${timetableCourseId}" />
 				</portlet:renderURL>
             	
-            	<aui:nav-item state="disabled" href="<%= addSyllabusURL.toString() %>" label="syllabus" />
+<%--             	<aui:nav-item state="disabled" href="<%= addSyllabusURL.toString() %>" label="syllabus" /> --%>
+            	<aui:nav-item href="<%= addSyllabusURL.toString() %>" label="syllabus" />
            	</c:if>
         </aui:nav-item>
         

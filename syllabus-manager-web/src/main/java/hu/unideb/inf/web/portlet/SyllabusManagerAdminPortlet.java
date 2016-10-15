@@ -36,6 +36,7 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.util.Validator;
 
 import hu.unideb.inf.model.Course;
 import hu.unideb.inf.model.CourseType;
@@ -969,10 +970,14 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 		long subjectId = ParamUtil.getLong(resourceRequest, "subjectSelect");
 		String subjectSelected = ParamUtil.getString(resourceRequest, "subjectSelected");
+		
+		long courseId = ParamUtil.getLong(resourceRequest, "courseSelect");
+		String courseSelected = ParamUtil.getString(resourceRequest, "courseSelected");
 
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("curriculumId: %d, curriculumSelected: '%s'", curriculumId, curriculumSelected));
 			log.debug(String.format("subjectId: %d, subjectSelected: '%s'", subjectId, subjectSelected));
+			log.debug(String.format("courseId: %d, courseSelected: '%s'", courseId, courseSelected));
 		}
 
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
@@ -1008,6 +1013,29 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 					jsonObject.put("courseList", HtmlUtil.escapeAttribute(course.toString()));
 					jsonObject.put("courseId", course.getCourseId());
 
+					jsonArray.put(jsonObject);
+				}
+			} catch (SystemException e) {
+				if (log.isErrorEnabled()) {
+					log.error(e);
+				}
+			}
+		}
+		
+		if (courseSelected.equalsIgnoreCase("courseSelected")) {
+			log.trace("Course selected, serving timetableCourses.");
+			try {
+				List<TimetableCourse> timetableCourses = TimetableCourseLocalServiceUtil.getTimetableCoursesByCourseId(courseId);
+				if (log.isTraceEnabled()) {
+					log.trace("timetableCourses: " + timetableCourses);
+				}
+				
+				for (TimetableCourse timetableCourse : timetableCourses) {
+					JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+					
+					jsonObject.put("timetableCourseList", HtmlUtil.escapeAttribute(timetableCourse.toString()));
+					jsonObject.put("timetableCourseId", timetableCourse.getTimetableCourseId());
+					
 					jsonArray.put(jsonObject);
 				}
 			} catch (SystemException e) {

@@ -231,22 +231,13 @@
 		<column name="createDate" type="Date"></column>
 		<column name="modifiedDate" type="Date"></column>
 		<column name="timetableCourseId" type="long"></column>
-		<column name="semesterId" type="long"></column>
         <column name="competence" type="String"></column>
         <column name="ethicalStandards" type="String"></column>
         <column name="topics" type="String"></column>
         <column name="educationalMaterials" type="String"></column>
         <column name="recommendedLiterature" type="String"></column>
-		
-		<finder name="T_S" return-type="Syllabus" unique="true">
-			<finder-column name="timetableCourseId"></finder-column>
-			<finder-column name="semesterId"></finder-column>
-		</finder>
 		<finder name="TimetableCourseId" return-type="Collection">
 			<finder-column name="timetableCourseId"></finder-column>
-		</finder>
-		<finder name="SemesterId" return-type="Collection">
-			<finder-column name="semesterId"></finder-column>
 		</finder>
     </entity>
 	<exceptions>
@@ -275,5 +266,6 @@
 		<exception>TimetableCourseLecturerName</exception>
 		<exception>DuplicateTimetableCourse</exception>
 		<exception>TimetableCourseCode</exception>
+        <exception>DuplicateSyllabus</exception>
 	</exceptions>
 </service-builder>

@@ -207,20 +207,6 @@ public interface SyllabusModel extends BaseModel<Syllabus>, GroupedModel,
 	public void setTimetableCourseId(long timetableCourseId);
 
 	/**
-	 * Returns the semester ID of this syllabus.
-	 *
-	 * @return the semester ID of this syllabus
-	 */
-	public long getSemesterId();
-
-	/**
-	 * Sets the semester ID of this syllabus.
-	 *
-	 * @param semesterId the semester ID of this syllabus
-	 */
-	public void setSemesterId(long semesterId);
-
-	/**
 	 * Returns the competence of this syllabus.
 	 *
 	 * @return the competence of this syllabus

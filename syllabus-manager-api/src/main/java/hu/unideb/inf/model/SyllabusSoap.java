@@ -42,7 +42,6 @@ public class SyllabusSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setTimetableCourseId(model.getTimetableCourseId());
-		soapModel.setSemesterId(model.getSemesterId());
 		soapModel.setCompetence(model.getCompetence());
 		soapModel.setEthicalStandards(model.getEthicalStandards());
 		soapModel.setTopics(model.getTopics());
@@ -164,14 +163,6 @@ public class SyllabusSoap implements Serializable {
 		_timetableCourseId = timetableCourseId;
 	}
 
-	public long getSemesterId() {
-		return _semesterId;
-	}
-
-	public void setSemesterId(long semesterId) {
-		_semesterId = semesterId;
-	}
-
 	public String getCompetence() {
 		return _competence;
 	}
@@ -220,7 +211,6 @@ public class SyllabusSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _timetableCourseId;
-	private long _semesterId;
 	private String _competence;
 	private String _ethicalStandards;
 	private String _topics;

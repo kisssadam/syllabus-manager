@@ -65,7 +65,6 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("timetableCourseId", getTimetableCourseId());
-		attributes.put("semesterId", getSemesterId());
 		attributes.put("competence", getCompetence());
 		attributes.put("ethicalStandards", getEthicalStandards());
 		attributes.put("topics", getTopics());
@@ -123,12 +122,6 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 
 		if (timetableCourseId != null) {
 			setTimetableCourseId(timetableCourseId);
-		}
-
-		Long semesterId = (Long)attributes.get("semesterId");
-
-		if (semesterId != null) {
-			setSemesterId(semesterId);
 		}
 
 		String competence = (String)attributes.get("competence");
@@ -350,16 +343,6 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 	}
 
 	/**
-	* Returns the semester ID of this syllabus.
-	*
-	* @return the semester ID of this syllabus
-	*/
-	@Override
-	public long getSemesterId() {
-		return _syllabus.getSemesterId();
-	}
-
-	/**
 	* Returns the syllabus ID of this syllabus.
 	*
 	* @return the syllabus ID of this syllabus
@@ -513,16 +496,6 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 	@Override
 	public void setRecommendedLiterature(java.lang.String recommendedLiterature) {
 		_syllabus.setRecommendedLiterature(recommendedLiterature);
-	}
-
-	/**
-	* Sets the semester ID of this syllabus.
-	*
-	* @param semesterId the semester ID of this syllabus
-	*/
-	@Override
-	public void setSemesterId(long semesterId) {
-		_syllabus.setSemesterId(semesterId);
 	}
 
 	/**

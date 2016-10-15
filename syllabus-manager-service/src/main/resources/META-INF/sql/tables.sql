@@ -90,7 +90,6 @@ create table unideb_syllabus_manager_Syllabus (
 	createDate DATE null,
 	modifiedDate DATE null,
 	timetableCourseId LONG,
-	semesterId LONG,
 	competence VARCHAR(75) null,
 	ethicalStandards VARCHAR(75) null,
 	topics VARCHAR(75) null,

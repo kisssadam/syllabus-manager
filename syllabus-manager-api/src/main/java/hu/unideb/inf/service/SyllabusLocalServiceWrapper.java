@@ -118,13 +118,6 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 		return _syllabusLocalService.fetchSyllabus(syllabusId);
 	}
 
-	@Override
-	public hu.unideb.inf.model.Syllabus fetchSyllabusByT_S(
-		long timetableCourseId, long semesterId) {
-		return _syllabusLocalService.fetchSyllabusByT_S(timetableCourseId,
-			semesterId);
-	}
-
 	/**
 	* Returns the syllabus with the primary key.
 	*
@@ -136,14 +129,6 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 	public hu.unideb.inf.model.Syllabus getSyllabus(long syllabusId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _syllabusLocalService.getSyllabus(syllabusId);
-	}
-
-	@Override
-	public hu.unideb.inf.model.Syllabus getSyllabusByT_S(
-		long timetableCourseId, long semesterId)
-		throws hu.unideb.inf.exception.NoSuchSyllabusException {
-		return _syllabusLocalService.getSyllabusByT_S(timetableCourseId,
-			semesterId);
 	}
 
 	/**
