@@ -77,6 +77,19 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 		return _syllabusLocalService.addSyllabus(syllabus);
 	}
 
+	@Override
+	public hu.unideb.inf.model.Syllabus addSyllabus(long timetableCourseId,
+		java.lang.String competence, java.lang.String ethicalStandards,
+		java.lang.String topics, java.lang.String educationalMaterials,
+		java.lang.String recommendedLiterature, java.lang.String weeklyTasks,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _syllabusLocalService.addSyllabus(timetableCourseId, competence,
+			ethicalStandards, topics, educationalMaterials,
+			recommendedLiterature, weeklyTasks, serviceContext);
+	}
+
 	/**
 	* Creates a new syllabus with the primary key. Does not add the syllabus to the database.
 	*
@@ -114,6 +127,14 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 	}
 
 	@Override
+	public hu.unideb.inf.model.Syllabus deleteSyllabus(long syllabusId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _syllabusLocalService.deleteSyllabus(syllabusId, serviceContext);
+	}
+
+	@Override
 	public hu.unideb.inf.model.Syllabus fetchSyllabus(long syllabusId) {
 		return _syllabusLocalService.fetchSyllabus(syllabusId);
 	}
@@ -141,6 +162,21 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 	public hu.unideb.inf.model.Syllabus updateSyllabus(
 		hu.unideb.inf.model.Syllabus syllabus) {
 		return _syllabusLocalService.updateSyllabus(syllabus);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Syllabus updateSyllabus(long userId,
+		long syllabusId, long timetableCourseId, java.lang.String competence,
+		java.lang.String ethicalStandards, java.lang.String topics,
+		java.lang.String educationalMaterials,
+		java.lang.String recommendedLiterature, java.lang.String weeklyTasks,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _syllabusLocalService.updateSyllabus(userId, syllabusId,
+			timetableCourseId, competence, ethicalStandards, topics,
+			educationalMaterials, recommendedLiterature, weeklyTasks,
+			serviceContext);
 	}
 
 	/**

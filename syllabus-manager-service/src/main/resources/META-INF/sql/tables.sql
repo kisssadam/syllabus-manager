@@ -94,7 +94,8 @@ create table unideb_syllabus_manager_Syllabus (
 	ethicalStandards VARCHAR(75) null,
 	topics VARCHAR(75) null,
 	educationalMaterials VARCHAR(75) null,
-	recommendedLiterature VARCHAR(75) null
+	recommendedLiterature VARCHAR(75) null,
+	weeklyTasks VARCHAR(75) null
 );
 
 create table unideb_syllabus_manager_TimetableCourse (

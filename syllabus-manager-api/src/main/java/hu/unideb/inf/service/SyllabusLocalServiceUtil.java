@@ -79,6 +79,20 @@ public class SyllabusLocalServiceUtil {
 		return getService().addSyllabus(syllabus);
 	}
 
+	public static hu.unideb.inf.model.Syllabus addSyllabus(
+		long timetableCourseId, java.lang.String competence,
+		java.lang.String ethicalStandards, java.lang.String topics,
+		java.lang.String educationalMaterials,
+		java.lang.String recommendedLiterature, java.lang.String weeklyTasks,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addSyllabus(timetableCourseId, competence,
+			ethicalStandards, topics, educationalMaterials,
+			recommendedLiterature, weeklyTasks, serviceContext);
+	}
+
 	/**
 	* Creates a new syllabus with the primary key. Does not add the syllabus to the database.
 	*
@@ -112,6 +126,13 @@ public class SyllabusLocalServiceUtil {
 		return getService().deleteSyllabus(syllabusId);
 	}
 
+	public static hu.unideb.inf.model.Syllabus deleteSyllabus(long syllabusId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteSyllabus(syllabusId, serviceContext);
+	}
+
 	public static hu.unideb.inf.model.Syllabus fetchSyllabus(long syllabusId) {
 		return getService().fetchSyllabus(syllabusId);
 	}
@@ -137,6 +158,20 @@ public class SyllabusLocalServiceUtil {
 	public static hu.unideb.inf.model.Syllabus updateSyllabus(
 		hu.unideb.inf.model.Syllabus syllabus) {
 		return getService().updateSyllabus(syllabus);
+	}
+
+	public static hu.unideb.inf.model.Syllabus updateSyllabus(long userId,
+		long syllabusId, long timetableCourseId, java.lang.String competence,
+		java.lang.String ethicalStandards, java.lang.String topics,
+		java.lang.String educationalMaterials,
+		java.lang.String recommendedLiterature, java.lang.String weeklyTasks,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateSyllabus(userId, syllabusId, timetableCourseId,
+			competence, ethicalStandards, topics, educationalMaterials,
+			recommendedLiterature, weeklyTasks, serviceContext);
 	}
 
 	/**

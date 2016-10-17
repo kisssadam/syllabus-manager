@@ -82,7 +82,8 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 			{ "ethicalStandards", Types.VARCHAR },
 			{ "topics", Types.VARCHAR },
 			{ "educationalMaterials", Types.VARCHAR },
-			{ "recommendedLiterature", Types.VARCHAR }
+			{ "recommendedLiterature", Types.VARCHAR },
+			{ "weeklyTasks", Types.VARCHAR }
 		};
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
@@ -100,9 +101,10 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		TABLE_COLUMNS_MAP.put("topics", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("educationalMaterials", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("recommendedLiterature", Types.VARCHAR);
+		TABLE_COLUMNS_MAP.put("weeklyTasks", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Syllabus (syllabusId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,timetableCourseId LONG,competence VARCHAR(75) null,ethicalStandards VARCHAR(75) null,topics VARCHAR(75) null,educationalMaterials VARCHAR(75) null,recommendedLiterature VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Syllabus (syllabusId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,timetableCourseId LONG,competence VARCHAR(75) null,ethicalStandards VARCHAR(75) null,topics VARCHAR(75) null,educationalMaterials VARCHAR(75) null,recommendedLiterature VARCHAR(75) null,weeklyTasks VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table unideb_syllabus_manager_Syllabus";
 	public static final String ORDER_BY_JPQL = " ORDER BY syllabus.syllabusId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY unideb_syllabus_manager_Syllabus.syllabusId ASC";
@@ -147,6 +149,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		model.setTopics(soapModel.getTopics());
 		model.setEducationalMaterials(soapModel.getEducationalMaterials());
 		model.setRecommendedLiterature(soapModel.getRecommendedLiterature());
+		model.setWeeklyTasks(soapModel.getWeeklyTasks());
 
 		return model;
 	}
@@ -224,6 +227,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		attributes.put("topics", getTopics());
 		attributes.put("educationalMaterials", getEducationalMaterials());
 		attributes.put("recommendedLiterature", getRecommendedLiterature());
+		attributes.put("weeklyTasks", getWeeklyTasks());
 
 		attributes.put("entityCacheEnabled", isEntityCacheEnabled());
 		attributes.put("finderCacheEnabled", isFinderCacheEnabled());
@@ -311,6 +315,12 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 		if (recommendedLiterature != null) {
 			setRecommendedLiterature(recommendedLiterature);
+		}
+
+		String weeklyTasks = (String)attributes.get("weeklyTasks");
+
+		if (weeklyTasks != null) {
+			setWeeklyTasks(weeklyTasks);
 		}
 	}
 
@@ -521,6 +531,22 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		_recommendedLiterature = recommendedLiterature;
 	}
 
+	@JSON
+	@Override
+	public String getWeeklyTasks() {
+		if (_weeklyTasks == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _weeklyTasks;
+		}
+	}
+
+	@Override
+	public void setWeeklyTasks(String weeklyTasks) {
+		_weeklyTasks = weeklyTasks;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -565,6 +591,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		syllabusImpl.setTopics(getTopics());
 		syllabusImpl.setEducationalMaterials(getEducationalMaterials());
 		syllabusImpl.setRecommendedLiterature(getRecommendedLiterature());
+		syllabusImpl.setWeeklyTasks(getWeeklyTasks());
 
 		syllabusImpl.resetOriginalValues();
 
@@ -718,12 +745,20 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 			syllabusCacheModel.recommendedLiterature = null;
 		}
 
+		syllabusCacheModel.weeklyTasks = getWeeklyTasks();
+
+		String weeklyTasks = syllabusCacheModel.weeklyTasks;
+
+		if ((weeklyTasks != null) && (weeklyTasks.length() == 0)) {
+			syllabusCacheModel.weeklyTasks = null;
+		}
+
 		return syllabusCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{syllabusId=");
 		sb.append(getSyllabusId());
@@ -751,6 +786,8 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		sb.append(getEducationalMaterials());
 		sb.append(", recommendedLiterature=");
 		sb.append(getRecommendedLiterature());
+		sb.append(", weeklyTasks=");
+		sb.append(getWeeklyTasks());
 		sb.append("}");
 
 		return sb.toString();
@@ -758,7 +795,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(43);
+		StringBundler sb = new StringBundler(46);
 
 		sb.append("<model><model-name>");
 		sb.append("hu.unideb.inf.model.Syllabus");
@@ -816,6 +853,10 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 			"<column><column-name>recommendedLiterature</column-name><column-value><![CDATA[");
 		sb.append(getRecommendedLiterature());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>weeklyTasks</column-name><column-value><![CDATA[");
+		sb.append(getWeeklyTasks());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -842,6 +883,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 	private String _topics;
 	private String _educationalMaterials;
 	private String _recommendedLiterature;
+	private String _weeklyTasks;
 	private long _columnBitmask;
 	private Syllabus _escapedModel;
 }

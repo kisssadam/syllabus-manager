@@ -281,6 +281,21 @@ public interface SyllabusModel extends BaseModel<Syllabus>, GroupedModel,
 	 */
 	public void setRecommendedLiterature(String recommendedLiterature);
 
+	/**
+	 * Returns the weekly tasks of this syllabus.
+	 *
+	 * @return the weekly tasks of this syllabus
+	 */
+	@AutoEscape
+	public String getWeeklyTasks();
+
+	/**
+	 * Sets the weekly tasks of this syllabus.
+	 *
+	 * @param weeklyTasks the weekly tasks of this syllabus
+	 */
+	public void setWeeklyTasks(String weeklyTasks);
+
 	@Override
 	public boolean isNew();
 

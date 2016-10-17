@@ -85,6 +85,7 @@
 		<field name="topics" type="String" />
 		<field name="educationalMaterials" type="String" />
 		<field name="recommendedLiterature" type="String" />
+		<field name="weeklyTasks" type="String" />
 	</model>
 	<model name="hu.unideb.inf.model.TimetableCourse">
 		<field name="timetableCourseId" type="long" />

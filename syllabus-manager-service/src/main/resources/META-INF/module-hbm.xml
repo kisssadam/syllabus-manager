@@ -108,6 +108,7 @@
 		<property name="topics" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="educationalMaterials" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="recommendedLiterature" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="weeklyTasks" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="hu.unideb.inf.model.impl.TimetableCourseImpl" table="unideb_syllabus_manager_TimetableCourse">
 		<id name="timetableCourseId" type="long">

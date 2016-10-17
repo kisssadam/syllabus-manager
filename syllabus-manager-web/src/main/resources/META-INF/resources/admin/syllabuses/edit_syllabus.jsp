@@ -141,25 +141,27 @@
 			</c:forEach>
 		</aui:select>
 
-		<aui:input name="competence" type="text">
+		<aui:input name="competence" type="textarea">
 			<aui:validator name="required" />
 		</aui:input>
 
-		<aui:input name="ethicalStandards" type="text">
+		<aui:input name="ethicalStandards" type="textarea">
 			<aui:validator name="required" />
 		</aui:input>
 		
-		<aui:input name="topics" type="text">
+		<aui:input name="topics" type="textarea">
 			<aui:validator name="required" />
 		</aui:input>
 		
-		<aui:input name="educationalMaterials" type="text">
+		<aui:input name="educationalMaterials" type="textarea">
 			<aui:validator name="required" />
 		</aui:input>
 		
-		<aui:input name="recommendedLiterature" type="text">
+		<aui:input name="recommendedLiterature" type="textarea">
 			<aui:validator name="required" />
 		</aui:input>
+		
+		<liferay-ui:input-editor name="weeklyTasks" toolbarSet="liferay-article" initMethod="initEditor" />
 	</aui:fieldset>
 
 	<aui:button-row>
@@ -169,6 +171,18 @@
 </aui:form>
 
 <portlet:resourceURL var="resourceURL"></portlet:resourceURL>
+
+<script>
+function initEditor() {
+	var contentValue;
+	var contentValue="";
+
+	/* var contentLocale=document.getElementById("contentText").value;
+	Above statement will set the contentValue to the value of HTML input variable named 'contentText'.
+	Useful in scenario where data comes from database/java class from server. */
+	return  contentValue;
+}
+</script>
 
 <aui:script>
 AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', function(A) {

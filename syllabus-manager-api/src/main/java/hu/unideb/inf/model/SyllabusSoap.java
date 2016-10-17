@@ -47,6 +47,7 @@ public class SyllabusSoap implements Serializable {
 		soapModel.setTopics(model.getTopics());
 		soapModel.setEducationalMaterials(model.getEducationalMaterials());
 		soapModel.setRecommendedLiterature(model.getRecommendedLiterature());
+		soapModel.setWeeklyTasks(model.getWeeklyTasks());
 
 		return soapModel;
 	}
@@ -203,6 +204,14 @@ public class SyllabusSoap implements Serializable {
 		_recommendedLiterature = recommendedLiterature;
 	}
 
+	public String getWeeklyTasks() {
+		return _weeklyTasks;
+	}
+
+	public void setWeeklyTasks(String weeklyTasks) {
+		_weeklyTasks = weeklyTasks;
+	}
+
 	private long _syllabusId;
 	private long _groupId;
 	private long _companyId;
@@ -216,4 +225,5 @@ public class SyllabusSoap implements Serializable {
 	private String _topics;
 	private String _educationalMaterials;
 	private String _recommendedLiterature;
+	private String _weeklyTasks;
 }

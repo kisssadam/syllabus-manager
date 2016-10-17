@@ -14,22 +14,32 @@
 
 package hu.unideb.inf.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.ResourceConstants;
+import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.service.ServiceContext;
 
 import aQute.bnd.annotation.ProviderType;
 import hu.unideb.inf.model.Syllabus;
+import hu.unideb.inf.service.SyllabusLocalServiceUtil;
 import hu.unideb.inf.service.base.SyllabusLocalServiceBaseImpl;
 
 /**
  * The implementation of the syllabus local service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link hu.unideb.inf.service.SyllabusLocalService} interface.
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the
+ * {@link hu.unideb.inf.service.SyllabusLocalService} interface.
  *
  * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+ * This is a local service. Methods of this service will not have security
+ * checks based on the propagated JAAS credentials because this service can only
+ * be accessed from within the same VM.
  * </p>
  *
  * @author Adam Kiss
@@ -41,10 +51,100 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. Always use {@link hu.unideb.inf.service.SyllabusLocalServiceUtil} to access the syllabus local service.
+	 * Never reference this class directly. Always use {@link
+	 * hu.unideb.inf.service.SyllabusLocalServiceUtil} to access the syllabus
+	 * local service.
 	 */
 	public List<Syllabus> getSyllabuses() throws SystemException {
 		return syllabusPersistence.findAll();
 	}
-	
+
+	public Syllabus addSyllabus(long timetableCourseId, String competence, String ethicalStandards, String topics,
+			String educationalMaterials, String recommendedLiterature, String weeklyTasks,
+			ServiceContext serviceContext) throws PortalException, SystemException {
+		Date now = new Date();
+
+		long syllabusId = counterLocalService.increment();
+		long groupId = serviceContext.getScopeGroupId();
+		long companyId = serviceContext.getCompanyId();
+		long userId = serviceContext.getUserId();
+		User user = userPersistence.findByPrimaryKey(userId);
+		String userName = user.getFullName();
+
+		validate(syllabusId, timetableCourseId, competence, ethicalStandards, topics, educationalMaterials,
+				recommendedLiterature, weeklyTasks);
+
+		Syllabus syllabus = syllabusPersistence.create(syllabusId);
+
+		syllabus.setGroupId(groupId);
+		syllabus.setCompanyId(companyId);
+		syllabus.setUserId(userId);
+		syllabus.setUserName(userName);
+		syllabus.setCreateDate(serviceContext.getCreateDate(now));
+		syllabus.setModifiedDate(serviceContext.getModifiedDate(now));
+		syllabus.setSyllabusId(syllabusId);
+		syllabus.setTimetableCourseId(timetableCourseId);
+		syllabus.setCompetence(competence);
+		syllabus.setEthicalStandards(ethicalStandards);
+		syllabus.setTopics(topics);
+		syllabus.setEducationalMaterials(educationalMaterials);
+		syllabus.setRecommendedLiterature(recommendedLiterature);
+		syllabus.setWeeklyTasks(weeklyTasks);
+
+		syllabusPersistence.update(syllabus);
+
+		resourceLocalService.addResources(user.getCompanyId(), groupId, userId, Syllabus.class.getName(), syllabusId,
+				false, true, true);
+
+		return syllabus;
+	}
+
+	public Syllabus updateSyllabus(long userId, long syllabusId, long timetableCourseId, String competence,
+			String ethicalStandards, String topics, String educationalMaterials, String recommendedLiterature,
+			String weeklyTasks, ServiceContext serviceContext) throws PortalException, SystemException {
+		long groupId = serviceContext.getScopeGroupId();
+
+		User user = userPersistence.findByPrimaryKey(userId);
+
+		Date now = new Date();
+
+		validate(syllabusId, timetableCourseId, competence, ethicalStandards, topics, educationalMaterials,
+				recommendedLiterature, weeklyTasks);
+
+		Syllabus syllabus = SyllabusLocalServiceUtil.getSyllabus(syllabusId);
+
+		syllabus.setUserId(userId);
+		syllabus.setUserName(user.getFullName());
+		syllabus.setModifiedDate(serviceContext.getModifiedDate(now));
+		syllabus.setTimetableCourseId(timetableCourseId);
+		syllabus.setCompetence(competence);
+		syllabus.setEthicalStandards(ethicalStandards);
+		syllabus.setTopics(topics);
+		syllabus.setEducationalMaterials(educationalMaterials);
+		syllabus.setRecommendedLiterature(recommendedLiterature);
+		syllabus.setWeeklyTasks(weeklyTasks);
+
+		syllabusPersistence.update(syllabus);
+
+		resourceLocalService.updateResources(user.getCompanyId(), groupId, Syllabus.class.getName(), syllabusId,
+				serviceContext.getGroupPermissions(), serviceContext.getGuestPermissions());
+
+		return syllabus;
+	}
+
+	public Syllabus deleteSyllabus(long syllabusId, ServiceContext serviceContext)
+			throws PortalException, SystemException {
+		Syllabus syllabus = SyllabusLocalServiceUtil.getSyllabus(syllabusId);
+
+		resourceLocalService.deleteResource(syllabus.getCompanyId(), syllabus.getClass().getName(),
+				ResourceConstants.SCOPE_INDIVIDUAL, syllabusId);
+
+		return deleteSyllabus(syllabus);
+	}
+
+	private void validate(long syllabusId, long timetableCourseId, String competence, String ethicalStandards,
+			String topics, String educationalMaterials, String recommendedLiterature, String weeklyTasks) {
+		// TODO Auto-generated method stub
+	}
+
 }

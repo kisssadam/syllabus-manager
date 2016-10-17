@@ -236,6 +236,7 @@
         <column name="topics" type="String"></column>
         <column name="educationalMaterials" type="String"></column>
         <column name="recommendedLiterature" type="String"></column>
+        <column name="weeklyTasks" type="String"></column>
 		<finder name="TimetableCourseId" return-type="Collection">
 			<finder-column name="timetableCourseId"></finder-column>
 		</finder>

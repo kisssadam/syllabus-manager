@@ -65,7 +65,7 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(27);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{syllabusId=");
 		sb.append(syllabusId);
@@ -93,6 +93,8 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 		sb.append(educationalMaterials);
 		sb.append(", recommendedLiterature=");
 		sb.append(recommendedLiterature);
+		sb.append(", weeklyTasks=");
+		sb.append(weeklyTasks);
 		sb.append("}");
 
 		return sb.toString();
@@ -165,6 +167,13 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 			syllabusImpl.setRecommendedLiterature(recommendedLiterature);
 		}
 
+		if (weeklyTasks == null) {
+			syllabusImpl.setWeeklyTasks(StringPool.BLANK);
+		}
+		else {
+			syllabusImpl.setWeeklyTasks(weeklyTasks);
+		}
+
 		syllabusImpl.resetOriginalValues();
 
 		return syllabusImpl;
@@ -189,6 +198,7 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 		topics = objectInput.readUTF();
 		educationalMaterials = objectInput.readUTF();
 		recommendedLiterature = objectInput.readUTF();
+		weeklyTasks = objectInput.readUTF();
 	}
 
 	@Override
@@ -248,6 +258,13 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 		else {
 			objectOutput.writeUTF(recommendedLiterature);
 		}
+
+		if (weeklyTasks == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(weeklyTasks);
+		}
 	}
 
 	public long syllabusId;
@@ -263,4 +280,5 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 	public String topics;
 	public String educationalMaterials;
 	public String recommendedLiterature;
+	public String weeklyTasks;
 }

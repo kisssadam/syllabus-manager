@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.search.Indexable;
 import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.BaseLocalService;
 import com.liferay.portal.kernel.service.PersistedModelLocalService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
@@ -89,6 +90,12 @@ public interface SyllabusLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.REINDEX)
 	public Syllabus addSyllabus(Syllabus syllabus);
 
+	public Syllabus addSyllabus(long timetableCourseId,
+		java.lang.String competence, java.lang.String ethicalStandards,
+		java.lang.String topics, java.lang.String educationalMaterials,
+		java.lang.String recommendedLiterature, java.lang.String weeklyTasks,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
 	/**
 	* Creates a new syllabus with the primary key. Does not add the syllabus to the database.
 	*
@@ -116,6 +123,9 @@ public interface SyllabusLocalService extends BaseLocalService,
 	@Indexable(type = IndexableType.DELETE)
 	public Syllabus deleteSyllabus(long syllabusId) throws PortalException;
 
+	public Syllabus deleteSyllabus(long syllabusId,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Syllabus fetchSyllabus(long syllabusId);
 
@@ -137,6 +147,13 @@ public interface SyllabusLocalService extends BaseLocalService,
 	*/
 	@Indexable(type = IndexableType.REINDEX)
 	public Syllabus updateSyllabus(Syllabus syllabus);
+
+	public Syllabus updateSyllabus(long userId, long syllabusId,
+		long timetableCourseId, java.lang.String competence,
+		java.lang.String ethicalStandards, java.lang.String topics,
+		java.lang.String educationalMaterials,
+		java.lang.String recommendedLiterature, java.lang.String weeklyTasks,
+		ServiceContext serviceContext) throws PortalException, SystemException;
 
 	/**
 	* Returns the number of syllabuses.

@@ -36,7 +36,6 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.Validator;
 
 import hu.unideb.inf.model.Course;
 import hu.unideb.inf.model.CourseType;
@@ -44,6 +43,7 @@ import hu.unideb.inf.model.Curriculum;
 import hu.unideb.inf.model.Lecturer;
 import hu.unideb.inf.model.Semester;
 import hu.unideb.inf.model.Subject;
+import hu.unideb.inf.model.Syllabus;
 import hu.unideb.inf.model.TimetableCourse;
 import hu.unideb.inf.service.CourseLocalServiceUtil;
 import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
@@ -51,6 +51,7 @@ import hu.unideb.inf.service.CurriculumLocalServiceUtil;
 import hu.unideb.inf.service.LecturerLocalServiceUtil;
 import hu.unideb.inf.service.SemesterLocalServiceUtil;
 import hu.unideb.inf.service.SubjectLocalServiceUtil;
+import hu.unideb.inf.service.SyllabusLocalServiceUtil;
 import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 import hu.unideb.inf.web.util.SyllabusCSVParser;
@@ -91,7 +92,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 	private static final String VIEW_TIMETABLE_COURSES_BY_SEMESTER = "/admin/timetablecourses/view_timetable_courses_by_semester.jsp";
 	
-	private static final String VIEW_TIMETABLE_COURSES_BY_COURSE = "/admin/timetablecourses/view_timetable_courses_by_course.jsp";
+	private static final String VIEW_SYLLABUSES_BY_TIMETABLE_COURSE = "/admin/syllabuses/view_syllabuses_by_timetable_course.jsp";
 
 	private static final String EDIT_CURRICULUM = "/admin/curriculums/edit_curriculum.jsp";
 
@@ -106,6 +107,8 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	private static final String EDIT_LECTURER = "/admin/lecturers/edit_lecturer.jsp";
 
 	private static final String EDIT_TIMETABLE_COURSE = "/admin/timetablecourses/edit_timetable_course.jsp";
+	
+	private static final String EDIT_SYLLABUS = "/admin/syllabuses/edit_syllabus.jsp";
 
 	private final static String fileInputName = "fileupload";
 
@@ -409,6 +412,57 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	public void addSyllabus(ActionRequest request, ActionResponse response)
+			throws PortalException, SystemException {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Syllabus.class.getName(), request);
+		
+		long syllabusId = ParamUtil.getLong(request, "syllabusId");
+		long timetableCourseId = ParamUtil.getLong(request, "timetableCourseId");
+		String competence = ParamUtil.getString(request, "competence");
+		String ethicalStandards = ParamUtil.getString(request, "ethicalStandards");
+		String topics = ParamUtil.getString(request, "topics");
+		String educationalMaterials = ParamUtil.getString(request, "educationalMaterials");
+		String recommendedLiterature = ParamUtil.getString(request, "recommendedLiterature");
+		String weeklyTasks = ParamUtil.getString(request, "weeklyTasks");
+		
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("syllabusId: %d, timetableCourseId: %d, competence: '%s', ethicalStandards: '%s', topics: '%s', educationalMaterials: '%s', recommendedLiterature: '%s', weeklyTasks: '%s'",
+					syllabusId, timetableCourseId, competence, ethicalStandards, topics, educationalMaterials, recommendedLiterature, weeklyTasks));
+		}
+		
+		try {
+			if (syllabusId > 0) {
+				if (log.isTraceEnabled()) {
+					log.trace(String.format("Updating syllabus, id: %d", syllabusId));
+				}
+				SyllabusLocalServiceUtil.updateSyllabus(serviceContext.getUserId(), syllabusId, timetableCourseId,
+						competence, ethicalStandards, topics, educationalMaterials,
+						recommendedLiterature, weeklyTasks, serviceContext);
+				
+				SessionMessages.add(request, "syllabusUpdated");
+			} else {
+				if (log.isTraceEnabled()) {
+					log.trace(String.format("Adding syllabus, id: %d", syllabusId));
+				}
+				SyllabusLocalServiceUtil.addSyllabus(timetableCourseId, competence, ethicalStandards, topics,
+						educationalMaterials, recommendedLiterature, weeklyTasks, serviceContext);
+				
+				SessionMessages.add(request, "syllabusAdded");
+			}
+			
+			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES_BY_TIMETABLE_COURSE);
+			response.setRenderParameter("timetableCourseId", String.valueOf(timetableCourseId));
+		} catch (Exception e) {
+			if (log.isErrorEnabled()) {
+				log.error(e);
+			}
+			SessionErrors.add(request, e.getClass().getName());
+
+			PortalUtil.copyRequestParameters(request, response);
+			response.setRenderParameter("mvcPath", EDIT_SYLLABUS);
+		}
+	}
+	
 	private long[] getLecturerIds(ActionRequest request) {
 		Set<Long> lecturerIds = new LinkedHashSet<>();
 

@@ -70,6 +70,7 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 		attributes.put("topics", getTopics());
 		attributes.put("educationalMaterials", getEducationalMaterials());
 		attributes.put("recommendedLiterature", getRecommendedLiterature());
+		attributes.put("weeklyTasks", getWeeklyTasks());
 
 		return attributes;
 	}
@@ -154,6 +155,12 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 
 		if (recommendedLiterature != null) {
 			setRecommendedLiterature(recommendedLiterature);
+		}
+
+		String weeklyTasks = (String)attributes.get("weeklyTasks");
+
+		if (weeklyTasks != null) {
+			setWeeklyTasks(weeklyTasks);
 		}
 	}
 
@@ -280,6 +287,16 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 	@Override
 	public java.lang.String getUserUuid() {
 		return _syllabus.getUserUuid();
+	}
+
+	/**
+	* Returns the weekly tasks of this syllabus.
+	*
+	* @return the weekly tasks of this syllabus
+	*/
+	@Override
+	public java.lang.String getWeeklyTasks() {
+		return _syllabus.getWeeklyTasks();
 	}
 
 	@Override
@@ -556,6 +573,16 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_syllabus.setUserUuid(userUuid);
+	}
+
+	/**
+	* Sets the weekly tasks of this syllabus.
+	*
+	* @param weeklyTasks the weekly tasks of this syllabus
+	*/
+	@Override
+	public void setWeeklyTasks(java.lang.String weeklyTasks) {
+		_syllabus.setWeeklyTasks(weeklyTasks);
 	}
 
 	@Override
