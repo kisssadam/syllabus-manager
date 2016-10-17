@@ -692,6 +692,38 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
+	
+	public void deleteSyllabus(ActionRequest request, ActionResponse response) {
+		long syllabusId = ParamUtil.getLong(request, "syllabusId");
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("syllabusId: %d, delta: %d", syllabusId, delta));
+		}
+
+		try {
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(Syllabus.class.getName(), request);
+
+			if (log.isTraceEnabled()) {
+				log.trace(String.format("Deleting syllabus, id: %d", syllabusId));
+			}
+
+			Syllabus syllabus = SyllabusLocalServiceUtil.deleteSyllabus(syllabusId, serviceContext);
+			SessionMessages.add(request, "syllabusDeleted");
+
+			response.setRenderParameter("timetableCourseId", String.valueOf(syllabus.getTimetableCourseId()));
+		} catch (Exception e) {
+			if (log.isErrorEnabled()) {
+				log.error(e);
+			}
+
+			SessionErrors.add(request, e.getClass().getName());
+			PortalUtil.copyRequestParameters(request, response);
+		} finally {
+			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES_BY_TIMETABLE_COURSE);
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
+		}
+	}
 
 	public void deleteCurriculums(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
@@ -972,6 +1004,49 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
 			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_SEMESTER);
+			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
+		}
+	}
+	
+	public void deleteSyllabuses(ActionRequest request, ActionResponse response) throws Exception {
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(Syllabus.class.getName(), request);
+		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("delta: %d", delta));
+		}
+
+		try {
+			String[] syllabusIds = ParamUtil.getParameterValues(request, "syllabusIds");
+			long timetableCourseId = 0L;
+			
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("syllabusIds: '%s'", Arrays.toString(syllabusIds)));
+			}
+
+			for (String syllabusIdString : syllabusIds) {
+				long syllabusId = Long.parseLong(syllabusIdString);
+
+				if (log.isTraceEnabled()) {
+					log.trace(String.format("Deleting syllabus, id: %d", syllabusId));
+				}
+
+				Syllabus syllabus = SyllabusLocalServiceUtil.deleteSyllabus(syllabusId, serviceContext);
+
+				timetableCourseId = syllabus.getTimetableCourseId();
+			}
+
+			SessionMessages.add(request, "syllabusesDeleted");
+			response.setRenderParameter("timetableCourseId", String.valueOf(timetableCourseId));
+		} catch (Exception e) {
+			if (log.isErrorEnabled()) {
+				log.error(e);
+			}
+
+			SessionErrors.add(request, e.getClass().getName());
+			PortalUtil.copyRequestParameters(request, response);
+		} finally {
+			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES_BY_TIMETABLE_COURSE);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
