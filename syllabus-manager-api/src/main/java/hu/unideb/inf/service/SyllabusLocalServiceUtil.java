@@ -183,6 +183,12 @@ public class SyllabusLocalServiceUtil {
 		return getService().getSyllabusesCount();
 	}
 
+	public static int getSyllabusesCountByTimetableCourseId(
+		long timetableCourseId) {
+		return getService()
+				   .getSyllabusesCountByTimetableCourseId(timetableCourseId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -261,6 +267,18 @@ public class SyllabusLocalServiceUtil {
 	public static java.util.List<hu.unideb.inf.model.Syllabus> getSyllabuses(
 		int start, int end) {
 		return getService().getSyllabuses(start, end);
+	}
+
+	public static java.util.List<hu.unideb.inf.model.Syllabus> getSyllabusesByTimetableCourseId(
+		long timetableCourseId) {
+		return getService().getSyllabusesByTimetableCourseId(timetableCourseId);
+	}
+
+	public static java.util.List<hu.unideb.inf.model.Syllabus> getSyllabusesByTimetableCourseId(
+		long timetableCourseId, int start, int end) {
+		return getService()
+				   .getSyllabusesByTimetableCourseId(timetableCourseId, start,
+			end);
 	}
 
 	/**

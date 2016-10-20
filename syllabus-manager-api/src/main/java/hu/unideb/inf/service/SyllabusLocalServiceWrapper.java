@@ -189,6 +189,11 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 		return _syllabusLocalService.getSyllabusesCount();
 	}
 
+	@Override
+	public int getSyllabusesCountByTimetableCourseId(long timetableCourseId) {
+		return _syllabusLocalService.getSyllabusesCountByTimetableCourseId(timetableCourseId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -273,6 +278,19 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 	public java.util.List<hu.unideb.inf.model.Syllabus> getSyllabuses(
 		int start, int end) {
 		return _syllabusLocalService.getSyllabuses(start, end);
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.Syllabus> getSyllabusesByTimetableCourseId(
+		long timetableCourseId) {
+		return _syllabusLocalService.getSyllabusesByTimetableCourseId(timetableCourseId);
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.Syllabus> getSyllabusesByTimetableCourseId(
+		long timetableCourseId, int start, int end) {
+		return _syllabusLocalService.getSyllabusesByTimetableCourseId(timetableCourseId,
+			start, end);
 	}
 
 	/**

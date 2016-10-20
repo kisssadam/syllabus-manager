@@ -2,6 +2,7 @@
 
 <%
 	String mvcPath = ParamUtil.getString(request, "mvcPath");
+	String home = ParamUtil.getString(request, "home");
 	ResultRow row = (ResultRow) request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 	Syllabus syllabus = (Syllabus) row.getObject();
 	long syllabusId = syllabus.getSyllabusId();
@@ -14,6 +15,7 @@
 		<portlet:renderURL var="editURL">
 			<portlet:param name="syllabusId" value="<%=String.valueOf(syllabusId)%>" />
 			<portlet:param name="mvcPath" value="/admin/syllabuses/edit_syllabus.jsp" />
+			<portlet:param name="home" value="<%=home%>" />
 		</portlet:renderURL>
 
 		<liferay-ui:icon image="edit" message="edit" url="<%=editURL.toString()%>" />

@@ -58,6 +58,18 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 	public List<Syllabus> getSyllabuses() throws SystemException {
 		return syllabusPersistence.findAll();
 	}
+	
+	public List<Syllabus> getSyllabusesByTimetableCourseId(long timetableCourseId) {
+		return syllabusPersistence.findByTimetableCourseId(timetableCourseId);
+	}
+	
+	public List<Syllabus> getSyllabusesByTimetableCourseId(long timetableCourseId, int start, int end) {
+		return syllabusPersistence.findByTimetableCourseId(timetableCourseId, start, end);
+	}
+	
+	public int getSyllabusesCountByTimetableCourseId(long timetableCourseId) {
+		return syllabusPersistence.countByTimetableCourseId(timetableCourseId);
+	}
 
 	public Syllabus addSyllabus(long timetableCourseId, String competence, String ethicalStandards, String topics,
 			String educationalMaterials, String recommendedLiterature, String weeklyTasks,

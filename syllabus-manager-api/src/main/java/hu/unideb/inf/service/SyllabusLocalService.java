@@ -163,6 +163,9 @@ public interface SyllabusLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getSyllabusesCount();
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getSyllabusesCountByTimetableCourseId(long timetableCourseId);
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -225,6 +228,14 @@ public interface SyllabusLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Syllabus> getSyllabuses(int start, int end);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Syllabus> getSyllabusesByTimetableCourseId(
+		long timetableCourseId);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Syllabus> getSyllabusesByTimetableCourseId(
+		long timetableCourseId, int start, int end);
 
 	/**
 	* Returns the number of rows matching the dynamic query.

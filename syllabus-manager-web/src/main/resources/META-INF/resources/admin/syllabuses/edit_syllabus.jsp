@@ -1,6 +1,8 @@
 <%@include file="/init.jsp"%>
 
 <%
+	String home = ParamUtil.getString(renderRequest, "home");
+
 	long syllabusId = ParamUtil.getLong(renderRequest, "syllabusId");
 	long timetableCourseId = ParamUtil.getLong(renderRequest, "timetableCourseId");
 	long courseId = ParamUtil.getLong(renderRequest, "courseId");
@@ -97,7 +99,15 @@
 </c:choose>
 
 <portlet:renderURL var="viewURL">
-	
+	<c:choose>
+		<c:when test="<%=StringUtil.equalsIgnoreCase(home, "curriculums")%>">
+			<portlet:param name="mvcPath" value="/admin/syllabuses/view_syllabuses_by_timetable_course.jsp" />
+		</c:when>
+		<c:when test="<%=StringUtil.equalsIgnoreCase(home, "semesters")%>">
+			<portlet:param name="mvcPath" value="/admin/syllabuses/view_syllabuses_by_semester.jsp" />
+		</c:when>
+	</c:choose>
+	<portlet:param name="timetableCourseId" value="<%=timetableCourseId%>" />
 </portlet:renderURL>
 
 <portlet:actionURL name="addSyllabus" var="addSyllabusURL" />

@@ -56,3 +56,71 @@
 <jsp:include page="/admin/navigation_bar.jsp" />
 
 <jsp:include page="/admin/breadcrumb.jsp" />
+
+<aui:form method="post" name="fmSyllabus">
+	<liferay-ui:search-container
+		delta="<%=delta%>"
+		emptyResultsMessage="syllabuses-not-found"
+		iteratorURL="<%=iteratorURL%>"
+		rowChecker="<%= new RowChecker(renderResponse) %>"
+		total="<%=SyllabusLocalServiceUtil.getSyllabusesCountByTimetableCourseId(timetableCourseId)%>">
+		
+		<aui:input name="timetableCourseId" type="hidden" value="<%=String.valueOf(timetableCourseId)%>" />
+		
+		<aui:input name="deleteSyllabusIds" type="hidden" />
+		
+		<liferay-ui:search-container-results
+			results="<%=SyllabusLocalServiceUtil.getSyllabusesByTimetableCourseId(timetableCourseId, searchContainer.getStart(), searchContainer.getEnd())%>"
+		/>
+		
+		<liferay-ui:search-container-row className="hu.unideb.inf.model.Syllabus" escapedModel="<%= true %>" modelVar="syllabus" keyProperty="syllabusId">
+			<c:if test='<%=SyllabusPermission.contains(permissionChecker, syllabus.getSyllabusId(), "VIEW")%>'>
+				<%
+				Semester semester = SemesterLocalServiceUtil.getSemester(timetableCourse.getSemesterId());
+				
+				CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(course.getCourseTypeId());
+				
+				Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(subject.getCurriculumId());
+				%>
+				<liferay-ui:search-container-column-text name="competence" property="competence" />
+				<liferay-ui:search-container-column-text name="ethical-standards" property="ethicalStandards" />
+				<liferay-ui:search-container-column-text name="topics" property="topics" />
+				<liferay-ui:search-container-column-text name="educational-materials" property="educationalMaterials" />
+				<liferay-ui:search-container-column-text name="recommended-literature" property="recommendedLiterature" />
+				<liferay-ui:search-container-column-text name="weekly-tasks" property="weeklyTasks" />
+				
+				<liferay-ui:search-container-column-jsp path="/admin/syllabuses/syllabus_actions.jsp" align="right" />
+			</c:if>
+		</liferay-ui:search-container-row>
+		
+		<liferay-ui:search-iterator />
+	</liferay-ui:search-container>	
+</aui:form>
+
+<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.DELETE_SYLLABUSES)%>'>
+	<portlet:actionURL name="deleteSyllabuses" var="deleteSyllabusesURL">
+		<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
+	</portlet:actionURL>
+	
+	<aui:script use="aui-base">
+		A.one('.removeCheckedItemsButton').on(
+			'click',
+			function(event) {
+				<portlet:namespace />deleteSyllabuses();
+			}
+		);
+		
+	    Liferay.provide(
+	        window,
+	        '<portlet:namespace />deleteSyllabuses',
+	        function() {
+	            if (confirm('<%= UnicodeLanguageUtil.get(request, "are-you-sure-you-want-to-permanently-delete-the-selected-items") %>'))  {
+					document.<portlet:namespace />fmSyllabus.method = "post";
+					document.<portlet:namespace />fmSyllabus.<portlet:namespace />deleteSyllabusIds.value = Liferay.Util.listCheckedExcept(document.<portlet:namespace />fmSyllabus, '<portlet:namespace />allRowIds');
+					submitForm(document.<portlet:namespace />fmSyllabus, "<%=deleteSyllabusesURL.toString()%>");
+	            }
+	        },
+	        ['liferay-util-list-fields']
+	    );
+	</aui:script>
+</c:if>
