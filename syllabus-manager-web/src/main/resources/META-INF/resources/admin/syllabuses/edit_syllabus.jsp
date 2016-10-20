@@ -107,7 +107,7 @@
 			<portlet:param name="mvcPath" value="/admin/syllabuses/view_syllabuses_by_semester.jsp" />
 		</c:when>
 	</c:choose>
-	<portlet:param name="timetableCourseId" value="<%=timetableCourseId%>" />
+	<portlet:param name="timetableCourseId" value="<%=String.valueOf(timetableCourseId)%>" />
 </portlet:renderURL>
 
 <portlet:actionURL name="addSyllabus" var="addSyllabusURL" />
