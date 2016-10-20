@@ -36,7 +36,7 @@
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
-<liferay-ui:success key="syllabusAdded" message="syllabus-has-been-successfully-updated" />
+<liferay-ui:success key="syllabusAdded" message="syllabus-has-been-successfully-added" />
 <liferay-ui:success key="syllabusUpdated" message="syllabus-has-been-successfully-updated" />
 <liferay-ui:success key="syllabusDeleted" message="syllabus-has-been-successfully-deleted" />
 <liferay-ui:success key="syllabusesDeleted" message="syllabuses-have-been-successfully-deleted" />

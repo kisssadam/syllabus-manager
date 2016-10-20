@@ -16,7 +16,7 @@
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
-<liferay-ui:success key="subjectAdded" message="subject-has-been-successfully-updated" />
+<liferay-ui:success key="subjectAdded" message="subject-has-been-successfully-added" />
 <liferay-ui:success key="subjectUpdated" message="subject-has-been-successfully-updated" />
 <liferay-ui:success key="subjectDeleted" message="subject-has-been-successfully-deleted" />
 <liferay-ui:success key="subjectsDeleted" message="subjects-have-been-successfully-deleted" />

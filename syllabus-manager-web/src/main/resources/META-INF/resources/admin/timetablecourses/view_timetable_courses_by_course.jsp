@@ -24,7 +24,7 @@
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
-<liferay-ui:success key="timetableCourseAdded" message="timetable-course-has-been-successfully-updated" />
+<liferay-ui:success key="timetableCourseAdded" message="timetable-course-has-been-successfully-added" />
 <liferay-ui:success key="timetableCourseUpdated" message="timetable-course-has-been-successfully-updated" />
 <liferay-ui:success key="timetableCourseDeleted" message="timetable-course-has-been-successfully-deleted" />
 <liferay-ui:success key="timetableCoursesDeleted" message="timetable-courses-have-been-successfully-deleted" />
