@@ -1,6 +1,12 @@
 <?xml version="1.0"?>
 
 <model-hints>
+	<!-- http://www.liferay.com/community/wiki/-/wiki/Main/Customize+DB+Column+Sizes#section-Customize+DB+Column+Sizes-Model+Hint+Values
+		http://stackoverflow.com/questions/11990284/how-to-set-size-of-string-column-using-service-xml-or-service-builder
+		https://dev.liferay.com/develop/tutorials/-/knowledge_base/6-1/using-model-hints?notice=1 -->
+	<hint-collection name="TEXTAREA">
+		<hint name="max-length">10000</hint>
+	</hint-collection>
 	<model name="hu.unideb.inf.model.Course">
 		<field name="courseId" type="long" />
 		<field name="groupId" type="long" />
@@ -22,7 +28,9 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="typeName" type="String" />
+		<field name="typeName" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 	</model>
 	<model name="hu.unideb.inf.model.Curriculum">
 		<field name="curriculumId" type="long" />
@@ -32,8 +40,12 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="curriculumCode" type="String" />
-		<field name="curriculumName" type="String" />
+		<field name="curriculumCode" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="curriculumName" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 	</model>
 	<model name="hu.unideb.inf.model.Lecturer">
 		<field name="lecturerId" type="long" />
@@ -43,7 +55,9 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="lecturerName" type="String" />
+		<field name="lecturerName" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="lecturerUserId" type="long" />
 	</model>
 	<model name="hu.unideb.inf.model.Semester">
@@ -66,8 +80,12 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="subjectCode" type="String" />
-		<field name="subjectName" type="String" />
+		<field name="subjectCode" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="subjectName" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="credit" type="int" />
 		<field name="curriculumId" type="long" />
 	</model>
@@ -81,11 +99,19 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="timetableCourseId" type="long" />
 		<field name="competence" type="String" />
-		<field name="ethicalStandards" type="String" />
+		<field name="ethicalStandards" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="topics" type="String" />
-		<field name="educationalMaterials" type="String" />
-		<field name="recommendedLiterature" type="String" />
-		<field name="weeklyTasks" type="String" />
+		<field name="educationalMaterials" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="recommendedLiterature" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="weeklyTasks" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 	</model>
 	<model name="hu.unideb.inf.model.TimetableCourse">
 		<field name="timetableCourseId" type="long" />
@@ -97,11 +123,19 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="courseId" type="long" />
 		<field name="semesterId" type="long" />
-		<field name="timetableCourseCode" type="String" />
-		<field name="subjectType" type="String" />
+		<field name="timetableCourseCode" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="subjectType" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="recommendedTerm" type="int" />
 		<field name="limit" type="int" />
-		<field name="classScheduleInfo" type="String" />
-		<field name="description" type="String" />
+		<field name="classScheduleInfo" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="description" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 	</model>
 </model-hints>

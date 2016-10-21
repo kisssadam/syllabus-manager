@@ -104,7 +104,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		TABLE_COLUMNS_MAP.put("weeklyTasks", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Syllabus (syllabusId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,timetableCourseId LONG,competence VARCHAR(75) null,ethicalStandards VARCHAR(75) null,topics VARCHAR(75) null,educationalMaterials VARCHAR(75) null,recommendedLiterature VARCHAR(75) null,weeklyTasks VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Syllabus (syllabusId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,timetableCourseId LONG,competence VARCHAR(75) null,ethicalStandards TEXT null,topics VARCHAR(75) null,educationalMaterials TEXT null,recommendedLiterature TEXT null,weeklyTasks TEXT null)";
 	public static final String TABLE_SQL_DROP = "drop table unideb_syllabus_manager_Syllabus";
 	public static final String ORDER_BY_JPQL = " ORDER BY syllabus.syllabusId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY unideb_syllabus_manager_Syllabus.syllabusId ASC";

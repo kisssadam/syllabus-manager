@@ -92,7 +92,7 @@ public class CourseTypeModelImpl extends BaseModelImpl<CourseType>
 		TABLE_COLUMNS_MAP.put("typeName", Types.VARCHAR);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_CourseType (courseTypeId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeName VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_CourseType (courseTypeId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,typeName TEXT null)";
 	public static final String TABLE_SQL_DROP = "drop table unideb_syllabus_manager_CourseType";
 	public static final String ORDER_BY_JPQL = " ORDER BY courseType.typeName ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY unideb_syllabus_manager_CourseType.typeName ASC";

@@ -20,7 +20,7 @@ create table unideb_syllabus_manager_CourseType (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	typeName VARCHAR(75) null
+	typeName TEXT null
 );
 
 create table unideb_syllabus_manager_Curriculum (
@@ -31,8 +31,8 @@ create table unideb_syllabus_manager_Curriculum (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	curriculumCode VARCHAR(75) null,
-	curriculumName VARCHAR(75) null
+	curriculumCode TEXT null,
+	curriculumName TEXT null
 );
 
 create table unideb_syllabus_manager_Lecturer (
@@ -43,7 +43,7 @@ create table unideb_syllabus_manager_Lecturer (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	lecturerName VARCHAR(75) null,
+	lecturerName TEXT null,
 	lecturerUserId LONG
 );
 
@@ -75,8 +75,8 @@ create table unideb_syllabus_manager_Subject (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	subjectCode VARCHAR(75) null,
-	subjectName VARCHAR(75) null,
+	subjectCode TEXT null,
+	subjectName TEXT null,
 	credit INTEGER,
 	curriculumId LONG
 );
@@ -91,11 +91,11 @@ create table unideb_syllabus_manager_Syllabus (
 	modifiedDate DATE null,
 	timetableCourseId LONG,
 	competence VARCHAR(75) null,
-	ethicalStandards VARCHAR(75) null,
+	ethicalStandards TEXT null,
 	topics VARCHAR(75) null,
-	educationalMaterials VARCHAR(75) null,
-	recommendedLiterature VARCHAR(75) null,
-	weeklyTasks VARCHAR(75) null
+	educationalMaterials TEXT null,
+	recommendedLiterature TEXT null,
+	weeklyTasks TEXT null
 );
 
 create table unideb_syllabus_manager_TimetableCourse (
@@ -108,10 +108,10 @@ create table unideb_syllabus_manager_TimetableCourse (
 	modifiedDate DATE null,
 	courseId LONG,
 	semesterId LONG,
-	timetableCourseCode VARCHAR(75) null,
-	subjectType VARCHAR(75) null,
+	timetableCourseCode TEXT null,
+	subjectType TEXT null,
 	recommendedTerm INTEGER,
 	limit_ INTEGER,
-	classScheduleInfo VARCHAR(75) null,
-	description VARCHAR(75) null
+	classScheduleInfo TEXT null,
+	description TEXT null
 );

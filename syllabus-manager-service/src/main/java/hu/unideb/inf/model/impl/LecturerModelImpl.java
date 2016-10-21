@@ -94,7 +94,7 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 		TABLE_COLUMNS_MAP.put("lecturerUserId", Types.BIGINT);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Lecturer (lecturerId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,lecturerName VARCHAR(75) null,lecturerUserId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table unideb_syllabus_manager_Lecturer (lecturerId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,lecturerName TEXT null,lecturerUserId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table unideb_syllabus_manager_Lecturer";
 	public static final String ORDER_BY_JPQL = " ORDER BY lecturer.lecturerId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY unideb_syllabus_manager_Lecturer.lecturerId ASC";
