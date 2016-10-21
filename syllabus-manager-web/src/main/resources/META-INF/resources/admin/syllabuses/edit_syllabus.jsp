@@ -174,7 +174,11 @@
 			<aui:validator name="required" />
 		</aui:input>
 		
-		<liferay-ui:input-editor name="weeklyTasks" toolbarSet="liferay-article" initMethod="initEditor" />
+		<liferay-ui:input-editor
+			contents="<%= syllabus == null ? StringPool.BLANK : syllabus.getWeeklyTasks() %>"
+			name="weeklyTasks"
+			toolbarSet="liferay-article"
+			showSource="<%= false %>" />
 	</aui:fieldset>
 
 	<aui:button-row>
@@ -184,18 +188,6 @@
 </aui:form>
 
 <portlet:resourceURL var="resourceURL"></portlet:resourceURL>
-
-<script>
-function initEditor() {
-	var contentValue;
-	var contentValue = '<%=syllabus == null ? StringPool.BLANK : syllabus.getWeeklyTasks()%>';
-
-	/* var contentLocale=document.getElementById("contentText").value;
-	Above statement will set the contentValue to the value of HTML input variable named 'contentText'.
-	Useful in scenario where data comes from database/java class from server. */
-	return  contentValue;
-}
-</script>
 
 <aui:script>
 AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', function(A) {
