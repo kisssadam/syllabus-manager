@@ -106,6 +106,9 @@
 		<c:when test="<%=StringUtil.equalsIgnoreCase(home, "semesters")%>">
 			<portlet:param name="mvcPath" value="/admin/syllabuses/view_syllabuses_by_semester.jsp" />
 		</c:when>
+		<c:otherwise>
+			<portlet:param name="mvcPath" value="/admin/curriculums/view_curriculums.jsp" />
+		</c:otherwise>
 	</c:choose>
 	<portlet:param name="timetableCourseId" value="<%=String.valueOf(timetableCourseId)%>" />
 </portlet:renderURL>
@@ -185,7 +188,7 @@
 <script>
 function initEditor() {
 	var contentValue;
-	var contentValue="";
+	var contentValue = '<%=syllabus == null ? StringPool.BLANK : syllabus.getWeeklyTasks()%>';
 
 	/* var contentLocale=document.getElementById("contentText").value;
 	Above statement will set the contentValue to the value of HTML input variable named 'contentText'.

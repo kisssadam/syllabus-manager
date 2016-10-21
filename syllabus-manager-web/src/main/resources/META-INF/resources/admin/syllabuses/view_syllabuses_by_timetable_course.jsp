@@ -81,13 +81,6 @@
 		
 		<liferay-ui:search-container-row className="hu.unideb.inf.model.Syllabus" escapedModel="<%= true %>" modelVar="syllabus" keyProperty="syllabusId">
 			<c:if test='<%=SyllabusPermission.contains(permissionChecker, syllabus.getSyllabusId(), "VIEW")%>'>
-				<%
-				Semester semester = SemesterLocalServiceUtil.getSemester(timetableCourse.getSemesterId());
-				
-				CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(course.getCourseTypeId());
-				
-				Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(subject.getCurriculumId());
-				%>
 				<liferay-ui:search-container-column-text name="competence" property="competence" />
 				<liferay-ui:search-container-column-text name="ethical-standards" property="ethicalStandards" />
 				<liferay-ui:search-container-column-text name="topics" property="topics" />
