@@ -174,10 +174,11 @@
 			<aui:validator name="required" />
 		</aui:input>
 		
+		<%-- https://docs.liferay.com/portal/7.0/taglibs/util-taglib/ --%>
 		<liferay-ui:input-editor
 			contents="<%= syllabus == null ? StringPool.BLANK : syllabus.getWeeklyTasks() %>"
 			name="weeklyTasks"
-			toolbarSet="liferay-article"
+			toolbarSet="liferayArticle"
 			showSource="<%= false %>" />
 	</aui:fieldset>
 
