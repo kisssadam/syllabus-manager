@@ -15,6 +15,7 @@
 package hu.unideb.inf.service.impl;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.service.WorkflowInstanceLinkLocalServiceUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 
@@ -106,7 +108,7 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 		syllabus.setEducationalMaterials(educationalMaterials);
 		syllabus.setRecommendedLiterature(recommendedLiterature);
 		syllabus.setWeeklyTasks(weeklyTasks);
-		syllabus.setStatus(WorkflowConstants.STATUS_DRAFT);
+		syllabus.setStatus(WorkflowConstants.STATUS_PENDING);
 		syllabus.setStatusByUserId(userId);
 		syllabus.setStatusByUserName(user.getFullName());
 		syllabus.setStatusDate(serviceContext.getModifiedDate(null));
@@ -116,10 +118,9 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 		resourceLocalService.addResources(user.getCompanyId(), groupId, userId, Syllabus.class.getName(), syllabusId,
 				false, true, true);
 
-		WorkflowHandlerRegistryUtil.startWorkflowInstance(syllabus.getCompanyId(), syllabus.getGroupId(),
-				syllabus.getUserId(), Syllabus.class.getName(), syllabus.getPrimaryKey(), syllabus, serviceContext);
-
-		return syllabus;
+		return WorkflowHandlerRegistryUtil.startWorkflowInstance(user.getCompanyId(), groupId, userId,
+				Syllabus.class.getName(), syllabus.getSyllabusId(), syllabus, serviceContext,
+				Collections.<String, Serializable>emptyMap());
 	}
 
 	public Syllabus updateSyllabus(long userId, long syllabusId, long timetableCourseId, String competence,
@@ -152,6 +153,9 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 		resourceLocalService.updateResources(user.getCompanyId(), groupId, Syllabus.class.getName(), syllabusId,
 				serviceContext.getGroupPermissions(), serviceContext.getGuestPermissions());
 
+		WorkflowHandlerRegistryUtil.startWorkflowInstance(user.getCompanyId(), syllabus.getGroupId(), userId,
+				Syllabus.class.getName(), syllabus.getSyllabusId(), syllabus, serviceContext);
+
 		return syllabus;
 	}
 
@@ -161,6 +165,9 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 
 		resourceLocalService.deleteResource(syllabus.getCompanyId(), syllabus.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, syllabusId);
+
+		WorkflowInstanceLinkLocalServiceUtil.deleteWorkflowInstanceLinks(syllabus.getCompanyId(), syllabus.getGroupId(),
+				Syllabus.class.getName(), syllabus.getSyllabusId());
 
 		return deleteSyllabus(syllabus);
 	}
@@ -186,7 +193,6 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 	private void validate(long syllabusId, long timetableCourseId, String competence, String ethicalStandards,
 			String topics, String educationalMaterials, String recommendedLiterature, String weeklyTasks) {
 		// TODO Auto-generated method stub
-		System.out.println("validate");
 	}
 
 }

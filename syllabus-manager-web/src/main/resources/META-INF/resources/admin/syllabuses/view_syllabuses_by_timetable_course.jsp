@@ -87,6 +87,9 @@
 				<liferay-ui:search-container-column-text name="educational-materials" property="educationalMaterials" />
 				<liferay-ui:search-container-column-text name="recommended-literature" property="recommendedLiterature" />
 				<liferay-ui:search-container-column-text name="weekly-tasks" property="weeklyTasks" />
+				<liferay-ui:search-container-column-text name="status" >
+					<aui:workflow-status markupView="lexicon" showIcon="<%= false %>" showLabel="<%= false %>" status="<%= syllabus.getStatus() %>" />
+				</liferay-ui:search-container-column-text>
 				
 				<liferay-ui:search-container-column-jsp path="/admin/syllabuses/syllabus_actions.jsp" align="right" />
 			</c:if>

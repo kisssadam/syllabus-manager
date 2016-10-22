@@ -2,7 +2,6 @@ dependencies {
 	compile group: "biz.aQute.bnd", name: "biz.aQute.bndlib", version: "3.1.0"
 	compile group: "com.liferay", name: "com.liferay.osgi.util", version: "3.0.0"
 	compile group: "com.liferay", name: "com.liferay.portal.spring.extender", version: "2.0.0"
-	compile group: "javax.servlet", name: "javax.servlet-api", version: "3.0.1"
 	compile project(":modules:syllabus-manager:syllabus-manager-api")
 }
 

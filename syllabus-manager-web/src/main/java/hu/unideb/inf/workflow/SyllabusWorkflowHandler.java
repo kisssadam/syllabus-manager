@@ -12,13 +12,14 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.workflow.BaseWorkflowHandler;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.kernel.workflow.WorkflowHandler;
 
 import hu.unideb.inf.model.Syllabus;
 import hu.unideb.inf.service.SyllabusLocalServiceUtil;
 
 @Component(
 	property = { "model.class.name=hu.unideb.inf.model.Syllabus" },
-	service = SyllabusWorkflowHandler.class
+	service = WorkflowHandler.class
 )
 public class SyllabusWorkflowHandler extends BaseWorkflowHandler<Syllabus> {
 
