@@ -1342,7 +1342,7 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 	 * Initializes the lecturer persistence.
 	 */
 	public void afterPropertiesSet() {
-		lecturerToTimetableCourseTableMapper = TableMapperFactory.getTableMapper("unideb_syllabus_manager_Lecturers_TimetableCourses",
+		lecturerToTimetableCourseTableMapper = TableMapperFactory.getTableMapper("syllabus_manager_Lecturers_TimetableCourses",
 				"companyId", "lecturerId", "timetableCourseId", this,
 				timetableCoursePersistence);
 	}
@@ -1354,7 +1354,7 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 		finderCache.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
 		TableMapperFactory.removeTableMapper(
-			"unideb_syllabus_manager_Lecturers_TimetableCourses");
+			"syllabus_manager_Lecturers_TimetableCourses");
 	}
 
 	@ServiceReference(type = CompanyProviderWrapper.class)

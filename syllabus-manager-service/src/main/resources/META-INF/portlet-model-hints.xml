@@ -112,6 +112,10 @@
 		<field name="weeklyTasks" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>
+		<field name="status" type="int" />
+		<field name="statusByUserId" type="long" />
+		<field name="statusByUserName" type="String" />
+		<field name="statusDate" type="Date" />
 	</model>
 	<model name="hu.unideb.inf.model.TimetableCourse">
 		<field name="timetableCourseId" type="long" />

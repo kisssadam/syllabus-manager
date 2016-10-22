@@ -1,4 +1,4 @@
-create table unideb_syllabus_manager_Course (
+create table syllabus_manager_Course (
 	courseId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
@@ -12,7 +12,7 @@ create table unideb_syllabus_manager_Course (
 	courseTypeId LONG
 );
 
-create table unideb_syllabus_manager_CourseType (
+create table syllabus_manager_CourseType (
 	courseTypeId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
@@ -23,7 +23,7 @@ create table unideb_syllabus_manager_CourseType (
 	typeName TEXT null
 );
 
-create table unideb_syllabus_manager_Curriculum (
+create table syllabus_manager_Curriculum (
 	curriculumId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
@@ -35,7 +35,7 @@ create table unideb_syllabus_manager_Curriculum (
 	curriculumName TEXT null
 );
 
-create table unideb_syllabus_manager_Lecturer (
+create table syllabus_manager_Lecturer (
 	lecturerId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
@@ -47,14 +47,14 @@ create table unideb_syllabus_manager_Lecturer (
 	lecturerUserId LONG
 );
 
-create table unideb_syllabus_manager_Lecturers_TimetableCourses (
+create table syllabus_manager_Lecturers_TimetableCourses (
 	companyId LONG not null,
 	lecturerId LONG not null,
 	timetableCourseId LONG not null,
 	primary key (lecturerId, timetableCourseId)
 );
 
-create table unideb_syllabus_manager_Semester (
+create table syllabus_manager_Semester (
 	semesterId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
@@ -67,7 +67,7 @@ create table unideb_syllabus_manager_Semester (
 	division INTEGER
 );
 
-create table unideb_syllabus_manager_Subject (
+create table syllabus_manager_Subject (
 	subjectId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
@@ -81,7 +81,7 @@ create table unideb_syllabus_manager_Subject (
 	curriculumId LONG
 );
 
-create table unideb_syllabus_manager_Syllabus (
+create table syllabus_manager_Syllabus (
 	syllabusId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
@@ -95,10 +95,14 @@ create table unideb_syllabus_manager_Syllabus (
 	topics VARCHAR(75) null,
 	educationalMaterials TEXT null,
 	recommendedLiterature TEXT null,
-	weeklyTasks TEXT null
+	weeklyTasks TEXT null,
+	status INTEGER,
+	statusByUserId LONG,
+	statusByUserName VARCHAR(75) null,
+	statusDate DATE null
 );
 
-create table unideb_syllabus_manager_TimetableCourse (
+create table syllabus_manager_TimetableCourse (
 	timetableCourseId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,

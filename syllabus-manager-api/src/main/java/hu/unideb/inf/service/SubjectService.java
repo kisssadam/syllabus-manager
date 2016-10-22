@@ -44,7 +44,7 @@ import java.util.List;
 @AccessControlled
 @JSONWebService
 @OSGiBeanProperties(property =  {
-	"json.web.service.context.name=unideb_syllabus_manager", "json.web.service.context.path=Subject"}, service = SubjectService.class)
+	"json.web.service.context.name=syllabus_manager", "json.web.service.context.path=Subject"}, service = SubjectService.class)
 @ProviderType
 @Transactional(isolation = Isolation.PORTAL, rollbackFor =  {
 	PortalException.class, SystemException.class})

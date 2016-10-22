@@ -38,6 +38,7 @@ import hu.unideb.inf.model.Syllabus;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the local service interface for Syllabus. Methods of this
@@ -138,6 +139,11 @@ public interface SyllabusLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Syllabus getSyllabus(long syllabusId) throws PortalException;
+
+	public Syllabus updateStatus(long userId, long classPK, int status,
+		ServiceContext serviceContext,
+		Map<java.lang.String, Serializable> workflowContext)
+		throws PortalException;
 
 	/**
 	* Updates the syllabus in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

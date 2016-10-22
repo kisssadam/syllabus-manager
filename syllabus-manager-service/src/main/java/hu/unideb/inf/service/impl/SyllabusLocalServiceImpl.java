@@ -14,14 +14,18 @@
 
 package hu.unideb.inf.service.impl;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 
 import aQute.bnd.annotation.ProviderType;
 import hu.unideb.inf.model.Syllabus;
@@ -58,15 +62,15 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 	public List<Syllabus> getSyllabuses() throws SystemException {
 		return syllabusPersistence.findAll();
 	}
-	
+
 	public List<Syllabus> getSyllabusesByTimetableCourseId(long timetableCourseId) {
 		return syllabusPersistence.findByTimetableCourseId(timetableCourseId);
 	}
-	
+
 	public List<Syllabus> getSyllabusesByTimetableCourseId(long timetableCourseId, int start, int end) {
 		return syllabusPersistence.findByTimetableCourseId(timetableCourseId, start, end);
 	}
-	
+
 	public int getSyllabusesCountByTimetableCourseId(long timetableCourseId) {
 		return syllabusPersistence.countByTimetableCourseId(timetableCourseId);
 	}
@@ -102,11 +106,18 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 		syllabus.setEducationalMaterials(educationalMaterials);
 		syllabus.setRecommendedLiterature(recommendedLiterature);
 		syllabus.setWeeklyTasks(weeklyTasks);
+		syllabus.setStatus(WorkflowConstants.STATUS_DRAFT);
+		syllabus.setStatusByUserId(userId);
+		syllabus.setStatusByUserName(user.getFullName());
+		syllabus.setStatusDate(serviceContext.getModifiedDate(null));
 
 		syllabusPersistence.update(syllabus);
 
 		resourceLocalService.addResources(user.getCompanyId(), groupId, userId, Syllabus.class.getName(), syllabusId,
 				false, true, true);
+
+		WorkflowHandlerRegistryUtil.startWorkflowInstance(syllabus.getCompanyId(), syllabus.getGroupId(),
+				syllabus.getUserId(), Syllabus.class.getName(), syllabus.getPrimaryKey(), syllabus, serviceContext);
 
 		return syllabus;
 	}
@@ -154,9 +165,28 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 		return deleteSyllabus(syllabus);
 	}
 
+	public Syllabus updateStatus(long userId, long classPK, int status, ServiceContext serviceContext,
+			Map<String, Serializable> workflowContext) throws PortalException {
+		User user = userPersistence.findByPrimaryKey(userId);
+		Date now = new Date();
+
+		Syllabus syllabus = getSyllabus(classPK);
+
+		syllabus.setModifiedDate(now);
+		syllabus.setStatus(status);
+		syllabus.setStatusByUserId(user.getUserId());
+		syllabus.setStatusByUserName(user.getFullName());
+		syllabus.setStatusDate(serviceContext.getModifiedDate(now));
+
+		syllabusPersistence.update(syllabus);
+
+		return syllabus;
+	}
+
 	private void validate(long syllabusId, long timetableCourseId, String competence, String ethicalStandards,
 			String topics, String educationalMaterials, String recommendedLiterature, String weeklyTasks) {
 		// TODO Auto-generated method stub
+		System.out.println("validate");
 	}
 
 }

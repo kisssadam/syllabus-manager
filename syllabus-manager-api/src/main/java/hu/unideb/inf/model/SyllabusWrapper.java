@@ -71,6 +71,10 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 		attributes.put("educationalMaterials", getEducationalMaterials());
 		attributes.put("recommendedLiterature", getRecommendedLiterature());
 		attributes.put("weeklyTasks", getWeeklyTasks());
+		attributes.put("status", getStatus());
+		attributes.put("statusByUserId", getStatusByUserId());
+		attributes.put("statusByUserName", getStatusByUserName());
+		attributes.put("statusDate", getStatusDate());
 
 		return attributes;
 	}
@@ -162,6 +166,40 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 		if (weeklyTasks != null) {
 			setWeeklyTasks(weeklyTasks);
 		}
+
+		Integer status = (Integer)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
+		}
+
+		Long statusByUserId = (Long)attributes.get("statusByUserId");
+
+		if (statusByUserId != null) {
+			setStatusByUserId(statusByUserId);
+		}
+
+		String statusByUserName = (String)attributes.get("statusByUserName");
+
+		if (statusByUserName != null) {
+			setStatusByUserName(statusByUserName);
+		}
+
+		Date statusDate = (Date)attributes.get("statusDate");
+
+		if (statusDate != null) {
+			setStatusDate(statusDate);
+		}
+	}
+
+	/**
+	* Returns <code>true</code> if this syllabus is approved.
+	*
+	* @return <code>true</code> if this syllabus is approved; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isApproved() {
+		return _syllabus.isApproved();
 	}
 
 	@Override
@@ -169,14 +207,84 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 		return _syllabus.isCachedModel();
 	}
 
+	/**
+	* Returns <code>true</code> if this syllabus is denied.
+	*
+	* @return <code>true</code> if this syllabus is denied; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isDenied() {
+		return _syllabus.isDenied();
+	}
+
+	/**
+	* Returns <code>true</code> if this syllabus is a draft.
+	*
+	* @return <code>true</code> if this syllabus is a draft; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isDraft() {
+		return _syllabus.isDraft();
+	}
+
 	@Override
 	public boolean isEscapedModel() {
 		return _syllabus.isEscapedModel();
 	}
 
+	/**
+	* Returns <code>true</code> if this syllabus is expired.
+	*
+	* @return <code>true</code> if this syllabus is expired; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isExpired() {
+		return _syllabus.isExpired();
+	}
+
+	/**
+	* Returns <code>true</code> if this syllabus is inactive.
+	*
+	* @return <code>true</code> if this syllabus is inactive; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isInactive() {
+		return _syllabus.isInactive();
+	}
+
+	/**
+	* Returns <code>true</code> if this syllabus is incomplete.
+	*
+	* @return <code>true</code> if this syllabus is incomplete; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isIncomplete() {
+		return _syllabus.isIncomplete();
+	}
+
 	@Override
 	public boolean isNew() {
 		return _syllabus.isNew();
+	}
+
+	/**
+	* Returns <code>true</code> if this syllabus is pending.
+	*
+	* @return <code>true</code> if this syllabus is pending; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isPending() {
+		return _syllabus.isPending();
+	}
+
+	/**
+	* Returns <code>true</code> if this syllabus is scheduled.
+	*
+	* @return <code>true</code> if this syllabus is scheduled; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isScheduled() {
+		return _syllabus.isScheduled();
 	}
 
 	@Override
@@ -202,6 +310,16 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 	@Override
 	public int compareTo(hu.unideb.inf.model.Syllabus syllabus) {
 		return _syllabus.compareTo(syllabus);
+	}
+
+	/**
+	* Returns the status of this syllabus.
+	*
+	* @return the status of this syllabus
+	*/
+	@Override
+	public int getStatus() {
+		return _syllabus.getStatus();
 	}
 
 	@Override
@@ -257,6 +375,26 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 	@Override
 	public java.lang.String getRecommendedLiterature() {
 		return _syllabus.getRecommendedLiterature();
+	}
+
+	/**
+	* Returns the status by user name of this syllabus.
+	*
+	* @return the status by user name of this syllabus
+	*/
+	@Override
+	public java.lang.String getStatusByUserName() {
+		return _syllabus.getStatusByUserName();
+	}
+
+	/**
+	* Returns the status by user uuid of this syllabus.
+	*
+	* @return the status by user uuid of this syllabus
+	*/
+	@Override
+	public java.lang.String getStatusByUserUuid() {
+		return _syllabus.getStatusByUserUuid();
 	}
 
 	/**
@@ -330,6 +468,16 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 	}
 
 	/**
+	* Returns the status date of this syllabus.
+	*
+	* @return the status date of this syllabus
+	*/
+	@Override
+	public Date getStatusDate() {
+		return _syllabus.getStatusDate();
+	}
+
+	/**
 	* Returns the company ID of this syllabus.
 	*
 	* @return the company ID of this syllabus
@@ -357,6 +505,16 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 	@Override
 	public long getPrimaryKey() {
 		return _syllabus.getPrimaryKey();
+	}
+
+	/**
+	* Returns the status by user ID of this syllabus.
+	*
+	* @return the status by user ID of this syllabus
+	*/
+	@Override
+	public long getStatusByUserId() {
+		return _syllabus.getStatusByUserId();
 	}
 
 	/**
@@ -513,6 +671,56 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 	@Override
 	public void setRecommendedLiterature(java.lang.String recommendedLiterature) {
 		_syllabus.setRecommendedLiterature(recommendedLiterature);
+	}
+
+	/**
+	* Sets the status of this syllabus.
+	*
+	* @param status the status of this syllabus
+	*/
+	@Override
+	public void setStatus(int status) {
+		_syllabus.setStatus(status);
+	}
+
+	/**
+	* Sets the status by user ID of this syllabus.
+	*
+	* @param statusByUserId the status by user ID of this syllabus
+	*/
+	@Override
+	public void setStatusByUserId(long statusByUserId) {
+		_syllabus.setStatusByUserId(statusByUserId);
+	}
+
+	/**
+	* Sets the status by user name of this syllabus.
+	*
+	* @param statusByUserName the status by user name of this syllabus
+	*/
+	@Override
+	public void setStatusByUserName(java.lang.String statusByUserName) {
+		_syllabus.setStatusByUserName(statusByUserName);
+	}
+
+	/**
+	* Sets the status by user uuid of this syllabus.
+	*
+	* @param statusByUserUuid the status by user uuid of this syllabus
+	*/
+	@Override
+	public void setStatusByUserUuid(java.lang.String statusByUserUuid) {
+		_syllabus.setStatusByUserUuid(statusByUserUuid);
+	}
+
+	/**
+	* Sets the status date of this syllabus.
+	*
+	* @param statusDate the status date of this syllabus
+	*/
+	@Override
+	public void setStatusDate(Date statusDate) {
+		_syllabus.setStatusDate(statusDate);
 	}
 
 	/**

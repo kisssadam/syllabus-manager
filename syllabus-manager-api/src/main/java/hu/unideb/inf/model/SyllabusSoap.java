@@ -48,6 +48,10 @@ public class SyllabusSoap implements Serializable {
 		soapModel.setEducationalMaterials(model.getEducationalMaterials());
 		soapModel.setRecommendedLiterature(model.getRecommendedLiterature());
 		soapModel.setWeeklyTasks(model.getWeeklyTasks());
+		soapModel.setStatus(model.getStatus());
+		soapModel.setStatusByUserId(model.getStatusByUserId());
+		soapModel.setStatusByUserName(model.getStatusByUserName());
+		soapModel.setStatusDate(model.getStatusDate());
 
 		return soapModel;
 	}
@@ -212,6 +216,38 @@ public class SyllabusSoap implements Serializable {
 		_weeklyTasks = weeklyTasks;
 	}
 
+	public int getStatus() {
+		return _status;
+	}
+
+	public void setStatus(int status) {
+		_status = status;
+	}
+
+	public long getStatusByUserId() {
+		return _statusByUserId;
+	}
+
+	public void setStatusByUserId(long statusByUserId) {
+		_statusByUserId = statusByUserId;
+	}
+
+	public String getStatusByUserName() {
+		return _statusByUserName;
+	}
+
+	public void setStatusByUserName(String statusByUserName) {
+		_statusByUserName = statusByUserName;
+	}
+
+	public Date getStatusDate() {
+		return _statusDate;
+	}
+
+	public void setStatusDate(Date statusDate) {
+		_statusDate = statusDate;
+	}
+
 	private long _syllabusId;
 	private long _groupId;
 	private long _companyId;
@@ -226,4 +262,8 @@ public class SyllabusSoap implements Serializable {
 	private String _educationalMaterials;
 	private String _recommendedLiterature;
 	private String _weeklyTasks;
+	private int _status;
+	private long _statusByUserId;
+	private String _statusByUserName;
+	private Date _statusDate;
 }

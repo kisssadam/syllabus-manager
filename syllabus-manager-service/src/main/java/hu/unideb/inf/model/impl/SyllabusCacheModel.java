@@ -65,7 +65,7 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("{syllabusId=");
 		sb.append(syllabusId);
@@ -95,6 +95,14 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 		sb.append(recommendedLiterature);
 		sb.append(", weeklyTasks=");
 		sb.append(weeklyTasks);
+		sb.append(", status=");
+		sb.append(status);
+		sb.append(", statusByUserId=");
+		sb.append(statusByUserId);
+		sb.append(", statusByUserName=");
+		sb.append(statusByUserName);
+		sb.append(", statusDate=");
+		sb.append(statusDate);
 		sb.append("}");
 
 		return sb.toString();
@@ -174,6 +182,23 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 			syllabusImpl.setWeeklyTasks(weeklyTasks);
 		}
 
+		syllabusImpl.setStatus(status);
+		syllabusImpl.setStatusByUserId(statusByUserId);
+
+		if (statusByUserName == null) {
+			syllabusImpl.setStatusByUserName(StringPool.BLANK);
+		}
+		else {
+			syllabusImpl.setStatusByUserName(statusByUserName);
+		}
+
+		if (statusDate == Long.MIN_VALUE) {
+			syllabusImpl.setStatusDate(null);
+		}
+		else {
+			syllabusImpl.setStatusDate(new Date(statusDate));
+		}
+
 		syllabusImpl.resetOriginalValues();
 
 		return syllabusImpl;
@@ -199,6 +224,12 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 		educationalMaterials = objectInput.readUTF();
 		recommendedLiterature = objectInput.readUTF();
 		weeklyTasks = objectInput.readUTF();
+
+		status = objectInput.readInt();
+
+		statusByUserId = objectInput.readLong();
+		statusByUserName = objectInput.readUTF();
+		statusDate = objectInput.readLong();
 	}
 
 	@Override
@@ -265,6 +296,19 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 		else {
 			objectOutput.writeUTF(weeklyTasks);
 		}
+
+		objectOutput.writeInt(status);
+
+		objectOutput.writeLong(statusByUserId);
+
+		if (statusByUserName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(statusByUserName);
+		}
+
+		objectOutput.writeLong(statusDate);
 	}
 
 	public long syllabusId;
@@ -281,4 +325,8 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 	public String educationalMaterials;
 	public String recommendedLiterature;
 	public String weeklyTasks;
+	public int status;
+	public long statusByUserId;
+	public String statusByUserName;
+	public long statusDate;
 }

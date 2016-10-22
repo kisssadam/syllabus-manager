@@ -889,6 +889,10 @@ public class SyllabusPersistenceImpl extends BasePersistenceImpl<Syllabus>
 		syllabusImpl.setEducationalMaterials(syllabus.getEducationalMaterials());
 		syllabusImpl.setRecommendedLiterature(syllabus.getRecommendedLiterature());
 		syllabusImpl.setWeeklyTasks(syllabus.getWeeklyTasks());
+		syllabusImpl.setStatus(syllabus.getStatus());
+		syllabusImpl.setStatusByUserId(syllabus.getStatusByUserId());
+		syllabusImpl.setStatusByUserName(syllabus.getStatusByUserName());
+		syllabusImpl.setStatusDate(syllabus.getStatusDate());
 
 		return syllabusImpl;
 	}

@@ -21,7 +21,7 @@ import com.liferay.portal.kernel.model.PersistedModel;
 import com.liferay.portal.kernel.util.Accessor;
 
 /**
- * The extended model interface for the Course service. Represents a row in the &quot;unideb_syllabus_manager_Course&quot; database table, with each column mapped to a property of this class.
+ * The extended model interface for the Course service. Represents a row in the &quot;syllabus_manager_Course&quot; database table, with each column mapped to a property of this class.
  *
  * @author Adam Kiss
  * @see CourseModel

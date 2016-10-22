@@ -1,21 +1,21 @@
-create index IX_2DC42CA3 on unideb_syllabus_manager_Course (courseTypeId);
-create unique index IX_A1C296DC on unideb_syllabus_manager_Course (subjectId, courseTypeId);
+create index IX_642B95D1 on syllabus_manager_Course (courseTypeId);
+create unique index IX_73BB44EE on syllabus_manager_Course (subjectId, courseTypeId);
 
-create unique index IX_86F8E6B2 on unideb_syllabus_manager_CourseType (typeName[$COLUMN_LENGTH:10000$]);
+create unique index IX_BD604FE0 on syllabus_manager_CourseType (typeName[$COLUMN_LENGTH:10000$]);
 
-create unique index IX_678CBA5B on unideb_syllabus_manager_Curriculum (curriculumCode[$COLUMN_LENGTH:10000$]);
+create unique index IX_E4600909 on syllabus_manager_Curriculum (curriculumCode[$COLUMN_LENGTH:10000$]);
 
-create unique index IX_E196776B on unideb_syllabus_manager_Lecturer (lecturerName[$COLUMN_LENGTH:10000$]);
+create unique index IX_1BC84D19 on syllabus_manager_Lecturer (lecturerName[$COLUMN_LENGTH:10000$]);
 
-create index IX_CB1EE8ED on unideb_syllabus_manager_Lecturers_TimetableCourses (companyId);
-create index IX_A487357E on unideb_syllabus_manager_Lecturers_TimetableCourses (lecturerId);
-create index IX_97DBE28C on unideb_syllabus_manager_Lecturers_TimetableCourses (timetableCourseId);
+create index IX_778D417F on syllabus_manager_Lecturers_TimetableCourses (companyId);
+create index IX_85E3EF2C on syllabus_manager_Lecturers_TimetableCourses (lecturerId);
+create index IX_B79891E on syllabus_manager_Lecturers_TimetableCourses (timetableCourseId);
 
-create unique index IX_B23FA52F on unideb_syllabus_manager_Semester (beginYear, endYear, division);
+create unique index IX_939C5EDD on syllabus_manager_Semester (beginYear, endYear, division);
 
-create unique index IX_24D8D7EB on unideb_syllabus_manager_Subject (curriculumId, subjectCode[$COLUMN_LENGTH:10000$]);
+create unique index IX_BF019899 on syllabus_manager_Subject (curriculumId, subjectCode[$COLUMN_LENGTH:10000$]);
 
-create index IX_6CA2D55E on unideb_syllabus_manager_Syllabus (timetableCourseId);
+create index IX_8A395C70 on syllabus_manager_Syllabus (timetableCourseId);
 
-create unique index IX_9E42F172 on unideb_syllabus_manager_TimetableCourse (courseId, semesterId, timetableCourseCode[$COLUMN_LENGTH:10000$], subjectType[$COLUMN_LENGTH:10000$]);
-create index IX_A3D7FD6B on unideb_syllabus_manager_TimetableCourse (semesterId);
+create unique index IX_D8B8A584 on syllabus_manager_TimetableCourse (courseId, semesterId, timetableCourseCode[$COLUMN_LENGTH:10000$], subjectType[$COLUMN_LENGTH:10000$]);
+create index IX_C16E847D on syllabus_manager_TimetableCourse (semesterId);

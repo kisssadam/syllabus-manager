@@ -3,7 +3,7 @@
 
 <service-builder package-path="hu.unideb.inf">
 	<author>Adam Kiss</author>
-	<namespace>unideb_syllabus_manager</namespace>
+	<namespace>syllabus_manager</namespace>
 	<entity name="Curriculum" local-service="true">
 
 		<!-- PK fields -->
@@ -237,6 +237,10 @@
         <column name="educationalMaterials" type="String"></column>
         <column name="recommendedLiterature" type="String"></column>
         <column name="weeklyTasks" type="String"></column>
+        <column name="status" type="int" />
+		<column name="statusByUserId" type="long" />
+		<column name="statusByUserName" type="String" />
+		<column name="statusDate" type="Date" />
 		<finder name="TimetableCourseId" return-type="Collection">
 			<finder-column name="timetableCourseId"></finder-column>
 		</finder>

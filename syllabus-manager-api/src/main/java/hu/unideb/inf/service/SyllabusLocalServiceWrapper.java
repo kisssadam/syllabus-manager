@@ -152,6 +152,16 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 		return _syllabusLocalService.getSyllabus(syllabusId);
 	}
 
+	@Override
+	public hu.unideb.inf.model.Syllabus updateStatus(long userId, long classPK,
+		int status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext,
+		java.util.Map<java.lang.String, java.io.Serializable> workflowContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _syllabusLocalService.updateStatus(userId, classPK, status,
+			serviceContext, workflowContext);
+	}
+
 	/**
 	* Updates the syllabus in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
 	*

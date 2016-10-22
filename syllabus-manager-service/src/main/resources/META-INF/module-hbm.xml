@@ -10,7 +10,7 @@
 	<import class="hu.unideb.inf.model.Subject" />
 	<import class="hu.unideb.inf.model.Syllabus" />
 	<import class="hu.unideb.inf.model.TimetableCourse" />
-	<class name="hu.unideb.inf.model.impl.CourseImpl" table="unideb_syllabus_manager_Course">
+	<class name="hu.unideb.inf.model.impl.CourseImpl" table="syllabus_manager_Course">
 		<id name="courseId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -25,7 +25,7 @@
 		<property name="hoursPerWeek" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="courseTypeId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
-	<class name="hu.unideb.inf.model.impl.CourseTypeImpl" table="unideb_syllabus_manager_CourseType">
+	<class name="hu.unideb.inf.model.impl.CourseTypeImpl" table="syllabus_manager_CourseType">
 		<id name="courseTypeId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -37,7 +37,7 @@
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="typeName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="hu.unideb.inf.model.impl.CurriculumImpl" table="unideb_syllabus_manager_Curriculum">
+	<class name="hu.unideb.inf.model.impl.CurriculumImpl" table="syllabus_manager_Curriculum">
 		<id name="curriculumId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -50,7 +50,7 @@
 		<property name="curriculumCode" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="curriculumName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="hu.unideb.inf.model.impl.LecturerImpl" table="unideb_syllabus_manager_Lecturer">
+	<class name="hu.unideb.inf.model.impl.LecturerImpl" table="syllabus_manager_Lecturer">
 		<id name="lecturerId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -63,7 +63,7 @@
 		<property name="lecturerName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="lecturerUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
-	<class name="hu.unideb.inf.model.impl.SemesterImpl" table="unideb_syllabus_manager_Semester">
+	<class name="hu.unideb.inf.model.impl.SemesterImpl" table="syllabus_manager_Semester">
 		<id name="semesterId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -77,7 +77,7 @@
 		<property name="endYear" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="division" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
-	<class name="hu.unideb.inf.model.impl.SubjectImpl" table="unideb_syllabus_manager_Subject">
+	<class name="hu.unideb.inf.model.impl.SubjectImpl" table="syllabus_manager_Subject">
 		<id name="subjectId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -92,7 +92,7 @@
 		<property name="credit" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="curriculumId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 	</class>
-	<class name="hu.unideb.inf.model.impl.SyllabusImpl" table="unideb_syllabus_manager_Syllabus">
+	<class name="hu.unideb.inf.model.impl.SyllabusImpl" table="syllabus_manager_Syllabus">
 		<id name="syllabusId" type="long">
 			<generator class="assigned" />
 		</id>
@@ -109,8 +109,12 @@
 		<property name="educationalMaterials" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="recommendedLiterature" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="weeklyTasks" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="statusByUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="statusByUserName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="statusDate" type="org.hibernate.type.TimestampType" />
 	</class>
-	<class name="hu.unideb.inf.model.impl.TimetableCourseImpl" table="unideb_syllabus_manager_TimetableCourse">
+	<class name="hu.unideb.inf.model.impl.TimetableCourseImpl" table="syllabus_manager_TimetableCourse">
 		<id name="timetableCourseId" type="long">
 			<generator class="assigned" />
 		</id>
