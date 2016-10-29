@@ -56,5 +56,10 @@ public class SyllabusAssetRendererFactory extends BaseAssetRendererFactory<Sylla
 	public boolean isLinkable() {
 		return true;
 	}
+	
+	@Override
+	public String getPortletId() {
+		return SyllabusManagerPortletKeys.SyllabusManagerAdmin;
+	}
 
 }
