@@ -78,39 +78,39 @@ import hu.unideb.inf.web.util.TimetableCSVParser;
 )
 public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
-	private static final String VIEW_CURRICULUMS = "/admin/curriculums/view_curriculums.jsp";
+	public static final String VIEW_CURRICULUMS = "/admin/curriculums/view_curriculums.jsp";
 
-	private static final String VIEW_SUBJECTS = "/admin/subjects/view_subjects.jsp";
+	public static final String VIEW_SUBJECTS = "/admin/subjects/view_subjects.jsp";
 
-	private static final String VIEW_COURSES = "/admin/courses/view_courses.jsp";
+	public static final String VIEW_COURSES = "/admin/courses/view_courses.jsp";
 
-	private static final String VIEW_COURSE_TYPES = "/admin/course_types/view_course_types.jsp";
+	public static final String VIEW_COURSE_TYPES = "/admin/course_types/view_course_types.jsp";
 
-	private static final String VIEW_SEMESTERS = "/admin/semesters/view_semesters.jsp";
+	public static final String VIEW_SEMESTERS = "/admin/semesters/view_semesters.jsp";
 
-	private static final String VIEW_LECTURERS = "/admin/lecturers/view_lecturers.jsp";
+	public static final String VIEW_LECTURERS = "/admin/lecturers/view_lecturers.jsp";
 
-	private static final String VIEW_TIMETABLE_COURSES_BY_SEMESTER = "/admin/timetablecourses/view_timetable_courses_by_semester.jsp";
+	public static final String VIEW_TIMETABLE_COURSES_BY_SEMESTER = "/admin/timetablecourses/view_timetable_courses_by_semester.jsp";
 	
-	private static final String VIEW_SYLLABUSES_BY_TIMETABLE_COURSE = "/admin/syllabuses/view_syllabuses_by_timetable_course.jsp";
+	public static final String VIEW_SYLLABUSES_BY_TIMETABLE_COURSE = "/admin/syllabuses/view_syllabuses_by_timetable_course.jsp";
 
-	private static final String EDIT_CURRICULUM = "/admin/curriculums/edit_curriculum.jsp";
+	public static final String EDIT_CURRICULUM = "/admin/curriculums/edit_curriculum.jsp";
 
-	private static final String EDIT_SUBJECT = "/admin/subjects/edit_subject.jsp";
+	public static final String EDIT_SUBJECT = "/admin/subjects/edit_subject.jsp";
 
-	private static final String EDIT_COURSE = "/admin/courses/edit_course.jsp";
+	public static final String EDIT_COURSE = "/admin/courses/edit_course.jsp";
 
-	private static final String EDIT_COURSE_TYPE = "/admin/course_types/edit_course_type.jsp";
+	public static final String EDIT_COURSE_TYPE = "/admin/course_types/edit_course_type.jsp";
 
-	private static final String EDIT_SEMESTER = "/admin/semesters/edit_semester.jsp";
+	public static final String EDIT_SEMESTER = "/admin/semesters/edit_semester.jsp";
 
-	private static final String EDIT_LECTURER = "/admin/lecturers/edit_lecturer.jsp";
+	public static final String EDIT_LECTURER = "/admin/lecturers/edit_lecturer.jsp";
 
-	private static final String EDIT_TIMETABLE_COURSE = "/admin/timetablecourses/edit_timetable_course.jsp";
+	public static final String EDIT_TIMETABLE_COURSE = "/admin/timetablecourses/edit_timetable_course.jsp";
 	
-	private static final String EDIT_SYLLABUS = "/admin/syllabuses/edit_syllabus.jsp";
+	public static final String EDIT_SYLLABUS = "/admin/syllabuses/edit_syllabus.jsp";
 
-	private final static String fileInputName = "fileupload";
+	public static final String fileInputName = "fileupload";
 
 	private static final Log log = LogFactoryUtil.getLog(SyllabusManagerAdminPortlet.class);
 

@@ -18,6 +18,8 @@ import aQute.bnd.annotation.ProviderType;
 
 import com.liferay.expando.kernel.model.ExpandoBridge;
 
+import com.liferay.exportimport.kernel.lar.StagedModelType;
+
 import com.liferay.portal.kernel.model.ModelWrapper;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -57,6 +59,7 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("uuid", getUuid());
 		attributes.put("syllabusId", getSyllabusId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
@@ -81,6 +84,12 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		String uuid = (String)attributes.get("uuid");
+
+		if (uuid != null) {
+			setUuid(uuid);
+		}
+
 		Long syllabusId = (Long)attributes.get("syllabusId");
 
 		if (syllabusId != null) {
@@ -425,6 +434,16 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 	@Override
 	public java.lang.String getUserUuid() {
 		return _syllabus.getUserUuid();
+	}
+
+	/**
+	* Returns the uuid of this syllabus.
+	*
+	* @return the uuid of this syllabus
+	*/
+	@Override
+	public java.lang.String getUuid() {
+		return _syllabus.getUuid();
 	}
 
 	/**
@@ -784,6 +803,16 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 	}
 
 	/**
+	* Sets the uuid of this syllabus.
+	*
+	* @param uuid the uuid of this syllabus
+	*/
+	@Override
+	public void setUuid(java.lang.String uuid) {
+		_syllabus.setUuid(uuid);
+	}
+
+	/**
 	* Sets the weekly tasks of this syllabus.
 	*
 	* @param weeklyTasks the weekly tasks of this syllabus
@@ -810,6 +839,11 @@ public class SyllabusWrapper implements Syllabus, ModelWrapper<Syllabus> {
 		}
 
 		return false;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _syllabus.getStagedModelType();
 	}
 
 	@Override

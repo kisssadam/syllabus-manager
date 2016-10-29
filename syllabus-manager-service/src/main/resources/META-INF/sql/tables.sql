@@ -82,6 +82,7 @@ create table syllabus_manager_Subject (
 );
 
 create table syllabus_manager_Syllabus (
+	uuid_ VARCHAR(75) null,
 	syllabusId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,

@@ -19,6 +19,8 @@ import aQute.bnd.annotation.ProviderType;
 import com.liferay.expando.kernel.model.ExpandoBridge;
 import com.liferay.expando.kernel.util.ExpandoBridgeFactoryUtil;
 
+import com.liferay.exportimport.kernel.lar.StagedModelType;
+
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSON;
@@ -28,6 +30,7 @@ import com.liferay.portal.kernel.model.impl.BaseModelImpl;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.UserLocalServiceUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -71,6 +74,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 	 */
 	public static final String TABLE_NAME = "syllabus_manager_Syllabus";
 	public static final Object[][] TABLE_COLUMNS = {
+			{ "uuid_", Types.VARCHAR },
 			{ "syllabusId", Types.BIGINT },
 			{ "groupId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
@@ -93,6 +97,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 	public static final Map<String, Integer> TABLE_COLUMNS_MAP = new HashMap<String, Integer>();
 
 	static {
+		TABLE_COLUMNS_MAP.put("uuid_", Types.VARCHAR);
 		TABLE_COLUMNS_MAP.put("syllabusId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("groupId", Types.BIGINT);
 		TABLE_COLUMNS_MAP.put("companyId", Types.BIGINT);
@@ -113,7 +118,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		TABLE_COLUMNS_MAP.put("statusDate", Types.TIMESTAMP);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table syllabus_manager_Syllabus (syllabusId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,timetableCourseId LONG,competence VARCHAR(75) null,ethicalStandards TEXT null,topics VARCHAR(75) null,educationalMaterials TEXT null,recommendedLiterature TEXT null,weeklyTasks TEXT null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
+	public static final String TABLE_SQL_CREATE = "create table syllabus_manager_Syllabus (uuid_ VARCHAR(75) null,syllabusId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,timetableCourseId LONG,competence VARCHAR(75) null,ethicalStandards TEXT null,topics VARCHAR(75) null,educationalMaterials TEXT null,recommendedLiterature TEXT null,weeklyTasks TEXT null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table syllabus_manager_Syllabus";
 	public static final String ORDER_BY_JPQL = " ORDER BY syllabus.syllabusId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY syllabus_manager_Syllabus.syllabusId ASC";
@@ -129,8 +134,11 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(hu.unideb.inf.service.util.PropsUtil.get(
 				"value.object.column.bitmask.enabled.hu.unideb.inf.model.Syllabus"),
 			true);
-	public static final long TIMETABLECOURSEID_COLUMN_BITMASK = 1L;
-	public static final long SYLLABUSID_COLUMN_BITMASK = 2L;
+	public static final long COMPANYID_COLUMN_BITMASK = 1L;
+	public static final long GROUPID_COLUMN_BITMASK = 2L;
+	public static final long TIMETABLECOURSEID_COLUMN_BITMASK = 4L;
+	public static final long UUID_COLUMN_BITMASK = 8L;
+	public static final long SYLLABUSID_COLUMN_BITMASK = 16L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -145,6 +153,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 		Syllabus model = new SyllabusImpl();
 
+		model.setUuid(soapModel.getUuid());
 		model.setSyllabusId(soapModel.getSyllabusId());
 		model.setGroupId(soapModel.getGroupId());
 		model.setCompanyId(soapModel.getCompanyId());
@@ -227,6 +236,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
+		attributes.put("uuid", getUuid());
 		attributes.put("syllabusId", getSyllabusId());
 		attributes.put("groupId", getGroupId());
 		attributes.put("companyId", getCompanyId());
@@ -254,6 +264,12 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
+		String uuid = (String)attributes.get("uuid");
+
+		if (uuid != null) {
+			setUuid(uuid);
+		}
+
 		Long syllabusId = (Long)attributes.get("syllabusId");
 
 		if (syllabusId != null) {
@@ -367,6 +383,30 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 	@JSON
 	@Override
+	public String getUuid() {
+		if (_uuid == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _uuid;
+		}
+	}
+
+	@Override
+	public void setUuid(String uuid) {
+		if (_originalUuid == null) {
+			_originalUuid = _uuid;
+		}
+
+		_uuid = uuid;
+	}
+
+	public String getOriginalUuid() {
+		return GetterUtil.getString(_originalUuid);
+	}
+
+	@JSON
+	@Override
 	public long getSyllabusId() {
 		return _syllabusId;
 	}
@@ -384,7 +424,19 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 	@Override
 	public void setGroupId(long groupId) {
+		_columnBitmask |= GROUPID_COLUMN_BITMASK;
+
+		if (!_setOriginalGroupId) {
+			_setOriginalGroupId = true;
+
+			_originalGroupId = _groupId;
+		}
+
 		_groupId = groupId;
+	}
+
+	public long getOriginalGroupId() {
+		return _originalGroupId;
 	}
 
 	@JSON
@@ -395,7 +447,19 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 	@Override
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
+	}
+
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
 	}
 
 	@JSON
@@ -654,6 +718,12 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 	}
 
 	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(PortalUtil.getClassNameId(
+				Syllabus.class.getName()));
+	}
+
+	@Override
 	public boolean isApproved() {
 		if (getStatus() == WorkflowConstants.STATUS_APPROVED) {
 			return true;
@@ -764,6 +834,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 	public Object clone() {
 		SyllabusImpl syllabusImpl = new SyllabusImpl();
 
+		syllabusImpl.setUuid(getUuid());
 		syllabusImpl.setSyllabusId(getSyllabusId());
 		syllabusImpl.setGroupId(getGroupId());
 		syllabusImpl.setCompanyId(getCompanyId());
@@ -844,6 +915,16 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 	public void resetOriginalValues() {
 		SyllabusModelImpl syllabusModelImpl = this;
 
+		syllabusModelImpl._originalUuid = syllabusModelImpl._uuid;
+
+		syllabusModelImpl._originalGroupId = syllabusModelImpl._groupId;
+
+		syllabusModelImpl._setOriginalGroupId = false;
+
+		syllabusModelImpl._originalCompanyId = syllabusModelImpl._companyId;
+
+		syllabusModelImpl._setOriginalCompanyId = false;
+
 		syllabusModelImpl._setModifiedDate = false;
 
 		syllabusModelImpl._originalTimetableCourseId = syllabusModelImpl._timetableCourseId;
@@ -856,6 +937,14 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 	@Override
 	public CacheModel<Syllabus> toCacheModel() {
 		SyllabusCacheModel syllabusCacheModel = new SyllabusCacheModel();
+
+		syllabusCacheModel.uuid = getUuid();
+
+		String uuid = syllabusCacheModel.uuid;
+
+		if ((uuid != null) && (uuid.length() == 0)) {
+			syllabusCacheModel.uuid = null;
+		}
 
 		syllabusCacheModel.syllabusId = getSyllabusId();
 
@@ -969,9 +1058,11 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(39);
 
-		sb.append("{syllabusId=");
+		sb.append("{uuid=");
+		sb.append(getUuid());
+		sb.append(", syllabusId=");
 		sb.append(getSyllabusId());
 		sb.append(", groupId=");
 		sb.append(getGroupId());
@@ -1014,12 +1105,16 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(58);
+		StringBundler sb = new StringBundler(61);
 
 		sb.append("<model><model-name>");
 		sb.append("hu.unideb.inf.model.Syllabus");
 		sb.append("</model-name>");
 
+		sb.append(
+			"<column><column-name>uuid</column-name><column-value><![CDATA[");
+		sb.append(getUuid());
+		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>syllabusId</column-name><column-value><![CDATA[");
 		sb.append(getSyllabusId());
@@ -1102,9 +1197,15 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 	private static final Class<?>[] _escapedModelInterfaces = new Class[] {
 			Syllabus.class
 		};
+	private String _uuid;
+	private String _originalUuid;
 	private long _syllabusId;
 	private long _groupId;
+	private long _originalGroupId;
+	private boolean _setOriginalGroupId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userName;
 	private Date _createDate;

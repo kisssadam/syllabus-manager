@@ -37,6 +37,23 @@ public interface Syllabus extends SyllabusModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link hu.unideb.inf.model.impl.SyllabusImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public static final Accessor<Syllabus, String> UUID_ACCESSOR = new Accessor<Syllabus, String>() {
+			@Override
+			public String get(Syllabus syllabus) {
+				return syllabus.getUuid();
+			}
+
+			@Override
+			public Class<String> getAttributeClass() {
+				return String.class;
+			}
+
+			@Override
+			public Class<Syllabus> getTypeClass() {
+				return Syllabus.class;
+			}
+		};
+
 	public static final Accessor<Syllabus, Long> SYLLABUS_ID_ACCESSOR = new Accessor<Syllabus, Long>() {
 			@Override
 			public Long get(Syllabus syllabus) {

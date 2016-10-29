@@ -90,6 +90,7 @@
 		<field name="curriculumId" type="long" />
 	</model>
 	<model name="hu.unideb.inf.model.Syllabus">
+		<field name="uuid" type="String" />
 		<field name="syllabusId" type="long" />
 		<field name="groupId" type="long" />
 		<field name="companyId" type="long" />

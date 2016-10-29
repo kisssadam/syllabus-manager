@@ -65,9 +65,11 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(39);
 
-		sb.append("{syllabusId=");
+		sb.append("{uuid=");
+		sb.append(uuid);
+		sb.append(", syllabusId=");
 		sb.append(syllabusId);
 		sb.append(", groupId=");
 		sb.append(groupId);
@@ -111,6 +113,13 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 	@Override
 	public Syllabus toEntityModel() {
 		SyllabusImpl syllabusImpl = new SyllabusImpl();
+
+		if (uuid == null) {
+			syllabusImpl.setUuid(StringPool.BLANK);
+		}
+		else {
+			syllabusImpl.setUuid(uuid);
+		}
 
 		syllabusImpl.setSyllabusId(syllabusId);
 		syllabusImpl.setGroupId(groupId);
@@ -206,6 +215,8 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 
 	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
+		uuid = objectInput.readUTF();
+
 		syllabusId = objectInput.readLong();
 
 		groupId = objectInput.readLong();
@@ -235,6 +246,13 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
+		if (uuid == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(uuid);
+		}
+
 		objectOutput.writeLong(syllabusId);
 
 		objectOutput.writeLong(groupId);
@@ -311,6 +329,7 @@ public class SyllabusCacheModel implements CacheModel<Syllabus>, Externalizable 
 		objectOutput.writeLong(statusDate);
 	}
 
+	public String uuid;
 	public long syllabusId;
 	public long groupId;
 	public long companyId;

@@ -16,8 +16,11 @@ package hu.unideb.inf.service;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.exportimport.kernel.lar.PortletDataContext;
+
 import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery;
 import com.liferay.portal.kernel.dao.orm.Projection;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -66,6 +69,10 @@ public interface SyllabusLocalService extends BaseLocalService,
 	public ActionableDynamicQuery getActionableDynamicQuery();
 
 	public DynamicQuery dynamicQuery();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public ExportActionableDynamicQuery getExportActionableDynamicQuery(
+		PortletDataContext portletDataContext);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public IndexableActionableDynamicQuery getIndexableActionableDynamicQuery();
@@ -131,6 +138,17 @@ public interface SyllabusLocalService extends BaseLocalService,
 	public Syllabus fetchSyllabus(long syllabusId);
 
 	/**
+	* Returns the syllabus matching the UUID and group.
+	*
+	* @param uuid the syllabus's UUID
+	* @param groupId the primary key of the group
+	* @return the matching syllabus, or <code>null</code> if a matching syllabus could not be found
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Syllabus fetchSyllabusByUuidAndGroupId(java.lang.String uuid,
+		long groupId);
+
+	/**
 	* Returns the syllabus with the primary key.
 	*
 	* @param syllabusId the primary key of the syllabus
@@ -139,6 +157,18 @@ public interface SyllabusLocalService extends BaseLocalService,
 	*/
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Syllabus getSyllabus(long syllabusId) throws PortalException;
+
+	/**
+	* Returns the syllabus matching the UUID and group.
+	*
+	* @param uuid the syllabus's UUID
+	* @param groupId the primary key of the group
+	* @return the matching syllabus
+	* @throws PortalException if a matching syllabus could not be found
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Syllabus getSyllabusByUuidAndGroupId(java.lang.String uuid,
+		long groupId) throws PortalException;
 
 	public Syllabus updateStatus(long userId, long classPK, int status,
 		ServiceContext serviceContext,
@@ -242,6 +272,32 @@ public interface SyllabusLocalService extends BaseLocalService,
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Syllabus> getSyllabusesByTimetableCourseId(
 		long timetableCourseId, int start, int end);
+
+	/**
+	* Returns all the syllabuses matching the UUID and company.
+	*
+	* @param uuid the UUID of the syllabuses
+	* @param companyId the primary key of the company
+	* @return the matching syllabuses, or an empty list if no matches were found
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Syllabus> getSyllabusesByUuidAndCompanyId(
+		java.lang.String uuid, long companyId);
+
+	/**
+	* Returns a range of syllabuses matching the UUID and company.
+	*
+	* @param uuid the UUID of the syllabuses
+	* @param companyId the primary key of the company
+	* @param start the lower bound of the range of syllabuses
+	* @param end the upper bound of the range of syllabuses (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the range of matching syllabuses, or an empty list if no matches were found
+	*/
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Syllabus> getSyllabusesByUuidAndCompanyId(
+		java.lang.String uuid, long companyId, int start, int end,
+		OrderByComparator<Syllabus> orderByComparator);
 
 	/**
 	* Returns the number of rows matching the dynamic query.

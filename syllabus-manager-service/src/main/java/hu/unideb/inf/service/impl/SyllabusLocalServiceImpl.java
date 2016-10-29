@@ -20,12 +20,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.liferay.asset.kernel.model.AssetEntry;
+import com.liferay.asset.kernel.model.AssetLinkConstants;
+import com.liferay.asset.kernel.service.AssetEntryLocalServiceUtil;
+import com.liferay.asset.kernel.service.AssetLinkLocalServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.WorkflowInstanceLinkLocalServiceUtil;
+import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 
@@ -94,6 +101,7 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 
 		Syllabus syllabus = syllabusPersistence.create(syllabusId);
 
+		syllabus.setUuid(serviceContext.getUuid());
 		syllabus.setGroupId(groupId);
 		syllabus.setCompanyId(companyId);
 		syllabus.setUserId(userId);
@@ -118,8 +126,20 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 		resourceLocalService.addResources(user.getCompanyId(), groupId, userId, Syllabus.class.getName(), syllabusId,
 				false, true, true);
 
+		AssetEntry assetEntry = assetEntryLocalService.updateEntry(userId, groupId, syllabus.getCreateDate(),
+				syllabus.getModifiedDate(), Syllabus.class.getName(), syllabus.getPrimaryKey(), syllabus.getUuid(), 0,
+				serviceContext.getAssetCategoryIds(), serviceContext.getAssetTagNames(), true, true, null, null,
+				syllabus.getCreateDate(), null, ContentTypes.TEXT_HTML_UTF8, String.valueOf(syllabus.getSyllabusId()),
+				null, null, null, null, 0, 0, null);
+
+		AssetLinkLocalServiceUtil.updateLinks(userId, assetEntry.getEntryId(), serviceContext.getAssetLinkEntryIds(),
+				AssetLinkConstants.TYPE_RELATED);
+
+		Indexer<Syllabus> indexer = IndexerRegistryUtil.nullSafeGetIndexer(Syllabus.class);
+		indexer.reindex(syllabus);
+
 		return WorkflowHandlerRegistryUtil.startWorkflowInstance(user.getCompanyId(), groupId, userId,
-				Syllabus.class.getName(), syllabus.getSyllabusId(), syllabus, serviceContext,
+				Syllabus.class.getName(), syllabus.getPrimaryKey(), syllabus, serviceContext,
 				Collections.<String, Serializable>emptyMap());
 	}
 
@@ -153,6 +173,19 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 		resourceLocalService.updateResources(user.getCompanyId(), groupId, Syllabus.class.getName(), syllabusId,
 				serviceContext.getGroupPermissions(), serviceContext.getGuestPermissions());
 
+		AssetEntry assetEntry = assetEntryLocalService.updateEntry(syllabus.getUserId(), syllabus.getGroupId(),
+				syllabus.getCreateDate(), syllabus.getModifiedDate(), Syllabus.class.getName(),
+				syllabus.getPrimaryKey(), syllabus.getUuid(), 0, serviceContext.getAssetCategoryIds(),
+				serviceContext.getAssetTagNames(), true, true, null, null, syllabus.getCreateDate(), null,
+				ContentTypes.TEXT_HTML_UTF8, String.valueOf(syllabus.getSyllabusId()), null, null, null, null, 0, 0,
+				null);
+
+		AssetLinkLocalServiceUtil.updateLinks(serviceContext.getUserId(), assetEntry.getEntryId(),
+				serviceContext.getAssetLinkEntryIds(), AssetLinkConstants.TYPE_RELATED);
+
+		Indexer<Syllabus> indexer = IndexerRegistryUtil.nullSafeGetIndexer(Syllabus.class);
+		indexer.reindex(syllabus);
+
 		WorkflowHandlerRegistryUtil.startWorkflowInstance(user.getCompanyId(), syllabus.getGroupId(), userId,
 				Syllabus.class.getName(), syllabus.getSyllabusId(), syllabus, serviceContext);
 
@@ -166,6 +199,13 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 		resourceLocalService.deleteResource(syllabus.getCompanyId(), syllabus.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, syllabusId);
 
+		AssetEntry assetEntry = assetEntryLocalService.fetchEntry(Syllabus.class.getName(), syllabusId);
+		AssetLinkLocalServiceUtil.deleteLinks(assetEntry.getEntryId());
+		AssetEntryLocalServiceUtil.deleteEntry(assetEntry.getEntryId());
+
+		Indexer<Syllabus> indexer = IndexerRegistryUtil.nullSafeGetIndexer(Syllabus.class);
+		indexer.delete(syllabus);
+
 		WorkflowInstanceLinkLocalServiceUtil.deleteWorkflowInstanceLinks(syllabus.getCompanyId(), syllabus.getGroupId(),
 				Syllabus.class.getName(), syllabus.getSyllabusId());
 
@@ -174,7 +214,7 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 
 	public Syllabus updateStatus(long userId, long classPK, int status, ServiceContext serviceContext,
 			Map<String, Serializable> workflowContext) throws PortalException {
-		User user = userPersistence.findByPrimaryKey(userId);
+		User user = userLocalService.getUser(userId);
 		Date now = new Date();
 
 		Syllabus syllabus = getSyllabus(classPK);

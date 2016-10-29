@@ -34,6 +34,7 @@ public class SyllabusSoap implements Serializable {
 	public static SyllabusSoap toSoapModel(Syllabus model) {
 		SyllabusSoap soapModel = new SyllabusSoap();
 
+		soapModel.setUuid(model.getUuid());
 		soapModel.setSyllabusId(model.getSyllabusId());
 		soapModel.setGroupId(model.getGroupId());
 		soapModel.setCompanyId(model.getCompanyId());
@@ -102,6 +103,14 @@ public class SyllabusSoap implements Serializable {
 
 	public void setPrimaryKey(long pk) {
 		setSyllabusId(pk);
+	}
+
+	public String getUuid() {
+		return _uuid;
+	}
+
+	public void setUuid(String uuid) {
+		_uuid = uuid;
 	}
 
 	public long getSyllabusId() {
@@ -248,6 +257,7 @@ public class SyllabusSoap implements Serializable {
 		_statusDate = statusDate;
 	}
 
+	private String _uuid;
 	private long _syllabusId;
 	private long _groupId;
 	private long _companyId;

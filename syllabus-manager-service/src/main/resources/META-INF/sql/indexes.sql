@@ -16,6 +16,8 @@ create unique index IX_939C5EDD on syllabus_manager_Semester (beginYear, endYear
 create unique index IX_BF019899 on syllabus_manager_Subject (curriculumId, subjectCode[$COLUMN_LENGTH:10000$]);
 
 create index IX_8A395C70 on syllabus_manager_Syllabus (timetableCourseId);
+create index IX_D76E5F2B on syllabus_manager_Syllabus (uuid_[$COLUMN_LENGTH:75$], companyId);
+create unique index IX_18CAB46D on syllabus_manager_Syllabus (uuid_[$COLUMN_LENGTH:75$], groupId);
 
 create unique index IX_D8B8A584 on syllabus_manager_TimetableCourse (courseId, semesterId, timetableCourseCode[$COLUMN_LENGTH:10000$], subjectType[$COLUMN_LENGTH:10000$]);
 create index IX_C16E847D on syllabus_manager_TimetableCourse (semesterId);

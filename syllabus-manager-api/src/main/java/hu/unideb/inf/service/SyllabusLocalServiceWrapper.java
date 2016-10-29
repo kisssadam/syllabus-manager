@@ -44,6 +44,12 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 	}
 
 	@Override
+	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery getExportActionableDynamicQuery(
+		com.liferay.exportimport.kernel.lar.PortletDataContext portletDataContext) {
+		return _syllabusLocalService.getExportActionableDynamicQuery(portletDataContext);
+	}
+
+	@Override
 	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery getIndexableActionableDynamicQuery() {
 		return _syllabusLocalService.getIndexableActionableDynamicQuery();
 	}
@@ -140,6 +146,19 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 	}
 
 	/**
+	* Returns the syllabus matching the UUID and group.
+	*
+	* @param uuid the syllabus's UUID
+	* @param groupId the primary key of the group
+	* @return the matching syllabus, or <code>null</code> if a matching syllabus could not be found
+	*/
+	@Override
+	public hu.unideb.inf.model.Syllabus fetchSyllabusByUuidAndGroupId(
+		java.lang.String uuid, long groupId) {
+		return _syllabusLocalService.fetchSyllabusByUuidAndGroupId(uuid, groupId);
+	}
+
+	/**
 	* Returns the syllabus with the primary key.
 	*
 	* @param syllabusId the primary key of the syllabus
@@ -150,6 +169,21 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 	public hu.unideb.inf.model.Syllabus getSyllabus(long syllabusId)
 		throws com.liferay.portal.kernel.exception.PortalException {
 		return _syllabusLocalService.getSyllabus(syllabusId);
+	}
+
+	/**
+	* Returns the syllabus matching the UUID and group.
+	*
+	* @param uuid the syllabus's UUID
+	* @param groupId the primary key of the group
+	* @return the matching syllabus
+	* @throws PortalException if a matching syllabus could not be found
+	*/
+	@Override
+	public hu.unideb.inf.model.Syllabus getSyllabusByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _syllabusLocalService.getSyllabusByUuidAndGroupId(uuid, groupId);
 	}
 
 	@Override
@@ -301,6 +335,38 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 		long timetableCourseId, int start, int end) {
 		return _syllabusLocalService.getSyllabusesByTimetableCourseId(timetableCourseId,
 			start, end);
+	}
+
+	/**
+	* Returns all the syllabuses matching the UUID and company.
+	*
+	* @param uuid the UUID of the syllabuses
+	* @param companyId the primary key of the company
+	* @return the matching syllabuses, or an empty list if no matches were found
+	*/
+	@Override
+	public java.util.List<hu.unideb.inf.model.Syllabus> getSyllabusesByUuidAndCompanyId(
+		java.lang.String uuid, long companyId) {
+		return _syllabusLocalService.getSyllabusesByUuidAndCompanyId(uuid,
+			companyId);
+	}
+
+	/**
+	* Returns a range of syllabuses matching the UUID and company.
+	*
+	* @param uuid the UUID of the syllabuses
+	* @param companyId the primary key of the company
+	* @param start the lower bound of the range of syllabuses
+	* @param end the upper bound of the range of syllabuses (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the range of matching syllabuses, or an empty list if no matches were found
+	*/
+	@Override
+	public java.util.List<hu.unideb.inf.model.Syllabus> getSyllabusesByUuidAndCompanyId(
+		java.lang.String uuid, long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator<hu.unideb.inf.model.Syllabus> orderByComparator) {
+		return _syllabusLocalService.getSyllabusesByUuidAndCompanyId(uuid,
+			companyId, start, end, orderByComparator);
 	}
 
 	/**

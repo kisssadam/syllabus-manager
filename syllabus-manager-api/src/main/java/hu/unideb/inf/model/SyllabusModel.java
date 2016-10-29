@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.model.BaseModel;
 import com.liferay.portal.kernel.model.CacheModel;
 import com.liferay.portal.kernel.model.GroupedModel;
 import com.liferay.portal.kernel.model.ShardedModel;
+import com.liferay.portal.kernel.model.StagedAuditedModel;
 import com.liferay.portal.kernel.model.WorkflowedModel;
 import com.liferay.portal.kernel.service.ServiceContext;
 
@@ -45,7 +46,7 @@ import java.util.Date;
  */
 @ProviderType
 public interface SyllabusModel extends BaseModel<Syllabus>, GroupedModel,
-	ShardedModel, WorkflowedModel {
+	ShardedModel, StagedAuditedModel, WorkflowedModel {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -65,6 +66,23 @@ public interface SyllabusModel extends BaseModel<Syllabus>, GroupedModel,
 	 * @param primaryKey the primary key of this syllabus
 	 */
 	public void setPrimaryKey(long primaryKey);
+
+	/**
+	 * Returns the uuid of this syllabus.
+	 *
+	 * @return the uuid of this syllabus
+	 */
+	@AutoEscape
+	@Override
+	public String getUuid();
+
+	/**
+	 * Sets the uuid of this syllabus.
+	 *
+	 * @param uuid the uuid of this syllabus
+	 */
+	@Override
+	public void setUuid(String uuid);
 
 	/**
 	 * Returns the syllabus ID of this syllabus.

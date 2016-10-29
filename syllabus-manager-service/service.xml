@@ -214,7 +214,7 @@
 			<finder-column name="lecturerName"></finder-column>
 		</finder>
 	</entity>
-    <entity name="Syllabus" local-service="true">
+    <entity name="Syllabus" local-service="true" uuid="true" uuid-accessor="true">
     	<!-- PK fields -->
 
 		<column name="syllabusId" type="long" primary="true"></column>
@@ -244,6 +244,10 @@
 		<finder name="TimetableCourseId" return-type="Collection">
 			<finder-column name="timetableCourseId"></finder-column>
 		</finder>
+		<reference entity="Group" package-path="com.liferay.portal" />
+		<reference entity="AssetEntry" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetLink" package-path="com.liferay.portlet.asset" />
+		<reference entity="AssetTag" package-path="com.liferay.portlet.asset" />
     </entity>
 	<exceptions>
 		<exception>CurriculumCode</exception>
