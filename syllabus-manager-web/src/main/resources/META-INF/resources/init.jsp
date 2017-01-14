@@ -42,6 +42,7 @@
 <%@ page import="hu.unideb.inf.service.permission.*"%>
 
 <%@ page import="hu.unideb.inf.web.util.WebKeys"%>
+<%@ page import="hu.unideb.inf.web.constants.SyllabusWebKeys"%>
 <%@ page import="hu.unideb.inf.util.SyllabusActionKeys"%>
 <%@ page import="hu.unideb.inf.service.util.SemesterHelper"%>
 
