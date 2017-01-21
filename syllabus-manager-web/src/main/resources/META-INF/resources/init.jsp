@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet"%>
 
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui"%>
@@ -29,7 +29,9 @@
 <%@ page import="com.liferay.portal.kernel.util.Constants"%>
 
 <%@ page import="com.liferay.portal.kernel.util.PortalUtil"%>
+<%@ page import="com.liferay.portal.kernel.util.FastDateFormatFactoryUtil"%>
 
+<%@ page import="java.text.Format"%>
 <%@ page import="java.util.Collections"%>
 <%@ page import="java.util.Calendar"%>
 <%@ page import="java.util.List"%>
