@@ -19,6 +19,7 @@
 	
 	PortletURL iteratorURL = renderResponse.createRenderURL();
 	iteratorURL.setParameter("jspPage", "/admin/timetablecourses/view_timetable_courses_by_course.jsp");
+	iteratorURL.setParameter("home", "curriculums");
 	iteratorURL.setParameter("courseId", String.valueOf(courseId));
 	
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);

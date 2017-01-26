@@ -92,6 +92,8 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 	public static final String VIEW_TIMETABLE_COURSES_BY_SEMESTER = "/admin/timetablecourses/view_timetable_courses_by_semester.jsp";
 	
+	public static final String VIEW_TIMETABLE_COURSES_BY_COURSE = "/admin/timetablecourses/view_timetable_courses_by_course.jsp";
+	
 	public static final String VIEW_SYLLABUSES_BY_TIMETABLE_COURSE = "/admin/syllabuses/view_syllabuses_by_timetable_course.jsp";
 
 	public static final String EDIT_CURRICULUM = "/admin/curriculums/edit_curriculum.jsp";
@@ -359,7 +361,8 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	public void addTimetableCourse(ActionRequest request, ActionResponse response)
 			throws PortalException, SystemException {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
-
+		
+		String home = ParamUtil.getString(request, "home");
 		long timetableCourseId = ParamUtil.getLong(request, "timetableCourseId");
 		long courseId = ParamUtil.getLong(request, "courseSelect");
 		long semesterId = ParamUtil.getLong(request, "semesterId");
@@ -373,8 +376,8 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 		if (log.isDebugEnabled()) {
 			log.debug(String.format(
-					"timetableCourseId: %d, courseId: %d, semesterId: %d, timetableCourseCode: '%s', subjectType: '%s', recommendedTerm: %d, limit: %d, lecturerIds: '%s', classScheduleInfo: '%s', description: '%s'",
-					timetableCourseId, courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit,
+					"home: '%s', timetableCourseId: %d, courseId: %d, semesterId: %d, timetableCourseCode: '%s', subjectType: '%s', recommendedTerm: %d, limit: %d, lecturerIds: '%s', classScheduleInfo: '%s', description: '%s'",
+					home, timetableCourseId, courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit,
 					Arrays.toString(lecturerIds), classScheduleInfo, description));
 		}
 
@@ -399,8 +402,17 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "timetableCourseAdded");
 			}
 
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_SEMESTER);
-			response.setRenderParameter("semesterId", String.valueOf(semesterId));
+			if (home.equalsIgnoreCase("curriculums")) {
+				response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_COURSE);
+				response.setRenderParameter("courseId", String.valueOf(courseId));
+			} else if (home.equalsIgnoreCase("semesters")) {
+				response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_SEMESTER);
+				response.setRenderParameter("semesterId", String.valueOf(semesterId));
+			} else {
+				if (log.isErrorEnabled()) {
+					log.error(String.format("Failed to set mvcPath in method addTimetableCourse. Parameter home: '%s'.", home));
+				}
+			}
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -507,24 +519,23 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	}
 
 	public void deleteSubject(ActionRequest request, ActionResponse response) {
+		long curriculumId = ParamUtil.getLong(request, "curriculumId");
 		long subjectId = ParamUtil.getLong(request, "subjectId");
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		if (log.isDebugEnabled()) {
-			log.debug(String.format("subjectId: %d, delta: %d", subjectId, delta));
+			log.debug(String.format("curriculumId: %d, subjectId: %d, delta: %d", curriculumId, subjectId, delta));
 		}
 
 		try {
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(Subject.class.getName(), request);
-
+			
 			if (log.isTraceEnabled()) {
 				log.trace(String.format("Deleting subject, id: %d", subjectId));
 			}
 
-			Subject deletedSubject = SubjectLocalServiceUtil.deleteSubject(subjectId, serviceContext);
+			SubjectLocalServiceUtil.deleteSubject(subjectId, serviceContext);
 			SessionMessages.add(request, "subjectDeleted");
-
-			response.setRenderParameter("curriculumId", String.valueOf(deletedSubject.getCurriculumId()));
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -534,16 +545,22 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
 			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
+			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteCourse(ActionRequest request, ActionResponse response) {
+		long curriculumId = ParamUtil.getLong(request, "curriculumId");
+		long subjectId = ParamUtil.getLong(request, "subjectId");
 		long courseId = ParamUtil.getLong(request, "courseId");
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		if (log.isDebugEnabled()) {
-			log.debug(String.format("courseId: %d, delta: %d", courseId, delta));
+			log.debug(
+				String.format(
+					"curriculumId: %d, subjectId: %d, courseId: %d, delta: %d",
+					curriculumId, subjectId, courseId, delta));
 		}
 
 		try {
@@ -553,10 +570,8 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				log.trace(String.format("Deleting course, id: %d", courseId));
 			}
 
-			Course deletedCourse = CourseLocalServiceUtil.deleteCourse(courseId, serviceContext);
+			CourseLocalServiceUtil.deleteCourse(courseId, serviceContext);
 			SessionMessages.add(request, "courseDeleted");
-
-			response.setRenderParameter("subjectId", String.valueOf(deletedCourse.getSubjectId()));
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -566,6 +581,8 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
 			response.setRenderParameter("mvcPath", VIEW_COURSES);
+			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
+			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -661,11 +678,18 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	}
 
 	public void deleteTimetableCourse(ActionRequest request, ActionResponse response) {
+		long curriculumId = ParamUtil.getLong(request, "curriculumId");
+		long subjectId = ParamUtil.getLong(request, "subjectId");
+		long courseId = ParamUtil.getLong(request, "courseId");
 		long timetableCourseId = ParamUtil.getLong(request, "timetableCourseId");
+		long semesterId = ParamUtil.getLong(request, "semesterId");
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		if (log.isDebugEnabled()) {
-			log.debug(String.format("timetableCourseId: %d, delta: %d", timetableCourseId, delta));
+			log.debug(
+				String.format(
+					"curriculumId: %d, subjectId: %d, courseId: %d, timetableCourseId: %d, semesterId: %d, delta: %d",
+					curriculumId, subjectId, courseId, timetableCourseId, semesterId, delta));
 		}
 
 		try {
@@ -675,11 +699,8 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				log.trace(String.format("Deleting timetableCourse, id: %d", timetableCourseId));
 			}
 
-			TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourseId,
-					serviceContext);
+			TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourseId, serviceContext);
 			SessionMessages.add(request, "timetableCourseDeleted");
-
-			response.setRenderParameter("semesterId", String.valueOf(timetableCourse.getSemesterId()));
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -689,16 +710,27 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
 			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_SEMESTER);
+			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
+			response.setRenderParameter("subjectId", String.valueOf(subjectId));
+			response.setRenderParameter("courseId", String.valueOf(courseId));
+			response.setRenderParameter("semesterId", String.valueOf(semesterId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 	
 	public void deleteSyllabus(ActionRequest request, ActionResponse response) {
+		long curriculumId = ParamUtil.getLong(request, "curriculumId");
+		long subjectId = ParamUtil.getLong(request, "subjectId");
+		long courseId = ParamUtil.getLong(request, "courseId");
+		long timetableCourseId = ParamUtil.getLong(request, "timetableCourseId");
 		long syllabusId = ParamUtil.getLong(request, "syllabusId");
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 
 		if (log.isDebugEnabled()) {
-			log.debug(String.format("syllabusId: %d, delta: %d", syllabusId, delta));
+			log.debug(
+				String.format(
+					"curriculumId: %d, subjectId: %d, courseId: %d, timetableCourseId: %d, syllabusId: %d, delta: %d",
+					curriculumId, subjectId, courseId, timetableCourseId, syllabusId, delta));
 		}
 
 		try {
@@ -708,10 +740,8 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				log.trace(String.format("Deleting syllabus, id: %d", syllabusId));
 			}
 
-			Syllabus syllabus = SyllabusLocalServiceUtil.deleteSyllabus(syllabusId, serviceContext);
+			SyllabusLocalServiceUtil.deleteSyllabus(syllabusId, serviceContext);
 			SessionMessages.add(request, "syllabusDeleted");
-
-			response.setRenderParameter("timetableCourseId", String.valueOf(syllabus.getTimetableCourseId()));
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -721,25 +751,26 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
 			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES_BY_TIMETABLE_COURSE);
+			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
+			response.setRenderParameter("subjectId", String.valueOf(subjectId));
+			response.setRenderParameter("courseId", String.valueOf(courseId));
+			response.setRenderParameter("timetableCourseId", String.valueOf(timetableCourseId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteCurriculums(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
+		
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+		String[] curriculumIds = ParamUtil.getParameterValues(request, "deleteCurriculumIds");
 
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("delta: %d", delta));
+			log.debug(String.format("curriculumIds: '%s'", Arrays.toString(curriculumIds)));
 		}
 
 		try {
-			String[] curriculumIds = ParamUtil.getParameterValues(request, "deleteCurriculumIds");
-
-			if (log.isDebugEnabled()) {
-				log.debug(String.format("curriculumIds: '%s'", Arrays.toString(curriculumIds)));
-			}
-
 			for (String curriculumIdString : curriculumIds) {
 				long curriculumId = Long.parseLong(curriculumIdString);
 
@@ -766,20 +797,17 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 	public void deleteSubjects(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Subject.class.getName(), request);
+		
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+		Long curriculumId = ParamUtil.getLong(request, "curriculumId");
+		String[] subjectIds = ParamUtil.getParameterValues(request, "deleteSubjectIds");
 
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("delta: %d", delta));
+			log.debug(String.format("curriculumId: %d, subjectIds: '%s'", curriculumId, subjectIds));
 		}
 
 		try {
-			Long curriculumId = ParamUtil.getLong(request, "curriculumId");
-			String[] subjectIds = ParamUtil.getParameterValues(request, "deleteSubjectIds");
-
-			if (log.isDebugEnabled()) {
-				log.debug(String.format("curriculumId: %d, subjectIds: '%s'", curriculumId, subjectIds));
-			}
-
 			for (String subjectIdString : subjectIds) {
 				long subjectId = Long.parseLong(subjectIdString);
 
@@ -791,7 +819,6 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			}
 
 			SessionMessages.add(request, "subjectsDeleted");
-			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -801,26 +828,24 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
 			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
+			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteCourses(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Course.class.getName(), request);
+		
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+		Long subjectId = ParamUtil.getLong(request, "subjectId");
+		String[] courseIds = ParamUtil.getParameterValues(request, "deleteCourseIds");
 
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("delta: %d", delta));
+			log.debug(String.format("subjectId: %d, courseIds: '%s'", subjectId, courseIds));
 		}
-
+		
 		try {
-			Long subjectId = ParamUtil.getLong(request, "subjectId");
-			String[] courseIds = ParamUtil.getParameterValues(request, "deleteCourseIds");
-
-			if (log.isDebugEnabled()) {
-				log.debug(String.format("subjectId: %d, courseIds: '%s'", subjectId, courseIds));
-			}
-
 			for (String courseIdString : courseIds) {
 				long courseId = Long.parseLong(courseIdString);
 
@@ -832,7 +857,6 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			}
 
 			SessionMessages.add(request, "coursesDeleted");
-			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -842,25 +866,23 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
 			response.setRenderParameter("mvcPath", VIEW_COURSES);
+			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 
 	public void deleteCourseTypes(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(CourseType.class.getName(), request);
+		
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+		String[] courseTypeIds = ParamUtil.getParameterValues(request, "deleteCourseTypeIds");
 
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("delta: %d", delta));
+			log.debug(String.format("courseTypeIds: '%s'", Arrays.toString(courseTypeIds)));
 		}
 
 		try {
-			String[] courseTypeIds = ParamUtil.getParameterValues(request, "deleteCourseTypeIds");
-
-			if (log.isDebugEnabled()) {
-				log.debug(String.format("courseTypeIds: '%s'", Arrays.toString(courseTypeIds)));
-			}
-
 			for (String courseTypeIdString : courseTypeIds) {
 				long courseTypeId = Long.parseLong(courseTypeIdString);
 
@@ -887,19 +909,16 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 	public void deleteSemesters(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Semester.class.getName(), request);
+		
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+		String[] semesterIds = ParamUtil.getParameterValues(request, "deleteSemesterIds");
 
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("delta: %d", delta));
+			log.debug(String.format("semesterIds: '%s'", Arrays.toString(semesterIds)));
 		}
 
 		try {
-			String[] semesterIds = ParamUtil.getParameterValues(request, "deleteSemesterIds");
-
-			if (log.isDebugEnabled()) {
-				log.debug(String.format("semesterIds: '%s'", Arrays.toString(semesterIds)));
-			}
-
 			for (String semesterIdString : semesterIds) {
 				long semesterId = Long.parseLong(semesterIdString);
 
@@ -926,19 +945,16 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 	public void deleteLecturers(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Lecturer.class.getName(), request);
+		
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+		String[] lecturerIds = ParamUtil.getParameterValues(request, "deleteLecturerIds");
 
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("delta: %d", delta));
+			log.debug(String.format("lecturerIds: '%s'", Arrays.toString(lecturerIds)));
 		}
 
 		try {
-			String[] lecturerIds = ParamUtil.getParameterValues(request, "deleteLecturerIds");
-
-			if (log.isDebugEnabled()) {
-				log.debug(String.format("lecturerIds: '%s'", Arrays.toString(lecturerIds)));
-			}
-
 			for (String lecturerIdString : lecturerIds) {
 				long lecturerId = Long.parseLong(lecturerIdString);
 
@@ -965,21 +981,17 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 	public void deleteTimetableCourses(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
+		
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+		long semesterId = ParamUtil.getLong(request, "semesterId");
+		String[] timetableCourseIds = ParamUtil.getParameterValues(request, "deleteTimetableCourseIds");
 
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("delta: %d", delta));
+			log.debug(String.format("timetableCourseIds: '%s', semesterId: %d", Arrays.toString(timetableCourseIds), semesterId));
 		}
 
 		try {
-			String[] timetableCourseIds = ParamUtil.getParameterValues(request, "deleteTimetableCourseIds");
-			long semesterId = 0L;
-
-			if (log.isDebugEnabled()) {
-				log.debug(String.format("timetableCourseIds: '%s', semesterId: %d", Arrays.toString(timetableCourseIds),
-						semesterId));
-			}
-
 			for (String timetableCourseString : timetableCourseIds) {
 				long timetableCourseId = Long.parseLong(timetableCourseString);
 
@@ -987,14 +999,10 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 					log.trace(String.format("Deleting timetableCourse, id: %d", timetableCourseId));
 				}
 
-				TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil
-						.deleteTimetableCourse(timetableCourseId, serviceContext);
-
-				semesterId = timetableCourse.getSemesterId();
+				TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourseId, serviceContext);
 			}
 
 			SessionMessages.add(request, "timetableCoursesDeleted");
-			response.setRenderParameter("semesterId", String.valueOf(semesterId));
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -1004,26 +1012,24 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
 			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_SEMESTER);
+			response.setRenderParameter("semesterId", String.valueOf(semesterId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
 	
 	public void deleteSyllabuses(ActionRequest request, ActionResponse response) throws Exception {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Syllabus.class.getName(), request);
+		
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+		long timetableCourseId = ParamUtil.getLong(request, "timetableCourseId");
+		String[] syllabusIds = ParamUtil.getParameterValues(request, "syllabusIds");
 
 		if (log.isDebugEnabled()) {
-			log.debug(String.format("delta: %d", delta));
+			log.debug(String.format("timetableCourseId: %d, delta: %d", delta));
+			log.debug(String.format("syllabusIds: '%s'", Arrays.toString(syllabusIds)));
 		}
 
 		try {
-			String[] syllabusIds = ParamUtil.getParameterValues(request, "syllabusIds");
-			long timetableCourseId = 0L;
-			
-			if (log.isDebugEnabled()) {
-				log.debug(String.format("syllabusIds: '%s'", Arrays.toString(syllabusIds)));
-			}
-
 			for (String syllabusIdString : syllabusIds) {
 				long syllabusId = Long.parseLong(syllabusIdString);
 
@@ -1031,13 +1037,10 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 					log.trace(String.format("Deleting syllabus, id: %d", syllabusId));
 				}
 
-				Syllabus syllabus = SyllabusLocalServiceUtil.deleteSyllabus(syllabusId, serviceContext);
-
-				timetableCourseId = syllabus.getTimetableCourseId();
+				SyllabusLocalServiceUtil.deleteSyllabus(syllabusId, serviceContext);
 			}
 
 			SessionMessages.add(request, "syllabusesDeleted");
-			response.setRenderParameter("timetableCourseId", String.valueOf(timetableCourseId));
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -1047,6 +1050,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
 			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES_BY_TIMETABLE_COURSE);
+			response.setRenderParameter("timetableCourseId", String.valueOf(timetableCourseId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}

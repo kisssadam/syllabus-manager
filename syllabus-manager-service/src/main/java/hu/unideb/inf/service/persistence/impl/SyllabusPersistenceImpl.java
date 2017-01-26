@@ -2053,7 +2053,7 @@ public class SyllabusPersistenceImpl extends BasePersistenceImpl<Syllabus>
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		clearUniqueFindersCache((SyllabusModelImpl)syllabus);
+		clearUniqueFindersCache((SyllabusModelImpl)syllabus, true);
 	}
 
 	@Override
@@ -2065,49 +2065,35 @@ public class SyllabusPersistenceImpl extends BasePersistenceImpl<Syllabus>
 			entityCache.removeResult(SyllabusModelImpl.ENTITY_CACHE_ENABLED,
 				SyllabusImpl.class, syllabus.getPrimaryKey());
 
-			clearUniqueFindersCache((SyllabusModelImpl)syllabus);
+			clearUniqueFindersCache((SyllabusModelImpl)syllabus, true);
 		}
 	}
 
-	protected void cacheUniqueFindersCache(
-		SyllabusModelImpl syllabusModelImpl, boolean isNew) {
-		if (isNew) {
-			Object[] args = new Object[] {
-					syllabusModelImpl.getUuid(), syllabusModelImpl.getGroupId()
-				};
-
-			finderCache.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
-				Long.valueOf(1));
-			finderCache.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
-				syllabusModelImpl);
-		}
-		else {
-			if ((syllabusModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						syllabusModelImpl.getUuid(),
-						syllabusModelImpl.getGroupId()
-					};
-
-				finderCache.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
-					Long.valueOf(1));
-				finderCache.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
-					syllabusModelImpl);
-			}
-		}
-	}
-
-	protected void clearUniqueFindersCache(SyllabusModelImpl syllabusModelImpl) {
+	protected void cacheUniqueFindersCache(SyllabusModelImpl syllabusModelImpl) {
 		Object[] args = new Object[] {
 				syllabusModelImpl.getUuid(), syllabusModelImpl.getGroupId()
 			};
 
-		finderCache.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
-		finderCache.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+		finderCache.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
+			Long.valueOf(1), false);
+		finderCache.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
+			syllabusModelImpl, false);
+	}
+
+	protected void clearUniqueFindersCache(
+		SyllabusModelImpl syllabusModelImpl, boolean clearCurrent) {
+		if (clearCurrent) {
+			Object[] args = new Object[] {
+					syllabusModelImpl.getUuid(), syllabusModelImpl.getGroupId()
+				};
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+		}
 
 		if ((syllabusModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
-			args = new Object[] {
+			Object[] args = new Object[] {
 					syllabusModelImpl.getOriginalUuid(),
 					syllabusModelImpl.getOriginalGroupId()
 				};
@@ -2346,8 +2332,8 @@ public class SyllabusPersistenceImpl extends BasePersistenceImpl<Syllabus>
 		entityCache.putResult(SyllabusModelImpl.ENTITY_CACHE_ENABLED,
 			SyllabusImpl.class, syllabus.getPrimaryKey(), syllabus, false);
 
-		clearUniqueFindersCache(syllabusModelImpl);
-		cacheUniqueFindersCache(syllabusModelImpl, isNew);
+		clearUniqueFindersCache(syllabusModelImpl, false);
+		cacheUniqueFindersCache(syllabusModelImpl);
 
 		syllabus.resetOriginalValues();
 

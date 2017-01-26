@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
 
 import aQute.bnd.annotation.ProviderType;
+import hu.unideb.inf.exception.DeleteTimetableCoursesFirstException;
 import hu.unideb.inf.exception.DuplicateSemesterException;
 import hu.unideb.inf.exception.NoSuchSemesterException;
 import hu.unideb.inf.exception.SemesterDivisionException;
@@ -36,7 +37,6 @@ import hu.unideb.inf.exception.SemesterYearDifferenceException;
 import hu.unideb.inf.exception.SemesterYearOverlapException;
 import hu.unideb.inf.exception.SemesterYearsAreEqualException;
 import hu.unideb.inf.model.Semester;
-import hu.unideb.inf.model.TimetableCourse;
 import hu.unideb.inf.model.impl.SemesterImpl;
 import hu.unideb.inf.service.SemesterLocalServiceUtil;
 import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
@@ -151,14 +151,12 @@ public class SemesterLocalServiceImpl extends SemesterLocalServiceBaseImpl {
 
 	public Semester deleteSemester(long semesterId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
-		Semester semester = SemesterLocalServiceUtil.getSemester(semesterId);
-
-		List<TimetableCourse> timetableCourses = TimetableCourseLocalServiceUtil
-				.getTimetableCoursesBySemesterId(semesterId);
-		for (TimetableCourse timetableCourse : timetableCourses) {
-			TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourse.getTimetableCourseId(),
-					serviceContext);
+		if (!TimetableCourseLocalServiceUtil
+				.getTimetableCoursesBySemesterId(semesterId).isEmpty()) {
+			throw new DeleteTimetableCoursesFirstException();
 		}
+
+		Semester semester = SemesterLocalServiceUtil.getSemester(semesterId);
 
 		resourceLocalService.deleteResource(semester.getCompanyId(), Semester.class.getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, semesterId);
@@ -242,7 +240,7 @@ public class SemesterLocalServiceImpl extends SemesterLocalServiceBaseImpl {
 			throws SystemException, DuplicateSemesterException {
 		Semester semester = semesterPersistence.fetchByB_E_D(beginYear, endYear, division);
 
-		if (Validator.isNotNull(semester) && !Validator.equals(semester.getSemesterId(), semesterId)) {
+		if (Validator.isNotNull(semester) && semester.getSemesterId() != semesterId) {
 			throw new DuplicateSemesterException();
 		}
 	}

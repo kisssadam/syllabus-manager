@@ -26,12 +26,12 @@ import com.liferay.portal.kernel.util.Validator;
 
 import aQute.bnd.annotation.ProviderType;
 import hu.unideb.inf.exception.CourseHoursException;
+import hu.unideb.inf.exception.DeleteTimetableCoursesFirstException;
 import hu.unideb.inf.exception.DuplicateCourseException;
 import hu.unideb.inf.exception.NoSuchCourseException;
 import hu.unideb.inf.exception.NoSuchCourseTypeException;
 import hu.unideb.inf.exception.NoSuchSubjectException;
 import hu.unideb.inf.model.Course;
-import hu.unideb.inf.model.TimetableCourse;
 import hu.unideb.inf.service.CourseLocalServiceUtil;
 import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
 import hu.unideb.inf.service.SubjectLocalServiceUtil;
@@ -123,14 +123,11 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 	}
 
 	public Course deleteCourse(long courseId, ServiceContext serviceContext) throws PortalException, SystemException {
-		Course course = CourseLocalServiceUtil.getCourse(courseId);
-
-		List<TimetableCourse> timetableCourses = TimetableCourseLocalServiceUtil
-				.getTimetableCoursesByCourseId(courseId);
-		for (TimetableCourse timetableCourse : timetableCourses) {
-			TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourse.getTimetableCourseId(),
-					serviceContext);
+		if (!TimetableCourseLocalServiceUtil.getTimetableCoursesByCourseId(courseId).isEmpty()) {
+			throw new DeleteTimetableCoursesFirstException();
 		}
+		
+		Course course = CourseLocalServiceUtil.getCourse(courseId);
 
 		resourceLocalService.deleteResource(course.getCompanyId(), course.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, courseId);
@@ -190,7 +187,7 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 
 		Course course = CourseLocalServiceUtil.fetchCourseByS_CT(subjectId, courseTypeId);
 		if (Validator.isNotNull(course)) {
-			if (!Validator.equals(course.getCourseId(), courseId)) {
+			if (course.getCourseId() != courseId) {
 				throw new DuplicateCourseException();
 			}
 		}

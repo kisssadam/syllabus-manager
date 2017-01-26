@@ -96,6 +96,7 @@
            	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.ADD_TIMETABLE_COURSE)%>'>
            		<portlet:renderURL var="addTimetableCourseURL">
 					<portlet:param name="mvcPath" value="/admin/timetablecourses/edit_timetable_course.jsp" />
+					<portlet:param name="home" value="${home}" />
 					<portlet:param name="curriculumId" value="${curriculumId}" />
 					<portlet:param name="subjectId" value="${subjectId}" />
 					<portlet:param name="courseId" value="${courseId}" />

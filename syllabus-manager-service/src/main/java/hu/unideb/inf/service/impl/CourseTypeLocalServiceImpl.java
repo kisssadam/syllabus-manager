@@ -26,9 +26,9 @@ import com.liferay.portal.kernel.util.Validator;
 
 import aQute.bnd.annotation.ProviderType;
 import hu.unideb.inf.exception.CourseTypeException;
+import hu.unideb.inf.exception.DeleteCoursesFirstException;
 import hu.unideb.inf.exception.DuplicateCourseTypeException;
 import hu.unideb.inf.exception.NoSuchCourseTypeException;
-import hu.unideb.inf.model.Course;
 import hu.unideb.inf.model.CourseType;
 import hu.unideb.inf.service.CourseLocalServiceUtil;
 import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
@@ -102,12 +102,11 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 
 	public CourseType deleteCourseType(long courseTypeId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
-		CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(courseTypeId);
-
-		List<Course> coursesToDelete = CourseLocalServiceUtil.getCoursesByCourseTypeId(courseTypeId);
-		for (Course course : coursesToDelete) {
-			CourseLocalServiceUtil.deleteCourse(course.getCourseId(), serviceContext);
+		if (!CourseLocalServiceUtil.getCoursesByCourseTypeId(courseTypeId).isEmpty()) {
+			throw new DeleteCoursesFirstException();
 		}
+
+		CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(courseTypeId);
 
 		resourceLocalService.deleteResource(courseType.getCompanyId(), courseType.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, courseTypeId);
@@ -147,7 +146,7 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 
 		CourseType courseType = CourseTypeLocalServiceUtil.fetchCourseTypeByTypeName(typeName);
 		if (Validator.isNotNull(courseType)) {
-			if (!Validator.equals(courseType.getCourseTypeId(), courseTypeId)) {
+			if (courseType.getCourseTypeId() != courseTypeId) {
 				throw new DuplicateCourseTypeException();
 			}
 		}

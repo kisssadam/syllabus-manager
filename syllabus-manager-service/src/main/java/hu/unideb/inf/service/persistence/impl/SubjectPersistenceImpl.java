@@ -924,7 +924,7 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		clearUniqueFindersCache((SubjectModelImpl)subject);
+		clearUniqueFindersCache((SubjectModelImpl)subject, true);
 	}
 
 	@Override
@@ -936,51 +936,37 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 			entityCache.removeResult(SubjectModelImpl.ENTITY_CACHE_ENABLED,
 				SubjectImpl.class, subject.getPrimaryKey());
 
-			clearUniqueFindersCache((SubjectModelImpl)subject);
+			clearUniqueFindersCache((SubjectModelImpl)subject, true);
 		}
 	}
 
-	protected void cacheUniqueFindersCache(SubjectModelImpl subjectModelImpl,
-		boolean isNew) {
-		if (isNew) {
-			Object[] args = new Object[] {
-					subjectModelImpl.getCurriculumId(),
-					subjectModelImpl.getSubjectCode()
-				};
-
-			finderCache.putResult(FINDER_PATH_COUNT_BY_C_S, args,
-				Long.valueOf(1));
-			finderCache.putResult(FINDER_PATH_FETCH_BY_C_S, args,
-				subjectModelImpl);
-		}
-		else {
-			if ((subjectModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_C_S.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						subjectModelImpl.getCurriculumId(),
-						subjectModelImpl.getSubjectCode()
-					};
-
-				finderCache.putResult(FINDER_PATH_COUNT_BY_C_S, args,
-					Long.valueOf(1));
-				finderCache.putResult(FINDER_PATH_FETCH_BY_C_S, args,
-					subjectModelImpl);
-			}
-		}
-	}
-
-	protected void clearUniqueFindersCache(SubjectModelImpl subjectModelImpl) {
+	protected void cacheUniqueFindersCache(SubjectModelImpl subjectModelImpl) {
 		Object[] args = new Object[] {
 				subjectModelImpl.getCurriculumId(),
 				subjectModelImpl.getSubjectCode()
 			};
 
-		finderCache.removeResult(FINDER_PATH_COUNT_BY_C_S, args);
-		finderCache.removeResult(FINDER_PATH_FETCH_BY_C_S, args);
+		finderCache.putResult(FINDER_PATH_COUNT_BY_C_S, args, Long.valueOf(1),
+			false);
+		finderCache.putResult(FINDER_PATH_FETCH_BY_C_S, args, subjectModelImpl,
+			false);
+	}
+
+	protected void clearUniqueFindersCache(SubjectModelImpl subjectModelImpl,
+		boolean clearCurrent) {
+		if (clearCurrent) {
+			Object[] args = new Object[] {
+					subjectModelImpl.getCurriculumId(),
+					subjectModelImpl.getSubjectCode()
+				};
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_C_S, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_C_S, args);
+		}
 
 		if ((subjectModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_C_S.getColumnBitmask()) != 0) {
-			args = new Object[] {
+			Object[] args = new Object[] {
 					subjectModelImpl.getOriginalCurriculumId(),
 					subjectModelImpl.getOriginalSubjectCode()
 				};
@@ -1170,8 +1156,8 @@ public class SubjectPersistenceImpl extends BasePersistenceImpl<Subject>
 		entityCache.putResult(SubjectModelImpl.ENTITY_CACHE_ENABLED,
 			SubjectImpl.class, subject.getPrimaryKey(), subject, false);
 
-		clearUniqueFindersCache(subjectModelImpl);
-		cacheUniqueFindersCache(subjectModelImpl, isNew);
+		clearUniqueFindersCache(subjectModelImpl, false);
+		cacheUniqueFindersCache(subjectModelImpl);
 
 		subject.resetOriginalValues();
 

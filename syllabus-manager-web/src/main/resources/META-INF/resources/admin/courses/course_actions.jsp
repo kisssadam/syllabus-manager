@@ -4,6 +4,9 @@
 	String mvcPath = ParamUtil.getString(request, "mvcPath");
 	ResultRow row = (ResultRow) request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 	Course course = (Course) row.getObject();
+	
+	long curriculumId = ParamUtil.getLong(renderRequest, "curriculumId");
+	long subjectId = ParamUtil.getLong(renderRequest, "subjectId");
 	long courseId = course.getCourseId();
 	
 	int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
@@ -28,6 +31,8 @@
 
 	<c:if test="<%=CoursePermission.contains(permissionChecker, courseId, SyllabusActionKeys.DELETE)%>">
 		<portlet:actionURL name="deleteCourse" var="deleteURL">
+			<portlet:param name="curriculumId" value="<%=String.valueOf(curriculumId)%>" />
+			<portlet:param name="subjectId" value="<%=String.valueOf(subjectId)%>" />
 			<portlet:param name="courseId" value="<%=String.valueOf(courseId)%>" />
 			<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
 		</portlet:actionURL>

@@ -26,6 +26,8 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import aQute.bnd.annotation.ProviderType;
+import hu.unideb.inf.exception.DeleteLecturersFirstException;
+import hu.unideb.inf.exception.DeleteSyllabusesFirstException;
 import hu.unideb.inf.exception.DuplicateTimetableCourseException;
 import hu.unideb.inf.exception.NoSuchTimetableCourseException;
 import hu.unideb.inf.exception.TimetableCourseCodeException;
@@ -36,6 +38,7 @@ import hu.unideb.inf.exception.TimetableCourseSubjectTypeException;
 import hu.unideb.inf.model.Lecturer;
 import hu.unideb.inf.model.TimetableCourse;
 import hu.unideb.inf.service.LecturerLocalServiceUtil;
+import hu.unideb.inf.service.SyllabusLocalServiceUtil;
 import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 import hu.unideb.inf.service.base.TimetableCourseLocalServiceBaseImpl;
 
@@ -192,10 +195,14 @@ public class TimetableCourseLocalServiceImpl
 
 	public TimetableCourse deleteTimetableCourse(long timetableCourseId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
+		if (!SyllabusLocalServiceUtil.getSyllabusesByTimetableCourseId(timetableCourseId).isEmpty()) {
+			throw new DeleteSyllabusesFirstException();
+		}
+		
 		timetableCoursePersistence.clearLecturers(timetableCourseId);
 
 		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
-
+		
 		resourceLocalService.deleteResource(timetableCourse.getCompanyId(), timetableCourse.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, timetableCourseId);
 
@@ -228,7 +235,7 @@ public class TimetableCourseLocalServiceImpl
 		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.fetchTimetableCourseByC_S_T_S(courseId,
 				semesterId, timetableCourseCode, subjectType);
 		if (Validator.isNotNull(timetableCourse)) {
-			if (!Validator.equals(timetableCourse.getTimetableCourseId(), timetableCourseId)) {
+			if (timetableCourse.getTimetableCourseId() != timetableCourseId) {
 				throw new DuplicateTimetableCourseException();
 			}
 		}

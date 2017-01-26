@@ -408,7 +408,7 @@ public class SemesterPersistenceImpl extends BasePersistenceImpl<Semester>
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		clearUniqueFindersCache((SemesterModelImpl)semester);
+		clearUniqueFindersCache((SemesterModelImpl)semester, true);
 	}
 
 	@Override
@@ -420,53 +420,38 @@ public class SemesterPersistenceImpl extends BasePersistenceImpl<Semester>
 			entityCache.removeResult(SemesterModelImpl.ENTITY_CACHE_ENABLED,
 				SemesterImpl.class, semester.getPrimaryKey());
 
-			clearUniqueFindersCache((SemesterModelImpl)semester);
+			clearUniqueFindersCache((SemesterModelImpl)semester, true);
 		}
 	}
 
-	protected void cacheUniqueFindersCache(
-		SemesterModelImpl semesterModelImpl, boolean isNew) {
-		if (isNew) {
+	protected void cacheUniqueFindersCache(SemesterModelImpl semesterModelImpl) {
+		Object[] args = new Object[] {
+				semesterModelImpl.getBeginYear(), semesterModelImpl.getEndYear(),
+				semesterModelImpl.getDivision()
+			};
+
+		finderCache.putResult(FINDER_PATH_COUNT_BY_B_E_D, args,
+			Long.valueOf(1), false);
+		finderCache.putResult(FINDER_PATH_FETCH_BY_B_E_D, args,
+			semesterModelImpl, false);
+	}
+
+	protected void clearUniqueFindersCache(
+		SemesterModelImpl semesterModelImpl, boolean clearCurrent) {
+		if (clearCurrent) {
 			Object[] args = new Object[] {
 					semesterModelImpl.getBeginYear(),
 					semesterModelImpl.getEndYear(),
 					semesterModelImpl.getDivision()
 				};
 
-			finderCache.putResult(FINDER_PATH_COUNT_BY_B_E_D, args,
-				Long.valueOf(1));
-			finderCache.putResult(FINDER_PATH_FETCH_BY_B_E_D, args,
-				semesterModelImpl);
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_B_E_D, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_B_E_D, args);
 		}
-		else {
-			if ((semesterModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_B_E_D.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						semesterModelImpl.getBeginYear(),
-						semesterModelImpl.getEndYear(),
-						semesterModelImpl.getDivision()
-					};
-
-				finderCache.putResult(FINDER_PATH_COUNT_BY_B_E_D, args,
-					Long.valueOf(1));
-				finderCache.putResult(FINDER_PATH_FETCH_BY_B_E_D, args,
-					semesterModelImpl);
-			}
-		}
-	}
-
-	protected void clearUniqueFindersCache(SemesterModelImpl semesterModelImpl) {
-		Object[] args = new Object[] {
-				semesterModelImpl.getBeginYear(), semesterModelImpl.getEndYear(),
-				semesterModelImpl.getDivision()
-			};
-
-		finderCache.removeResult(FINDER_PATH_COUNT_BY_B_E_D, args);
-		finderCache.removeResult(FINDER_PATH_FETCH_BY_B_E_D, args);
 
 		if ((semesterModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_B_E_D.getColumnBitmask()) != 0) {
-			args = new Object[] {
+			Object[] args = new Object[] {
 					semesterModelImpl.getOriginalBeginYear(),
 					semesterModelImpl.getOriginalEndYear(),
 					semesterModelImpl.getOriginalDivision()
@@ -639,8 +624,8 @@ public class SemesterPersistenceImpl extends BasePersistenceImpl<Semester>
 		entityCache.putResult(SemesterModelImpl.ENTITY_CACHE_ENABLED,
 			SemesterImpl.class, semester.getPrimaryKey(), semester, false);
 
-		clearUniqueFindersCache(semesterModelImpl);
-		cacheUniqueFindersCache(semesterModelImpl, isNew);
+		clearUniqueFindersCache(semesterModelImpl, false);
+		cacheUniqueFindersCache(semesterModelImpl);
 
 		semester.resetOriginalValues();
 

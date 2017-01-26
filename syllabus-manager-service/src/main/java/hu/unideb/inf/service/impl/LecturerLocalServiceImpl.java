@@ -26,11 +26,13 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
 
 import aQute.bnd.annotation.ProviderType;
+import hu.unideb.inf.exception.DeleteTimetableCoursesFirstException;
 import hu.unideb.inf.exception.DuplicateLecturerException;
 import hu.unideb.inf.exception.LecturerNameException;
 import hu.unideb.inf.exception.NoSuchLecturerException;
 import hu.unideb.inf.model.Lecturer;
 import hu.unideb.inf.service.LecturerLocalServiceUtil;
+import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 import hu.unideb.inf.service.base.LecturerLocalServiceBaseImpl;
 
 /**
@@ -111,6 +113,10 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 
 	public Lecturer deleteLecturer(long lecturerId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
+		if (!TimetableCourseLocalServiceUtil.getLecturerTimetableCourses(lecturerId).isEmpty()) {
+			throw new DeleteTimetableCoursesFirstException();
+		}
+		
 		lecturerPersistence.clearTimetableCourses(lecturerId);
 
 		Lecturer lecturer = LecturerLocalServiceUtil.getLecturer(lecturerId);
@@ -154,7 +160,7 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 
 		Lecturer lecturer = LecturerLocalServiceUtil.fetchLecturerByName(lecturerName);
 		if (Validator.isNotNull(lecturer)) {
-			if (!Validator.equals(lecturer.getLecturerId(), lecturerId)) {
+			if (lecturer.getLecturerId() != lecturerId) {
 				throw new DuplicateLecturerException();
 			}
 		}

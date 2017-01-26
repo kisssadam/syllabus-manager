@@ -1388,7 +1388,7 @@ public class CoursePersistenceImpl extends BasePersistenceImpl<Course>
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		clearUniqueFindersCache((CourseModelImpl)course);
+		clearUniqueFindersCache((CourseModelImpl)course, true);
 	}
 
 	@Override
@@ -1400,51 +1400,37 @@ public class CoursePersistenceImpl extends BasePersistenceImpl<Course>
 			entityCache.removeResult(CourseModelImpl.ENTITY_CACHE_ENABLED,
 				CourseImpl.class, course.getPrimaryKey());
 
-			clearUniqueFindersCache((CourseModelImpl)course);
+			clearUniqueFindersCache((CourseModelImpl)course, true);
 		}
 	}
 
-	protected void cacheUniqueFindersCache(CourseModelImpl courseModelImpl,
-		boolean isNew) {
-		if (isNew) {
-			Object[] args = new Object[] {
-					courseModelImpl.getSubjectId(),
-					courseModelImpl.getCourseTypeId()
-				};
-
-			finderCache.putResult(FINDER_PATH_COUNT_BY_S_CT, args,
-				Long.valueOf(1));
-			finderCache.putResult(FINDER_PATH_FETCH_BY_S_CT, args,
-				courseModelImpl);
-		}
-		else {
-			if ((courseModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_S_CT.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						courseModelImpl.getSubjectId(),
-						courseModelImpl.getCourseTypeId()
-					};
-
-				finderCache.putResult(FINDER_PATH_COUNT_BY_S_CT, args,
-					Long.valueOf(1));
-				finderCache.putResult(FINDER_PATH_FETCH_BY_S_CT, args,
-					courseModelImpl);
-			}
-		}
-	}
-
-	protected void clearUniqueFindersCache(CourseModelImpl courseModelImpl) {
+	protected void cacheUniqueFindersCache(CourseModelImpl courseModelImpl) {
 		Object[] args = new Object[] {
 				courseModelImpl.getSubjectId(),
 				courseModelImpl.getCourseTypeId()
 			};
 
-		finderCache.removeResult(FINDER_PATH_COUNT_BY_S_CT, args);
-		finderCache.removeResult(FINDER_PATH_FETCH_BY_S_CT, args);
+		finderCache.putResult(FINDER_PATH_COUNT_BY_S_CT, args, Long.valueOf(1),
+			false);
+		finderCache.putResult(FINDER_PATH_FETCH_BY_S_CT, args, courseModelImpl,
+			false);
+	}
+
+	protected void clearUniqueFindersCache(CourseModelImpl courseModelImpl,
+		boolean clearCurrent) {
+		if (clearCurrent) {
+			Object[] args = new Object[] {
+					courseModelImpl.getSubjectId(),
+					courseModelImpl.getCourseTypeId()
+				};
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_S_CT, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_S_CT, args);
+		}
 
 		if ((courseModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_S_CT.getColumnBitmask()) != 0) {
-			args = new Object[] {
+			Object[] args = new Object[] {
 					courseModelImpl.getOriginalSubjectId(),
 					courseModelImpl.getOriginalCourseTypeId()
 				};
@@ -1650,8 +1636,8 @@ public class CoursePersistenceImpl extends BasePersistenceImpl<Course>
 		entityCache.putResult(CourseModelImpl.ENTITY_CACHE_ENABLED,
 			CourseImpl.class, course.getPrimaryKey(), course, false);
 
-		clearUniqueFindersCache(courseModelImpl);
-		cacheUniqueFindersCache(courseModelImpl, isNew);
+		clearUniqueFindersCache(courseModelImpl, false);
+		cacheUniqueFindersCache(courseModelImpl);
 
 		course.resetOriginalValues();
 

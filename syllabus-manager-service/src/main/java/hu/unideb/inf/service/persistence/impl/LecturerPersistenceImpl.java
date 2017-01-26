@@ -399,7 +399,7 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		clearUniqueFindersCache((LecturerModelImpl)lecturer);
+		clearUniqueFindersCache((LecturerModelImpl)lecturer, true);
 	}
 
 	@Override
@@ -411,42 +411,33 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 			entityCache.removeResult(LecturerModelImpl.ENTITY_CACHE_ENABLED,
 				LecturerImpl.class, lecturer.getPrimaryKey());
 
-			clearUniqueFindersCache((LecturerModelImpl)lecturer);
+			clearUniqueFindersCache((LecturerModelImpl)lecturer, true);
 		}
 	}
 
-	protected void cacheUniqueFindersCache(
-		LecturerModelImpl lecturerModelImpl, boolean isNew) {
-		if (isNew) {
-			Object[] args = new Object[] { lecturerModelImpl.getLecturerName() };
-
-			finderCache.putResult(FINDER_PATH_COUNT_BY_LECTURERNAME, args,
-				Long.valueOf(1));
-			finderCache.putResult(FINDER_PATH_FETCH_BY_LECTURERNAME, args,
-				lecturerModelImpl);
-		}
-		else {
-			if ((lecturerModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_LECTURERNAME.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] { lecturerModelImpl.getLecturerName() };
-
-				finderCache.putResult(FINDER_PATH_COUNT_BY_LECTURERNAME, args,
-					Long.valueOf(1));
-				finderCache.putResult(FINDER_PATH_FETCH_BY_LECTURERNAME, args,
-					lecturerModelImpl);
-			}
-		}
-	}
-
-	protected void clearUniqueFindersCache(LecturerModelImpl lecturerModelImpl) {
+	protected void cacheUniqueFindersCache(LecturerModelImpl lecturerModelImpl) {
 		Object[] args = new Object[] { lecturerModelImpl.getLecturerName() };
 
-		finderCache.removeResult(FINDER_PATH_COUNT_BY_LECTURERNAME, args);
-		finderCache.removeResult(FINDER_PATH_FETCH_BY_LECTURERNAME, args);
+		finderCache.putResult(FINDER_PATH_COUNT_BY_LECTURERNAME, args,
+			Long.valueOf(1), false);
+		finderCache.putResult(FINDER_PATH_FETCH_BY_LECTURERNAME, args,
+			lecturerModelImpl, false);
+	}
+
+	protected void clearUniqueFindersCache(
+		LecturerModelImpl lecturerModelImpl, boolean clearCurrent) {
+		if (clearCurrent) {
+			Object[] args = new Object[] { lecturerModelImpl.getLecturerName() };
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_LECTURERNAME, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_LECTURERNAME, args);
+		}
 
 		if ((lecturerModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_LECTURERNAME.getColumnBitmask()) != 0) {
-			args = new Object[] { lecturerModelImpl.getOriginalLecturerName() };
+			Object[] args = new Object[] {
+					lecturerModelImpl.getOriginalLecturerName()
+				};
 
 			finderCache.removeResult(FINDER_PATH_COUNT_BY_LECTURERNAME, args);
 			finderCache.removeResult(FINDER_PATH_FETCH_BY_LECTURERNAME, args);
@@ -617,8 +608,8 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 		entityCache.putResult(LecturerModelImpl.ENTITY_CACHE_ENABLED,
 			LecturerImpl.class, lecturer.getPrimaryKey(), lecturer, false);
 
-		clearUniqueFindersCache(lecturerModelImpl);
-		cacheUniqueFindersCache(lecturerModelImpl, isNew);
+		clearUniqueFindersCache(lecturerModelImpl, false);
+		cacheUniqueFindersCache(lecturerModelImpl);
 
 		lecturer.resetOriginalValues();
 

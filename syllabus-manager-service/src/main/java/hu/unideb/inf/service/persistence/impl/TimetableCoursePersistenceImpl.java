@@ -2083,7 +2083,7 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		clearUniqueFindersCache((TimetableCourseModelImpl)timetableCourse);
+		clearUniqueFindersCache((TimetableCourseModelImpl)timetableCourse, true);
 	}
 
 	@Override
@@ -2095,44 +2095,12 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 			entityCache.removeResult(TimetableCourseModelImpl.ENTITY_CACHE_ENABLED,
 				TimetableCourseImpl.class, timetableCourse.getPrimaryKey());
 
-			clearUniqueFindersCache((TimetableCourseModelImpl)timetableCourse);
+			clearUniqueFindersCache((TimetableCourseModelImpl)timetableCourse,
+				true);
 		}
 	}
 
 	protected void cacheUniqueFindersCache(
-		TimetableCourseModelImpl timetableCourseModelImpl, boolean isNew) {
-		if (isNew) {
-			Object[] args = new Object[] {
-					timetableCourseModelImpl.getCourseId(),
-					timetableCourseModelImpl.getSemesterId(),
-					timetableCourseModelImpl.getTimetableCourseCode(),
-					timetableCourseModelImpl.getSubjectType()
-				};
-
-			finderCache.putResult(FINDER_PATH_COUNT_BY_C_S_T_S, args,
-				Long.valueOf(1));
-			finderCache.putResult(FINDER_PATH_FETCH_BY_C_S_T_S, args,
-				timetableCourseModelImpl);
-		}
-		else {
-			if ((timetableCourseModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_C_S_T_S.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						timetableCourseModelImpl.getCourseId(),
-						timetableCourseModelImpl.getSemesterId(),
-						timetableCourseModelImpl.getTimetableCourseCode(),
-						timetableCourseModelImpl.getSubjectType()
-					};
-
-				finderCache.putResult(FINDER_PATH_COUNT_BY_C_S_T_S, args,
-					Long.valueOf(1));
-				finderCache.putResult(FINDER_PATH_FETCH_BY_C_S_T_S, args,
-					timetableCourseModelImpl);
-			}
-		}
-	}
-
-	protected void clearUniqueFindersCache(
 		TimetableCourseModelImpl timetableCourseModelImpl) {
 		Object[] args = new Object[] {
 				timetableCourseModelImpl.getCourseId(),
@@ -2141,12 +2109,29 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 				timetableCourseModelImpl.getSubjectType()
 			};
 
-		finderCache.removeResult(FINDER_PATH_COUNT_BY_C_S_T_S, args);
-		finderCache.removeResult(FINDER_PATH_FETCH_BY_C_S_T_S, args);
+		finderCache.putResult(FINDER_PATH_COUNT_BY_C_S_T_S, args,
+			Long.valueOf(1), false);
+		finderCache.putResult(FINDER_PATH_FETCH_BY_C_S_T_S, args,
+			timetableCourseModelImpl, false);
+	}
+
+	protected void clearUniqueFindersCache(
+		TimetableCourseModelImpl timetableCourseModelImpl, boolean clearCurrent) {
+		if (clearCurrent) {
+			Object[] args = new Object[] {
+					timetableCourseModelImpl.getCourseId(),
+					timetableCourseModelImpl.getSemesterId(),
+					timetableCourseModelImpl.getTimetableCourseCode(),
+					timetableCourseModelImpl.getSubjectType()
+				};
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_C_S_T_S, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_C_S_T_S, args);
+		}
 
 		if ((timetableCourseModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_C_S_T_S.getColumnBitmask()) != 0) {
-			args = new Object[] {
+			Object[] args = new Object[] {
 					timetableCourseModelImpl.getOriginalCourseId(),
 					timetableCourseModelImpl.getOriginalSemesterId(),
 					timetableCourseModelImpl.getOriginalTimetableCourseCode(),
@@ -2382,8 +2367,8 @@ public class TimetableCoursePersistenceImpl extends BasePersistenceImpl<Timetabl
 			TimetableCourseImpl.class, timetableCourse.getPrimaryKey(),
 			timetableCourse, false);
 
-		clearUniqueFindersCache(timetableCourseModelImpl);
-		cacheUniqueFindersCache(timetableCourseModelImpl, isNew);
+		clearUniqueFindersCache(timetableCourseModelImpl, false);
+		cacheUniqueFindersCache(timetableCourseModelImpl);
 
 		timetableCourse.resetOriginalValues();
 

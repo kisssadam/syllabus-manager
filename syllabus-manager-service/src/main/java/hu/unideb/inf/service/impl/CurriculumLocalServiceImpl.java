@@ -27,10 +27,10 @@ import com.liferay.portal.kernel.util.Validator;
 import aQute.bnd.annotation.ProviderType;
 import hu.unideb.inf.exception.CurriculumCodeException;
 import hu.unideb.inf.exception.CurriculumNameException;
+import hu.unideb.inf.exception.DeleteSubjectsFirstException;
 import hu.unideb.inf.exception.DuplicateCurriculumException;
 import hu.unideb.inf.exception.NoSuchCurriculumException;
 import hu.unideb.inf.model.Curriculum;
-import hu.unideb.inf.model.Subject;
 import hu.unideb.inf.service.CurriculumLocalServiceUtil;
 import hu.unideb.inf.service.SubjectLocalServiceUtil;
 import hu.unideb.inf.service.base.CurriculumLocalServiceBaseImpl;
@@ -104,12 +104,11 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 
 	public Curriculum deleteCurriculum(long curriculumId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
-		Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(curriculumId);
-
-		List<Subject> subjectsToDelete = SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculumId);
-		for (Subject subject : subjectsToDelete) {
-			SubjectLocalServiceUtil.deleteSubject(subject.getSubjectId(), serviceContext);
+		if (!SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculumId).isEmpty()) {
+			throw new DeleteSubjectsFirstException();
 		}
+
+		Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(curriculumId);
 
 		resourceLocalService.deleteResource(curriculum.getCompanyId(), curriculum.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, curriculumId);
@@ -155,7 +154,7 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 
 		Curriculum curriculum = CurriculumLocalServiceUtil.fetchCurriculumByCode(curriculumCode);
 		if (Validator.isNotNull(curriculum)) {
-			if (!Validator.equals(curriculum.getCurriculumId(), curriculumId)) {
+			if (curriculum.getCurriculumId() != curriculumId) {
 				throw new DuplicateCurriculumException();
 			}
 		}

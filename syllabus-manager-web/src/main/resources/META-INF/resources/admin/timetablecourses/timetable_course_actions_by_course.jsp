@@ -4,7 +4,11 @@
 	String mvcPath = ParamUtil.getString(request, "mvcPath");
 	ResultRow row = (ResultRow) request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 	TimetableCourse timetableCourse = (TimetableCourse) row.getObject();
+	
 	long timetableCourseId = timetableCourse.getTimetableCourseId();
+	long courseId = ParamUtil.getLong(request, "courseId"); 
+	long subjectId = ParamUtil.getLong(request, "subjectId"); 
+	long curriculumId = ParamUtil.getLong(request, "curriculumId"); 
 	
 	int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
 %>
@@ -38,6 +42,9 @@
 
 	<c:if test="<%=TimetableCoursePermission.contains(permissionChecker, timetableCourseId, SyllabusActionKeys.DELETE)%>">
 		<portlet:actionURL name="deleteTimetableCourse" var="deleteURL">
+			<portlet:param name="curriculumId" value="<%=String.valueOf(curriculumId)%>" />
+			<portlet:param name="subjectId" value="<%=String.valueOf(subjectId)%>" />
+			<portlet:param name="courseId" value="<%=String.valueOf(courseId)%>" />
 			<portlet:param name="timetableCourseId" value="<%=String.valueOf(timetableCourseId)%>" />
 			<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
 		</portlet:actionURL>

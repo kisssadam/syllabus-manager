@@ -15,26 +15,26 @@ package hu.unideb.inf.exception;
 
 import aQute.bnd.annotation.ProviderType;
 
-import com.liferay.portal.kernel.exception.NoSuchModelException;
+import com.liferay.portal.kernel.exception.PortalException;
 
 /**
  * @author Adam Kiss
  */
 @ProviderType
-public class NoSuchLecturerException extends NoSuchModelException {
+public class DeleteTimetableCoursesFirstException extends PortalException {
 
-	public NoSuchLecturerException() {
+	public DeleteTimetableCoursesFirstException() {
 	}
 
-	public NoSuchLecturerException(String msg) {
+	public DeleteTimetableCoursesFirstException(String msg) {
 		super(msg);
 	}
 
-	public NoSuchLecturerException(String msg, Throwable cause) {
+	public DeleteTimetableCoursesFirstException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public NoSuchLecturerException(Throwable cause) {
+	public DeleteTimetableCoursesFirstException(Throwable cause) {
 		super(cause);
 	}
 

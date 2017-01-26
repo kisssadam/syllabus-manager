@@ -393,7 +393,7 @@ public class CurriculumPersistenceImpl extends BasePersistenceImpl<Curriculum>
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		finderCache.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 
-		clearUniqueFindersCache((CurriculumModelImpl)curriculum);
+		clearUniqueFindersCache((CurriculumModelImpl)curriculum, true);
 	}
 
 	@Override
@@ -405,45 +405,34 @@ public class CurriculumPersistenceImpl extends BasePersistenceImpl<Curriculum>
 			entityCache.removeResult(CurriculumModelImpl.ENTITY_CACHE_ENABLED,
 				CurriculumImpl.class, curriculum.getPrimaryKey());
 
-			clearUniqueFindersCache((CurriculumModelImpl)curriculum);
+			clearUniqueFindersCache((CurriculumModelImpl)curriculum, true);
 		}
 	}
 
 	protected void cacheUniqueFindersCache(
-		CurriculumModelImpl curriculumModelImpl, boolean isNew) {
-		if (isNew) {
-			Object[] args = new Object[] { curriculumModelImpl.getCurriculumCode() };
-
-			finderCache.putResult(FINDER_PATH_COUNT_BY_CODE, args,
-				Long.valueOf(1));
-			finderCache.putResult(FINDER_PATH_FETCH_BY_CODE, args,
-				curriculumModelImpl);
-		}
-		else {
-			if ((curriculumModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_CODE.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						curriculumModelImpl.getCurriculumCode()
-					};
-
-				finderCache.putResult(FINDER_PATH_COUNT_BY_CODE, args,
-					Long.valueOf(1));
-				finderCache.putResult(FINDER_PATH_FETCH_BY_CODE, args,
-					curriculumModelImpl);
-			}
-		}
-	}
-
-	protected void clearUniqueFindersCache(
 		CurriculumModelImpl curriculumModelImpl) {
 		Object[] args = new Object[] { curriculumModelImpl.getCurriculumCode() };
 
-		finderCache.removeResult(FINDER_PATH_COUNT_BY_CODE, args);
-		finderCache.removeResult(FINDER_PATH_FETCH_BY_CODE, args);
+		finderCache.putResult(FINDER_PATH_COUNT_BY_CODE, args, Long.valueOf(1),
+			false);
+		finderCache.putResult(FINDER_PATH_FETCH_BY_CODE, args,
+			curriculumModelImpl, false);
+	}
+
+	protected void clearUniqueFindersCache(
+		CurriculumModelImpl curriculumModelImpl, boolean clearCurrent) {
+		if (clearCurrent) {
+			Object[] args = new Object[] { curriculumModelImpl.getCurriculumCode() };
+
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_CODE, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_CODE, args);
+		}
 
 		if ((curriculumModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_CODE.getColumnBitmask()) != 0) {
-			args = new Object[] { curriculumModelImpl.getOriginalCurriculumCode() };
+			Object[] args = new Object[] {
+					curriculumModelImpl.getOriginalCurriculumCode()
+				};
 
 			finderCache.removeResult(FINDER_PATH_COUNT_BY_CODE, args);
 			finderCache.removeResult(FINDER_PATH_FETCH_BY_CODE, args);
@@ -613,8 +602,8 @@ public class CurriculumPersistenceImpl extends BasePersistenceImpl<Curriculum>
 		entityCache.putResult(CurriculumModelImpl.ENTITY_CACHE_ENABLED,
 			CurriculumImpl.class, curriculum.getPrimaryKey(), curriculum, false);
 
-		clearUniqueFindersCache(curriculumModelImpl);
-		cacheUniqueFindersCache(curriculumModelImpl, isNew);
+		clearUniqueFindersCache(curriculumModelImpl, false);
+		cacheUniqueFindersCache(curriculumModelImpl);
 
 		curriculum.resetOriginalValues();
 

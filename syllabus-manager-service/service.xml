@@ -276,5 +276,10 @@
 		<exception>DuplicateTimetableCourse</exception>
 		<exception>TimetableCourseCode</exception>
         <exception>DuplicateSyllabus</exception>
+        <exception>DeleteSyllabusesFirst</exception>
+        <exception>DeleteLecturersFirst</exception>
+        <exception>DeleteSubjectsFirst</exception>
+        <exception>DeleteCoursesFirst</exception>
+        <exception>DeleteTimetableCoursesFirst</exception>
 	</exceptions>
 </service-builder>

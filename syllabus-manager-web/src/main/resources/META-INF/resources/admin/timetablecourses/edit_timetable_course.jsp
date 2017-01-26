@@ -1,6 +1,7 @@
 <%@include file="/init.jsp"%>
 
 <%
+	String home = ParamUtil.getString(renderRequest, "home");
 	long timetableCourseId = ParamUtil.getLong(renderRequest, "timetableCourseId");
 	long courseId = ParamUtil.getLong(renderRequest, "courseId");
 	long subjectId = ParamUtil.getLong(renderRequest, "subjectId");
@@ -109,7 +110,9 @@
 	</c:choose>
 </portlet:renderURL>
 
-<portlet:actionURL name="addTimetableCourse" var="addTimetableCourseURL" />
+<portlet:actionURL name="addTimetableCourse" var="addTimetableCourseURL">
+	<portlet:param name="home" value="<%=home%>" />
+</portlet:actionURL>
 
 <aui:form action="<%=addTimetableCourseURL%>" name="<portlet:namespace />timetable_course_edit">
 	<aui:model-context bean="<%=timetableCourse%>" model="<%=TimetableCourse.class%>" />
