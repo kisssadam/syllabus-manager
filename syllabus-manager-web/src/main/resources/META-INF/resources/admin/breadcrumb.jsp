@@ -39,14 +39,13 @@
 	<portlet:param name="mvcPath" value="/admin/semesters/view_semesters.jsp" />
 </portlet:renderURL>
 
-<portlet:renderURL var="viewTimetableCoursesBySemesterURL">
-	<portlet:param name="mvcPath" value="/admin/timetablecourses/view_timetable_courses_by_semester.jsp" />
-	<portlet:param name="semesterId" value="<%=String.valueOf(semesterId)%>" />
-</portlet:renderURL>
-
-<portlet:renderURL var="viewTimetableCoursesByCourseURL">
-	<portlet:param name="mvcPath" value="/admin/timetablecourses/view_timetable_courses_by_course.jsp" />
+<portlet:renderURL var="viewTimetableCoursesURL">
+	<portlet:param name="mvcPath" value="/admin/timetablecourses/view_timetable_courses.jsp" />
+	<portlet:param name="home" value="<%=home%>" />
+	<portlet:param name="curriculumId" value="<%=String.valueOf(curriculumId)%>" />
+	<portlet:param name="subjectId" value="<%=String.valueOf(subjectId)%>" />
 	<portlet:param name="courseId" value="<%=String.valueOf(courseId)%>" />
+	<portlet:param name="semesterId" value="<%=String.valueOf(semesterId)%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="importSyllabusURL">
@@ -75,7 +74,7 @@
 
 		if (courseId > 0) {
 			Course course = CourseLocalServiceUtil.getCourse(courseId);
-			PortalUtil.addPortletBreadcrumbEntry(request, course.toString(), viewTimetableCoursesByCourseURL.toString());
+			PortalUtil.addPortletBreadcrumbEntry(request, course.toString(), viewTimetableCoursesURL.toString());
 		}
 		
 		if (timetableCourseId > 0) {
@@ -87,7 +86,7 @@
 		
 		if (semesterId > 0) {
 			Semester semester = SemesterLocalServiceUtil.getSemester(semesterId);
-			PortalUtil.addPortletBreadcrumbEntry(request, semester.toString(), viewTimetableCoursesBySemesterURL.toString());
+			PortalUtil.addPortletBreadcrumbEntry(request, semester.toString(), viewTimetableCoursesURL.toString());
 		}
 		
 		if (timetableCourseId > 0) {

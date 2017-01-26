@@ -90,9 +90,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 	public static final String VIEW_LECTURERS = "/admin/lecturers/view_lecturers.jsp";
 
-	public static final String VIEW_TIMETABLE_COURSES_BY_SEMESTER = "/admin/timetablecourses/view_timetable_courses_by_semester.jsp";
-	
-	public static final String VIEW_TIMETABLE_COURSES_BY_COURSE = "/admin/timetablecourses/view_timetable_courses_by_course.jsp";
+	public static final String VIEW_TIMETABLE_COURSES = "/admin/timetablecourses/view_timetable_courses.jsp";
 	
 	public static final String VIEW_SYLLABUSES_BY_TIMETABLE_COURSE = "/admin/syllabuses/view_syllabuses_by_timetable_course.jsp";
 
@@ -363,8 +361,10 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
 		
 		String home = ParamUtil.getString(request, "home");
-		long timetableCourseId = ParamUtil.getLong(request, "timetableCourseId");
+		long curriculumId = ParamUtil.getLong(request, "curriculumId");
+		long subjectId = ParamUtil.getLong(request, "subjectId");
 		long courseId = ParamUtil.getLong(request, "courseSelect");
+		long timetableCourseId = ParamUtil.getLong(request, "timetableCourseId");
 		long semesterId = ParamUtil.getLong(request, "semesterId");
 		String timetableCourseCode = ParamUtil.getString(request, "timetableCourseCode");
 		String subjectType = ParamUtil.getString(request, "subjectType");
@@ -376,9 +376,8 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 		if (log.isDebugEnabled()) {
 			log.debug(String.format(
-					"home: '%s', timetableCourseId: %d, courseId: %d, semesterId: %d, timetableCourseCode: '%s', subjectType: '%s', recommendedTerm: %d, limit: %d, lecturerIds: '%s', classScheduleInfo: '%s', description: '%s'",
-					home, timetableCourseId, courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit,
-					Arrays.toString(lecturerIds), classScheduleInfo, description));
+					"home: '%s', curriculumId: %d, subjectId: %d, courseId: %d, timetableCourseId: %d, semesterId: %d, timetableCourseCode: '%s', subjectType: '%s', recommendedTerm: %d, limit: %d, lecturerIds: '%s', classScheduleInfo: '%s', description: '%s'",
+					home, curriculumId, subjectId, courseId, timetableCourseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit, Arrays.toString(lecturerIds), classScheduleInfo, description));
 		}
 
 		try {
@@ -402,17 +401,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "timetableCourseAdded");
 			}
 
-			if (home.equalsIgnoreCase("curriculums")) {
-				response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_COURSE);
-				response.setRenderParameter("courseId", String.valueOf(courseId));
-			} else if (home.equalsIgnoreCase("semesters")) {
-				response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_SEMESTER);
-				response.setRenderParameter("semesterId", String.valueOf(semesterId));
-			} else {
-				if (log.isErrorEnabled()) {
-					log.error(String.format("Failed to set mvcPath in method addTimetableCourse. Parameter home: '%s'.", home));
-				}
-			}
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -421,6 +410,12 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", EDIT_TIMETABLE_COURSE);
+		} finally {
+			response.setRenderParameter("home", home);
+			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
+			response.setRenderParameter("subjectId", String.valueOf(subjectId));
+			response.setRenderParameter("courseId", String.valueOf(courseId));
+			response.setRenderParameter("semesterId", String.valueOf(semesterId));
 		}
 	}
 
@@ -678,6 +673,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	}
 
 	public void deleteTimetableCourse(ActionRequest request, ActionResponse response) {
+		String home = ParamUtil.getString(request, "home");
 		long curriculumId = ParamUtil.getLong(request, "curriculumId");
 		long subjectId = ParamUtil.getLong(request, "subjectId");
 		long courseId = ParamUtil.getLong(request, "courseId");
@@ -688,8 +684,8 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		if (log.isDebugEnabled()) {
 			log.debug(
 				String.format(
-					"curriculumId: %d, subjectId: %d, courseId: %d, timetableCourseId: %d, semesterId: %d, delta: %d",
-					curriculumId, subjectId, courseId, timetableCourseId, semesterId, delta));
+					"home: '%s', curriculumId: %d, subjectId: %d, courseId: %d, timetableCourseId: %d, semesterId: %d, delta: %d",
+					home, curriculumId, subjectId, courseId, timetableCourseId, semesterId, delta));
 		}
 
 		try {
@@ -709,7 +705,8 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_SEMESTER);
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+			response.setRenderParameter("home", home);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 			response.setRenderParameter("courseId", String.valueOf(courseId));
@@ -983,12 +980,16 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(TimetableCourse.class.getName(), request);
 		
 		int delta = ParamUtil.getInteger(request, SearchContainer.DEFAULT_DELTA_PARAM);
+		String home = ParamUtil.getString(request, "home");
+		long courseId = ParamUtil.getLong(request, "courseId");
 		long semesterId = ParamUtil.getLong(request, "semesterId");
 		String[] timetableCourseIds = ParamUtil.getParameterValues(request, "deleteTimetableCourseIds");
 
 		if (log.isDebugEnabled()) {
-			log.debug(String.format("delta: %d", delta));
-			log.debug(String.format("timetableCourseIds: '%s', semesterId: %d", Arrays.toString(timetableCourseIds), semesterId));
+			log.debug(
+				String.format(
+					"home: '%s', courseId: %d, semesterId: %d, delta: %d, timetableCourseIds: '%s'",
+					home, courseId, semesterId, delta, Arrays.toString(timetableCourseIds)));
 		}
 
 		try {
@@ -1011,7 +1012,9 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES_BY_SEMESTER);
+			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+			response.setRenderParameter("home", home);
+			response.setRenderParameter("courseId", String.valueOf(courseId));
 			response.setRenderParameter("semesterId", String.valueOf(semesterId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}

@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import aQute.bnd.annotation.ProviderType;
-import hu.unideb.inf.exception.DeleteLecturersFirstException;
 import hu.unideb.inf.exception.DeleteSyllabusesFirstException;
 import hu.unideb.inf.exception.DuplicateTimetableCourseException;
 import hu.unideb.inf.exception.NoSuchTimetableCourseException;
@@ -178,7 +177,7 @@ public class TimetableCourseLocalServiceImpl
 		timetableCourse.setSubjectType(subjectType);
 		timetableCourse.setRecommendedTerm(recommendedTerm);
 		timetableCourse.setLimit(limit);
-		timetableCourse.getClassScheduleInfo();
+		timetableCourse.setClassScheduleInfo(classScheduleInfo);
 		timetableCourse.setDescription(description);
 
 		timetableCoursePersistence.update(timetableCourse);

@@ -1,28 +1,26 @@
 <%@include file="/init.jsp"%>
 
 <%
+	String home = ParamUtil.getString(renderRequest, "home");
 	long courseId = ParamUtil.getLong(renderRequest, "courseId");
 	long subjectId = ParamUtil.getLong(renderRequest, "subjectId");
 	long curriculumId = ParamUtil.getLong(renderRequest, "curriculumId");
-	
-	Course course = null;
-	
-	if (courseId > 0) {
-		course = CourseLocalServiceUtil.getCourse(courseId);
-		subjectId = course.getSubjectId();
-	}
-	
-	if (subjectId > 0) {
-		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
-		curriculumId = subject.getCurriculumId();
-	}
+	long semesterId = ParamUtil.getLong(renderRequest, "semesterId");
 	
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/admin/timetablecourses/view_timetable_courses_by_course.jsp");
-	iteratorURL.setParameter("home", "curriculums");
+	iteratorURL.setParameter("jspPage", "/admin/timetablecourses/view_timetable_courses.jsp");
+	iteratorURL.setParameter("home", home);
+	iteratorURL.setParameter("semesterId", String.valueOf(semesterId));
 	iteratorURL.setParameter("courseId", String.valueOf(courseId));
 	
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
+	
+	int searchContainerTotal = 0;
+	if (home.equalsIgnoreCase("curriculums")) {
+		searchContainerTotal = TimetableCourseLocalServiceUtil.getTimetableCourseCountByCourseId(courseId);
+	} else if (home.equalsIgnoreCase("semesters")) {
+		searchContainerTotal = TimetableCourseLocalServiceUtil.getTimetableCoursesCountBySemesterId(semesterId);
+	}
 %>
 
 <liferay-ui:success key="timetableCourseAdded" message="timetable-course-has-been-successfully-added" />
@@ -30,28 +28,41 @@
 <liferay-ui:success key="timetableCourseDeleted" message="timetable-course-has-been-successfully-deleted" />
 <liferay-ui:success key="timetableCoursesDeleted" message="timetable-courses-have-been-successfully-deleted" />
 
-<c:set var="home" value="curriculums" scope="request" />
+<c:set var="home" value="<%=home%>" scope="request" />
 <c:set var="curriculumId" value="<%=curriculumId%>" scope="request" />
 <c:set var="subjectId" value="<%=subjectId%>" scope="request" />
 <c:set var="courseId" value="<%=courseId%>" scope="request" />
+<c:set var="semesterId" value="<%=semesterId%>" scope="request" />
 
 <jsp:include page="/admin/navigation_bar.jsp" />
 
 <jsp:include page="/admin/breadcrumb.jsp" />
 
 <aui:form method="post" name="fmTimetableCourse">
-	<liferay-ui:search-container delta="<%=delta%>" emptyResultsMessage="timetable-courses-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>" total="<%=TimetableCourseLocalServiceUtil.getTimetableCourseCountByCourseId(courseId)%>">
+	<liferay-ui:search-container delta="<%=delta%>" emptyResultsMessage="timetable-courses-not-found" iteratorURL="<%=iteratorURL%>" rowChecker="<%= new RowChecker(renderResponse) %>" total="<%=searchContainerTotal%>">
 		<aui:input name="courseId" type="hidden" value="<%= courseId %>" />
+		
+		<aui:input name="semesterId" type="hidden" value="<%= semesterId %>" />
 		
 		<aui:input name="deleteTimetableCourseIds" type="hidden" />
 		
-		<liferay-ui:search-container-results
-			results="<%=TimetableCourseLocalServiceUtil.getTimetableCoursesByCourseId(courseId, searchContainer.getStart(), searchContainer.getEnd())%>"
-		/>
+		<%
+			List<TimetableCourse> searchContainerResults = Collections.emptyList();
+			
+			if (home.equalsIgnoreCase("curriculums")) {
+				searchContainerResults = TimetableCourseLocalServiceUtil.getTimetableCoursesByCourseId(courseId, searchContainer.getStart(), searchContainer.getEnd());
+			} else if (home.equalsIgnoreCase("semesters")) {
+				searchContainerResults = TimetableCourseLocalServiceUtil.getTimetableCoursesBySemesterId(semesterId, searchContainer.getStart(), searchContainer.getEnd());
+			}
+		%>
+		
+		<liferay-ui:search-container-results results="<%=searchContainerResults%>" />
 		
 		<liferay-ui:search-container-row className="hu.unideb.inf.model.TimetableCourse" escapedModel="<%= true %>" modelVar="timetableCourse" keyProperty="timetableCourseId">
-			<c:if test='<%=TimetableCoursePermission.contains(permissionChecker, timetableCourse.getTimetableCourseId(), "VIEW")%>'>				
+			<c:if test='<%=TimetableCoursePermission.contains(permissionChecker, timetableCourse.getTimetableCourseId(), "VIEW")%>'>
 				<%
+				Course course = CourseLocalServiceUtil.getCourse(timetableCourse.getCourseId());
+				
 				Semester semester = SemesterLocalServiceUtil.getSemester(timetableCourse.getSemesterId());
 				
 				CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(course.getCourseTypeId());
@@ -60,7 +71,24 @@
 				
 				Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(subject.getCurriculumId());
 				%>
-				<liferay-ui:search-container-column-text name="semester" value="<%=HtmlUtil.escapeAttribute(semester.toString())%>" />
+				<c:choose>
+					<c:when test="<%=home.equalsIgnoreCase("curriculums")%>">
+						<liferay-ui:search-container-column-text name="curriculum-code" value="<%=HtmlUtil.escapeAttribute(curriculum.getCurriculumCode())%>" />
+						<liferay-ui:search-container-column-text name="curriculum-name" value="<%=HtmlUtil.escapeAttribute(curriculum.getCurriculumName())%>" />
+						
+						<liferay-ui:search-container-column-text name="subject-code" value="<%=HtmlUtil.escapeAttribute(subject.getSubjectCode())%>" />
+						<liferay-ui:search-container-column-text name="subject-name" value="<%=HtmlUtil.escapeAttribute(subject.getSubjectName())%>" />
+						<liferay-ui:search-container-column-text name="credit" value="<%=String.valueOf(subject.getCredit())%>" />
+					</c:when>
+					<c:when test="<%=home.equalsIgnoreCase("semesters")%>">
+						<liferay-ui:search-container-column-text name="semester" value="<%=HtmlUtil.escapeAttribute(semester.toString())%>" />
+					</c:when>
+					<c:otherwise>
+						<liferay-ui:search-container-column-text name="home-bug" value="home parameter is incorrent or empty" />
+					</c:otherwise>
+				</c:choose>
+				
+				<liferay-ui:search-container-column-text name="course-type" value="<%=HtmlUtil.escapeAttribute(courseType.getTypeName())%>" />
 				
 				<liferay-ui:search-container-column-text name="hours-per-semester" value="<%=String.valueOf(course.getHoursPerSemester())%>" />
 				<liferay-ui:search-container-column-text name="hours-per-week" value="<%=String.valueOf(course.getHoursPerWeek())%>" />
@@ -87,7 +115,7 @@
 				<liferay-ui:search-container-column-text name="class-schedule-info" property="classScheduleInfo" />
 				<liferay-ui:search-container-column-text name="description" property="description" />
 				
-				<liferay-ui:search-container-column-jsp path="/admin/timetablecourses/timetable_course_actions_by_course.jsp" align="right" />
+				<liferay-ui:search-container-column-jsp path="/admin/timetablecourses/timetable_course_actions.jsp" align="right" />
 			</c:if>
 		</liferay-ui:search-container-row>
 		
@@ -98,6 +126,7 @@
 <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.DELETE_TIMETABLE_COURSES)%>'>
 	<portlet:actionURL name="deleteTimetableCourses" var="deleteTimetableCoursesURL">
 		<portlet:param name="<%=SearchContainer.DEFAULT_DELTA_PARAM%>" value="<%=String.valueOf(delta)%>" />
+		<portlet:param name="home" value="<%=home%>" />
 	</portlet:actionURL>
 	
 	<aui:script use="aui-base">
