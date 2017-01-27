@@ -23,12 +23,6 @@
 	}
 %>
 
-home: <%=String.valueOf(home) %>
-courseId: <%=String.valueOf(courseId) %>
-subjectId: <%=String.valueOf(subjectId) %>
-curriculumId: <%=String.valueOf(curriculumId) %>
-semesterId: <%=String.valueOf(semesterId) %>
-
 <liferay-ui:success key="timetableCourseAdded" message="timetable-course-has-been-successfully-added" />
 <liferay-ui:success key="timetableCourseUpdated" message="timetable-course-has-been-successfully-updated" />
 <liferay-ui:success key="timetableCourseDeleted" message="timetable-course-has-been-successfully-deleted" />
