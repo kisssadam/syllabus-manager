@@ -111,9 +111,6 @@
 </portlet:renderURL>
 
 <portlet:actionURL name="addTimetableCourse" var="addTimetableCourseURL">
-	<%-- A tobbi id-t nem kell hozzaadni, mert azok a form-bol jonnek! --%>
-	<portlet:param name="curriculumId" value="<%=String.valueOf(curriculumId)%>" />
-	<portlet:param name="subjectId" value="<%=String.valueOf(subjectId)%>" />
 	<portlet:param name="home" value="<%=home%>" />
 </portlet:actionURL>
 
