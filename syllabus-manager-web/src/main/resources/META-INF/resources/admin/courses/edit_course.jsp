@@ -37,10 +37,7 @@
 	request.setAttribute("subjects", subjects);
 %>
 
-<liferay-ui:error exception="<%=DuplicateCourseException.class%>" message="duplicate-course-exception" />
-<liferay-ui:error exception="<%=NoSuchCourseTypeException.class%>" message="no-such-course-type-exception" />
-<liferay-ui:error exception="<%=NoSuchSubjectException.class%>" message="no-such-subject-exception" />
-<liferay-ui:error exception="<%=CourseHoursException.class%>" message="course-hours-exception" />
+<%@ include file="/notifications/error.jspf" %>
 
 <c:choose>
 	<c:when test="<%=courseId > 0%>">

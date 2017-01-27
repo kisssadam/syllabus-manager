@@ -14,10 +14,7 @@
 	request.setAttribute("users", UserLocalServiceUtil.getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS));
 %>
 
-<liferay-ui:error exception="<%=DuplicateLecturerException.class%>" message="duplicate-lecturer-exception" />
-<liferay-ui:error exception="<%=NoSuchLecturerException.class%>" message="no-such-lecturer-exception" />
-<liferay-ui:error exception="<%=LecturerNameException.class%>" message="lecturer-name-exception" />
-<liferay-ui:error exception="<%=NoSuchUserException.class%>" message="no-such-user-exception" />
+<%@ include file="/notifications/error.jspf" %>
 
 <c:choose>
 	<c:when test="<%=lecturerId > 0%>">

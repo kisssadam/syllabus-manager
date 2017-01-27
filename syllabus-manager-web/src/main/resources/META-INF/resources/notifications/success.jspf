@@ -1,0 +1,39 @@
+<liferay-ui:success key="courseTypeAdded" message="course-type-has-been-successfully-added" />
+<liferay-ui:success key="courseTypeUpdated" message="course-type-has-been-successfully-updated" />
+<liferay-ui:success key="courseTypeDeleted" message="course-type-has-been-successfully-deleted" />
+<liferay-ui:success key="courseTypesDeleted" message="course-types-have-been-successfully-deleted" />
+
+<liferay-ui:success key="courseAdded" message="course-has-been-successfully-added" />
+<liferay-ui:success key="courseUpdated" message="course-has-been-successfully-updated" />
+<liferay-ui:success key="courseDeleted" message="course-has-been-successfully-deleted" />
+<liferay-ui:success key="coursesDeleted" message="courses-have-been-successfully-deleted" />
+
+<liferay-ui:success key="curriculumAdded" message="curriculum-has-been-successfully-added" />
+<liferay-ui:success key="curriculumUpdated" message="curriculum-has-been-successfully-updated" />
+<liferay-ui:success key="curriculumDeleted" message="curriculum-has-been-successfully-deleted" />
+<liferay-ui:success key="curriculumsDeleted" message="curriculums-have-been-successfully-deleted" />
+
+<liferay-ui:success key="lecturerAdded" message="lecturer-has-been-successfully-added" />
+<liferay-ui:success key="lecturerUpdated" message="lecturer-has-been-successfully-updated" />
+<liferay-ui:success key="lecturerDeleted" message="lecturer-has-been-successfully-deleted" />
+<liferay-ui:success key="lecturersDeleted" message="lecturers-have-been-successfully-deleted" />
+
+<liferay-ui:success key="semesterAdded" message="semester-has-been-successfully-added" />
+<liferay-ui:success key="semesterUpdated" message="semester-has-been-successfully-updated" />
+<liferay-ui:success key="semesterDeleted" message="semester-has-been-successfully-deleted" />
+<liferay-ui:success key="semestersDeleted" message="semesters-have-been-successfully-deleted" />
+
+<liferay-ui:success key="subjectAdded" message="subject-has-been-successfully-added" />
+<liferay-ui:success key="subjectUpdated" message="subject-has-been-successfully-updated" />
+<liferay-ui:success key="subjectDeleted" message="subject-has-been-successfully-deleted" />
+<liferay-ui:success key="subjectsDeleted" message="subjects-have-been-successfully-deleted" />
+
+<liferay-ui:success key="syllabusAdded" message="syllabus-has-been-successfully-added" />
+<liferay-ui:success key="syllabusUpdated" message="syllabus-has-been-successfully-updated" />
+<liferay-ui:success key="syllabusDeleted" message="syllabus-has-been-successfully-deleted" />
+<liferay-ui:success key="syllabusesDeleted" message="syllabuses-have-been-successfully-deleted" />
+
+<liferay-ui:success key="timetableCourseAdded" message="timetable-course-has-been-successfully-added" />
+<liferay-ui:success key="timetableCourseUpdated" message="timetable-course-has-been-successfully-updated" />
+<liferay-ui:success key="timetableCourseDeleted" message="timetable-course-has-been-successfully-deleted" />
+<liferay-ui:success key="timetableCoursesDeleted" message="timetable-courses-have-been-successfully-deleted" />

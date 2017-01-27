@@ -83,11 +83,7 @@
 	request.setAttribute("timetableCourses", timetableCourses);
 %>
 
-<liferay-ui:error exception="<%=DuplicateSyllabusException.class%>" message="duplicate-syllabus-exception" />
-<liferay-ui:error exception="<%=NoSuchSyllabusException.class%>" message="no-such-syllabus-exception" />
-<liferay-ui:error exception="<%=NoSuchTimetableCourseException.class%>" message="no-such-timetable-course-exception" />
-<liferay-ui:error exception="<%=NoSuchCourseException.class%>" message="no-such-course-exception" />
-<liferay-ui:error exception="<%=NoSuchSubjectException.class%>" message="no-such-subject-exception" />
+<%@ include file="/notifications/error.jspf" %>
 
 <c:choose>
 	<c:when test="<%=syllabusId > 0%>">

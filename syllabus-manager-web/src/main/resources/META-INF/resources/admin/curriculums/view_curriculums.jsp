@@ -7,10 +7,9 @@
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
-<liferay-ui:success key="curriculumAdded" message="curriculum-has-been-successfully-added" />
-<liferay-ui:success key="curriculumUpdated" message="curriculum-has-been-successfully-updated" />
-<liferay-ui:success key="curriculumDeleted" message="curriculum-has-been-successfully-deleted" />
-<liferay-ui:success key="curriculumsDeleted" message="curriculums-have-been-successfully-deleted" />
+<%@ include file="/notifications/success.jspf" %>
+
+<%@ include file="/notifications/error.jspf" %>
 
 <c:set var="home" value="curriculums" scope="request" />
 

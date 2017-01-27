@@ -24,11 +24,7 @@
 	}
 %>
 
-<liferay-ui:error exception="<%=DuplicateSemesterException.class%>" message="duplicate-semester-exception" />
-<liferay-ui:error exception="<%=SemesterYearDifferenceException.class%>" message="semester-year-difference-exception" />
-<liferay-ui:error exception="<%=SemesterYearsAreEqualException.class%>" message="semester-years-are-equal-exception" />
-<liferay-ui:error exception="<%=SemesterYearOverlapException.class%>" message="semester-year-overlap-exception" />
-<liferay-ui:error exception="<%=SemesterDivisionException.class%>" message="semester-division-exception" />
+<%@ include file="/notifications/error.jspf" %>
 
 <c:choose>
 	<c:when test="<%=semesterId > 0%>">

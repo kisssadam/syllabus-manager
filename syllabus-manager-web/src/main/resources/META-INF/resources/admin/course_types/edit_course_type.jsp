@@ -10,8 +10,7 @@
 	}
 %>
 
-<liferay-ui:error exception="<%=DuplicateCourseTypeException.class%>" message="duplicate-course-type-exception" />
-<liferay-ui:error exception="<%=CourseTypeException.class%>" message="course-type-exception" />
+<%@ include file="/notifications/error.jspf" %>
 
 <c:choose>
 	<c:when test="<%=courseTypeId > 0%>">

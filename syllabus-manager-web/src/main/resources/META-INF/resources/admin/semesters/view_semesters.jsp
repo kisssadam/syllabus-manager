@@ -7,12 +7,9 @@
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
-<liferay-ui:success key="semesterAdded" message="semester-has-been-successfully-added" />
-<liferay-ui:success key="semesterUpdated" message="semester-has-been-successfully-updated" />
-<liferay-ui:success key="semesterDeleted" message="semester-has-been-successfully-deleted" />
-<liferay-ui:success key="semestersDeleted" message="semesters-have-been-successfully-deleted" />
+<%@ include file="/notifications/success.jspf" %>
 
-<liferay-ui:error exception="<%=DuplicateSemesterException.class%>" message="duplicate-semester" />
+<%@ include file="/notifications/error.jspf" %>
 
 <c:set var="home" value="semesters" scope="request" />
 

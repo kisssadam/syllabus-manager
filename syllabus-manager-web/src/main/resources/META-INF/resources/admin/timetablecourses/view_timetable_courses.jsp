@@ -23,10 +23,9 @@
 	}
 %>
 
-<liferay-ui:success key="timetableCourseAdded" message="timetable-course-has-been-successfully-added" />
-<liferay-ui:success key="timetableCourseUpdated" message="timetable-course-has-been-successfully-updated" />
-<liferay-ui:success key="timetableCourseDeleted" message="timetable-course-has-been-successfully-deleted" />
-<liferay-ui:success key="timetableCoursesDeleted" message="timetable-courses-have-been-successfully-deleted" />
+<%@ include file="/notifications/success.jspf" %>
+
+<%@ include file="/notifications/error.jspf" %>
 
 <c:set var="home" value="<%=home%>" scope="request" />
 <c:set var="curriculumId" value="<%=curriculumId%>" scope="request" />

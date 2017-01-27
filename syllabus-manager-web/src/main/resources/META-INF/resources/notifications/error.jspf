@@ -1,0 +1,52 @@
+<liferay-ui:error exception="<%=DuplicateCurriculumException.class%>" message="duplicate-curriculum-exception" />
+<liferay-ui:error exception="<%=DuplicateCourseException.class%>" message="duplicate-course-exception" />
+<liferay-ui:error exception="<%=DuplicateSubjectException.class%>" message="duplicate-subject-exception" />
+<liferay-ui:error exception="<%=DuplicateTimetableCourseException.class%>" message="duplicate-timetable-course-exception" />
+<liferay-ui:error exception="<%=DuplicateSyllabusException.class%>" message="duplicate-syllabus-exception" />
+<liferay-ui:error exception="<%=DuplicateCourseTypeException.class%>" message="duplicate-course-type-exception" />
+<liferay-ui:error exception="<%=DuplicateSemesterException.class%>" message="duplicate-semester-exception" />
+<liferay-ui:error exception="<%=DuplicateLecturerException.class%>" message="duplicate-lecturer-exception" />
+
+<liferay-ui:error exception="<%=CourseTypeException.class%>" message="course-type-exception" />
+
+<liferay-ui:error exception="<%=CourseHoursException.class%>" message="course-hours-exception" />
+
+<liferay-ui:error exception="<%=CurriculumCodeException.class%>" message="curriculum-code-exception" />
+<liferay-ui:error exception="<%=CurriculumNameException.class%>" message="curriculum-name-exception" />
+
+<liferay-ui:error exception="<%=LecturerNameException.class%>" message="lecturer-name-exception" />
+
+<liferay-ui:error exception="<%=SemesterYearDifferenceException.class%>" message="semester-year-difference-exception" />
+<liferay-ui:error exception="<%=SemesterYearsAreEqualException.class%>" message="semester-years-are-equal-exception" />
+<liferay-ui:error exception="<%=SemesterYearOverlapException.class%>" message="semester-year-overlap-exception" />
+<liferay-ui:error exception="<%=SemesterDivisionException.class%>" message="semester-division-exception" />
+
+<liferay-ui:error exception="<%=SubjectCodeException.class%>" message="subject-code-exception" />
+<liferay-ui:error exception="<%=SubjectCreditException.class%>" message="subject-credit-exception" />
+<liferay-ui:error exception="<%=SubjectNameException.class%>" message="subject-name-exception" />
+
+<liferay-ui:error exception="<%=NoSuchCourseTypeException.class%>" message="no-such-course-type-exception" />
+<liferay-ui:error exception="<%=NoSuchSubjectException.class%>" message="no-such-subject-exception" />
+<liferay-ui:error exception="<%=NoSuchLecturerException.class%>" message="no-such-lecturer-exception" />
+<liferay-ui:error exception="<%=NoSuchUserException.class%>" message="no-such-user-exception" />
+<liferay-ui:error exception="<%=NoSuchSyllabusException.class%>" message="no-such-syllabus-exception" />
+<liferay-ui:error exception="<%=NoSuchTimetableCourseException.class%>" message="no-such-timetable-course-exception" />
+<liferay-ui:error exception="<%=NoSuchCourseException.class%>" message="no-such-course-exception" />
+<liferay-ui:error exception="<%=NoSuchSubjectException.class%>" message="no-such-subject-exception" />
+<liferay-ui:error exception="<%=NoSuchTimetableCourseException.class%>" message="no-such-timetable-course-exception" />
+<liferay-ui:error exception="<%=NoSuchCourseException.class%>" message="no-such-course-exception" />
+<liferay-ui:error exception="<%=NoSuchSubjectException.class%>" message="no-such-subject-exception" />
+
+<liferay-ui:error exception="<%=TimetableCourseCodeException.class%>" message="timetable-course-code-exception" />
+<liferay-ui:error exception="<%=TimetableCourseRecommendedTermException.class%>" message="timetable-course-recommended-term-exception" />
+<liferay-ui:error exception="<%=TimetableCourseSubjectTypeException.class%>" message="timetable-course-subject-type-exception" />
+<liferay-ui:error exception="<%=TimetableCourseRecommendedTermException.class%>" message="timetable-course-recommended-term-exception" />
+<liferay-ui:error exception="<%=TimetableCourseLimitException.class%>" message="timetable-course-limit-exception" />
+<liferay-ui:error exception="<%=TimetableCourseLecturerException.class%>" message="timetable-course-lecturer-exception" />
+<liferay-ui:error exception="<%=TimetableCourseLecturerNameException.class%>" message="timetable-course-lecturer-name-exception" />
+
+<liferay-ui:error exception="<%=DeleteSyllabusesFirstException.class%>" message="delete-syllabus-first-exception" />
+<liferay-ui:error exception="<%=DeleteLecturersFirstException.class%>" message="delete-lecturers-first-exception" />
+<liferay-ui:error exception="<%=DeleteSubjectsFirstException.class%>" message="delete-subjects-first-exception" />
+<liferay-ui:error exception="<%=DeleteCoursesFirstException.class%>" message="delete-courses-first-exception" />
+<liferay-ui:error exception="<%=DeleteTimetableCoursesFirstException.class%>" message="delete-timetable-courses-first-exception" />
