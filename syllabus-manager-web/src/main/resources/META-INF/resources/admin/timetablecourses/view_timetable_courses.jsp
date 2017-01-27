@@ -23,6 +23,12 @@
 	}
 %>
 
+home: <%=String.valueOf(home) %>
+courseId: <%=String.valueOf(courseId) %>
+subjectId: <%=String.valueOf(subjectId) %>
+curriculumId: <%=String.valueOf(curriculumId) %>
+semesterId: <%=String.valueOf(semesterId) %>
+
 <liferay-ui:success key="timetableCourseAdded" message="timetable-course-has-been-successfully-added" />
 <liferay-ui:success key="timetableCourseUpdated" message="timetable-course-has-been-successfully-updated" />
 <liferay-ui:success key="timetableCourseDeleted" message="timetable-course-has-been-successfully-deleted" />
@@ -71,23 +77,16 @@
 				
 				Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(subject.getCurriculumId());
 				%>
-				<c:choose>
-					<c:when test="<%=home.equalsIgnoreCase("curriculums")%>">
-						<liferay-ui:search-container-column-text name="curriculum-code" value="<%=HtmlUtil.escapeAttribute(curriculum.getCurriculumCode())%>" />
-						<liferay-ui:search-container-column-text name="curriculum-name" value="<%=HtmlUtil.escapeAttribute(curriculum.getCurriculumName())%>" />
-						
-						<liferay-ui:search-container-column-text name="subject-code" value="<%=HtmlUtil.escapeAttribute(subject.getSubjectCode())%>" />
-						<liferay-ui:search-container-column-text name="subject-name" value="<%=HtmlUtil.escapeAttribute(subject.getSubjectName())%>" />
-						<liferay-ui:search-container-column-text name="credit" value="<%=String.valueOf(subject.getCredit())%>" />
-					</c:when>
-					<c:when test="<%=home.equalsIgnoreCase("semesters")%>">
-						<liferay-ui:search-container-column-text name="semester" value="<%=HtmlUtil.escapeAttribute(semester.toString())%>" />
-					</c:when>
-					<c:otherwise>
-						<liferay-ui:search-container-column-text name="home-bug" value="home parameter is incorrent or empty" />
-					</c:otherwise>
-				</c:choose>
 				
+				<liferay-ui:search-container-column-text name="curriculum-code" value="<%=HtmlUtil.escapeAttribute(curriculum.getCurriculumCode())%>" />
+				<liferay-ui:search-container-column-text name="curriculum-name" value="<%=HtmlUtil.escapeAttribute(curriculum.getCurriculumName())%>" />
+				
+				<liferay-ui:search-container-column-text name="subject-code" value="<%=HtmlUtil.escapeAttribute(subject.getSubjectCode())%>" />
+				<liferay-ui:search-container-column-text name="subject-name" value="<%=HtmlUtil.escapeAttribute(subject.getSubjectName())%>" />
+				<liferay-ui:search-container-column-text name="credit" value="<%=String.valueOf(subject.getCredit())%>" />
+			
+				<liferay-ui:search-container-column-text name="semester" value="<%=HtmlUtil.escapeAttribute(semester.toString())%>" />
+			
 				<liferay-ui:search-container-column-text name="course-type" value="<%=HtmlUtil.escapeAttribute(courseType.getTypeName())%>" />
 				
 				<liferay-ui:search-container-column-text name="hours-per-semester" value="<%=String.valueOf(course.getHoursPerSemester())%>" />

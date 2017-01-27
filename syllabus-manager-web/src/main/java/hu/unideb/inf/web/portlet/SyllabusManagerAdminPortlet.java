@@ -57,7 +57,9 @@ import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 import hu.unideb.inf.web.util.SyllabusCSVParser;
 import hu.unideb.inf.web.util.TimetableCSVParser;
 
-@Component(immediate = true, property = { 
+@Component(
+	immediate = true,
+	property = { 
 		"com.liferay.portlet.add-default-resource=true",
 		"com.liferay.portlet.display-category=category.hidden",
 		"com.liferay.portlet.layout-cacheable=true",
@@ -1058,6 +1060,48 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	public void clearDatabase(ActionRequest request, ActionResponse response) throws PortalException {
+		List<Syllabus> syllabuses = SyllabusLocalServiceUtil.getSyllabuses();
+		for (Syllabus syllabus : syllabuses) {
+			SyllabusLocalServiceUtil.deleteSyllabus(syllabus.getSyllabusId());
+		}
+		
+		List<TimetableCourse> timetableCourses = TimetableCourseLocalServiceUtil.getTimetableCourses();
+		for (TimetableCourse timetableCourse : timetableCourses) {
+			TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourse.getTimetableCourseId());
+		}
+		
+		List<Course> courses = CourseLocalServiceUtil.getCourses();
+		for (Course course : courses) {
+			CourseLocalServiceUtil.deleteCourse(course.getCourseId());
+		}
+		
+		List<CourseType> courseTypes = CourseTypeLocalServiceUtil.getCourseTypes();
+		for (CourseType courseType : courseTypes) {
+			CourseTypeLocalServiceUtil.deleteCourseType(courseType.getCourseTypeId());
+		}
+		
+		List<Subject> subjects = SubjectLocalServiceUtil.getSubjects();
+		for (Subject subject : subjects) {
+			SubjectLocalServiceUtil.deleteSubject(subject.getSubjectId());
+		}
+		
+		List<Curriculum> curriculums = CurriculumLocalServiceUtil.getCurriculums();
+		for (Curriculum curriculum : curriculums) {
+			CurriculumLocalServiceUtil.deleteCurriculum(curriculum.getCurriculumId());
+		}
+		
+		List<Lecturer> lecturers = LecturerLocalServiceUtil.getLecturers();
+		for (Lecturer lecturer : lecturers) {
+			LecturerLocalServiceUtil.deleteLecturer(lecturer.getLecturerId());
+		}
+		
+		List<Semester> semesters = SemesterLocalServiceUtil.getSemesters();
+		for (Semester semester : semesters) {
+			SemesterLocalServiceUtil.deleteSemester(semester.getSemesterId());
+		}
+	}
+	
 	public void upload(ActionRequest request, ActionResponse response) throws Exception {
 		String importType = ParamUtil.getString(request, "importType");
 

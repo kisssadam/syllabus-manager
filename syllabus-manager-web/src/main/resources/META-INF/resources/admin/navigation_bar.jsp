@@ -140,6 +140,14 @@
             	<aui:nav-item href="<%=importTimetableURL.toString()%>" label="ik_orarend_ws.csv" />
            	</c:if>
         </aui:nav-item>
+        
+        <aui:nav-item dropdown="true" iconCssClass="icon-tint" label="danger-zone" selected='false'>
+        	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.CLEAR_DATABASE)%>'>
+        		<portlet:actionURL name="clearDatabase" var="clearDatabaseURL" />
+        		
+        		<aui:nav-item href="<%=clearDatabaseURL.toString()%>" label="clear-database" />
+        	</c:if>
+        </aui:nav-item>
     </aui:nav>
 </aui:nav-bar>
 

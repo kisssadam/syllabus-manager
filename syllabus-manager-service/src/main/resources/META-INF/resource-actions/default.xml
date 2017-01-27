@@ -30,6 +30,7 @@
 				<action-key>DELETE_SYLLABUSES</action-key>
 				<action-key>IMPORT_SYLLABUS</action-key>
 				<action-key>IMPORT_TIMETABLE</action-key>
+				<action-key>CLEAR_DATABASE</action-key>
 			</supports>
 			<site-member-defaults>
 				<action-key>ADD_CURRICULUM</action-key>
@@ -50,6 +51,7 @@
 				<action-key>DELETE_SYLLABUSES</action-key>
 				<action-key>IMPORT_SYLLABUS</action-key>
 				<action-key>IMPORT_TIMETABLE</action-key>
+				<action-key>CLEAR_DATABASE</action-key>
 			</site-member-defaults>
 			<guest-defaults />
 			<guest-unsupported>
@@ -71,6 +73,7 @@
 				<action-key>DELETE_SYLLABUSES</action-key>
 				<action-key>IMPORT_SYLLABUS</action-key>
 				<action-key>IMPORT_TIMETABLE</action-key>
+				<action-key>CLEAR_DATABASE</action-key>
 			</guest-unsupported>
 		</permissions>
 	</model-resource>

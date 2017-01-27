@@ -31,7 +31,8 @@
 		<liferay-ui:search-container-row className="hu.unideb.inf.model.Semester" escapedModel="<%= true %>" modelVar="semester" keyProperty="semesterId">
 			<c:if test='<%=SemesterPermission.contains(permissionChecker, semester.getSemesterId(), "VIEW")%>'>
 				<portlet:renderURL var="viewTimetableCoursesURL">
-					<portlet:param name="mvcPath" value="/admin/timetablecourses/view_timetable_courses_by_semester.jsp" />
+					<portlet:param name="mvcPath" value="/admin/timetablecourses/view_timetable_courses.jsp" />
+					<portlet:param name="home" value="${home}" />
 					<portlet:param name="semesterId" value="<%=String.valueOf(semester.getSemesterId())%>" />
 				</portlet:renderURL>
 				
