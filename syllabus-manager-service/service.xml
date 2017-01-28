@@ -281,5 +281,6 @@
         <exception>DeleteSubjectsFirst</exception>
         <exception>DeleteCoursesFirst</exception>
         <exception>DeleteTimetableCoursesFirst</exception>
+        <exception>SyllabusCannotBeDeletedDueToApprovedStatus</exception>
 	</exceptions>
 </service-builder>

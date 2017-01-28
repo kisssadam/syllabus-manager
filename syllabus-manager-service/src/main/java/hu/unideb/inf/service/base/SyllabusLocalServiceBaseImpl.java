@@ -142,10 +142,11 @@ public abstract class SyllabusLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param syllabus the syllabus
 	 * @return the syllabus that was removed
+	 * @throws PortalException
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
-	public Syllabus deleteSyllabus(Syllabus syllabus) {
+	public Syllabus deleteSyllabus(Syllabus syllabus) throws PortalException {
 		return syllabusPersistence.remove(syllabus);
 	}
 

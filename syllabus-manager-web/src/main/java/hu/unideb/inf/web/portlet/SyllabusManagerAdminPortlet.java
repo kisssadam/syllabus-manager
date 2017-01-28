@@ -1061,44 +1061,161 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	}
 
 	public void clearDatabase(ActionRequest request, ActionResponse response) throws PortalException {
-		List<Syllabus> syllabuses = SyllabusLocalServiceUtil.getSyllabuses();
-		for (Syllabus syllabus : syllabuses) {
-			SyllabusLocalServiceUtil.deleteSyllabus(syllabus.getSyllabusId());
+		boolean deleteSyllabuses = ParamUtil.getBoolean(request, "deleteSyllabuses");
+		boolean deleteTimetableCourses = ParamUtil.getBoolean(request, "deleteTimetableCourses");
+		boolean deleteCourses = ParamUtil.getBoolean(request, "deleteCourses");
+		boolean deleteCourseTypes = ParamUtil.getBoolean(request, "deleteCourseTypes");
+		boolean deleteSubjects = ParamUtil.getBoolean(request, "deleteSubjects");
+		boolean deleteCurriculums = ParamUtil.getBoolean(request, "deleteCurriculums");
+		boolean deleteLecturers = ParamUtil.getBoolean(request, "deleteLecturers");
+		boolean deleteSemesters = ParamUtil.getBoolean(request, "deleteSemesters");
+		
+		if (log.isDebugEnabled()) {
+			log.debug(String.format("deletesSyllabuses: '%s'", deleteSyllabuses));
+			log.debug(String.format("deleteTimetableCourses: '%s'", deleteTimetableCourses));
+			log.debug(String.format("deleteCourses: '%s'", deleteCourses));
+			log.debug(String.format("deleteCourseTypes: '%s'", deleteCourseTypes));
+			log.debug(String.format("deleteSubjects: '%s'", deleteSubjects));
+			log.debug(String.format("deleteCurriculums: '%s'", deleteCurriculums));
+			log.debug(String.format("deleteLecturers: '%s'", deleteLecturers));
+			log.debug(String.format("deleteSemesters: '%s'", deleteSemesters));
 		}
 		
-		List<TimetableCourse> timetableCourses = TimetableCourseLocalServiceUtil.getTimetableCourses();
-		for (TimetableCourse timetableCourse : timetableCourses) {
-			TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourse.getTimetableCourseId());
+		if (deleteSyllabuses) {
+			deleteSyllabuses(request);
 		}
-		
-		List<Course> courses = CourseLocalServiceUtil.getCourses();
-		for (Course course : courses) {
-			CourseLocalServiceUtil.deleteCourse(course.getCourseId());
+		if (deleteTimetableCourses) {
+			deleteTimetableCourses(request);
 		}
-		
-		List<CourseType> courseTypes = CourseTypeLocalServiceUtil.getCourseTypes();
-		for (CourseType courseType : courseTypes) {
-			CourseTypeLocalServiceUtil.deleteCourseType(courseType.getCourseTypeId());
+		if (deleteCourses) {
+			deleteCourses(request);
 		}
-		
-		List<Subject> subjects = SubjectLocalServiceUtil.getSubjects();
-		for (Subject subject : subjects) {
-			SubjectLocalServiceUtil.deleteSubject(subject.getSubjectId());
+		if (deleteCourseTypes) {
+			deleteCourseTypes(request);
 		}
-		
-		List<Curriculum> curriculums = CurriculumLocalServiceUtil.getCurriculums();
-		for (Curriculum curriculum : curriculums) {
-			CurriculumLocalServiceUtil.deleteCurriculum(curriculum.getCurriculumId());
+		if (deleteSubjects) {
+			deleteSubjects(request);
 		}
-		
-		List<Lecturer> lecturers = LecturerLocalServiceUtil.getLecturers();
-		for (Lecturer lecturer : lecturers) {
-			LecturerLocalServiceUtil.deleteLecturer(lecturer.getLecturerId());
+		if (deleteCurriculums) {
+			deleteCurriculums(request);
 		}
-		
-		List<Semester> semesters = SemesterLocalServiceUtil.getSemesters();
-		for (Semester semester : semesters) {
-			SemesterLocalServiceUtil.deleteSemester(semester.getSemesterId());
+		if (deleteLecturers) {
+			deleteLecturers(request);
+		}
+		if (deleteSemesters) {
+			deleteSemesters(request);
+		}
+	}
+
+	private void deleteSemesters(ActionRequest request) {
+		log.trace("Deleting every semester.");
+		try {
+			List<Semester> semesters = SemesterLocalServiceUtil.getSemesters();
+			for (Semester semester : semesters) {
+				SemesterLocalServiceUtil.deleteSemester(semester.getSemesterId());
+			}
+			SessionMessages.add(request, "semestersDeleted");
+		} catch (Exception e) {
+			log.error(e);
+			SessionErrors.add(request, e.getClass().getName());
+		}
+	}
+
+	private void deleteLecturers(ActionRequest request) {
+		log.trace("Deleting every lecturer.");
+		try {
+			List<Lecturer> lecturers = LecturerLocalServiceUtil.getLecturers();
+			for (Lecturer lecturer : lecturers) {
+				LecturerLocalServiceUtil.deleteLecturer(lecturer.getLecturerId());
+			}
+			SessionMessages.add(request, "lecturersDeleted");
+		} catch (Exception e) {
+			log.error(e);
+			SessionErrors.add(request, e.getClass().getName());
+		}
+	}
+
+	private void deleteCurriculums(ActionRequest request) {
+		log.trace("Deleting every curriculum.");
+		try {
+			List<Curriculum> curriculums = CurriculumLocalServiceUtil.getCurriculums();
+			for (Curriculum curriculum : curriculums) {
+				CurriculumLocalServiceUtil.deleteCurriculum(curriculum.getCurriculumId());
+			}
+			SessionMessages.add(request, "curriculumsDeleted");
+		} catch (Exception e) {
+			log.error(e);
+			SessionErrors.add(request, e.getClass().getName());
+		}
+	}
+
+	private void deleteSubjects(ActionRequest request) {
+		log.trace("Deleting every subject.");
+		try {
+			List<Subject> subjects = SubjectLocalServiceUtil.getSubjects();
+			for (Subject subject : subjects) {
+				SubjectLocalServiceUtil.deleteSubject(subject.getSubjectId());
+			}
+			SessionMessages.add(request, "subjectsDeleted");
+		} catch (Exception e) {
+			log.error(e);
+			SessionErrors.add(request, e.getClass().getName());
+		}
+	}
+
+	private void deleteCourseTypes(ActionRequest request) {
+		log.trace("Deleting every course type.");
+		try {
+			List<CourseType> courseTypes = CourseTypeLocalServiceUtil.getCourseTypes();
+			for (CourseType courseType : courseTypes) {
+				CourseTypeLocalServiceUtil.deleteCourseType(courseType.getCourseTypeId());
+			}
+			SessionMessages.add(request, "courseTypesDeleted");
+		} catch (Exception e) {
+			log.error(e);
+			SessionErrors.add(request, e.getClass().getName());
+		}
+	}
+
+	private void deleteCourses(ActionRequest request) {
+		log.trace("Deleting every course.");
+		try {
+			List<Course> courses = CourseLocalServiceUtil.getCourses();
+			for (Course course : courses) {
+				CourseLocalServiceUtil.deleteCourse(course.getCourseId());
+			}
+			SessionMessages.add(request, "coursesDeleted");
+		} catch (Exception e) {
+			log.error(e);
+			SessionErrors.add(request, e.getClass().getName());
+		}
+	}
+
+	private void deleteTimetableCourses(ActionRequest request) {
+		log.trace("Deleting every timetable course.");
+		try {
+			List<TimetableCourse> timetableCourses = TimetableCourseLocalServiceUtil.getTimetableCourses();
+			for (TimetableCourse timetableCourse : timetableCourses) {
+				TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourse.getTimetableCourseId());
+			}
+			SessionMessages.add(request, "timetableCoursesDeleted");
+		} catch (Exception e) {
+			log.error(e);
+			SessionErrors.add(request, e.getClass().getName());
+		}
+	}
+
+	private void deleteSyllabuses(ActionRequest request) {
+		log.trace("Deleting every syllabus.");
+		try {
+			List<Syllabus> syllabuses = SyllabusLocalServiceUtil.getSyllabuses();
+			for (Syllabus syllabus : syllabuses) {
+				SyllabusLocalServiceUtil.deleteSyllabus(syllabus.getSyllabusId());
+			}
+			SessionMessages.add(request, "syllabusesDeleted");
+		} catch (Exception e) {
+			log.error(e);
+			SessionErrors.add(request, e.getClass().getName());
 		}
 	}
 	

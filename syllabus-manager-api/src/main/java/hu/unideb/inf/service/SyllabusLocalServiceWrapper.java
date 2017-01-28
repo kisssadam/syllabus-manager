@@ -112,10 +112,12 @@ public class SyllabusLocalServiceWrapper implements SyllabusLocalService,
 	*
 	* @param syllabus the syllabus
 	* @return the syllabus that was removed
+	* @throws PortalException
 	*/
 	@Override
 	public hu.unideb.inf.model.Syllabus deleteSyllabus(
-		hu.unideb.inf.model.Syllabus syllabus) {
+		hu.unideb.inf.model.Syllabus syllabus)
+		throws com.liferay.portal.kernel.exception.PortalException {
 		return _syllabusLocalService.deleteSyllabus(syllabus);
 	}
 

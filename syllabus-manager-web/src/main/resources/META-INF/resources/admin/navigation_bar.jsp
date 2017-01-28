@@ -143,8 +143,10 @@
         
         <aui:nav-item dropdown="true" iconCssClass="icon-tint" label="danger-zone" selected='false'>
         	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.CLEAR_DATABASE)%>'>
-        		<portlet:actionURL name="clearDatabase" var="clearDatabaseURL" />
-        		
+        		<portlet:renderURL var="clearDatabaseURL">
+					<portlet:param name="mvcPath" value="/admin/danger_zone/clear_database.jsp" />
+				</portlet:renderURL>
+				
         		<aui:nav-item href="<%=clearDatabaseURL.toString()%>" label="clear-database" />
         	</c:if>
         </aui:nav-item>
