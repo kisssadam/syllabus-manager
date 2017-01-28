@@ -31,8 +31,6 @@ import hu.unideb.inf.exception.DuplicateLecturerException;
 import hu.unideb.inf.exception.LecturerNameException;
 import hu.unideb.inf.exception.NoSuchLecturerException;
 import hu.unideb.inf.model.Lecturer;
-import hu.unideb.inf.service.LecturerLocalServiceUtil;
-import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 import hu.unideb.inf.service.base.LecturerLocalServiceBaseImpl;
 
 /**
@@ -57,7 +55,6 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 	 * Never reference this class directly. Always use {@link hu.unideb.inf.service.LecturerLocalServiceUtil} to access the lecturer local service.
 	 */
 	
-
 	public List<Lecturer> getLecturers() throws SystemException {
 		return lecturerPersistence.findAll();
 	}
@@ -113,13 +110,13 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 
 	public Lecturer deleteLecturer(long lecturerId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
-		if (!TimetableCourseLocalServiceUtil.getLecturerTimetableCourses(lecturerId).isEmpty()) {
+		if (!timetableCourseLocalService.getLecturerTimetableCourses(lecturerId).isEmpty()) {
 			throw new DeleteTimetableCoursesFirstException();
 		}
 		
 		lecturerPersistence.clearTimetableCourses(lecturerId);
 
-		Lecturer lecturer = LecturerLocalServiceUtil.getLecturer(lecturerId);
+		Lecturer lecturer = lecturerLocalService.getLecturer(lecturerId);
 
 		resourceLocalService.deleteResource(lecturer.getCompanyId(), lecturer.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, lecturerId);
@@ -137,7 +134,7 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 
 		validate(lecturerId, lecturerName, lecturerUserId);
 
-		Lecturer lecturer = LecturerLocalServiceUtil.getLecturer(lecturerId);
+		Lecturer lecturer = lecturerLocalService.getLecturer(lecturerId);
 		lecturer.setUserId(userId);
 		lecturer.setUserName(user.getFullName());
 		lecturer.setModifiedDate(serviceContext.getModifiedDate(now));
@@ -158,7 +155,7 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 			throw new LecturerNameException();
 		}
 
-		Lecturer lecturer = LecturerLocalServiceUtil.fetchLecturerByName(lecturerName);
+		Lecturer lecturer = lecturerLocalService.fetchLecturerByName(lecturerName);
 		if (Validator.isNotNull(lecturer)) {
 			if (lecturer.getLecturerId() != lecturerId) {
 				throw new DuplicateLecturerException();

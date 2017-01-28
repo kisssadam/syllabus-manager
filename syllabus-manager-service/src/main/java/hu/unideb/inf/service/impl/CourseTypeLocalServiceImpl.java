@@ -30,8 +30,6 @@ import hu.unideb.inf.exception.DeleteCoursesFirstException;
 import hu.unideb.inf.exception.DuplicateCourseTypeException;
 import hu.unideb.inf.exception.NoSuchCourseTypeException;
 import hu.unideb.inf.model.CourseType;
-import hu.unideb.inf.service.CourseLocalServiceUtil;
-import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
 import hu.unideb.inf.service.base.CourseTypeLocalServiceBaseImpl;
 
 /**
@@ -55,7 +53,6 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use {@link hu.unideb.inf.service.CourseTypeLocalServiceUtil} to access the course type local service.
 	 */
-	
 
 	public List<CourseType> getCourseTypes() throws SystemException {
 		return courseTypePersistence.findAll();
@@ -102,11 +99,11 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 
 	public CourseType deleteCourseType(long courseTypeId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
-		if (!CourseLocalServiceUtil.getCoursesByCourseTypeId(courseTypeId).isEmpty()) {
+		if (!courseLocalService.getCoursesByCourseTypeId(courseTypeId).isEmpty()) {
 			throw new DeleteCoursesFirstException();
 		}
 
-		CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(courseTypeId);
+		CourseType courseType = courseTypeLocalService.getCourseType(courseTypeId);
 
 		resourceLocalService.deleteResource(courseType.getCompanyId(), courseType.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, courseTypeId);
@@ -144,7 +141,7 @@ public class CourseTypeLocalServiceImpl extends CourseTypeLocalServiceBaseImpl {
 			throw new CourseTypeException();
 		}
 
-		CourseType courseType = CourseTypeLocalServiceUtil.fetchCourseTypeByTypeName(typeName);
+		CourseType courseType = courseTypeLocalService.fetchCourseTypeByTypeName(typeName);
 		if (Validator.isNotNull(courseType)) {
 			if (courseType.getCourseTypeId() != courseTypeId) {
 				throw new DuplicateCourseTypeException();

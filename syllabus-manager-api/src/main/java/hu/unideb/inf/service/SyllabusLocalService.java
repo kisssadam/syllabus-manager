@@ -117,10 +117,9 @@ public interface SyllabusLocalService extends BaseLocalService,
 	*
 	* @param syllabus the syllabus
 	* @return the syllabus that was removed
-	* @throws PortalException
 	*/
 	@Indexable(type = IndexableType.DELETE)
-	public Syllabus deleteSyllabus(Syllabus syllabus) throws PortalException;
+	public Syllabus deleteSyllabus(Syllabus syllabus);
 
 	/**
 	* Deletes the syllabus with the primary key from the database. Also notifies the appropriate model listeners.

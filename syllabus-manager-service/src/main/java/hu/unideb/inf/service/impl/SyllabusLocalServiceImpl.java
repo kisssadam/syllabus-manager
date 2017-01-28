@@ -155,7 +155,7 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 		validate(syllabusId, timetableCourseId, competence, ethicalStandards, topics, educationalMaterials,
 				recommendedLiterature, weeklyTasks);
 
-		Syllabus syllabus = SyllabusLocalServiceUtil.getSyllabus(syllabusId);
+		Syllabus syllabus = syllabusLocalService.getSyllabus(syllabusId);
 
 		syllabus.setUserId(userId);
 		syllabus.setUserName(user.getFullName());

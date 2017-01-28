@@ -31,8 +31,6 @@ import hu.unideb.inf.exception.DeleteSubjectsFirstException;
 import hu.unideb.inf.exception.DuplicateCurriculumException;
 import hu.unideb.inf.exception.NoSuchCurriculumException;
 import hu.unideb.inf.model.Curriculum;
-import hu.unideb.inf.service.CurriculumLocalServiceUtil;
-import hu.unideb.inf.service.SubjectLocalServiceUtil;
 import hu.unideb.inf.service.base.CurriculumLocalServiceBaseImpl;
 
 /**
@@ -56,7 +54,6 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use {@link hu.unideb.inf.service.CurriculumLocalServiceUtil} to access the curriculum local service.
 	 */
-	
 
 	public List<Curriculum> getCurriculums() throws SystemException {
 		return curriculumPersistence.findAll();
@@ -104,11 +101,11 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 
 	public Curriculum deleteCurriculum(long curriculumId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
-		if (!SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculumId).isEmpty()) {
+		if (!subjectLocalService.getSubjectsByCurriculumId(curriculumId).isEmpty()) {
 			throw new DeleteSubjectsFirstException();
 		}
 
-		Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(curriculumId);
+		Curriculum curriculum = curriculumLocalService.getCurriculum(curriculumId);
 
 		resourceLocalService.deleteResource(curriculum.getCompanyId(), curriculum.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, curriculumId);
@@ -152,7 +149,7 @@ public class CurriculumLocalServiceImpl extends CurriculumLocalServiceBaseImpl {
 			throw new CurriculumNameException();
 		}
 
-		Curriculum curriculum = CurriculumLocalServiceUtil.fetchCurriculumByCode(curriculumCode);
+		Curriculum curriculum = curriculumLocalService.fetchCurriculumByCode(curriculumCode);
 		if (Validator.isNotNull(curriculum)) {
 			if (curriculum.getCurriculumId() != curriculumId) {
 				throw new DuplicateCurriculumException();

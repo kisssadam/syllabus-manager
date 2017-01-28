@@ -33,9 +33,6 @@ import hu.unideb.inf.exception.SubjectCodeException;
 import hu.unideb.inf.exception.SubjectCreditException;
 import hu.unideb.inf.exception.SubjectNameException;
 import hu.unideb.inf.model.Subject;
-import hu.unideb.inf.service.CourseLocalServiceUtil;
-import hu.unideb.inf.service.CurriculumLocalServiceUtil;
-import hu.unideb.inf.service.SubjectLocalServiceUtil;
 import hu.unideb.inf.service.base.SubjectLocalServiceBaseImpl;
 
 /**
@@ -121,11 +118,11 @@ public class SubjectLocalServiceImpl extends SubjectLocalServiceBaseImpl {
 
 	public Subject deleteSubject(long subjectId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
-		if (!CourseLocalServiceUtil.getCoursesBySubjectId(subjectId).isEmpty()) {
+		if (!courseLocalService.getCoursesBySubjectId(subjectId).isEmpty()) {
 			throw new DeleteCoursesFirstException();
 		}
 
-		Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
+		Subject subject = subjectLocalService.getSubject(subjectId);
 
 		resourceLocalService.deleteResource(subject.getCompanyId(), subject.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, subjectId);
@@ -176,12 +173,12 @@ public class SubjectLocalServiceImpl extends SubjectLocalServiceBaseImpl {
 		}
 
 		try {
-			CurriculumLocalServiceUtil.getCurriculum(curriculumId);
+			curriculumLocalService.getCurriculum(curriculumId);
 		} catch (PortalException e) {
 			throw new NoSuchCurriculumException();
 		}
 
-		Subject subject = SubjectLocalServiceUtil.fetchSubjectByC_S(curriculumId, subjectCode);
+		Subject subject = subjectLocalService.fetchSubjectByC_S(curriculumId, subjectCode);
 		if (Validator.isNotNull(subject)) {
 			if (subject.getSubjectId() != subjectId) {
 				throw new DuplicateSubjectException();

@@ -17,6 +17,7 @@ import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -45,14 +46,14 @@ import hu.unideb.inf.model.Semester;
 import hu.unideb.inf.model.Subject;
 import hu.unideb.inf.model.Syllabus;
 import hu.unideb.inf.model.TimetableCourse;
-import hu.unideb.inf.service.CourseLocalServiceUtil;
-import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
-import hu.unideb.inf.service.CurriculumLocalServiceUtil;
-import hu.unideb.inf.service.LecturerLocalServiceUtil;
-import hu.unideb.inf.service.SemesterLocalServiceUtil;
-import hu.unideb.inf.service.SubjectLocalServiceUtil;
-import hu.unideb.inf.service.SyllabusLocalServiceUtil;
-import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
+import hu.unideb.inf.service.CourseLocalService;
+import hu.unideb.inf.service.CourseTypeLocalService;
+import hu.unideb.inf.service.CurriculumLocalService;
+import hu.unideb.inf.service.LecturerLocalService;
+import hu.unideb.inf.service.SemesterLocalService;
+import hu.unideb.inf.service.SubjectLocalService;
+import hu.unideb.inf.service.SyllabusLocalService;
+import hu.unideb.inf.service.TimetableCourseLocalService;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 import hu.unideb.inf.web.util.SyllabusCSVParser;
 import hu.unideb.inf.web.util.TimetableCSVParser;
@@ -116,6 +117,62 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 	private static final Log log = LogFactoryUtil.getLog(SyllabusManagerAdminPortlet.class);
 
+	private CurriculumLocalService curriculumLocalService;
+
+	private SubjectLocalService subjectLocalService;
+	
+	private CourseLocalService courseLocalService;
+	
+	private TimetableCourseLocalService timetableCourseLocalService;
+	
+	private SyllabusLocalService syllabusLocalService;
+	
+	private CourseTypeLocalService courseTypeLocalService;
+	
+	private SemesterLocalService semesterLocalService;
+	
+	private LecturerLocalService lecturerLocalService;
+	
+	@Reference(unbind = "-")
+	protected void setCurriculumLocalService(CurriculumLocalService curriculumLocalService) {
+		this.curriculumLocalService = curriculumLocalService;
+	}
+	
+	@Reference(unbind = "-")
+	protected void setSubjectLocalService(SubjectLocalService subjectLocalService) {
+		this.subjectLocalService = subjectLocalService;
+	}
+	
+	@Reference(unbind = "-")
+	public void setCourseLocalService(CourseLocalService courseLocalService) {
+		this.courseLocalService = courseLocalService;
+	}
+	
+	@Reference(unbind = "-")
+	public void setTimetableCourseLocalService(TimetableCourseLocalService timetableCourseLocalService) {
+		this.timetableCourseLocalService = timetableCourseLocalService;
+	}
+	
+	@Reference(unbind = "-")
+	public void setSyllabusLocalService(SyllabusLocalService syllabusLocalService) {
+		this.syllabusLocalService = syllabusLocalService;
+	}
+	
+	@Reference(unbind = "-")
+	public void setCourseTypeLocalService(CourseTypeLocalService courseTypeLocalService) {
+		this.courseTypeLocalService = courseTypeLocalService;
+	}
+	
+	@Reference(unbind = "-")
+	public void setSemesterLocalService(SemesterLocalService semesterLocalService) {
+		this.semesterLocalService = semesterLocalService;
+	}
+	
+	@Reference(unbind = "-")
+	public void setLecturerLocalService(LecturerLocalService lecturerLocalService) {
+		this.lecturerLocalService = lecturerLocalService;
+	}
+	
 	public void addCurriculum(ActionRequest request, ActionResponse response) throws PortalException, SystemException {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Curriculum.class.getName(), request);
 
@@ -136,14 +193,14 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Updating curriculum, id: %d", curriculumId));
 				}
-				CurriculumLocalServiceUtil.updateCurriculum(serviceContext.getUserId(), curriculumId, curriculumCode,
+				curriculumLocalService.updateCurriculum(serviceContext.getUserId(), curriculumId, curriculumCode,
 						curriculumName, serviceContext);
 				SessionMessages.add(request, "curriculumUpdated");
 			} else {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Adding curriculum, id: %d", curriculumId));
 				}
-				CurriculumLocalServiceUtil.addCurriculum(curriculumCode, curriculumName, serviceContext);
+				curriculumLocalService.addCurriculum(curriculumCode, curriculumName, serviceContext);
 				SessionMessages.add(request, "curriculumAdded");
 			}
 
@@ -183,14 +240,14 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Updating subject, id: %d", subjectId));
 				}
-				SubjectLocalServiceUtil.updateSubject(serviceContext.getUserId(), subjectId, subjectCode, subjectName,
+				subjectLocalService.updateSubject(serviceContext.getUserId(), subjectId, subjectCode, subjectName,
 						credit, curriculumId, serviceContext);
 				SessionMessages.add(request, "subjectUpdated");
 			} else {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Adding subject, id: %d", subjectId));
 				}
-				SubjectLocalServiceUtil.addSubject(subjectCode, subjectName, credit, curriculumId, serviceContext);
+				subjectLocalService.addSubject(subjectCode, subjectName, credit, curriculumId, serviceContext);
 				SessionMessages.add(request, "subjectAdded");
 			}
 
@@ -231,14 +288,14 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Updating course, id: %d", courseId));
 				}
-				CourseLocalServiceUtil.updateCourse(serviceContext.getUserId(), courseId, subjectId, hoursPerSemester,
+				courseLocalService.updateCourse(serviceContext.getUserId(), courseId, subjectId, hoursPerSemester,
 						hoursPerWeek, courseTypeId, serviceContext);
 				SessionMessages.add(request, "courseUpdated");
 			} else {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Adding course, id: %d", courseId));
 				}
-				CourseLocalServiceUtil.addCourse(subjectId, hoursPerSemester, hoursPerWeek, courseTypeId,
+				courseLocalService.addCourse(subjectId, hoursPerSemester, hoursPerWeek, courseTypeId,
 						serviceContext);
 				SessionMessages.add(request, "courseAdded");
 			}
@@ -271,14 +328,14 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Updating courseType, id: %d", courseTypeId));
 				}
-				CourseTypeLocalServiceUtil.updateCourseType(serviceContext.getUserId(), courseTypeId, typeName,
+				courseTypeLocalService.updateCourseType(serviceContext.getUserId(), courseTypeId, typeName,
 						serviceContext);
 				SessionMessages.add(request, "courseTypeUpdated");
 			} else {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Adding courseType, id: %d", courseTypeId));
 				}
-				CourseTypeLocalServiceUtil.addCourseType(typeName, serviceContext);
+				courseTypeLocalService.addCourseType(typeName, serviceContext);
 				SessionMessages.add(request, "courseTypeAdded");
 			}
 
@@ -314,14 +371,14 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Updating semester, id: %d", semesterId));
 				}
-				SemesterLocalServiceUtil.updateSemester(serviceContext.getUserId(), semesterId, beginYear, endYear,
+				semesterLocalService.updateSemester(serviceContext.getUserId(), semesterId, beginYear, endYear,
 						division, serviceContext);
 				SessionMessages.add(request, "semesterUpdated");
 			} else {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Adding semester, id: %d", semesterId));
 				}
-				SemesterLocalServiceUtil.addSemester(beginYear, endYear, division, serviceContext);
+				semesterLocalService.addSemester(beginYear, endYear, division, serviceContext);
 				SessionMessages.add(request, "semesterAdded");
 			}
 
@@ -357,14 +414,14 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Updating lecturer, id: %d", lecturerId));
 				}
-				LecturerLocalServiceUtil.updateLecturer(serviceContext.getUserId(), lecturerId, lecturerName,
+				lecturerLocalService.updateLecturer(serviceContext.getUserId(), lecturerId, lecturerName,
 						lecturerUserId, serviceContext);
 				SessionMessages.add(request, "lecturerUpdated");
 			} else {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Adding lecturer, id: %d", lecturerId));
 				}
-				LecturerLocalServiceUtil.addLecturer(lecturerName, lecturerUserId, serviceContext);
+				lecturerLocalService.addLecturer(lecturerName, lecturerUserId, serviceContext);
 				SessionMessages.add(request, "lecturerAdded");
 			}
 
@@ -421,7 +478,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Updating timetableCourse, id: %d", timetableCourseId));
 				}
-				TimetableCourseLocalServiceUtil.updateTimetableCourse(serviceContext.getUserId(), timetableCourseId,
+				timetableCourseLocalService.updateTimetableCourse(serviceContext.getUserId(), timetableCourseId,
 						courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit, lecturerIds,
 						classScheduleInfo, description, serviceContext);
 
@@ -430,7 +487,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Adding timetableCourse, id: %d", timetableCourseId));
 				}
-				TimetableCourseLocalServiceUtil.addTimetableCourse(courseId, semesterId, timetableCourseCode,
+				timetableCourseLocalService.addTimetableCourse(courseId, semesterId, timetableCourseCode,
 						subjectType, recommendedTerm, limit, lecturerIds, classScheduleInfo, description,
 						serviceContext);
 
@@ -496,7 +553,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Updating syllabus, id: %d", syllabusId));
 				}
-				SyllabusLocalServiceUtil.updateSyllabus(serviceContext.getUserId(), syllabusId, timetableCourseId,
+				syllabusLocalService.updateSyllabus(serviceContext.getUserId(), syllabusId, timetableCourseId,
 						competence, ethicalStandards, topics, educationalMaterials,
 						recommendedLiterature, weeklyTasks, serviceContext);
 				
@@ -505,7 +562,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				if (log.isTraceEnabled()) {
 					log.trace(String.format("Adding syllabus, id: %d", syllabusId));
 				}
-				SyllabusLocalServiceUtil.addSyllabus(timetableCourseId, competence, ethicalStandards, topics,
+				syllabusLocalService.addSyllabus(timetableCourseId, competence, ethicalStandards, topics,
 						educationalMaterials, recommendedLiterature, weeklyTasks, serviceContext);
 				
 				SessionMessages.add(request, "syllabusAdded");
@@ -563,7 +620,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				log.trace(String.format("Deleting curriculum, id: %d", curriculumId));
 			}
 
-			CurriculumLocalServiceUtil.deleteCurriculum(curriculumId, serviceContext);
+			curriculumLocalService.deleteCurriculum(curriculumId, serviceContext);
 			SessionMessages.add(request, "curriculumDeleted");
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
@@ -598,7 +655,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				log.trace(String.format("Deleting subject, id: %d", subjectId));
 			}
 
-			SubjectLocalServiceUtil.deleteSubject(subjectId, serviceContext);
+			subjectLocalService.deleteSubject(subjectId, serviceContext);
 			SessionMessages.add(request, "subjectDeleted");
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
@@ -636,7 +693,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				log.trace(String.format("Deleting course, id: %d", courseId));
 			}
 
-			CourseLocalServiceUtil.deleteCourse(courseId, serviceContext);
+			courseLocalService.deleteCourse(courseId, serviceContext);
 			SessionMessages.add(request, "courseDeleted");
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
@@ -671,7 +728,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				log.trace(String.format("Deleting courseType, id: %d", courseTypeId));
 			}
 
-			CourseTypeLocalServiceUtil.deleteCourseType(courseTypeId, serviceContext);
+			courseTypeLocalService.deleteCourseType(courseTypeId, serviceContext);
 			SessionMessages.add(request, "courseTypeDeleted");
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
@@ -704,7 +761,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				log.trace(String.format("Deleting semester, id: %d", semesterId));
 			}
 
-			SemesterLocalServiceUtil.deleteSemester(semesterId, serviceContext);
+			semesterLocalService.deleteSemester(semesterId, serviceContext);
 			SessionMessages.add(request, "semesterDeleted");
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
@@ -737,7 +794,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				log.trace(String.format("Deleting lecturer, id: %d", lecturerId));
 			}
 
-			LecturerLocalServiceUtil.deleteLecturer(lecturerId, serviceContext);
+			lecturerLocalService.deleteLecturer(lecturerId, serviceContext);
 			SessionMessages.add(request, "lecturerDeleted");
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
@@ -780,7 +837,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				log.trace(String.format("Deleting timetableCourse, id: %d", timetableCourseId));
 			}
 
-			TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourseId, serviceContext);
+			timetableCourseLocalService.deleteTimetableCourse(timetableCourseId, serviceContext);
 			SessionMessages.add(request, "timetableCourseDeleted");
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
@@ -828,7 +885,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				log.trace(String.format("Deleting syllabus, id: %d", syllabusId));
 			}
 
-			SyllabusLocalServiceUtil.deleteSyllabus(syllabusId, serviceContext);
+			syllabusLocalService.deleteSyllabus(syllabusId, serviceContext);
 			SessionMessages.add(request, "syllabusDeleted");
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
@@ -869,7 +926,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 					log.trace(String.format("Deleting curriculum, id: %d", curriculumId));
 				}
 
-				CurriculumLocalServiceUtil.deleteCurriculum(curriculumId, serviceContext);
+				curriculumLocalService.deleteCurriculum(curriculumId, serviceContext);
 			}
 
 			SessionMessages.add(request, "curriculumsDeleted");
@@ -909,7 +966,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 					log.trace(String.format("Deleting subject, id: %d", subjectId));
 				}
 
-				SubjectLocalServiceUtil.deleteSubject(subjectId, serviceContext);
+				subjectLocalService.deleteSubject(subjectId, serviceContext);
 			}
 
 			SessionMessages.add(request, "subjectsDeleted");
@@ -950,7 +1007,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 					log.trace(String.format("Deleting course, id: %d", courseId));
 				}
 
-				CourseLocalServiceUtil.deleteCourse(courseId, serviceContext);
+				courseLocalService.deleteCourse(courseId, serviceContext);
 			}
 
 			SessionMessages.add(request, "coursesDeleted");
@@ -989,7 +1046,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 					log.trace(String.format("Deleting courseType, id: %d", courseTypeId));
 				}
 
-				CourseTypeLocalServiceUtil.deleteCourseType(courseTypeId, serviceContext);
+				courseTypeLocalService.deleteCourseType(courseTypeId, serviceContext);
 			}
 
 			SessionMessages.add(request, "courseTypesDeleted");
@@ -1027,7 +1084,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 					log.trace(String.format("Deleting semester, id: %d", semesterId));
 				}
 
-				SemesterLocalServiceUtil.deleteSemester(semesterId, serviceContext);
+				semesterLocalService.deleteSemester(semesterId, serviceContext);
 			}
 
 			SessionMessages.add(request, "semestersDeleted");
@@ -1065,7 +1122,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 					log.trace(String.format("Deleting lecturer, id: %d", lecturerId));
 				}
 
-				LecturerLocalServiceUtil.deleteLecturer(lecturerId, serviceContext);
+				lecturerLocalService.deleteLecturer(lecturerId, serviceContext);
 			}
 
 			SessionMessages.add(request, "lecturersDeleted");
@@ -1109,7 +1166,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 					log.trace(String.format("Deleting timetableCourse, id: %d", timetableCourseId));
 				}
 
-				TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourseId, serviceContext);
+				timetableCourseLocalService.deleteTimetableCourse(timetableCourseId, serviceContext);
 			}
 
 			SessionMessages.add(request, "timetableCoursesDeleted");
@@ -1154,7 +1211,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 					log.trace(String.format("Deleting syllabus, id: %d", syllabusId));
 				}
 
-				SyllabusLocalServiceUtil.deleteSyllabus(syllabusId, serviceContext);
+				syllabusLocalService.deleteSyllabus(syllabusId, serviceContext);
 			}
 
 			SessionMessages.add(request, "syllabusesDeleted");
@@ -1225,9 +1282,9 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	private void deleteSemesters(ActionRequest request) {
 		log.trace("Deleting every semester.");
 		try {
-			List<Semester> semesters = SemesterLocalServiceUtil.getSemesters();
+			List<Semester> semesters = semesterLocalService.getSemesters();
 			for (Semester semester : semesters) {
-				SemesterLocalServiceUtil.deleteSemester(semester.getSemesterId());
+				semesterLocalService.deleteSemester(semester.getSemesterId());
 			}
 			SessionMessages.add(request, "semestersDeleted");
 		} catch (Exception e) {
@@ -1239,9 +1296,9 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	private void deleteLecturers(ActionRequest request) {
 		log.trace("Deleting every lecturer.");
 		try {
-			List<Lecturer> lecturers = LecturerLocalServiceUtil.getLecturers();
+			List<Lecturer> lecturers = lecturerLocalService.getLecturers();
 			for (Lecturer lecturer : lecturers) {
-				LecturerLocalServiceUtil.deleteLecturer(lecturer.getLecturerId());
+				lecturerLocalService.deleteLecturer(lecturer.getLecturerId());
 			}
 			SessionMessages.add(request, "lecturersDeleted");
 		} catch (Exception e) {
@@ -1253,9 +1310,9 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	private void deleteCurriculums(ActionRequest request) {
 		log.trace("Deleting every curriculum.");
 		try {
-			List<Curriculum> curriculums = CurriculumLocalServiceUtil.getCurriculums();
+			List<Curriculum> curriculums = curriculumLocalService.getCurriculums();
 			for (Curriculum curriculum : curriculums) {
-				CurriculumLocalServiceUtil.deleteCurriculum(curriculum.getCurriculumId());
+				curriculumLocalService.deleteCurriculum(curriculum.getCurriculumId());
 			}
 			SessionMessages.add(request, "curriculumsDeleted");
 		} catch (Exception e) {
@@ -1267,9 +1324,9 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	private void deleteSubjects(ActionRequest request) {
 		log.trace("Deleting every subject.");
 		try {
-			List<Subject> subjects = SubjectLocalServiceUtil.getSubjects();
+			List<Subject> subjects = subjectLocalService.getSubjects();
 			for (Subject subject : subjects) {
-				SubjectLocalServiceUtil.deleteSubject(subject.getSubjectId());
+				subjectLocalService.deleteSubject(subject.getSubjectId());
 			}
 			SessionMessages.add(request, "subjectsDeleted");
 		} catch (Exception e) {
@@ -1281,9 +1338,9 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	private void deleteCourseTypes(ActionRequest request) {
 		log.trace("Deleting every course type.");
 		try {
-			List<CourseType> courseTypes = CourseTypeLocalServiceUtil.getCourseTypes();
+			List<CourseType> courseTypes = courseTypeLocalService.getCourseTypes();
 			for (CourseType courseType : courseTypes) {
-				CourseTypeLocalServiceUtil.deleteCourseType(courseType.getCourseTypeId());
+				courseTypeLocalService.deleteCourseType(courseType.getCourseTypeId());
 			}
 			SessionMessages.add(request, "courseTypesDeleted");
 		} catch (Exception e) {
@@ -1295,9 +1352,9 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	private void deleteCourses(ActionRequest request) {
 		log.trace("Deleting every course.");
 		try {
-			List<Course> courses = CourseLocalServiceUtil.getCourses();
+			List<Course> courses = courseLocalService.getCourses();
 			for (Course course : courses) {
-				CourseLocalServiceUtil.deleteCourse(course.getCourseId());
+				courseLocalService.deleteCourse(course.getCourseId());
 			}
 			SessionMessages.add(request, "coursesDeleted");
 		} catch (Exception e) {
@@ -1309,9 +1366,9 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	private void deleteTimetableCourses(ActionRequest request) {
 		log.trace("Deleting every timetable course.");
 		try {
-			List<TimetableCourse> timetableCourses = TimetableCourseLocalServiceUtil.getTimetableCourses();
+			List<TimetableCourse> timetableCourses = timetableCourseLocalService.getTimetableCourses();
 			for (TimetableCourse timetableCourse : timetableCourses) {
-				TimetableCourseLocalServiceUtil.deleteTimetableCourse(timetableCourse.getTimetableCourseId());
+				timetableCourseLocalService.deleteTimetableCourse(timetableCourse.getTimetableCourseId());
 			}
 			SessionMessages.add(request, "timetableCoursesDeleted");
 		} catch (Exception e) {
@@ -1323,9 +1380,9 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 	private void deleteSyllabuses(ActionRequest request) {
 		log.trace("Deleting every syllabus.");
 		try {
-			List<Syllabus> syllabuses = SyllabusLocalServiceUtil.getSyllabuses();
+			List<Syllabus> syllabuses = syllabusLocalService.getSyllabuses();
 			for (Syllabus syllabus : syllabuses) {
-				SyllabusLocalServiceUtil.deleteSyllabus(syllabus.getSyllabusId());
+				syllabusLocalService.deleteSyllabus(syllabus.getSyllabusId());
 			}
 			SessionMessages.add(request, "syllabusesDeleted");
 		} catch (Exception e) {
@@ -1401,7 +1458,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		if (curriculumSelected.equalsIgnoreCase("curriculumSelected")) {
 			log.trace("Curriculum selected, serving subjects.");
 			try {
-				List<Subject> subjects = SubjectLocalServiceUtil.getSubjectsByCurriculumId(curriculumId);
+				List<Subject> subjects = subjectLocalService.getSubjectsByCurriculumId(curriculumId);
 
 				for (Subject subject : subjects) {
 					JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
@@ -1421,7 +1478,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		if (subjectSelected.equalsIgnoreCase("subjectSelected")) {
 			log.trace("Subject selected, serving courses.");
 			try {
-				List<Course> courses = CourseLocalServiceUtil.getCoursesBySubjectId(subjectId);
+				List<Course> courses = courseLocalService.getCoursesBySubjectId(subjectId);
 
 				for (Course course : courses) {
 					JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
@@ -1441,7 +1498,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		if (courseSelected.equalsIgnoreCase("courseSelected")) {
 			log.trace("Course selected, serving timetableCourses.");
 			try {
-				List<TimetableCourse> timetableCourses = TimetableCourseLocalServiceUtil.getTimetableCoursesByCourseId(courseId);
+				List<TimetableCourse> timetableCourses = timetableCourseLocalService.getTimetableCoursesByCourseId(courseId);
 				if (log.isTraceEnabled()) {
 					log.trace("timetableCourses: " + timetableCourses);
 				}

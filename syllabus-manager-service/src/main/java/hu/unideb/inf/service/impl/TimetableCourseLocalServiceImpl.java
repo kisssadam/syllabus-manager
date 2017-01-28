@@ -36,9 +36,6 @@ import hu.unideb.inf.exception.TimetableCourseRecommendedTermException;
 import hu.unideb.inf.exception.TimetableCourseSubjectTypeException;
 import hu.unideb.inf.model.Lecturer;
 import hu.unideb.inf.model.TimetableCourse;
-import hu.unideb.inf.service.LecturerLocalServiceUtil;
-import hu.unideb.inf.service.SyllabusLocalServiceUtil;
-import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 import hu.unideb.inf.service.base.TimetableCourseLocalServiceBaseImpl;
 
 /**
@@ -64,7 +61,6 @@ public class TimetableCourseLocalServiceImpl
 	 * Never reference this class directly. Always use {@link hu.unideb.inf.service.TimetableCourseLocalServiceUtil} to access the timetable course local service.
 	 */
 	
-
 	public List<TimetableCourse> getTimetableCourses() throws SystemException {
 		return timetableCoursePersistence.findAll();
 	}
@@ -146,7 +142,7 @@ public class TimetableCourseLocalServiceImpl
 		resourceLocalService.addResources(user.getCompanyId(), groupId, userId, TimetableCourse.class.getName(),
 				timetableCourseId, false, true, true);
 
-		List<Lecturer> lecturers = LecturerLocalServiceUtil.getLecturersByIds(lecturerIds);
+		List<Lecturer> lecturers = lecturerLocalService.getLecturersByIds(lecturerIds);
 
 		timetableCoursePersistence.setLecturers(timetableCourseId, lecturers);
 
@@ -166,7 +162,7 @@ public class TimetableCourseLocalServiceImpl
 		validate(timetableCourseId, courseId, semesterId, timetableCourseCode, subjectType, recommendedTerm, limit,
 				lecturerIds);
 
-		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
+		TimetableCourse timetableCourse = timetableCourseLocalService.getTimetableCourse(timetableCourseId);
 
 		timetableCourse.setUserId(userId);
 		timetableCourse.setUserName(user.getFullName());
@@ -182,7 +178,7 @@ public class TimetableCourseLocalServiceImpl
 
 		timetableCoursePersistence.update(timetableCourse);
 
-		List<Lecturer> lecturers = LecturerLocalServiceUtil.getLecturersByIds(lecturerIds);
+		List<Lecturer> lecturers = lecturerLocalService.getLecturersByIds(lecturerIds);
 
 		timetableCoursePersistence.setLecturers(timetableCourseId, lecturers);
 
@@ -194,13 +190,13 @@ public class TimetableCourseLocalServiceImpl
 
 	public TimetableCourse deleteTimetableCourse(long timetableCourseId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
-		if (!SyllabusLocalServiceUtil.getSyllabusesByTimetableCourseId(timetableCourseId).isEmpty()) {
+		if (!syllabusLocalService.getSyllabusesByTimetableCourseId(timetableCourseId).isEmpty()) {
 			throw new DeleteSyllabusesFirstException();
 		}
 		
 		timetableCoursePersistence.clearLecturers(timetableCourseId);
 
-		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
+		TimetableCourse timetableCourse = timetableCourseLocalService.getTimetableCourse(timetableCourseId);
 		
 		resourceLocalService.deleteResource(timetableCourse.getCompanyId(), timetableCourse.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, timetableCourseId);
@@ -231,7 +227,7 @@ public class TimetableCourseLocalServiceImpl
 			throw new TimetableCourseLecturerException();
 		}
 
-		TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.fetchTimetableCourseByC_S_T_S(courseId,
+		TimetableCourse timetableCourse = timetableCourseLocalService.fetchTimetableCourseByC_S_T_S(courseId,
 				semesterId, timetableCourseCode, subjectType);
 		if (Validator.isNotNull(timetableCourse)) {
 			if (timetableCourse.getTimetableCourseId() != timetableCourseId) {

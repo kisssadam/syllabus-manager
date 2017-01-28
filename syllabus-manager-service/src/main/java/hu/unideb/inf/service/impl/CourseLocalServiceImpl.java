@@ -32,10 +32,6 @@ import hu.unideb.inf.exception.NoSuchCourseException;
 import hu.unideb.inf.exception.NoSuchCourseTypeException;
 import hu.unideb.inf.exception.NoSuchSubjectException;
 import hu.unideb.inf.model.Course;
-import hu.unideb.inf.service.CourseLocalServiceUtil;
-import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
-import hu.unideb.inf.service.SubjectLocalServiceUtil;
-import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 import hu.unideb.inf.service.base.CourseLocalServiceBaseImpl;
 
 /**
@@ -123,11 +119,11 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 	}
 
 	public Course deleteCourse(long courseId, ServiceContext serviceContext) throws PortalException, SystemException {
-		if (!TimetableCourseLocalServiceUtil.getTimetableCoursesByCourseId(courseId).isEmpty()) {
+		if (!timetableCourseLocalService.getTimetableCoursesByCourseId(courseId).isEmpty()) {
 			throw new DeleteTimetableCoursesFirstException();
 		}
 		
-		Course course = CourseLocalServiceUtil.getCourse(courseId);
+		Course course = courseLocalService.getCourse(courseId);
 
 		resourceLocalService.deleteResource(course.getCompanyId(), course.getClass().getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, courseId);
@@ -166,7 +162,7 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 	private void validate(long courseId, long subjectId, int hoursPerSemester, int hoursPerWeek, long courseTypeId)
 			throws SystemException, PortalException {
 		try {
-			SubjectLocalServiceUtil.getSubject(subjectId);
+			subjectLocalService.getSubject(subjectId);
 		} catch (PortalException e) {
 			throw new NoSuchSubjectException();
 		}
@@ -180,12 +176,12 @@ public class CourseLocalServiceImpl extends CourseLocalServiceBaseImpl {
 		}
 
 		try {
-			CourseTypeLocalServiceUtil.getCourseType(courseTypeId);
+			courseTypeLocalService.getCourseType(courseTypeId);
 		} catch (PortalException e) {
 			throw new NoSuchCourseTypeException();
 		}
 
-		Course course = CourseLocalServiceUtil.fetchCourseByS_CT(subjectId, courseTypeId);
+		Course course = courseLocalService.fetchCourseByS_CT(subjectId, courseTypeId);
 		if (Validator.isNotNull(course)) {
 			if (course.getCourseId() != courseId) {
 				throw new DuplicateCourseException();

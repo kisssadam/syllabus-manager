@@ -38,8 +38,6 @@ import hu.unideb.inf.exception.SemesterYearOverlapException;
 import hu.unideb.inf.exception.SemesterYearsAreEqualException;
 import hu.unideb.inf.model.Semester;
 import hu.unideb.inf.model.impl.SemesterImpl;
-import hu.unideb.inf.service.SemesterLocalServiceUtil;
-import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 import hu.unideb.inf.service.base.SemesterLocalServiceBaseImpl;
 import hu.unideb.inf.service.util.SemesterHelper;
 
@@ -64,7 +62,6 @@ public class SemesterLocalServiceImpl extends SemesterLocalServiceBaseImpl {
 	 *
 	 * Never reference this class directly. Always use {@link hu.unideb.inf.service.SemesterLocalServiceUtil} to access the semester local service.
 	 */
-	
 
 	public List<Semester> getSemesters() throws SystemException {
 		return semesterPersistence.findAll();
@@ -151,12 +148,11 @@ public class SemesterLocalServiceImpl extends SemesterLocalServiceBaseImpl {
 
 	public Semester deleteSemester(long semesterId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
-		if (!TimetableCourseLocalServiceUtil
-				.getTimetableCoursesBySemesterId(semesterId).isEmpty()) {
+		if (!timetableCourseLocalService.getTimetableCoursesBySemesterId(semesterId).isEmpty()) {
 			throw new DeleteTimetableCoursesFirstException();
 		}
 
-		Semester semester = SemesterLocalServiceUtil.getSemester(semesterId);
+		Semester semester = semesterLocalService.getSemester(semesterId);
 
 		resourceLocalService.deleteResource(semester.getCompanyId(), Semester.class.getName(),
 				ResourceConstants.SCOPE_INDIVIDUAL, semesterId);

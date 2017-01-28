@@ -113,11 +113,9 @@ public class SyllabusLocalServiceUtil {
 	*
 	* @param syllabus the syllabus
 	* @return the syllabus that was removed
-	* @throws PortalException
 	*/
 	public static hu.unideb.inf.model.Syllabus deleteSyllabus(
-		hu.unideb.inf.model.Syllabus syllabus)
-		throws com.liferay.portal.kernel.exception.PortalException {
+		hu.unideb.inf.model.Syllabus syllabus) {
 		return getService().deleteSyllabus(syllabus);
 	}
 
