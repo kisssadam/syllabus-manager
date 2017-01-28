@@ -19,7 +19,8 @@
 	<c:if test="<%=TimetableCoursePermission.contains(permissionChecker, timetableCourseId, SyllabusActionKeys.VIEW)%>">
 		<portlet:renderURL var="viewURL">
 			<portlet:param name="timetableCourseId" value="<%=String.valueOf(timetableCourseId)%>" />
-			<portlet:param name="mvcPath" value="/admin/syllabuses/view_syllabuses_by_timetable_course.jsp" />
+			<portlet:param name="mvcPath" value="/admin/syllabuses/view_syllabuses.jsp" />
+			<portlet:param name="backURL" value="<%=themeDisplay.getURLCurrent()%>" />
 			<portlet:param name="home" value="<%=home%>" />
 		</portlet:renderURL>
 		
@@ -28,12 +29,13 @@
 
 	<c:if test="<%=TimetableCoursePermission.contains(permissionChecker, timetableCourseId, SyllabusActionKeys.UPDATE)%>">
 		<portlet:renderURL var="editURL">
-			<portlet:param name="timetableCourseId" value="<%=String.valueOf(timetableCourseId)%>" />
-			<portlet:param name="mvcPath" value="/admin/timetablecourses/edit_timetable_course.jsp" />
+			<portlet:param name="semesterId" value="<%=String.valueOf(semesterId)%>" />
 			<portlet:param name="curriculumId" value="<%=String.valueOf(curriculumId)%>" />
 			<portlet:param name="subjectId" value="<%=String.valueOf(subjectId)%>" />
 			<portlet:param name="courseId" value="<%=String.valueOf(courseId)%>" />
-			<portlet:param name="semesterId" value="<%=String.valueOf(semesterId)%>" />
+			<portlet:param name="timetableCourseId" value="<%=String.valueOf(timetableCourseId)%>" />
+			<portlet:param name="mvcPath" value="/admin/timetablecourses/edit_timetable_course.jsp" />
+			<portlet:param name="backURL" value="<%=themeDisplay.getURLCurrent()%>" />
 			<portlet:param name="home" value="<%=home%>" />
 		</portlet:renderURL>
 

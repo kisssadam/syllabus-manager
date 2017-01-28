@@ -2,6 +2,7 @@
 
 <%
 	String home = ParamUtil.getString(renderRequest, "home");
+	String backURL = ParamUtil.getString(renderRequest, "backURL");
 	long timetableCourseId = ParamUtil.getLong(renderRequest, "timetableCourseId");
 	long courseId = ParamUtil.getLong(renderRequest, "courseId");
 	long subjectId = ParamUtil.getLong(renderRequest, "subjectId");
@@ -58,6 +59,8 @@
 		}
 	}
 
+	request.setAttribute("home", home);
+	request.setAttribute("backURL", backURL);
 	request.setAttribute("curriculumId", curriculumId);
 	request.setAttribute("subjectId", subjectId);
 	request.setAttribute("courseId", courseId);
@@ -86,24 +89,8 @@
 	</c:otherwise>
 </c:choose>
 
-<portlet:renderURL var="viewURL">
-	<c:choose>
-		<c:when test="${subjectId gt 0}">
-			<portlet:param name="mvcPath" value="/admin/courses/view_courses.jsp" />
-			<portlet:param name="subjectId" value="${subjectId}" />
-		</c:when>
-		<c:when test="${curriculumId gt 0}">
-			<portlet:param name="mvcPath" value="/admin/subjects/view_subjects.jsp" />
-			<portlet:param name="curriculumId" value="${curriculumId}" />
-		</c:when>
-		<c:otherwise>
-			<portlet:param name="mvcPath" value="/admin/curriculums/view_curriculums.jsp" />
-		</c:otherwise>
-	</c:choose>
-</portlet:renderURL>
-
 <portlet:actionURL name="addTimetableCourse" var="addTimetableCourseURL">
-	<portlet:param name="home" value="<%=home%>" />
+	<portlet:param name="home" value="${home}" />
 </portlet:actionURL>
 
 <aui:form action="<%=addTimetableCourseURL%>" name="<portlet:namespace />timetable_course_edit">
@@ -220,7 +207,7 @@
 
 	<aui:button-row>
 		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="<%= viewURL %>" />
+		<aui:button type="cancel" onClick="${backURL}" />
 	</aui:button-row>
 </aui:form>
 

@@ -1,6 +1,7 @@
 <%@include file="/init.jsp"%>
 
 <%
+	String backURL = ParamUtil.getString(renderRequest, "backURL");
 	long courseTypeId = ParamUtil.getLong(renderRequest, "courseTypeId");
 
 	CourseType courseType = null;
@@ -8,6 +9,8 @@
 	if (courseTypeId > 0) {
 		courseType = CourseTypeLocalServiceUtil.getCourseType(courseTypeId);
 	}
+	
+	request.setAttribute("backURL", backURL);
 %>
 
 <%@ include file="/notifications/error.jspf" %>
@@ -20,10 +23,6 @@
 		<liferay-ui:header title="add-course-type" />
 	</c:otherwise>
 </c:choose>
-
-<portlet:renderURL var="viewURL">
-	<portlet:param name="mvcPath" value="/admin/course_types/view_course_types.jsp" />
-</portlet:renderURL>
 
 <portlet:actionURL name="addCourseType" var="addCourseTypeURL" />
 
@@ -41,6 +40,6 @@
 
 	<aui:button-row>
 		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="<%= viewURL %>" />
+		<aui:button type="cancel" onClick="${backURL}" />
 	</aui:button-row>
 </aui:form>

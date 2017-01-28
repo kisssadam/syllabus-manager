@@ -2,6 +2,7 @@
 
 <%
 	String home = ParamUtil.getString(renderRequest, "home");
+	String backURL = ParamUtil.getString(renderRequest, "backURL");
 
 	long syllabusId = ParamUtil.getLong(renderRequest, "syllabusId");
 	long timetableCourseId = ParamUtil.getLong(renderRequest, "timetableCourseId");
@@ -72,6 +73,8 @@
 		}
 	}
 
+	request.setAttribute("home", home);
+	request.setAttribute("backURL", backURL);
 	request.setAttribute("curriculumId", curriculumId);
 	request.setAttribute("subjectId", subjectId);
 	request.setAttribute("courseId", courseId);
@@ -94,22 +97,9 @@
 	</c:otherwise>
 </c:choose>
 
-<portlet:renderURL var="viewURL">
-	<c:choose>
-		<c:when test="<%=StringUtil.equalsIgnoreCase(home, "curriculums")%>">
-			<portlet:param name="mvcPath" value="/admin/syllabuses/view_syllabuses_by_timetable_course.jsp" />
-		</c:when>
-		<c:when test="<%=StringUtil.equalsIgnoreCase(home, "semesters")%>">
-			<portlet:param name="mvcPath" value="/admin/syllabuses/view_syllabuses_by_semester.jsp" />
-		</c:when>
-		<c:otherwise>
-			<portlet:param name="mvcPath" value="/admin/curriculums/view_curriculums.jsp" />
-		</c:otherwise>
-	</c:choose>
-	<portlet:param name="timetableCourseId" value="<%=String.valueOf(timetableCourseId)%>" />
-</portlet:renderURL>
-
-<portlet:actionURL name="addSyllabus" var="addSyllabusURL" />
+<portlet:actionURL name="addSyllabus" var="addSyllabusURL">
+	<portlet:param name="home" value="${home}" />
+</portlet:actionURL>
 
 <aui:form action="<%=addSyllabusURL%>" name="<portlet:namespace />syllabus_edit">
 	<aui:model-context bean="<%=syllabus%>" model="<%=Syllabus.class%>" />
@@ -182,7 +172,7 @@
 
 	<aui:button-row>
 		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="<%= viewURL %>" />
+		<aui:button type="cancel" onClick="${backURL}" />
 	</aui:button-row>
 </aui:form>
 

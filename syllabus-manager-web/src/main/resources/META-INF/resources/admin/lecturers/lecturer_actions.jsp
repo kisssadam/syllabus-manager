@@ -14,6 +14,7 @@
 		<portlet:renderURL var="editURL">
 			<portlet:param name="lecturerId" value="<%=String.valueOf(lecturerId)%>" />
 			<portlet:param name="mvcPath" value="/admin/lecturers/edit_lecturer.jsp" />
+			<portlet:param name="backURL" value="<%=themeDisplay.getURLCurrent()%>" />
 		</portlet:renderURL>
 
 		<liferay-ui:icon image="edit" message="edit" url="<%=editURL.toString()%>" />

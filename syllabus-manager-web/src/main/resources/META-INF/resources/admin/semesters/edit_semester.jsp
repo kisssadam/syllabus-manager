@@ -1,6 +1,7 @@
 <%@include file="/init.jsp"%>
 
 <%
+	String backURL = ParamUtil.getString(renderRequest, "backURL");
 	long semesterId = ParamUtil.getLong(renderRequest, "semesterId");
 
 	int beginYear = ParamUtil.getInteger(request, "beginYear", SemesterHelper.currentYear());
@@ -22,6 +23,8 @@
 			// omit
 		}
 	}
+	
+	request.setAttribute("backURL", backURL);
 %>
 
 <%@ include file="/notifications/error.jspf" %>
@@ -34,10 +37,6 @@
 		<liferay-ui:header title="add-semester" />
 	</c:otherwise>
 </c:choose>
-
-<portlet:renderURL var="viewURL">
-	<portlet:param name="mvcPath" value="/admin/semesters/view_semesters.jsp" />
-</portlet:renderURL>
 
 <portlet:actionURL name="addSemester" var="addSemesterURL" />
 
@@ -64,7 +63,7 @@
 
 	<aui:button-row>
 		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="<%= viewURL %>" />
+		<aui:button type="cancel" onClick="${backURL}" />
 	</aui:button-row>
 </aui:form>
 

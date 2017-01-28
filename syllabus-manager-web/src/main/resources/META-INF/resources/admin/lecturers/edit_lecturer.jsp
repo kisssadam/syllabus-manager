@@ -1,6 +1,7 @@
 <%@include file="/init.jsp"%>
 
 <%
+	String backURL = ParamUtil.getString(renderRequest, "backURL");
 	long lecturerId = ParamUtil.getLong(renderRequest, "lecturerId");
 
 	Lecturer lecturer = null;
@@ -10,6 +11,7 @@
 		request.setAttribute("lecturerUserId", lecturer.getLecturerUserId());
 	}
 
+	request.setAttribute("backURL", backURL);
 	request.setAttribute("lecturerId", lecturerId);
 	request.setAttribute("users", UserLocalServiceUtil.getUsers(QueryUtil.ALL_POS, QueryUtil.ALL_POS));
 %>
@@ -24,10 +26,6 @@
 		<liferay-ui:header title="add-lecturer" />
 	</c:otherwise>
 </c:choose>
-
-<portlet:renderURL var="viewURL">
-	<portlet:param name="mvcPath" value="/admin/lecturers/view_lecturers.jsp" />
-</portlet:renderURL>
 
 <portlet:actionURL name="addLecturer" var="addLecturerURL" />
 
@@ -52,6 +50,6 @@
 
 	<aui:button-row>
 		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="<%= viewURL %>" />
+		<aui:button type="cancel" onClick="${backURL}" />
 	</aui:button-row>
 </aui:form>

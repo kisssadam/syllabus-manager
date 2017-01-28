@@ -1,6 +1,7 @@
 <%@include file="/init.jsp"%>
 
 <%
+	String backURL = ParamUtil.getString(renderRequest, "backURL");
 	long courseId = ParamUtil.getLong(renderRequest, "courseId");
 	long subjectId = ParamUtil.getLong(renderRequest, "subjectId");
 	long curriculumId = ParamUtil.getLong(renderRequest, "curriculumId");
@@ -30,6 +31,7 @@
 		}
 	}
 
+	request.setAttribute("backURL", backURL);
 	request.setAttribute("curriculumId", curriculumId);
 	request.setAttribute("subjectId", subjectId);
 	request.setAttribute("curriculums", curriculums);
@@ -47,22 +49,6 @@
 		<liferay-ui:header title="add-course" />
 	</c:otherwise>
 </c:choose>
-
-<portlet:renderURL var="viewURL">
-	<c:choose>
-		<c:when test="${subjectId gt 0}">
-			<portlet:param name="mvcPath" value="/admin/courses/view_courses.jsp" />
-			<portlet:param name="subjectId" value="${subjectId}" />
-		</c:when>
-		<c:when test="${curriculumId gt 0}">
-			<portlet:param name="mvcPath" value="/admin/subjects/view_subjects.jsp" />
-			<portlet:param name="curriculumId" value="${curriculumId}" />
-		</c:when>
-		<c:otherwise>
-			<portlet:param name="mvcPath" value="/admin/curriculums/view_curriculums.jsp" />
-		</c:otherwise>
-	</c:choose>
-</portlet:renderURL>
 
 <portlet:actionURL name="addCourse" var="addCourseURL" />
 
@@ -110,7 +96,7 @@
 
 	<aui:button-row>
 		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="<%= viewURL %>" />
+		<aui:button type="cancel" onClick="${backURL}" />
 	</aui:button-row>
 </aui:form>
 

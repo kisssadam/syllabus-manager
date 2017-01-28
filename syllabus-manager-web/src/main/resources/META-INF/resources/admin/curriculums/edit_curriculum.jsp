@@ -1,6 +1,7 @@
 <%@include file="/init.jsp"%>
 
 <%
+	String backURL = ParamUtil.getString(renderRequest, "backURL");	
 	long curriculumId = ParamUtil.getLong(renderRequest, "curriculumId");
 
 	Curriculum curriculum = null;
@@ -8,6 +9,8 @@
 	if (curriculumId > 0) {
 		curriculum = CurriculumLocalServiceUtil.getCurriculum(curriculumId);
 	}
+	
+	request.setAttribute("backURL", backURL);
 %>
 
 <%@ include file="/notifications/error.jspf" %>
@@ -20,10 +23,6 @@
 		<liferay-ui:header title="add-curriculum" />
 	</c:otherwise>
 </c:choose>
-
-<portlet:renderURL var="viewURL">
-	<portlet:param name="mvcPath" value="/admin/curriculums/view_curriculums.jsp" />
-</portlet:renderURL>
 
 <portlet:actionURL name="addCurriculum" var="addCurriculumURL" />
 
@@ -45,6 +44,6 @@
 
 	<aui:button-row>
 		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="<%= viewURL %>" />
+		<aui:button type="cancel" onClick="${backURL}" />
 	</aui:button-row>
 </aui:form>

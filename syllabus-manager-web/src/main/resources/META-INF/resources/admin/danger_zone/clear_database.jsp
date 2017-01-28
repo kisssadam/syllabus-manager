@@ -1,15 +1,17 @@
 <%@ include file="/init.jsp"%>
 
+<%
+	String backURL = ParamUtil.getString(renderRequest, "backURL");
+	
+	request.setAttribute("backURL", backURL);
+%>
+
 <%@ include file="/notifications/success.jspf" %>
 <%@ include file="/notifications/error.jspf" %>
 
 <jsp:include page="/admin/navigation_bar.jsp" />
 
 <liferay-ui:header title="clear-database" />
-
-<portlet:renderURL var="viewURL">
-	<portlet:param name="mvcPath" value="/admin/index.jsp" />
-</portlet:renderURL>
 
 <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.CLEAR_DATABASE)%>'>
 	<portlet:actionURL name="clearDatabase" var="clearDatabaseURL" />
@@ -28,7 +30,7 @@
 		
 		<aui:button-row>
 			<aui:button type="submit" />
-			<aui:button type="cancel" onClick="<%= viewURL %>" />
+			<aui:button type="cancel" onClick="${backURL}>" />
 		</aui:button-row>
 	</aui:form>
 </c:if>

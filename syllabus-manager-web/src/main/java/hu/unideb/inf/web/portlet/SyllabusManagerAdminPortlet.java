@@ -94,7 +94,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 	public static final String VIEW_TIMETABLE_COURSES = "/admin/timetablecourses/view_timetable_courses.jsp";
 	
-	public static final String VIEW_SYLLABUSES_BY_TIMETABLE_COURSE = "/admin/syllabuses/view_syllabuses_by_timetable_course.jsp";
+	public static final String VIEW_SYLLABUSES = "/admin/syllabuses/view_syllabuses.jsp";
 
 	public static final String EDIT_CURRICULUM = "/admin/curriculums/edit_curriculum.jsp";
 
@@ -425,8 +425,13 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			throws PortalException, SystemException {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(Syllabus.class.getName(), request);
 		
-		long syllabusId = ParamUtil.getLong(request, "syllabusId");
+		String home = ParamUtil.getString(request,  "home");
+		long curriculumId = ParamUtil.getLong(request, "curriculumSelect");
+		long subjectId = ParamUtil.getLong(request, "subjectSelect");
+		long courseId = ParamUtil.getLong(request, "courseSelect");
 		long timetableCourseId = ParamUtil.getLong(request, "timetableCourseSelect");
+		long syllabusId = ParamUtil.getLong(request, "syllabusId");
+		long semesterId = ParamUtil.getLong(request, "semesterId");
 		String competence = ParamUtil.getString(request, "competence");
 		String ethicalStandards = ParamUtil.getString(request, "ethicalStandards");
 		String topics = ParamUtil.getString(request, "topics");
@@ -435,8 +440,8 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		String weeklyTasks = ParamUtil.getString(request, "weeklyTasks");
 		
 		if (log.isDebugEnabled()) {
-			log.debug(String.format("syllabusId: %d, timetableCourseId: %d, competence: '%s', ethicalStandards: '%s', topics: '%s', educationalMaterials: '%s', recommendedLiterature: '%s', weeklyTasks: '%s'",
-					syllabusId, timetableCourseId, competence, ethicalStandards, topics, educationalMaterials, recommendedLiterature, weeklyTasks));
+			log.debug(String.format("home: '%s', syllabusId: %d, timetableCourseId: %d, competence: '%s', ethicalStandards: '%s', topics: '%s', educationalMaterials: '%s', recommendedLiterature: '%s', weeklyTasks: '%s'",
+					home, syllabusId, timetableCourseId, competence, ethicalStandards, topics, educationalMaterials, recommendedLiterature, weeklyTasks));
 		}
 		
 		try {
@@ -459,8 +464,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "syllabusAdded");
 			}
 			
-			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES_BY_TIMETABLE_COURSE);
-			response.setRenderParameter("timetableCourseId", String.valueOf(timetableCourseId));
+			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES);
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -469,6 +473,13 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", EDIT_SYLLABUS);
+		} finally {
+			response.setRenderParameter("home", home);
+			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
+			response.setRenderParameter("subjectId", String.valueOf(subjectId));
+			response.setRenderParameter("courseId", String.valueOf(courseId));
+			response.setRenderParameter("timetableCourseId", String.valueOf(timetableCourseId));
+			response.setRenderParameter("semesterId", String.valueOf(semesterId));
 		}
 	}
 	
@@ -749,7 +760,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES_BY_TIMETABLE_COURSE);
+			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 			response.setRenderParameter("courseId", String.valueOf(courseId));
@@ -1054,7 +1065,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES_BY_TIMETABLE_COURSE);
+			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES);
 			response.setRenderParameter("timetableCourseId", String.valueOf(timetableCourseId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
