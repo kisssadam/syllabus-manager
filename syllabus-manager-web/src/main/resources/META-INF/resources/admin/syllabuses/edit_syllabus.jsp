@@ -170,6 +170,23 @@
 		</aui:field-wrapper>
 	</aui:fieldset>
 
+	<liferay-ui:asset-categories-error />
+	
+	<liferay-ui:asset-tags-error />
+	
+	<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="syllabusCategorizationPanel" persistState="<%= true %>" title="categorization">
+		<aui:fieldset>
+			<aui:input name="categories" type="assetCategories" />
+			<aui:input name="tags" type="assetTags" />
+		</aui:fieldset>
+	</liferay-ui:panel>
+
+	<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="syllabusAssetLinksPanel" persistState="<%= true %>" title="related-assets">
+		<aui:fieldset>
+			<liferay-ui:input-asset-links className="<%= Syllabus.class.getName() %>" classPK="<%= syllabusId %>" />
+		</aui:fieldset>
+	</liferay-ui:panel>
+
 	<aui:button-row>
 		<aui:button type="submit" />
 		<aui:button type="cancel" onClick="${backURL}" />
