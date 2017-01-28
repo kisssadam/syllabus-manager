@@ -26,21 +26,17 @@
 <liferay-ui:error exception="<%=SubjectNameException.class%>" message="subject-name-exception" />
 
 <liferay-ui:error exception="<%=NoSuchCourseTypeException.class%>" message="no-such-course-type-exception" />
-<liferay-ui:error exception="<%=NoSuchSubjectException.class%>" message="no-such-subject-exception" />
 <liferay-ui:error exception="<%=NoSuchLecturerException.class%>" message="no-such-lecturer-exception" />
 <liferay-ui:error exception="<%=NoSuchUserException.class%>" message="no-such-user-exception" />
 <liferay-ui:error exception="<%=NoSuchSyllabusException.class%>" message="no-such-syllabus-exception" />
 <liferay-ui:error exception="<%=NoSuchTimetableCourseException.class%>" message="no-such-timetable-course-exception" />
-<liferay-ui:error exception="<%=NoSuchCourseException.class%>" message="no-such-course-exception" />
 <liferay-ui:error exception="<%=NoSuchSubjectException.class%>" message="no-such-subject-exception" />
-<liferay-ui:error exception="<%=NoSuchTimetableCourseException.class%>" message="no-such-timetable-course-exception" />
 <liferay-ui:error exception="<%=NoSuchCourseException.class%>" message="no-such-course-exception" />
-<liferay-ui:error exception="<%=NoSuchSubjectException.class%>" message="no-such-subject-exception" />
+<liferay-ui:error exception="<%=NoSuchCurriculumException.class%>" message="no-such-curriculum-exception" />
 
 <liferay-ui:error exception="<%=TimetableCourseCodeException.class%>" message="timetable-course-code-exception" />
 <liferay-ui:error exception="<%=TimetableCourseRecommendedTermException.class%>" message="timetable-course-recommended-term-exception" />
 <liferay-ui:error exception="<%=TimetableCourseSubjectTypeException.class%>" message="timetable-course-subject-type-exception" />
-<liferay-ui:error exception="<%=TimetableCourseRecommendedTermException.class%>" message="timetable-course-recommended-term-exception" />
 <liferay-ui:error exception="<%=TimetableCourseLimitException.class%>" message="timetable-course-limit-exception" />
 <liferay-ui:error exception="<%=TimetableCourseLecturerException.class%>" message="timetable-course-lecturer-exception" />
 <liferay-ui:error exception="<%=TimetableCourseLecturerNameException.class%>" message="timetable-course-lecturer-name-exception" />
@@ -50,3 +46,5 @@
 <liferay-ui:error exception="<%=DeleteSubjectsFirstException.class%>" message="delete-subjects-first-exception" />
 <liferay-ui:error exception="<%=DeleteCoursesFirstException.class%>" message="delete-courses-first-exception" />
 <liferay-ui:error exception="<%=DeleteTimetableCoursesFirstException.class%>" message="delete-timetable-courses-first-exception" />
+
+<liferay-ui:error exception="<%=SyllabusCannotBeDeletedDueToApprovedStatusException.class%>" message="syllabus-cannot-be-deleted-due-to-approved-status-exception" />
