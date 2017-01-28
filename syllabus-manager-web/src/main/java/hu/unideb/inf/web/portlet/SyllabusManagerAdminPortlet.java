@@ -71,7 +71,7 @@ import hu.unideb.inf.web.util.TimetableCSVParser;
 		"javax.portlet.expiration-cache=0",
 		"javax.portlet.init-param.template-path=/admin/",
 		"javax.portlet.init-param.view-template=/admin/view.jsp",
-		"javax.portlet.name=" + SyllabusManagerPortletKeys.SyllabusManagerAdmin,
+		"javax.portlet.name=" + SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=administrator,power-user,user",
 		"javax.portlet.supports.mime-type=text/html"

@@ -17,7 +17,7 @@ import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 
 @Component(
 	immediate = true,
-	property = {"javax.portlet.name=" + SyllabusManagerPortletKeys.SyllabusManagerAdmin},
+	property = {"javax.portlet.name=" + SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN},
 	service = AssetRendererFactory.class
 )
 public class SyllabusAssetRendererFactory extends BaseAssetRendererFactory<Syllabus> {
@@ -59,7 +59,7 @@ public class SyllabusAssetRendererFactory extends BaseAssetRendererFactory<Sylla
 	
 	@Override
 	public String getPortletId() {
-		return SyllabusManagerPortletKeys.SyllabusManagerAdmin;
+		return SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN;
 	}
 
 }

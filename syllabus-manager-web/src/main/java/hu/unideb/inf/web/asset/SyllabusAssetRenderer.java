@@ -120,7 +120,7 @@ public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> {
 		Group group = GroupLocalServiceUtil.fetchGroup(syllabus.getGroupId());
 
 		PortletURL portletURL = PortalUtil.getControlPanelPortletURL(liferayPortletRequest, group,
-				SyllabusManagerPortletKeys.SyllabusManagerAdmin, 0, 0, PortletRequest.RENDER_PHASE);
+				SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN, 0, 0, PortletRequest.RENDER_PHASE);
 
 		portletURL.setParameter("mvcPath", SyllabusManagerAdminPortlet.EDIT_SYLLABUS);
 		portletURL.setParameter("syllabusId", String.valueOf(syllabus.getSyllabusId()));
