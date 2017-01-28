@@ -37,7 +37,7 @@ import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 import hu.unideb.inf.service.permission.SyllabusPermission;
 import hu.unideb.inf.util.SyllabusActionKeys;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
-import hu.unideb.inf.web.constants.SyllabusWebKeys;
+import hu.unideb.inf.web.constants.WebKeys;
 import hu.unideb.inf.web.portlet.SyllabusManagerAdminPortlet;
 
 public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> {
@@ -156,7 +156,7 @@ public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> {
 	@Override
 	public boolean include(HttpServletRequest request, HttpServletResponse response, String template) throws Exception {
 		log.trace("SyllabusAssetRenderer::include(request, response, template)");
-		request.setAttribute(SyllabusWebKeys.SYLLABUS, syllabus);
+		request.setAttribute(WebKeys.SYLLABUS, syllabus);
 		return super.include(request, response, template);
 	}
 

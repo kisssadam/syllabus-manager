@@ -1,7 +1,7 @@
 <%@include file="/init.jsp"%>
 
 <%
-	Syllabus syllabus = (Syllabus) request.getAttribute(SyllabusWebKeys.SYLLABUS);
+	Syllabus syllabus = (Syllabus) request.getAttribute(WebKeys.SYLLABUS);
 	
 	TimetableCourse timetableCourse = null;
 	Course course = null;

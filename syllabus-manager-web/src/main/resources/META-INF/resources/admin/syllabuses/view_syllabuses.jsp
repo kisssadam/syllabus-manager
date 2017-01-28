@@ -30,7 +30,7 @@
 	}
 	
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/admin/syllabuses/view_syllabuses_by_timetable_course.jsp");
+	iteratorURL.setParameter("jspPage", "/admin/syllabuses/view_syllabuses.jsp");
 	iteratorURL.setParameter("timetableCourseId", String.valueOf(timetableCourseId));
 	
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
