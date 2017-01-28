@@ -41,8 +41,7 @@
 			<aui:validator name="required" />
 		</aui:input>
 
-		<aui:select label="lecturerUserId" name="lecturerUserId">
-			<aui:option value="0">not-set-up</aui:option>
+		<aui:select label="lecturerUserId" name="lecturerUserId" showEmptyOption="true">
 			<c:forEach items="${users}" var="user">
 				<aui:option value="${user.userId}">
 					<c:out value="${user.screenName}" />

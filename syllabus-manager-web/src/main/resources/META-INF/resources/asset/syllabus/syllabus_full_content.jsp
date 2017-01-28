@@ -84,7 +84,7 @@
 		
 		<aui:input name="recommendedLiterature" type="textArea" value="${syllabus.recommendedLiterature}" />
 		
-		<aui:input name="weeklyTasks" type="textArea" value="${syllabus.weeklyTasks}" />
+		<aui:field-wrapper label="weeklyTasks">${syllabus.weeklyTasks}</aui:field-wrapper>
 		
 		<aui:input name="syllabusLastModifiedDate" type="text" value="<%= dateFormat.format(syllabus.getModifiedDate()) %>" />
 		
