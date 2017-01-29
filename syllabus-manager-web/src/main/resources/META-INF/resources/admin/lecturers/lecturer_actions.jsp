@@ -13,7 +13,7 @@
 	<c:if test="<%=LecturerPermission.contains(permissionChecker, lecturerId, SyllabusActionKeys.UPDATE)%>">
 		<portlet:renderURL var="editURL">
 			<portlet:param name="lecturerId" value="<%=String.valueOf(lecturerId)%>" />
-			<portlet:param name="mvcPath" value="/admin/lecturers/edit_lecturer.jsp" />
+			<portlet:param name="mvcPath" value="<%=WebKeys.EDIT_LECTURER%>" />
 			<portlet:param name="backURL" value="<%=themeDisplay.getURLCurrent()%>" />
 		</portlet:renderURL>
 

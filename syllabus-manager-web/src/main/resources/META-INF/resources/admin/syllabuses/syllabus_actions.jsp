@@ -14,7 +14,7 @@
 	<c:if test="<%=SyllabusPermission.contains(permissionChecker, syllabusId, SyllabusActionKeys.UPDATE)%>">
 		<portlet:renderURL var="editURL">
 			<portlet:param name="syllabusId" value="<%=String.valueOf(syllabusId)%>" />
-			<portlet:param name="mvcPath" value="/admin/syllabuses/edit_syllabus.jsp" />
+			<portlet:param name="mvcPath" value="<%=WebKeys.EDIT_SYLLABUS%>" />
 			<portlet:param name="backURL" value="<%=themeDisplay.getURLCurrent()%>" />
 			<portlet:param name="home" value="<%=home%>" />
 		</portlet:renderURL>

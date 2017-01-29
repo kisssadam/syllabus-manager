@@ -13,7 +13,7 @@
 	<c:if test="<%=CurriculumPermission.contains(permissionChecker, curriculumId, SyllabusActionKeys.UPDATE)%>">
 		<portlet:renderURL var="editURL">
 			<portlet:param name="curriculumId" value="<%=String.valueOf(curriculumId)%>" />
-			<portlet:param name="mvcPath" value="/admin/curriculums/edit_curriculum.jsp" />
+			<portlet:param name="mvcPath" value="<%=WebKeys.EDIT_CURRICULUM%>" />
 			<portlet:param name="backURL" value="<%=themeDisplay.getURLCurrent()%>" />
 		</portlet:renderURL>
 

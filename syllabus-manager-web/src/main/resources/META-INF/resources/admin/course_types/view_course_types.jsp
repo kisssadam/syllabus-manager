@@ -2,21 +2,17 @@
 
 <%
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/admin/course_types/view_course_types.jsp");
+	iteratorURL.setParameter("jspPage", WebKeys.VIEW_COURSE_TYPES);
 	
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
 <%@ include file="/notifications/success.jspf" %>
-
 <%@ include file="/notifications/error.jspf" %>
 
-<c:set var="showCourseTypesLink" value="<%= true %>" scope="request"/>
-
-<c:set var="home" value="course_types" scope="request" />
+<c:set var="home" value="<%=WebKeys.ADMIN_HOME_COURSE_TYPES%>" scope="request" />
 
 <jsp:include page="/admin/navigation_bar.jsp" />
-
 <jsp:include page="/admin/breadcrumb.jsp" />
 
 <aui:form method="post" name="fmCourseType">

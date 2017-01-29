@@ -2,19 +2,17 @@
 
 <%
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/admin/semesters/view_semesters.jsp");
+	iteratorURL.setParameter("jspPage", WebKeys.VIEW_SEMESTERS);
 	
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
 <%@ include file="/notifications/success.jspf" %>
-
 <%@ include file="/notifications/error.jspf" %>
 
-<c:set var="home" value="semesters" scope="request" />
+<c:set var="home" value="<%=WebKeys.ADMIN_HOME_SEMESTERS%>" scope="request" />
 
 <jsp:include page="/admin/navigation_bar.jsp" />
-
 <jsp:include page="/admin/breadcrumb.jsp" />
 
 <aui:form method="post" name="fmSemester">
@@ -28,7 +26,7 @@
 		<liferay-ui:search-container-row className="hu.unideb.inf.model.Semester" escapedModel="<%= true %>" modelVar="semester" keyProperty="semesterId">
 			<c:if test='<%=SemesterPermission.contains(permissionChecker, semester.getSemesterId(), "VIEW")%>'>
 				<portlet:renderURL var="viewTimetableCoursesURL">
-					<portlet:param name="mvcPath" value="/admin/timetablecourses/view_timetable_courses.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_TIMETABLE_COURSES%>" />
 					<portlet:param name="home" value="${home}" />
 					<portlet:param name="semesterId" value="<%=String.valueOf(semester.getSemesterId())%>" />
 				</portlet:renderURL>

@@ -38,7 +38,6 @@ import hu.unideb.inf.service.permission.SyllabusPermission;
 import hu.unideb.inf.util.SyllabusActionKeys;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 import hu.unideb.inf.web.constants.WebKeys;
-import hu.unideb.inf.web.portlet.SyllabusManagerAdminPortlet;
 
 public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> {
 
@@ -122,7 +121,7 @@ public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> {
 		PortletURL portletURL = PortalUtil.getControlPanelPortletURL(liferayPortletRequest, group,
 				SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN, 0, 0, PortletRequest.RENDER_PHASE);
 
-		portletURL.setParameter("mvcPath", SyllabusManagerAdminPortlet.EDIT_SYLLABUS);
+		portletURL.setParameter("mvcPath", WebKeys.EDIT_SYLLABUS);
 		portletURL.setParameter("syllabusId", String.valueOf(syllabus.getSyllabusId()));
 
 		return portletURL;

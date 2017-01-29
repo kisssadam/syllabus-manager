@@ -10,21 +10,19 @@
 	}
 	
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/admin/subjects/view_subjects.jsp");
+	iteratorURL.setParameter("jspPage", WebKeys.VIEW_SUBJECTS);
 	iteratorURL.setParameter("curriculumId", String.valueOf(curriculumId));
 	
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
 <%@ include file="/notifications/success.jspf" %>
-
 <%@ include file="/notifications/error.jspf" %>
 
-<c:set var="home" value="curriculums" scope="request" />
+<c:set var="home" value="<%=WebKeys.ADMIN_HOME_CURRICULUMS%>" scope="request" />
 <c:set var="curriculumId" value="<%=curriculumId%>" scope="request" />
 
 <jsp:include page="/admin/navigation_bar.jsp" />
-
 <jsp:include page="/admin/breadcrumb.jsp" />
 
 <aui:form method="post" name="fmSubject">
@@ -39,7 +37,7 @@
 		<liferay-ui:search-container-row className="hu.unideb.inf.model.Subject" escapedModel="<%= true %>" modelVar="subject" keyProperty="subjectId">
 			<c:if test='<%=SubjectPermission.contains(permissionChecker, subject.getSubjectId(), "VIEW")%>'>
 				<portlet:renderURL var="viewCoursesURL">
-					<portlet:param name="mvcPath" value="/admin/courses/view_courses.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_COURSES%>" />
 					<portlet:param name="subjectId" value="<%=String.valueOf(subject.getSubjectId())%>" />
 				</portlet:renderURL>
 				

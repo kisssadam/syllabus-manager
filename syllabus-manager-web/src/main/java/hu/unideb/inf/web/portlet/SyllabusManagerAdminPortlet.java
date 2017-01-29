@@ -55,6 +55,7 @@ import hu.unideb.inf.service.SubjectLocalService;
 import hu.unideb.inf.service.SyllabusLocalService;
 import hu.unideb.inf.service.TimetableCourseLocalService;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
+import hu.unideb.inf.web.constants.WebKeys;
 import hu.unideb.inf.web.util.SyllabusCSVParser;
 import hu.unideb.inf.web.util.TimetableCSVParser;
 
@@ -80,40 +81,6 @@ import hu.unideb.inf.web.util.TimetableCSVParser;
 	service = Portlet.class
 )
 public class SyllabusManagerAdminPortlet extends MVCPortlet {
-
-	public static final String VIEW_CURRICULUMS = "/admin/curriculums/view_curriculums.jsp";
-
-	public static final String VIEW_SUBJECTS = "/admin/subjects/view_subjects.jsp";
-
-	public static final String VIEW_COURSES = "/admin/courses/view_courses.jsp";
-
-	public static final String VIEW_COURSE_TYPES = "/admin/course_types/view_course_types.jsp";
-
-	public static final String VIEW_SEMESTERS = "/admin/semesters/view_semesters.jsp";
-
-	public static final String VIEW_LECTURERS = "/admin/lecturers/view_lecturers.jsp";
-
-	public static final String VIEW_TIMETABLE_COURSES = "/admin/timetablecourses/view_timetable_courses.jsp";
-	
-	public static final String VIEW_SYLLABUSES = "/admin/syllabuses/view_syllabuses.jsp";
-
-	public static final String EDIT_CURRICULUM = "/admin/curriculums/edit_curriculum.jsp";
-
-	public static final String EDIT_SUBJECT = "/admin/subjects/edit_subject.jsp";
-
-	public static final String EDIT_COURSE = "/admin/courses/edit_course.jsp";
-
-	public static final String EDIT_COURSE_TYPE = "/admin/course_types/edit_course_type.jsp";
-
-	public static final String EDIT_SEMESTER = "/admin/semesters/edit_semester.jsp";
-
-	public static final String EDIT_LECTURER = "/admin/lecturers/edit_lecturer.jsp";
-
-	public static final String EDIT_TIMETABLE_COURSE = "/admin/timetablecourses/edit_timetable_course.jsp";
-	
-	public static final String EDIT_SYLLABUS = "/admin/syllabuses/edit_syllabus.jsp";
-
-	public static final String fileInputName = "fileupload";
 
 	private static final Log log = LogFactoryUtil.getLog(SyllabusManagerAdminPortlet.class);
 
@@ -204,7 +171,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "curriculumAdded");
 			}
 
-			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_CURRICULUMS);
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -212,7 +179,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", EDIT_CURRICULUM);
+			response.setRenderParameter("mvcPath", WebKeys.EDIT_CURRICULUM);
 		}
 	}
 
@@ -251,7 +218,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "subjectAdded");
 			}
 
-			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_SUBJECTS);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
@@ -260,7 +227,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", EDIT_SUBJECT);
+			response.setRenderParameter("mvcPath", WebKeys.EDIT_SUBJECT);
 		}
 	}
 
@@ -300,13 +267,13 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "courseAdded");
 			}
 
-			response.setRenderParameter("mvcPath", VIEW_COURSES);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_COURSES);
 			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 		} catch (Exception e) {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", EDIT_COURSE);
+			response.setRenderParameter("mvcPath", WebKeys.EDIT_COURSE);
 		}
 	}
 
@@ -339,13 +306,13 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "courseTypeAdded");
 			}
 
-			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_COURSE_TYPES);
 		} catch (Exception e) {
 			log.error(e);
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", EDIT_COURSE_TYPE);
+			response.setRenderParameter("mvcPath", WebKeys.EDIT_COURSE_TYPE);
 		}
 	}
 
@@ -382,7 +349,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "semesterAdded");
 			}
 
-			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_SEMESTERS);
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -390,7 +357,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", EDIT_SEMESTER);
+			response.setRenderParameter("mvcPath", WebKeys.EDIT_SEMESTER);
 		}
 	}
 
@@ -425,7 +392,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "lecturerAdded");
 			}
 
-			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_LECTURERS);
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -433,7 +400,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", EDIT_LECTURER);
+			response.setRenderParameter("mvcPath", WebKeys.EDIT_LECTURER);
 		}
 	}
 
@@ -494,7 +461,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "timetableCourseAdded");
 			}
 
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_TIMETABLE_COURSES);
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -502,7 +469,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", EDIT_TIMETABLE_COURSE);
+			response.setRenderParameter("mvcPath", WebKeys.EDIT_TIMETABLE_COURSE);
 		} finally {
 			response.setRenderParameter("home", home);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
@@ -568,7 +535,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				SessionMessages.add(request, "syllabusAdded");
 			}
 			
-			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_SYLLABUSES);
 		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
@@ -576,7 +543,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
-			response.setRenderParameter("mvcPath", EDIT_SYLLABUS);
+			response.setRenderParameter("mvcPath", WebKeys.EDIT_SYLLABUS);
 		} finally {
 			response.setRenderParameter("home", home);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
@@ -630,7 +597,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_CURRICULUMS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -665,7 +632,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_SUBJECTS);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
@@ -703,7 +670,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_COURSES);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_COURSES);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
@@ -738,7 +705,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_COURSE_TYPES);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -771,7 +738,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_SEMESTERS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -804,7 +771,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_LECTURERS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -847,7 +814,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_TIMETABLE_COURSES);
 			response.setRenderParameter("home", home);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 			response.setRenderParameter("subjectId", String.valueOf(subjectId));
@@ -895,7 +862,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_SYLLABUSES);
 			response.setRenderParameter("home", home);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 			response.setRenderParameter("subjectId", String.valueOf(subjectId));
@@ -938,7 +905,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_CURRICULUMS);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_CURRICULUMS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -978,7 +945,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_SUBJECTS);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_SUBJECTS);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
@@ -1019,7 +986,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_COURSES);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_COURSES);
 			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
@@ -1058,7 +1025,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_COURSE_TYPES);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_COURSE_TYPES);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -1096,7 +1063,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_SEMESTERS);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_SEMESTERS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -1134,7 +1101,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_LECTURERS);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_LECTURERS);
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
 		}
 	}
@@ -1178,7 +1145,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_TIMETABLE_COURSES);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_TIMETABLE_COURSES);
 			response.setRenderParameter("home", home);
 			response.setRenderParameter("courseId", String.valueOf(courseId));
 			response.setRenderParameter("semesterId", String.valueOf(semesterId));
@@ -1223,7 +1190,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
 		} finally {
-			response.setRenderParameter("mvcPath", VIEW_SYLLABUSES);
+			response.setRenderParameter("mvcPath", WebKeys.VIEW_SYLLABUSES);
 			response.setRenderParameter("home", home);
 			response.setRenderParameter("timetableCourseId", String.valueOf(timetableCourseId));
 			response.setRenderParameter(SearchContainer.DEFAULT_DELTA_PARAM, String.valueOf(delta));
@@ -1402,7 +1369,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 		UploadPortletRequest uploadRequest = PortalUtil.getUploadPortletRequest(request);
 
-		try (BufferedReader br = new BufferedReader(new FileReader(uploadRequest.getFile(fileInputName)))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(uploadRequest.getFile(WebKeys.FILE_INPUT_NAME)))) {
 			// skips the first line, which is a header
 			String line = br.readLine();
 

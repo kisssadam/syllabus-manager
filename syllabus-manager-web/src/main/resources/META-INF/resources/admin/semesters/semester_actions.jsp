@@ -13,7 +13,7 @@
 							SyllabusActionKeys.UPDATE)%>">
 		<portlet:renderURL var="editURL">
 			<portlet:param name="semesterId" value="<%=String.valueOf(semester.getSemesterId())%>" />
-			<portlet:param name="mvcPath" value="/admin/semesters/edit_semester.jsp" />
+			<portlet:param name="mvcPath" value="<%=WebKeys.EDIT_SEMESTER%>" />
 			<portlet:param name="backURL" value="<%=themeDisplay.getURLCurrent()%>" />
 		</portlet:renderURL>
 

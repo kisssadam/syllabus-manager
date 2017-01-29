@@ -2,7 +2,6 @@
 
 <%
 	String home = GetterUtil.getString(request.getAttribute("home"));
-	String importType = GetterUtil.getString(request.getAttribute("importType"));
 	long curriculumId = GetterUtil.getLong(request.getAttribute("curriculumId"), 0);
 	long subjectId = GetterUtil.getLong(request.getAttribute("subjectId"), 0);
 	long courseId = GetterUtil.getLong(request.getAttribute("courseId"), 0);
@@ -12,35 +11,39 @@
 %>
 
 <portlet:renderURL var="viewHomeURL">
-	<portlet:param name="mvcPath" value="/admin/view.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_VIEW%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewCurriculumsURL">
-	<portlet:param name="mvcPath" value="/admin/curriculums/view_curriculums.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_CURRICULUMS%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewSubjectsURL">
-	<portlet:param name="mvcPath" value="/admin/subjects/view_subjects.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_SUBJECTS%>" />
 	<portlet:param name="curriculumId" value="<%=String.valueOf(curriculumId)%>" />
 	<portlet:param name="subjectId" value="0" />
 	<portlet:param name="courseId" value="0" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewCoursesURL">
-	<portlet:param name="mvcPath" value="/admin/courses/view_courses.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_COURSES%>" />
 	<portlet:param name="subjectId" value="<%=String.valueOf(subjectId)%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewCourseTypesURL">
-	<portlet:param name="mvcPath" value="/admin/course_types/view_course_types.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_COURSE_TYPES%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewSemestersURL">
-	<portlet:param name="mvcPath" value="/admin/semesters/view_semesters.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_SEMESTERS%>" />
+</portlet:renderURL>
+
+<portlet:renderURL var="viewLecturersURL">
+	<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_LECTURERS%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewTimetableCoursesURL">
-	<portlet:param name="mvcPath" value="/admin/timetablecourses/view_timetable_courses.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_TIMETABLE_COURSES%>" />
 	<portlet:param name="home" value="<%=home%>" />
 	<portlet:param name="curriculumId" value="<%=String.valueOf(curriculumId)%>" />
 	<portlet:param name="subjectId" value="<%=String.valueOf(subjectId)%>" />
@@ -49,18 +52,18 @@
 </portlet:renderURL>
 
 <portlet:renderURL var="importSyllabusURL">
-	<portlet:param name="mvcPath" value="/admin/import_syllabus.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_IMPORT_SYLLABUS%>" />
 </portlet:renderURL>
 
 <portlet:renderURL var="importTimetableURL">
-	<portlet:param name="mvcPath" value="/admin/import_timetable.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_IMPORT_TIMETABLE%>" />
 </portlet:renderURL>
 
 <%
 	PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "home"), viewHomeURL.toString());	
 
-	if (StringUtil.equalsIgnoreCase(home, "curriculums")) {
-		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "curriculums"), viewCurriculumsURL.toString());
+	if (StringUtil.equalsIgnoreCase(home, WebKeys.ADMIN_HOME_CURRICULUMS)) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, WebKeys.ADMIN_HOME_CURRICULUMS), viewCurriculumsURL.toString());
 		
 		if (curriculumId > 0) {
 			Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(curriculumId);
@@ -81,8 +84,8 @@
 			TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
 			PortalUtil.addPortletBreadcrumbEntry(request, timetableCourse.toString(), StringPool.BLANK);
 		}
-	} else if (StringUtil.equalsIgnoreCase(home, "semesters")) {
-		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "semesters"), viewSemestersURL.toString());
+	} else if (StringUtil.equalsIgnoreCase(home, WebKeys.ADMIN_HOME_SEMESTERS)) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, WebKeys.ADMIN_HOME_SEMESTERS), viewSemestersURL.toString());
 		
 		if (semesterId > 0) {
 			Semester semester = SemesterLocalServiceUtil.getSemester(semesterId);
@@ -93,16 +96,14 @@
 			TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
 			PortalUtil.addPortletBreadcrumbEntry(request, timetableCourse.toString(), StringPool.BLANK);
 		}
-	} else if (StringUtil.equalsIgnoreCase(home, "course_types")) {
-		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "course-types"), viewCourseTypesURL.toString());
-	} else if (StringUtil.equalsIgnoreCase(home, "lecturers")) {
-		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "lecturers"), viewSemestersURL.toString());
-	} else if (StringUtil.equalsIgnoreCase(home, "import")) {
-		if (StringUtil.equalsIgnoreCase(importType, "syllabus")) {
-			PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "import-syllabus"), importSyllabusURL.toString());
-		} else if (StringUtil.equalsIgnoreCase(importType, "timetable")) {
-			PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, "import-timetable"), importTimetableURL.toString());
-		}
+	} else if (StringUtil.equalsIgnoreCase(home, WebKeys.ADMIN_HOME_COURSE_TYPES)) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, WebKeys.ADMIN_HOME_COURSE_TYPES), viewCourseTypesURL.toString());
+	} else if (StringUtil.equalsIgnoreCase(home, WebKeys.ADMIN_HOME_LECTURERS)) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, WebKeys.ADMIN_HOME_LECTURERS), viewLecturersURL.toString());
+	} else if (StringUtil.equalsIgnoreCase(home, WebKeys.ADMIN_HOME_IMPORT_SYLLABUS)) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, WebKeys.ADMIN_HOME_IMPORT_SYLLABUS), importSyllabusURL.toString());
+	} else if (StringUtil.equalsIgnoreCase(home, WebKeys.ADMIN_HOME_IMPORT_TIMETABLE)) {
+		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, WebKeys.ADMIN_HOME_IMPORT_TIMETABLE), importTimetableURL.toString());
 	}
 %>
 

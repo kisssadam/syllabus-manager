@@ -12,27 +12,27 @@
 %>
 
 <portlet:renderURL var="viewHomeURL">
-	<portlet:param name="mvcPath" value="/admin/view.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_VIEW%>" />
 	<portlet:param name="backURL" value="${backURL}" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewCurriculumsURL">
-	<portlet:param name="mvcPath" value="/admin/curriculums/view_curriculums.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_CURRICULUMS%>" />
 	<portlet:param name="backURL" value="${backURL}" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewCourseTypesURL">
-	<portlet:param name="mvcPath" value="/admin/course_types/view_course_types.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_COURSE_TYPES%>" />
 	<portlet:param name="backURL" value="${backURL}" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewSemestersURL">
-	<portlet:param name="mvcPath" value="/admin/semesters/view_semesters.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_SEMESTERS%>" />
 	<portlet:param name="backURL" value="${backURL}" />
 </portlet:renderURL>
 
 <portlet:renderURL var="viewLecturersURL">
-	<portlet:param name="mvcPath" value="/admin/lecturers/view_lecturers.jsp" />
+	<portlet:param name="mvcPath" value="<%=WebKeys.VIEW_LECTURERS%>" />
 	<portlet:param name="backURL" value="${backURL}" />
 </portlet:renderURL>
 
@@ -52,7 +52,7 @@
         <aui:nav-item dropdown="true" iconCssClass="icon-plus" label="add" selected='false'>
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.ADD_CURRICULUM)%>'>
 				<portlet:renderURL var="addCurriculumURL">
-					<portlet:param name="mvcPath" value="/admin/curriculums/edit_curriculum.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.EDIT_CURRICULUM%>" />
 					<portlet:param name="backURL" value="${backURL}" />
 				</portlet:renderURL>
             	
@@ -61,7 +61,7 @@
             
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.ADD_SUBJECT)%>'>
             	<portlet:renderURL var="addSubjectURL">
-					<portlet:param name="mvcPath" value="/admin/subjects/edit_subject.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.EDIT_SUBJECT%>" />
 					<portlet:param name="backURL" value="${backURL}" />
 					<portlet:param name="curriculumId" value="${curriculumId}" />
 				</portlet:renderURL>
@@ -71,7 +71,7 @@
 			
 			<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.ADD_COURSE)%>'>
 				<portlet:renderURL var="addCourseURL">
-					<portlet:param name="mvcPath" value="/admin/courses/edit_course.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.EDIT_COURSE%>" />
 					<portlet:param name="backURL" value="${backURL}" />
 					<portlet:param name="subjectId" value="${subjectId}" />
 					<portlet:param name="curriculumId" value="${curriculumId}" />
@@ -82,7 +82,7 @@
             
             <c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.ADD_COURSE_TYPE)%>'>
             	<portlet:renderURL var="addCourseTypeURL">
-					<portlet:param name="mvcPath" value="/admin/course_types/edit_course_type.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.EDIT_COURSE_TYPE%>" />
 					<portlet:param name="backURL" value="${backURL}" />
 				</portlet:renderURL>
             	
@@ -91,7 +91,7 @@
            	
            	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.ADD_SEMESTER)%>'>
             	<portlet:renderURL var="addSemesterURL">
-					<portlet:param name="mvcPath" value="/admin/semesters/edit_semester.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.EDIT_SEMESTER%>" />
 					<portlet:param name="backURL" value="${backURL}" />
 				</portlet:renderURL>
             	
@@ -100,7 +100,7 @@
            	
            	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.ADD_LECTURER)%>'>
            		<portlet:renderURL var="addLecturerURL">
-					<portlet:param name="mvcPath" value="/admin/lecturers/edit_lecturer.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.EDIT_LECTURER%>" />
 					<portlet:param name="backURL" value="${backURL}" />
 					<portlet:param name="lecturerId" value="${lecturerId}" />
 				</portlet:renderURL>
@@ -110,7 +110,7 @@
            	
            	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.ADD_TIMETABLE_COURSE)%>'>
            		<portlet:renderURL var="addTimetableCourseURL">
-					<portlet:param name="mvcPath" value="/admin/timetablecourses/edit_timetable_course.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.EDIT_TIMETABLE_COURSE%>" />
 					<portlet:param name="backURL" value="${backURL}" />
 					<portlet:param name="home" value="${home}" />
 					<portlet:param name="curriculumId" value="${curriculumId}" />
@@ -124,8 +124,9 @@
            	
            	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.ADD_SYLLABUS)%>'>
            		<portlet:renderURL var="addSyllabusURL">
-					<portlet:param name="mvcPath" value="/admin/syllabuses/edit_syllabus.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.EDIT_SYLLABUS%>" />
 					<portlet:param name="backURL" value="${backURL}" />
+					<portlet:param name="home" value="${home}" />
 					<portlet:param name="curriculumId" value="${curriculumId}" />
 					<portlet:param name="subjectId" value="${subjectId}" />
 					<portlet:param name="courseId" value="${courseId}" />
@@ -143,31 +144,31 @@
         <aui:nav-item dropdown="true" iconCssClass="icon-upload" label="import" selected='false'>
         	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.IMPORT_SYLLABUS)%>'>
         		<portlet:renderURL var="importSyllabusURL">
-					<portlet:param name="mvcPath" value="/admin/import_syllabus.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_IMPORT_SYLLABUS%>" />
 					<portlet:param name="backURL" value="${backURL}" />
 				</portlet:renderURL>
             	
-            	<aui:nav-item href="<%=importSyllabusURL.toString()%>" label="ik_syllabus_ws.csv" />
+            	<aui:nav-item href="<%= importSyllabusURL.toString() %>" label="ik_syllabus_ws.csv" />
 			</c:if>
 			
 			<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.IMPORT_TIMETABLE)%>'>
 				<portlet:renderURL var="importTimetableURL">
-					<portlet:param name="mvcPath" value="/admin/import_timetable.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_IMPORT_TIMETABLE%>" />
 					<portlet:param name="backURL" value="${backURL}" />
 				</portlet:renderURL>
             	
-            	<aui:nav-item href="<%=importTimetableURL.toString()%>" label="ik_orarend_ws.csv" />
+            	<aui:nav-item href="<%= importTimetableURL.toString() %>" label="ik_orarend_ws.csv" />
            	</c:if>
         </aui:nav-item>
         
         <aui:nav-item dropdown="true" iconCssClass="icon-tint" label="danger-zone" selected='false'>
         	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.CLEAR_DATABASE)%>'>
         		<portlet:renderURL var="clearDatabaseURL">
-					<portlet:param name="mvcPath" value="/admin/danger_zone/clear_database.jsp" />
+					<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_VIEW_CLEAR_DATABASE%>" />
 					<portlet:param name="backURL" value="${backURL}" />
 				</portlet:renderURL>
 				
-        		<aui:nav-item href="<%=clearDatabaseURL.toString()%>" label="clear-database" />
+        		<aui:nav-item href="<%= clearDatabaseURL.toString() %>" label="clear-database" />
         	</c:if>
         </aui:nav-item>
     </aui:nav>

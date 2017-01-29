@@ -8,7 +8,7 @@
 	long semesterId = ParamUtil.getLong(renderRequest, "semesterId");
 	
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/admin/timetablecourses/view_timetable_courses.jsp");
+	iteratorURL.setParameter("jspPage", WebKeys.VIEW_TIMETABLE_COURSES);
 	iteratorURL.setParameter("home", home);
 	iteratorURL.setParameter("semesterId", String.valueOf(semesterId));
 	iteratorURL.setParameter("courseId", String.valueOf(courseId));
@@ -16,9 +16,9 @@
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 	
 	int searchContainerTotal = 0;
-	if (home.equalsIgnoreCase("curriculums")) {
+	if (home.equalsIgnoreCase(WebKeys.ADMIN_HOME_CURRICULUMS)) {
 		searchContainerTotal = TimetableCourseLocalServiceUtil.getTimetableCourseCountByCourseId(courseId);
-	} else if (home.equalsIgnoreCase("semesters")) {
+	} else if (home.equalsIgnoreCase(WebKeys.ADMIN_HOME_SEMESTERS)) {
 		searchContainerTotal = TimetableCourseLocalServiceUtil.getTimetableCoursesCountBySemesterId(semesterId);
 	}
 %>
@@ -48,9 +48,9 @@
 		<%
 			List<TimetableCourse> searchContainerResults = Collections.emptyList();
 			
-			if (home.equalsIgnoreCase("curriculums")) {
+			if (home.equalsIgnoreCase(WebKeys.ADMIN_HOME_CURRICULUMS)) {
 				searchContainerResults = TimetableCourseLocalServiceUtil.getTimetableCoursesByCourseId(courseId, searchContainer.getStart(), searchContainer.getEnd());
-			} else if (home.equalsIgnoreCase("semesters")) {
+			} else if (home.equalsIgnoreCase(WebKeys.ADMIN_HOME_SEMESTERS)) {
 				searchContainerResults = TimetableCourseLocalServiceUtil.getTimetableCoursesBySemesterId(semesterId, searchContainer.getStart(), searchContainer.getEnd());
 			}
 		%>

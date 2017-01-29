@@ -2,19 +2,17 @@
 
 <%
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/admin/lecturers/view_lecturers.jsp");
+	iteratorURL.setParameter("jspPage", WebKeys.VIEW_LECTURERS);
 	
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
 %>
 
 <%@ include file="/notifications/success.jspf" %>
-
 <%@ include file="/notifications/error.jspf" %>
 
-<c:set var="home" value="lecturers" scope="request" />
+<c:set var="home" value="<%=WebKeys.ADMIN_HOME_LECTURERS%>" scope="request" />
 
 <jsp:include page="/admin/navigation_bar.jsp" />
-
 <jsp:include page="/admin/breadcrumb.jsp" />
 
 <aui:form method="post" name="fmLecturer">

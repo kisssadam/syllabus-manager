@@ -30,7 +30,7 @@
 	}
 	
 	PortletURL iteratorURL = renderResponse.createRenderURL();
-	iteratorURL.setParameter("jspPage", "/admin/syllabuses/view_syllabuses.jsp");
+	iteratorURL.setParameter("jspPage", WebKeys.VIEW_SYLLABUSES);
 	iteratorURL.setParameter("timetableCourseId", String.valueOf(timetableCourseId));
 	
 	int delta = ParamUtil.getInteger(renderRequest, SearchContainer.DEFAULT_DELTA_PARAM, SearchContainer.DEFAULT_DELTA);
@@ -41,14 +41,14 @@
 <%@ include file="/notifications/error.jspf" %>
 
 <c:choose>
-	<c:when test="<%=StringUtil.equalsIgnoreCase(home, "curriculums")%>">
+	<c:when test="<%=StringUtil.equalsIgnoreCase(home, WebKeys.ADMIN_HOME_CURRICULUMS)%>">
 		<c:set var="home" value="curriculums" scope="request" />
 		<c:set var="curriculumId" value="<%=curriculumId%>" scope="request" />
 		<c:set var="subjectId" value="<%=subjectId%>" scope="request" />
 		<c:set var="courseId" value="<%=courseId%>" scope="request" />
 		<c:set var="timetableCourseId" value="<%=timetableCourseId%>" scope="request" />
 	</c:when>
-	<c:when test="<%=StringUtil.equalsIgnoreCase(home, "semesters")%>">
+	<c:when test="<%=StringUtil.equalsIgnoreCase(home, WebKeys.ADMIN_HOME_SEMESTERS)%>">
 		<c:set var="home" value="semesters" scope="request" />
 		<c:set var="semesterId" value="<%=semesterId%>" scope="request" />
 		<c:set var="timetableCourseId" value="<%=timetableCourseId%>" scope="request" />
@@ -89,7 +89,7 @@
 				<liferay-ui:search-container-column-text name="status" >
 					<aui:workflow-status markupView="lexicon" showIcon="<%= false %>" showLabel="<%= false %>" status="<%= syllabus.getStatus() %>" />
 				</liferay-ui:search-container-column-text>
-				
+				<liferay-ui:search-container-column-date name="syllabusLastModifiedDate" property="modifiedDate" />
 				<liferay-ui:search-container-column-jsp path="/admin/syllabuses/syllabus_actions.jsp" align="right" />
 			</c:if>
 		</liferay-ui:search-container-row>
