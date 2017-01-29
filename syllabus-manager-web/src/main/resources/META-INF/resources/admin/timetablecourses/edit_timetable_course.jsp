@@ -80,111 +80,92 @@
 
 <%@ include file="/notifications/error.jspf" %>
 
-<c:choose>
-	<c:when test="<%=timetableCourseId > 0%>">
-		<liferay-ui:header title="edit-timetable-course" />
-	</c:when>
-	<c:otherwise>
-		<liferay-ui:header title="add-timetable-course" />
-	</c:otherwise>
-</c:choose>
-
-<portlet:actionURL name="addTimetableCourse" var="addTimetableCourseURL">
-	<portlet:param name="home" value="${home}" />
-</portlet:actionURL>
-
-<aui:form action="<%=addTimetableCourseURL%>" name="<portlet:namespace />timetable_course_edit">
-	<aui:model-context bean="<%=timetableCourse%>" model="<%=TimetableCourse.class%>" />
-
-	<aui:input name="timetableCourseId" type="hidden"
-		value='<%=timetableCourse == null ? timetableCourseId : timetableCourse.getTimetableCourseId()%>' />
-
-	<aui:fieldset>
-		<aui:select label="curriculum" name="curriculumSelect" required="true">
-			<c:forEach items="${curriculums}" var="curriculum">
-				<aui:option selected="${curriculumId eq curriculum.curriculumId}" value="${curriculum.curriculumId}">
-					<c:out value="${curriculum.curriculumCode} - ${curriculum.curriculumName}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
-
-		<aui:select label="subject" name="subjectSelect" required="true">
-			<c:forEach items="${subjects}" var="subject">
-				<aui:option selected="${subjectId eq subject.subjectId}" value="${subject.subjectId}">
-					<c:out value="${subject}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
-
-		<aui:select label="course" name="courseSelect" required="true">
-			<c:forEach items="${courses}" var="course">
-				<aui:option selected="${courseId eq course.courseId}" value="${course.courseId}">
-					<c:out value="${course}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
-
-		<aui:select label="semester" name="semesterId" required="true">
-			<c:forEach items="${semesters}" var="semester">
-				<aui:option value="${semester.semesterId}">
-					<c:out value="${semester.beginYear}/${semester.endYear}/${semester.division}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
-
-		<aui:input name="timetableCourseCode" type="text">
-			<aui:validator name="required" />
-		</aui:input>
-
-		<aui:input name="subjectType" type="text">
-			<aui:validator name="required" />
-		</aui:input>
-
-		<aui:input name="recommendedTerm" type="number" min="0"
-			value="<%=timetableCourse == null ? 0 : timetableCourse.getRecommendedTerm()%>">
-			<aui:validator name="required" />
-			<aui:validator name="number" />
-		</aui:input>
-
-		<aui:input name="limit" type="number" min="0" value="<%=timetableCourse == null ? 0 : timetableCourse.getLimit()%>">
-			<aui:validator name="required" />
-			<aui:validator name="number" />
-		</aui:input>
-		
-		<div id="lecturer-fields">
-			<c:choose>
-				<c:when test="${empty selectedLecturers}">
-					
-					<div class="lfr-form-row lfr-form-row-inline">
-						<div class="row-fields" style="display: flex;">
-							
-							<aui:select label="lecturer" name="lecturer1" required="true">
-							
-								<c:forEach items="${lecturers}" var="lecturer">
-									
-									<aui:option value="${lecturer.lecturerId}">
-										<c:out value="${lecturer.lecturerName}" />
-									</aui:option>
-									
-								</c:forEach>
-								
-							</aui:select>
-							
-						</div>
-					</div>
-					
-				</c:when>
-				<c:otherwise>
-				
-					<c:forEach items="${selectedLecturers}" var="selectedlecturer" varStatus="selectedLecturerStatus">
+<div class="closed container-fluid-1280 sidenav-container sidenav-right" id="<portlet:namespace />editTimetableCoursePanelId">
+	<h1>
+		<c:choose>
+			<c:when test="<%=timetableCourseId > 0%>">
+				<liferay-ui:header title="edit-timetable-course" />
+			</c:when>
+			<c:otherwise>
+				<liferay-ui:header title="add-timetable-course" />
+			</c:otherwise>
+		</c:choose>
+	</h1>
+	
+	<portlet:actionURL name="addTimetableCourse" var="addTimetableCourseURL">
+		<portlet:param name="home" value="${home}" />
+	</portlet:actionURL>
+	
+	<aui:form action="<%=addTimetableCourseURL%>" name="<portlet:namespace />timetable_course_edit">
+		<aui:model-context bean="<%=timetableCourse%>" model="<%=TimetableCourse.class%>" />
+	
+		<aui:input name="timetableCourseId" type="hidden"
+			value='<%=timetableCourse == null ? timetableCourseId : timetableCourse.getTimetableCourseId()%>' />
+	
+		<aui:fieldset>
+			<aui:select label="curriculum" name="curriculumSelect" required="true">
+				<c:forEach items="${curriculums}" var="curriculum">
+					<aui:option selected="${curriculumId eq curriculum.curriculumId}" value="${curriculum.curriculumId}">
+						<c:out value="${curriculum.curriculumCode} - ${curriculum.curriculumName}" />
+					</aui:option>
+				</c:forEach>
+			</aui:select>
+	
+			<aui:select label="subject" name="subjectSelect" required="true">
+				<c:forEach items="${subjects}" var="subject">
+					<aui:option selected="${subjectId eq subject.subjectId}" value="${subject.subjectId}">
+						<c:out value="${subject}" />
+					</aui:option>
+				</c:forEach>
+			</aui:select>
+	
+			<aui:select label="course" name="courseSelect" required="true">
+				<c:forEach items="${courses}" var="course">
+					<aui:option selected="${courseId eq course.courseId}" value="${course.courseId}">
+						<c:out value="${course}" />
+					</aui:option>
+				</c:forEach>
+			</aui:select>
+	
+			<aui:select label="semester" name="semesterId" required="true">
+				<c:forEach items="${semesters}" var="semester">
+					<aui:option value="${semester.semesterId}">
+						<c:out value="${semester.beginYear}/${semester.endYear}/${semester.division}" />
+					</aui:option>
+				</c:forEach>
+			</aui:select>
+	
+			<aui:input name="timetableCourseCode" type="text">
+				<aui:validator name="required" />
+			</aui:input>
+	
+			<aui:input name="subjectType" type="text">
+				<aui:validator name="required" />
+			</aui:input>
+	
+			<aui:input name="recommendedTerm" type="number" min="0"
+				value="<%=timetableCourse == null ? 0 : timetableCourse.getRecommendedTerm()%>">
+				<aui:validator name="required" />
+				<aui:validator name="number" />
+			</aui:input>
+	
+			<aui:input name="limit" type="number" min="0" value="<%=timetableCourse == null ? 0 : timetableCourse.getLimit()%>">
+				<aui:validator name="required" />
+				<aui:validator name="number" />
+			</aui:input>
+			
+			<div id="lecturer-fields">
+				<c:choose>
+					<c:when test="${empty selectedLecturers}">
+						
 						<div class="lfr-form-row lfr-form-row-inline">
 							<div class="row-fields" style="display: flex;">
 								
-								<aui:select label="lecturer" name="lecturer${selectedLecturerStatus.index + 1}" required="true">
-									
+								<aui:select label="lecturer" name="lecturer1" required="true">
+								
 									<c:forEach items="${lecturers}" var="lecturer">
-									
-										<aui:option value="${lecturer.lecturerId}" selected="${lecturer eq selectedlecturer}">
+										
+										<aui:option value="${lecturer.lecturerId}">
 											<c:out value="${lecturer.lecturerName}" />
 										</aui:option>
 										
@@ -194,22 +175,45 @@
 								
 							</div>
 						</div>
-					</c:forEach>
+						
+					</c:when>
+					<c:otherwise>
 					
-				</c:otherwise>
-			</c:choose>
-		</div>
-
-		<aui:input name="classScheduleInfo" type="text" />
-
-		<aui:input name="description" type="text" />
-	</aui:fieldset>
-
-	<aui:button-row>
-		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="${backURL}" />
-	</aui:button-row>
-</aui:form>
+						<c:forEach items="${selectedLecturers}" var="selectedlecturer" varStatus="selectedLecturerStatus">
+							<div class="lfr-form-row lfr-form-row-inline">
+								<div class="row-fields" style="display: flex;">
+									
+									<aui:select label="lecturer" name="lecturer${selectedLecturerStatus.index + 1}" required="true">
+										
+										<c:forEach items="${lecturers}" var="lecturer">
+										
+											<aui:option value="${lecturer.lecturerId}" selected="${lecturer eq selectedlecturer}">
+												<c:out value="${lecturer.lecturerName}" />
+											</aui:option>
+											
+										</c:forEach>
+										
+									</aui:select>
+									
+								</div>
+							</div>
+						</c:forEach>
+						
+					</c:otherwise>
+				</c:choose>
+			</div>
+	
+			<aui:input name="classScheduleInfo" type="text" />
+	
+			<aui:input name="description" type="text" />
+		</aui:fieldset>
+	
+		<aui:button-row>
+			<aui:button type="submit" />
+			<aui:button type="cancel" onClick="${backURL}" />
+		</aui:button-row>
+	</aui:form>
+</div>
 
 <portlet:resourceURL var="resourceURL"></portlet:resourceURL>
 

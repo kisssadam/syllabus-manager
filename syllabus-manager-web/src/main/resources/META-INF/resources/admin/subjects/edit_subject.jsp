@@ -19,46 +19,50 @@
 
 <%@ include file="/notifications/error.jspf" %>
 
-<c:choose>
-	<c:when test="<%=subjectId > 0%>">
-		<liferay-ui:header title="edit-subject" />
-	</c:when>
-	<c:otherwise>
-		<liferay-ui:header title="add-subject" />
-	</c:otherwise>
-</c:choose>
-
-<portlet:actionURL name="addSubject" var="addSubjectURL" />
-
-<aui:form action="<%=addSubjectURL%>" name="<portlet:namespace />subject_edit">
-	<aui:model-context bean="<%=subject%>" model="<%=Subject.class%>" />
-
-	<aui:input name="subjectId" type="hidden" value='<%=subject == null ? subjectId : subject.getSubjectId()%>' />
-
-	<aui:fieldset>
-		<aui:select label="curriculum" name="curriculumId" required="true">
-			<c:forEach items="${curriculums}" var="curriculum">
-				<aui:option value="${curriculum.curriculumId}">
-					<c:out value="${curriculum.curriculumCode} - ${curriculum.curriculumName}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
-
-		<aui:input name="subjectCode" type="text">
-			<aui:validator name="required" />
-		</aui:input>
-
-		<aui:input name="subjectName" type="text">
-			<aui:validator name="required" />
-		</aui:input>
-
-		<aui:input name="credit" type="number" min="0" value="<%=subject == null ? 0 : subject.getCredit()%>">
-			<aui:validator name="required" />
-		</aui:input>
-	</aui:fieldset>
-
-	<aui:button-row>
-		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="${backURL}" />
-	</aui:button-row>
-</aui:form>
+<div class="closed container-fluid-1280 sidenav-container sidenav-right" id="<portlet:namespace />editSubjectPanelId">
+	<h1>
+		<c:choose>
+			<c:when test="<%=subjectId > 0%>">
+				<liferay-ui:header title="edit-subject" />
+			</c:when>
+			<c:otherwise>
+				<liferay-ui:header title="add-subject" />
+			</c:otherwise>
+		</c:choose>
+	</h1>
+	
+	<portlet:actionURL name="addSubject" var="addSubjectURL" />
+	
+	<aui:form action="<%=addSubjectURL%>" name="<portlet:namespace />subject_edit">
+		<aui:model-context bean="<%=subject%>" model="<%=Subject.class%>" />
+	
+		<aui:input name="subjectId" type="hidden" value='<%=subject == null ? subjectId : subject.getSubjectId()%>' />
+	
+		<aui:fieldset>
+			<aui:select label="curriculum" name="curriculumId" required="true">
+				<c:forEach items="${curriculums}" var="curriculum">
+					<aui:option value="${curriculum.curriculumId}">
+						<c:out value="${curriculum.curriculumCode} - ${curriculum.curriculumName}" />
+					</aui:option>
+				</c:forEach>
+			</aui:select>
+	
+			<aui:input name="subjectCode" type="text">
+				<aui:validator name="required" />
+			</aui:input>
+	
+			<aui:input name="subjectName" type="text">
+				<aui:validator name="required" />
+			</aui:input>
+	
+			<aui:input name="credit" type="number" min="0" value="<%=subject == null ? 0 : subject.getCredit()%>">
+				<aui:validator name="required" />
+			</aui:input>
+		</aui:fieldset>
+	
+		<aui:button-row>
+			<aui:button type="submit" />
+			<aui:button type="cancel" onClick="${backURL}" />
+		</aui:button-row>
+	</aui:form>
+</div>

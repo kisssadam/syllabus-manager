@@ -88,110 +88,120 @@
 
 <%@ include file="/notifications/error.jspf" %>
 
-<c:choose>
-	<c:when test="<%=syllabusId > 0%>">
-		<liferay-ui:header title="edit-syllabus" />
-	</c:when>
-	<c:otherwise>
-		<liferay-ui:header title="add-syllabus" />
-	</c:otherwise>
-</c:choose>
-
-<portlet:actionURL name="addSyllabus" var="addSyllabusURL">
-	<portlet:param name="home" value="${home}" />
-</portlet:actionURL>
-
-<aui:form action="<%=addSyllabusURL%>" name="<portlet:namespace />syllabus_edit">
-	<aui:model-context bean="<%=syllabus%>" model="<%=Syllabus.class%>" />
-
-	<aui:input name="syllabusId" type="hidden"
-		value='<%=syllabus == null ? syllabusId : syllabus.getSyllabusId()%>' />
-
-	<aui:fieldset>
-		<aui:select label="curriculum" name="curriculumSelect" required="true">
-			<c:forEach items="${curriculums}" var="curriculum">
-				<aui:option selected="${curriculumId eq curriculum.curriculumId}" value="${curriculum.curriculumId}">
-					<c:out value="${curriculum.curriculumCode} - ${curriculum.curriculumName}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
-
-		<aui:select label="subject" name="subjectSelect" required="true">
-			<c:forEach items="${subjects}" var="subject">
-				<aui:option selected="${subjectId eq subject.subjectId}" value="${subject.subjectId}">
-					<c:out value="${subject}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
-
-		<aui:select label="course" name="courseSelect" required="true">
-			<c:forEach items="${courses}" var="course">
-				<aui:option selected="${courseId eq course.courseId}" value="${course.courseId}">
-					<c:out value="${course}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
-
-		<aui:select label="timetableCourse" name="timetableCourseSelect" required="true">
-			<c:forEach items="${timetableCourses}" var="timetableCourse">
-				<aui:option selected="${timetableCourseId eq timetableCourse.timetableCourseId}" value="${timetableCourse.timetableCourseId}">
-					<c:out value="${timetableCourse}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
-
-		<aui:input name="competence" type="textarea">
-			<aui:validator name="required" />
-		</aui:input>
-
-		<aui:input name="ethicalStandards" type="textarea">
-			<aui:validator name="required" />
-		</aui:input>
-		
-		<aui:input name="topics" type="textarea">
-			<aui:validator name="required" />
-		</aui:input>
-		
-		<aui:input name="educationalMaterials" type="textarea">
-			<aui:validator name="required" />
-		</aui:input>
-		
-		<aui:input name="recommendedLiterature" type="textarea">
-			<aui:validator name="required" />
-		</aui:input>
-		
-		<%-- https://docs.liferay.com/portal/7.0/taglibs/util-taglib/ --%>
-		<aui:field-wrapper label="weeklyTasks">
-			<liferay-ui:input-editor
-				contents="<%= syllabus == null ? StringPool.BLANK : syllabus.getWeeklyTasks() %>"
-				name="weeklyTasks"
-				toolbarSet="liferayArticle"
-				showSource="<%= false %>" />
-		</aui:field-wrapper>
-	</aui:fieldset>
-
-	<liferay-ui:asset-categories-error />
+<div class="closed container-fluid-1280 sidenav-container sidenav-right" id="<portlet:namespace />editSyllabusPanelId">
+	<h1>
+		<c:choose>
+			<c:when test="<%=syllabusId > 0%>">
+				<liferay-ui:header title="edit-syllabus" />
+			</c:when>
+			<c:otherwise>
+				<liferay-ui:header title="add-syllabus" />
+			</c:otherwise>
+		</c:choose>
+	</h1>
 	
-	<liferay-ui:asset-tags-error />
+	<portlet:actionURL name="addSyllabus" var="addSyllabusURL">
+		<portlet:param name="home" value="${home}" />
+	</portlet:actionURL>
 	
-	<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="syllabusCategorizationPanel" persistState="<%= true %>" title="categorization">
-		<aui:fieldset>
-			<aui:input name="categories" type="assetCategories" />
-			<aui:input name="tags" type="assetTags" />
-		</aui:fieldset>
-	</liferay-ui:panel>
-
-	<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="syllabusAssetLinksPanel" persistState="<%= true %>" title="related-assets">
-		<aui:fieldset>
-			<liferay-ui:input-asset-links className="<%= Syllabus.class.getName() %>" classPK="<%= syllabusId %>" />
-		</aui:fieldset>
-	</liferay-ui:panel>
-
-	<aui:button-row>
-		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="${backURL}" />
-	</aui:button-row>
-</aui:form>
+	<aui:form action="<%=addSyllabusURL%>" name="<portlet:namespace />syllabus_edit">
+		<aui:model-context bean="<%=syllabus%>" model="<%=Syllabus.class%>" />
+	
+		<aui:input name="syllabusId" type="hidden"
+			value='<%=syllabus == null ? syllabusId : syllabus.getSyllabusId()%>' />
+	
+		<liferay-ui:panel defaultState="open" extended="<%= false %>" id="syllabusSubjectSelectorPanel" persistState="<%= true %>" title="subject-selector-panel-title">
+			<aui:fieldset>	
+				<aui:select label="curriculum" name="curriculumSelect" required="true">
+					<c:forEach items="${curriculums}" var="curriculum">
+						<aui:option selected="${curriculumId eq curriculum.curriculumId}" value="${curriculum.curriculumId}">
+							<c:out value="${curriculum.curriculumCode} - ${curriculum.curriculumName}" />
+						</aui:option>
+					</c:forEach>
+				</aui:select>
+		
+				<aui:select label="subject" name="subjectSelect" required="true">
+					<c:forEach items="${subjects}" var="subject">
+						<aui:option selected="${subjectId eq subject.subjectId}" value="${subject.subjectId}">
+							<c:out value="${subject}" />
+						</aui:option>
+					</c:forEach>
+				</aui:select>
+		
+				<aui:select label="course" name="courseSelect" required="true">
+					<c:forEach items="${courses}" var="course">
+						<aui:option selected="${courseId eq course.courseId}" value="${course.courseId}">
+							<c:out value="${course}" />
+						</aui:option>
+					</c:forEach>
+				</aui:select>
+		
+				<aui:select label="timetableCourse" name="timetableCourseSelect" required="true">
+					<c:forEach items="${timetableCourses}" var="timetableCourse">
+						<aui:option selected="${timetableCourseId eq timetableCourse.timetableCourseId}" value="${timetableCourse.timetableCourseId}">
+							<c:out value="${timetableCourse}" />
+						</aui:option>
+					</c:forEach>
+				</aui:select>
+			</aui:fieldset>
+		</liferay-ui:panel>
+	
+		<liferay-ui:panel defaultState="open" extended="<%= false %>" id="syllabusDataPanel" persistState="<%= true %>" title="syllabus-data-panel-title">
+			<aui:fieldset>
+				<aui:input name="competence" type="textarea">
+					<aui:validator name="required" />
+				</aui:input>
+		
+				<aui:input name="ethicalStandards" type="textarea">
+					<aui:validator name="required" />
+				</aui:input>
+				
+				<aui:input name="topics" type="textarea">
+					<aui:validator name="required" />
+				</aui:input>
+				
+				<aui:input name="educationalMaterials" type="textarea">
+					<aui:validator name="required" />
+				</aui:input>
+				
+				<aui:input name="recommendedLiterature" type="textarea">
+					<aui:validator name="required" />
+				</aui:input>
+				
+				<%-- https://docs.liferay.com/portal/7.0/taglibs/util-taglib/ --%>
+				<aui:field-wrapper label="weeklyTasks">
+					<liferay-ui:input-editor
+						contents="<%= syllabus == null ? StringPool.BLANK : syllabus.getWeeklyTasks() %>"
+						name="weeklyTasks"
+						toolbarSet="liferayArticle"
+						showSource="<%= false %>" />
+				</aui:field-wrapper>
+			</aui:fieldset>
+		</liferay-ui:panel>
+		
+		<liferay-ui:asset-categories-error />
+		
+		<liferay-ui:asset-tags-error />
+		
+		<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="syllabusCategorizationPanel" persistState="<%= true %>" title="categorization">
+			<aui:fieldset>
+				<aui:input name="categories" type="assetCategories" />
+				<aui:input name="tags" type="assetTags" />
+			</aui:fieldset>
+		</liferay-ui:panel>
+	
+		<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="syllabusAssetLinksPanel" persistState="<%= true %>" title="related-assets">
+			<aui:fieldset>
+				<liferay-ui:input-asset-links className="<%= Syllabus.class.getName() %>" classPK="<%= syllabusId %>" />
+			</aui:fieldset>
+		</liferay-ui:panel>
+	
+		<aui:button-row>
+			<aui:button type="submit" />
+			<aui:button type="cancel" onClick="${backURL}" />
+		</aui:button-row>
+	</aui:form>
+</div>
 
 <portlet:resourceURL var="resourceURL"></portlet:resourceURL>
 

@@ -29,44 +29,47 @@
 
 <%@ include file="/notifications/error.jspf" %>
 
-<c:choose>
-	<c:when test="<%=semesterId > 0%>">
-		<liferay-ui:header title="edit-semester" />
-	</c:when>
-	<c:otherwise>
-		<liferay-ui:header title="add-semester" />
-	</c:otherwise>
-</c:choose>
-
-<portlet:actionURL name="addSemester" var="addSemesterURL" />
-
-<aui:form action="<%=addSemesterURL%>" name="<portlet:namespace />semester_edit">
-	<aui:model-context bean="<%=semester%>" model="<%=Semester.class%>" />
-	<aui:input name="semesterId" type="hidden" value='<%=semester == null ? semesterId : semester.getSemesterId()%>' />
-
-	<aui:fieldset>
-		<aui:input id="beginYear" name="beginYear" onChange="updateEndYearValue(this.value)" type="number"
-			value="<%=semester == null ? beginYear : semester.getBeginYear()%>">
-			<aui:validator name="required" />
-		</aui:input>
-
-		<aui:input name="endYear" onChange="updateBeginYearValue(this.value)" type="number"
-			value="<%=semester == null ? endYear : semester.getEndYear()%>">
-			<aui:validator name="required" />
-		</aui:input>
-
-		<aui:input name="division" min="1" max="2" type="number"
-			value="<%=semester == null ? division : semester.getDivision()%>">
-			<aui:validator name="required" />
-		</aui:input>
-	</aui:fieldset>
-
-	<aui:button-row>
-		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="${backURL}" />
-	</aui:button-row>
-</aui:form>
-
+<div class="closed container-fluid-1280 sidenav-container sidenav-right" id="<portlet:namespace />editSemesterPanelId">
+	<h1>
+		<c:choose>
+			<c:when test="<%=semesterId > 0%>">
+				<liferay-ui:header title="edit-semester" />
+			</c:when>
+			<c:otherwise>
+				<liferay-ui:header title="add-semester" />
+			</c:otherwise>
+		</c:choose>
+	</h1>
+	
+	<portlet:actionURL name="addSemester" var="addSemesterURL" />
+	
+	<aui:form action="<%=addSemesterURL%>" name="<portlet:namespace />semester_edit">
+		<aui:model-context bean="<%=semester%>" model="<%=Semester.class%>" />
+		<aui:input name="semesterId" type="hidden" value='<%=semester == null ? semesterId : semester.getSemesterId()%>' />
+	
+		<aui:fieldset>
+			<aui:input id="beginYear" name="beginYear" onChange="updateEndYearValue(this.value)" type="number"
+				value="<%=semester == null ? beginYear : semester.getBeginYear()%>">
+				<aui:validator name="required" />
+			</aui:input>
+	
+			<aui:input name="endYear" onChange="updateBeginYearValue(this.value)" type="number"
+				value="<%=semester == null ? endYear : semester.getEndYear()%>">
+				<aui:validator name="required" />
+			</aui:input>
+	
+			<aui:input name="division" min="1" max="2" type="number"
+				value="<%=semester == null ? division : semester.getDivision()%>">
+				<aui:validator name="required" />
+			</aui:input>
+		</aui:fieldset>
+	
+		<aui:button-row>
+			<aui:button type="submit" />
+			<aui:button type="cancel" onClick="${backURL}" />
+		</aui:button-row>
+	</aui:form>
+</div>
 
 <script type="text/javascript">
 	function updateEndYearValue(beginYear) {

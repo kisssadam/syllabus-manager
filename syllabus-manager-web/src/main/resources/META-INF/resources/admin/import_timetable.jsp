@@ -15,23 +15,25 @@
 <!-- File upload form from http://www.codeyouneed.com/liferay-portlet-file-upload-tutorial/ -->
 <portlet:actionURL name="upload" var="uploadFileURL"></portlet:actionURL>
 
-<h1>Import ik_orarend_ws.csv</h1>
-
-<aui:form action="<%=uploadFileURL%>" enctype="multipart/form-data" method="post">
-	<aui:select label="semester" name="semesterId" required="true">
-		<c:forEach items="${semesters}" var="semester">
-			<aui:option value="${semester.semesterId}">
-				<c:out value="${semester.beginYear}/${semester.endYear}/${semester.division}" />
-			</aui:option>
-		</c:forEach>
-	</aui:select>
+<div class="closed container-fluid-1280 sidenav-container sidenav-right" id="<portlet:namespace />importTimetablePanelId">
+	<h1>Import ik_orarend_ws.csv</h1>
 	
-	<aui:input name="importType" type="hidden" value="timetable" />
-
-	<aui:input type="file" name="fileupload" />
-
-	<aui:button-row>
-		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="${backURL}" />
-	</aui:button-row>
-</aui:form>
+	<aui:form action="<%=uploadFileURL%>" enctype="multipart/form-data" method="post">
+		<aui:select label="semester" name="semesterId" required="true">
+			<c:forEach items="${semesters}" var="semester">
+				<aui:option value="${semester.semesterId}">
+					<c:out value="${semester.beginYear}/${semester.endYear}/${semester.division}" />
+				</aui:option>
+			</c:forEach>
+		</aui:select>
+		
+		<aui:input name="importType" type="hidden" value="timetable" />
+	
+		<aui:input type="file" name="fileupload" />
+	
+		<aui:button-row>
+			<aui:button type="submit" />
+			<aui:button type="cancel" onClick="${backURL}" />
+		</aui:button-row>
+	</aui:form>
+</div>

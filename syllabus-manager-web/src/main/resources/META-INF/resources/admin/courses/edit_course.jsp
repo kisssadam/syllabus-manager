@@ -41,64 +41,68 @@
 
 <%@ include file="/notifications/error.jspf" %>
 
-<c:choose>
-	<c:when test="<%=courseId > 0%>">
-		<liferay-ui:header title="edit-course" />
-	</c:when>
-	<c:otherwise>
-		<liferay-ui:header title="add-course" />
-	</c:otherwise>
-</c:choose>
+<div class="closed container-fluid-1280 sidenav-container sidenav-right" id="<portlet:namespace />editCoursePanelId">
+	<h1>
+		<c:choose>
+			<c:when test="<%=courseId > 0%>">
+				<liferay-ui:header title="edit-course" />
+			</c:when>
+			<c:otherwise>
+				<liferay-ui:header title="add-course" />
+			</c:otherwise>
+		</c:choose>
+	</h1>
 
-<portlet:actionURL name="addCourse" var="addCourseURL" />
-
-<aui:form action="<%=addCourseURL%>" name="<portlet:namespace />course_edit">
-	<aui:model-context bean="<%=course%>" model="<%=Course.class%>" />
-
-	<aui:input name="courseId" type="hidden" value='<%=course == null ? courseId : course.getCourseId()%>' />
-
-	<aui:fieldset>
-		<aui:select label="curriculum" name="curriculumSelect" required="true">
-			<c:forEach items="${curriculums}" var="curriculum">
-				<aui:option selected="${curriculumId eq curriculum.curriculumId}" value="${curriculum.curriculumId}">
-					<c:out value="${curriculum.curriculumCode} - ${curriculum.curriculumName}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
-
-		<aui:select label="subject" name="subjectSelect" required="true">
-			<c:forEach items="${subjects}" var="subject">
-				<aui:option selected="${subjectId eq subject.subjectId}" value="${subject.subjectId}">
-					<c:out value="${subject.subjectCode} - ${subject.subjectName}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
-
-		<aui:select label="courseType" name="courseTypeId" required="true">
-			<c:forEach items="${courseTypes}" var="courseType">
-				<aui:option value="${courseType.courseTypeId}">
-					<c:out value="${courseType.typeName}" />
-				</aui:option>
-			</c:forEach>
-		</aui:select>
-
-		<aui:input name="hoursPerSemester" type="number" min="0"
-			value="<%=course == null ? 0 : course.getHoursPerSemester()%>">
-			<aui:validator name="required" />
-			<aui:validator name="number" />
-		</aui:input>
-
-		<aui:input name="hoursPerWeek" type="number" min="0" value="<%=course == null ? 0 : course.getHoursPerWeek()%>">
-			<aui:validator name="required" />
-			<aui:validator name="number" />
-		</aui:input>
-	</aui:fieldset>
-
-	<aui:button-row>
-		<aui:button type="submit" />
-		<aui:button type="cancel" onClick="${backURL}" />
-	</aui:button-row>
-</aui:form>
+	<portlet:actionURL name="addCourse" var="addCourseURL" />
+	
+	<aui:form action="<%=addCourseURL%>" name="<portlet:namespace />course_edit">
+		<aui:model-context bean="<%=course%>" model="<%=Course.class%>" />
+	
+		<aui:input name="courseId" type="hidden" value='<%=course == null ? courseId : course.getCourseId()%>' />
+	
+		<aui:fieldset>
+			<aui:select label="curriculum" name="curriculumSelect" required="true">
+				<c:forEach items="${curriculums}" var="curriculum">
+					<aui:option selected="${curriculumId eq curriculum.curriculumId}" value="${curriculum.curriculumId}">
+						<c:out value="${curriculum.curriculumCode} - ${curriculum.curriculumName}" />
+					</aui:option>
+				</c:forEach>
+			</aui:select>
+	
+			<aui:select label="subject" name="subjectSelect" required="true">
+				<c:forEach items="${subjects}" var="subject">
+					<aui:option selected="${subjectId eq subject.subjectId}" value="${subject.subjectId}">
+						<c:out value="${subject.subjectCode} - ${subject.subjectName}" />
+					</aui:option>
+				</c:forEach>
+			</aui:select>
+	
+			<aui:select label="courseType" name="courseTypeId" required="true">
+				<c:forEach items="${courseTypes}" var="courseType">
+					<aui:option value="${courseType.courseTypeId}">
+						<c:out value="${courseType.typeName}" />
+					</aui:option>
+				</c:forEach>
+			</aui:select>
+	
+			<aui:input name="hoursPerSemester" type="number" min="0"
+				value="<%=course == null ? 0 : course.getHoursPerSemester()%>">
+				<aui:validator name="required" />
+				<aui:validator name="number" />
+			</aui:input>
+	
+			<aui:input name="hoursPerWeek" type="number" min="0" value="<%=course == null ? 0 : course.getHoursPerWeek()%>">
+				<aui:validator name="required" />
+				<aui:validator name="number" />
+			</aui:input>
+		</aui:fieldset>
+	
+		<aui:button-row>
+			<aui:button type="submit" />
+			<aui:button type="cancel" onClick="${backURL}" />
+		</aui:button-row>
+	</aui:form>
+</div>
 
 <%--
 	http://rasul.work/index.php/2015/09/04/liferay-service-builder-json-javascript/
