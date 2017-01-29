@@ -1,3 +1,5 @@
-# unideb-syllabus-manager-portlet
+# Syllabus Manager
 
-Read the wiki before using in production systems.
+A Liferay 7.0 compatible portlet.
+
+Please read the wiki before using in production systems.
