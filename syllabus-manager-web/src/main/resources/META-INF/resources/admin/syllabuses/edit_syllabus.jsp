@@ -169,7 +169,7 @@
 				</aui:input>
 				
 				<%-- https://docs.liferay.com/portal/7.0/taglibs/util-taglib/ --%>
-				<aui:field-wrapper label="weeklyTasks">
+				<aui:field-wrapper name="weeklyTasks" label="weeklyTasks">
 					<liferay-ui:input-editor
 						contents="<%= syllabus == null ? StringPool.BLANK : syllabus.getWeeklyTasks() %>"
 						name="weeklyTasks"
