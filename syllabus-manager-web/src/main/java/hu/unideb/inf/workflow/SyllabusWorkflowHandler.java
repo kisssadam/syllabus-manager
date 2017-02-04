@@ -18,7 +18,9 @@ import hu.unideb.inf.model.Syllabus;
 import hu.unideb.inf.service.SyllabusLocalServiceUtil;
 
 @Component(
-	property = { "model.class.name=hu.unideb.inf.model.Syllabus" },
+	property = {
+		"model.class.name=hu.unideb.inf.model.Syllabus"
+	},
 	service = WorkflowHandler.class
 )
 public class SyllabusWorkflowHandler extends BaseWorkflowHandler<Syllabus> {
