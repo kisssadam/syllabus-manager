@@ -209,6 +209,9 @@ public class SyllabusLocalServiceImpl extends SyllabusLocalServiceBaseImpl {
 		WorkflowInstanceLinkLocalServiceUtil.deleteWorkflowInstanceLinks(syllabus.getCompanyId(), syllabus.getGroupId(),
 				Syllabus.class.getName(), syllabus.getSyllabusId());
 
+		WorkflowInstanceLinkLocalServiceUtil.deleteWorkflowInstanceLink(syllabus.getCompanyId(), syllabus.getGroupId(),
+				Syllabus.class.getName(), syllabus.getSyllabusId());
+		
 		return deleteSyllabus(syllabus);
 	}
 
