@@ -9,6 +9,8 @@ import javax.portlet.WindowState;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.osgi.service.component.annotations.Reference;
+
 import com.liferay.asset.kernel.model.AssetRendererFactory;
 import com.liferay.asset.kernel.model.BaseJSPAssetRenderer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -19,6 +21,7 @@ import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 import com.liferay.portal.kernel.service.GroupLocalServiceUtil;
+import com.liferay.portal.kernel.trash.TrashRenderer;
 import com.liferay.portal.kernel.util.PortalUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -29,24 +32,59 @@ import hu.unideb.inf.model.Semester;
 import hu.unideb.inf.model.Subject;
 import hu.unideb.inf.model.Syllabus;
 import hu.unideb.inf.model.TimetableCourse;
-import hu.unideb.inf.service.CourseLocalServiceUtil;
-import hu.unideb.inf.service.CurriculumLocalServiceUtil;
-import hu.unideb.inf.service.SemesterLocalServiceUtil;
-import hu.unideb.inf.service.SubjectLocalServiceUtil;
-import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
+import hu.unideb.inf.service.CourseLocalService;
+import hu.unideb.inf.service.CurriculumLocalService;
+import hu.unideb.inf.service.SemesterLocalService;
+import hu.unideb.inf.service.SubjectLocalService;
+import hu.unideb.inf.service.TimetableCourseLocalService;
 import hu.unideb.inf.service.permission.SyllabusPermission;
 import hu.unideb.inf.util.SyllabusActionKeys;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 import hu.unideb.inf.web.constants.WebKeys;
 
-public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> {
+public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> implements TrashRenderer {
 
 	private static final Log log = LogFactoryUtil.getLog(SyllabusAssetRenderer.class);
+
+	private TimetableCourseLocalService timetableCourseLocalService;
+
+	private CurriculumLocalService curriculumLocalService;
+
+	private SubjectLocalService subjectLocalService;
+
+	private CourseLocalService courseLocalService;
+
+	private SemesterLocalService semesterLocalService;
 
 	private Syllabus syllabus;
 
 	public SyllabusAssetRenderer(Syllabus syllabus) {
 		this.syllabus = syllabus;
+	}
+
+	@Reference(unbind = "-")
+	public void setTimetableCourseLocalService(TimetableCourseLocalService timetableCourseLocalService) {
+		this.timetableCourseLocalService = timetableCourseLocalService;
+	}
+
+	@Reference(unbind = "-")
+	protected void setCurriculumLocalService(CurriculumLocalService curriculumLocalService) {
+		this.curriculumLocalService = curriculumLocalService;
+	}
+
+	@Reference(unbind = "-")
+	protected void setSubjectLocalService(SubjectLocalService subjectLocalService) {
+		this.subjectLocalService = subjectLocalService;
+	}
+
+	@Reference(unbind = "-")
+	public void setCourseLocalService(CourseLocalService courseLocalService) {
+		this.courseLocalService = courseLocalService;
+	}
+
+	@Reference(unbind = "-")
+	public void setSemesterLocalService(SemesterLocalService semesterLocalService) {
+		this.semesterLocalService = semesterLocalService;
 	}
 
 	@Override
@@ -86,16 +124,26 @@ public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> {
 
 	@Override
 	public String getSummary(PortletRequest portletRequest, PortletResponse portletResponse) {
+		return getSummary();
+	}
+
+	@Override
+	public String getSummary(Locale locale) {
+		return getSummary();
+	}
+
+	@Override
+	public String getSummary() {
 		StringBuilder summary = new StringBuilder();
-		
+
 		try {
-			TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil
+			TimetableCourse timetableCourse = timetableCourseLocalService
 					.getTimetableCourse(syllabus.getTimetableCourseId());
-			Course course = CourseLocalServiceUtil.getCourse(timetableCourse.getCourseId());
-			Subject subject = SubjectLocalServiceUtil.getSubject(course.getSubjectId());
-			Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(subject.getCurriculumId());
-			Semester semester = SemesterLocalServiceUtil.getSemester(timetableCourse.getSemesterId());
-			
+			Course course = courseLocalService.getCourse(timetableCourse.getCourseId());
+			Subject subject = subjectLocalService.getSubject(course.getSubjectId());
+			Curriculum curriculum = curriculumLocalService.getCurriculum(subject.getCurriculumId());
+			Semester semester = semesterLocalService.getSemester(timetableCourse.getSemesterId());
+
 			summary.append("Semester: ").append(semester);
 			summary.append(StringPool.NEW_LINE);
 			summary.append("Curriculum: ").append(curriculum);
@@ -110,6 +158,7 @@ public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> {
 		} catch (PortalException e) {
 			log.error(e);
 		}
+
 		return summary.toString();
 	}
 
@@ -126,20 +175,27 @@ public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> {
 
 		return portletURL;
 	}
-	
+
 	@Override
 	public String getURLView(LiferayPortletResponse liferayPortletResponse, WindowState windowState) throws Exception {
 		log.trace("SyllabusAssetRenderer::getURLView(liferayPortletResponse, windowState)");
-		
+
 		AssetRendererFactory<Syllabus> assetRendererFactory = getAssetRendererFactory();
-		
+
 		PortletURL portletURL = assetRendererFactory.getURLView(liferayPortletResponse, windowState);
-		
+
 		portletURL.setParameter("mvcPath", "/asset/syllabus/syllabus_full_content.jsp");
 		portletURL.setParameter("syllabusId", String.valueOf(syllabus.getSyllabusId()));
 		portletURL.setWindowState(windowState);
-		
+
 		return portletURL.toString();
+	}
+
+	@Override
+	public String getURLViewInContext(LiferayPortletRequest liferayPortletRequest,
+			LiferayPortletResponse liferayPortletResponse, String noSuchEntryRedirect) throws Exception {
+		return getURLViewInContext(liferayPortletRequest, noSuchEntryRedirect,
+				"/asset/syllabus/syllabus_full_content.jsp", "syllabusId", syllabus.getSyllabusId());
 	}
 
 	@Override
@@ -148,9 +204,8 @@ public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> {
 	}
 
 	/**
-	 * https://github.com/liferay/liferay-portal/blob/master/readme/7.0/BREAKING_CHANGES.markdown
-	 * The method include can now be used to create asset renderers or workflow handlers
-	 * with UIs written in FreeMarker or any other framework.
+	 * https://github.com/liferay/liferay-portal/blob/master/readme/7.0/BREAKING_CHANGES.markdown The method include can
+	 * now be used to create asset renderers or workflow handlers with UIs written in FreeMarker or any other framework.
 	 */
 	@Override
 	public boolean include(HttpServletRequest request, HttpServletResponse response, String template) throws Exception {
@@ -182,6 +237,16 @@ public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> {
 	@Override
 	public boolean hasViewPermission(PermissionChecker permissionChecker) throws PortalException {
 		return SyllabusPermission.contains(permissionChecker, syllabus.getSyllabusId(), SyllabusActionKeys.VIEW);
+	}
+
+	@Override
+	public String getPortletId() {
+		return getAssetRendererFactory().getPortletId();
+	}
+
+	@Override
+	public String getType() {
+		return SyllabusAssetRendererFactory.TYPE;
 	}
 
 }

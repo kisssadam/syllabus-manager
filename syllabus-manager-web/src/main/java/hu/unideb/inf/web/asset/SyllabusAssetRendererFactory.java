@@ -1,6 +1,7 @@
 package hu.unideb.inf.web.asset;
 
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import com.liferay.asset.kernel.model.AssetRenderer;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
@@ -9,7 +10,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.security.permission.PermissionChecker;
 
 import hu.unideb.inf.model.Syllabus;
-import hu.unideb.inf.service.SyllabusLocalServiceUtil;
+import hu.unideb.inf.service.SyllabusLocalService;
 import hu.unideb.inf.service.permission.ModelPermission;
 import hu.unideb.inf.service.permission.SyllabusPermission;
 import hu.unideb.inf.util.SyllabusActionKeys;
@@ -23,10 +24,17 @@ import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 public class SyllabusAssetRendererFactory extends BaseAssetRendererFactory<Syllabus> {
 
 	public static final String TYPE = "syllabus";
+	
+	private SyllabusLocalService syllabusLocalService;
 
+	@Reference(unbind = "-")
+	public void setSyllabusLocalService(SyllabusLocalService syllabusLocalService) {
+		this.syllabusLocalService = syllabusLocalService;
+	}
+	
 	@Override
 	public AssetRenderer<Syllabus> getAssetRenderer(long classPK, int type) throws PortalException {
-		Syllabus syllabus = SyllabusLocalServiceUtil.getSyllabus(classPK);
+		Syllabus syllabus = syllabusLocalService.getSyllabus(classPK);
 
 		return new SyllabusAssetRenderer(syllabus);
 	}
