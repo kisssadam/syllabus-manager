@@ -110,7 +110,7 @@
 		<aui:input name="syllabusId" type="hidden"
 			value='<%=syllabus == null ? syllabusId : syllabus.getSyllabusId()%>' />
 	
-		<liferay-ui:panel defaultState="open" extended="<%= false %>" id="syllabusSubjectSelectorPanel" persistState="<%= true %>" title="subject-selector-panel-title">
+		<liferay-ui:panel defaultState="open" extended="<%= true %>" id="syllabusSubjectSelectorPanel" persistState="<%= true %>" title="subject-selector-panel-title">
 			<aui:fieldset>	
 				<aui:select label="curriculum" name="curriculumSelect" required="true">
 					<c:forEach items="${curriculums}" var="curriculum">
@@ -146,7 +146,7 @@
 			</aui:fieldset>
 		</liferay-ui:panel>
 	
-		<liferay-ui:panel defaultState="open" extended="<%= false %>" id="syllabusDataPanel" persistState="<%= true %>" title="syllabus-data-panel-title">
+		<liferay-ui:panel defaultState="open" extended="<%= true %>" id="syllabusDataPanel" persistState="<%= true %>" title="syllabus-data-panel-title">
 			<aui:fieldset>
 				<aui:input name="competence" type="textarea">
 					<aui:validator name="required" />
@@ -183,14 +183,14 @@
 		
 		<liferay-ui:asset-tags-error />
 		
-		<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="syllabusCategorizationPanel" persistState="<%= true %>" title="categorization">
+		<liferay-ui:panel defaultState="closed" extended="<%= true %>" id="syllabusCategorizationPanel" persistState="<%= true %>" title="categorization">
 			<aui:fieldset>
 				<aui:input name="categories" type="assetCategories" />
 				<aui:input name="tags" type="assetTags" />
 			</aui:fieldset>
 		</liferay-ui:panel>
 	
-		<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="syllabusAssetLinksPanel" persistState="<%= true %>" title="related-assets">
+		<liferay-ui:panel defaultState="closed" extended="<%= true %>" id="syllabusAssetLinksPanel" persistState="<%= true %>" title="related-assets">
 			<aui:fieldset>
 				<liferay-ui:input-asset-links className="<%= Syllabus.class.getName() %>" classPK="<%= syllabusId %>" />
 			</aui:fieldset>
