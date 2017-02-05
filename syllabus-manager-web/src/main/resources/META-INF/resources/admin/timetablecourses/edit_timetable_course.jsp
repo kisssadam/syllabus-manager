@@ -112,27 +112,27 @@
 			</aui:select>
 	
 			<aui:select label="subject" name="subjectSelect" required="true">
-					<c:forEach items="${subjects}" var="subject">
-						<aui:option selected="${subjectId eq subject.subjectId}" value="${subject.subjectId}">
-							<c:out value="${subject.subjectCode} - ${subject.subjectName}" />
-						</aui:option>
-					</c:forEach>
-				</aui:select>
-	
-				<aui:select label="course" name="courseSelect" required="true">
-					<c:forEach items="${courses}" var="course">
-						<%
-						Course course = (Course) pageContext.getAttribute("course");
-						CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(course.getCourseTypeId()).toEscapedModel();
-						pageContext.setAttribute("courseType", courseType);
-						%>
-						<aui:option selected="${courseId eq course.courseId}" value="${course.courseId}">
-							<c:out value="${courseType.typeName}: ${course.hoursPerSemester}" />
-							<liferay-ui:message key="hours-per-semester" /><c:out value=", ${course.hoursPerWeek}" />
-							<liferay-ui:message key="hours-per-week" />
-						</aui:option>
-					</c:forEach>
-				</aui:select>
+				<c:forEach items="${subjects}" var="subject">
+					<aui:option selected="${subjectId eq subject.subjectId}" value="${subject.subjectId}">
+						<c:out value="${subject.subjectCode} - ${subject.subjectName}" />
+					</aui:option>
+				</c:forEach>
+			</aui:select>
+
+			<aui:select label="course" name="courseSelect" required="true">
+				<c:forEach items="${courses}" var="course">
+					<%
+					Course course = (Course) pageContext.getAttribute("course");
+					CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(course.getCourseTypeId()).toEscapedModel();
+					pageContext.setAttribute("courseType", courseType);
+					%>
+					<aui:option selected="${courseId eq course.courseId}" value="${course.courseId}">
+						<c:out value="${courseType.typeName}: ${course.hoursPerSemester}" />
+						<liferay-ui:message key="hours-per-semester" /><c:out value=", ${course.hoursPerWeek}" />
+						<liferay-ui:message key="hours-per-week" />
+					</aui:option>
+				</c:forEach>
+			</aui:select>
 	
 			<aui:select label="semester" name="semesterId" required="true">
 				<c:forEach items="${semesters}" var="semester">
