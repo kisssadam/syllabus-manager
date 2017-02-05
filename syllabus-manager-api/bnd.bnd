@@ -1,3 +1,4 @@
+Bundle-Name: Syllabus Manager Api
 Bundle-SymbolicName: syllabus.manager-api
 Bundle-Version: 1.0.0
 Export-Package: \
