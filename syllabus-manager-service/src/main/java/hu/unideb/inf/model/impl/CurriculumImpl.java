@@ -32,6 +32,9 @@ public class CurriculumImpl extends CurriculumBaseImpl {
 	 *
 	 * Never reference this class directly. All methods that expect a curriculum model instance should use the {@link hu.unideb.inf.model.Curriculum} interface instead.
 	 */
+	
+	private static final long serialVersionUID = 1L;
+
 	public CurriculumImpl() {
 	}
 	
@@ -39,4 +42,5 @@ public class CurriculumImpl extends CurriculumBaseImpl {
 	public String toString() {
 		return getCurriculumCode() + " - " + getCurriculumName();
 	}
+
 }

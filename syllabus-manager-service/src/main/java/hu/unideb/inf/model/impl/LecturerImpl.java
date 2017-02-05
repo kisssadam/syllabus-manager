@@ -32,6 +32,10 @@ public class LecturerImpl extends LecturerBaseImpl {
 	 *
 	 * Never reference this class directly. All methods that expect a lecturer model instance should use the {@link hu.unideb.inf.model.Lecturer} interface instead.
 	 */
+
+	private static final long serialVersionUID = 1L;
+
 	public LecturerImpl() {
 	}
+
 }

@@ -1427,11 +1427,18 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			try {
 				List<Subject> subjects = subjectLocalService.getSubjectsByCurriculumId(curriculumId);
 
+				if (log.isTraceEnabled()) {
+					log.trace("subjects: " + subjects);
+				}
+				
 				for (Subject subject : subjects) {
+					Subject s = subject.toEscapedModel();
+					
 					JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
-					jsonObject.put("subjectList", HtmlUtil.escapeAttribute(subject.toString()));
-					jsonObject.put("subjectId", subject.getSubjectId());
+					jsonObject.put("subjectId", s.getSubjectId());
+					jsonObject.put("subjectCode", s.getSubjectCode());
+					jsonObject.put("subjectName", s.getSubjectName());
 
 					jsonArray.put(jsonObject);
 				}
@@ -1447,15 +1454,24 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			try {
 				List<Course> courses = courseLocalService.getCoursesBySubjectId(subjectId);
 
+				if (log.isTraceEnabled()) {
+					log.trace("courses: " + courses);
+				}
+				
 				for (Course course : courses) {
+					Course c = course.toEscapedModel();
+					CourseType ct = courseTypeLocalService.getCourseType(c.getCourseTypeId()).toEscapedModel();
+					
 					JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
-					jsonObject.put("courseList", HtmlUtil.escapeAttribute(course.toString()));
-					jsonObject.put("courseId", course.getCourseId());
+					jsonObject.put("courseId", c.getCourseId());
+					jsonObject.put("courseTypeName", ct.getTypeName());
+					jsonObject.put("hoursPerSemester", c.getHoursPerSemester());
+					jsonObject.put("hoursPerWeek", c.getHoursPerWeek());
 
 					jsonArray.put(jsonObject);
 				}
-			} catch (SystemException e) {
+			} catch (PortalException | SystemException e) {
 				if (log.isErrorEnabled()) {
 					log.error(e);
 				}
@@ -1466,6 +1482,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			log.trace("Course selected, serving timetableCourses.");
 			try {
 				List<TimetableCourse> timetableCourses = timetableCourseLocalService.getTimetableCoursesByCourseId(courseId);
+				
 				if (log.isTraceEnabled()) {
 					log.trace("timetableCourses: " + timetableCourses);
 				}

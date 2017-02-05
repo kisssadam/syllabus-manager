@@ -32,11 +32,10 @@ public class SubjectImpl extends SubjectBaseImpl {
 	 *
 	 * Never reference this class directly. All methods that expect a subject model instance should use the {@link hu.unideb.inf.model.Subject} interface instead.
 	 */
+	
+	private static final long serialVersionUID = 1L;
+
 	public SubjectImpl() {
 	}
 	
-	@Override
-	public String toString() {
-		return getSubjectCode() + " - " + getSubjectName();
-	}
 }

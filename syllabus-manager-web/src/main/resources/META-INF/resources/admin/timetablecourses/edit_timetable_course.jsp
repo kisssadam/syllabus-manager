@@ -112,20 +112,27 @@
 			</aui:select>
 	
 			<aui:select label="subject" name="subjectSelect" required="true">
-				<c:forEach items="${subjects}" var="subject">
-					<aui:option selected="${subjectId eq subject.subjectId}" value="${subject.subjectId}">
-						<c:out value="${subject}" />
-					</aui:option>
-				</c:forEach>
-			</aui:select>
+					<c:forEach items="${subjects}" var="subject">
+						<aui:option selected="${subjectId eq subject.subjectId}" value="${subject.subjectId}">
+							<c:out value="${subject.subjectCode} - ${subject.subjectName}" />
+						</aui:option>
+					</c:forEach>
+				</aui:select>
 	
-			<aui:select label="course" name="courseSelect" required="true">
-				<c:forEach items="${courses}" var="course">
-					<aui:option selected="${courseId eq course.courseId}" value="${course.courseId}">
-						<c:out value="${course}" />
-					</aui:option>
-				</c:forEach>
-			</aui:select>
+				<aui:select label="course" name="courseSelect" required="true">
+					<c:forEach items="${courses}" var="course">
+						<%
+						Course course = (Course) pageContext.getAttribute("course");
+						CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(course.getCourseTypeId()).toEscapedModel();
+						pageContext.setAttribute("courseType", courseType);
+						%>
+						<aui:option selected="${courseId eq course.courseId}" value="${course.courseId}">
+							<c:out value="${courseType.typeName}: ${course.hoursPerSemester}" />
+							<liferay-ui:message key="hours-per-semester" /><c:out value=", ${course.hoursPerWeek}" />
+							<liferay-ui:message key="hours-per-week" />
+						</aui:option>
+					</c:forEach>
+				</aui:select>
 	
 			<aui:select label="semester" name="semesterId" required="true">
 				<c:forEach items="${semesters}" var="semester">
@@ -157,48 +164,32 @@
 			<div id="lecturer-fields">
 				<c:choose>
 					<c:when test="${empty selectedLecturers}">
-						
 						<div class="lfr-form-row lfr-form-row-inline">
 							<div class="row-fields" style="display: flex;">
-								
 								<aui:select label="lecturer" name="lecturer1" required="true">
-								
 									<c:forEach items="${lecturers}" var="lecturer">
-										
 										<aui:option value="${lecturer.lecturerId}">
 											<c:out value="${lecturer.lecturerName}" />
 										</aui:option>
-										
 									</c:forEach>
-									
 								</aui:select>
-								
 							</div>
 						</div>
-						
 					</c:when>
 					<c:otherwise>
-					
 						<c:forEach items="${selectedLecturers}" var="selectedlecturer" varStatus="selectedLecturerStatus">
 							<div class="lfr-form-row lfr-form-row-inline">
 								<div class="row-fields" style="display: flex;">
-									
 									<aui:select label="lecturer" name="lecturer${selectedLecturerStatus.index + 1}" required="true">
-										
 										<c:forEach items="${lecturers}" var="lecturer">
-										
 											<aui:option value="${lecturer.lecturerId}" selected="${lecturer eq selectedlecturer}">
 												<c:out value="${lecturer.lecturerName}" />
 											</aui:option>
-											
 										</c:forEach>
-										
 									</aui:select>
-									
 								</div>
 							</div>
 						</c:forEach>
-						
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -232,17 +223,23 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
              data: {
             	 "<portlet:namespace/>curriculumSelect" : A.one("#<portlet:namespace/>curriculumSelect").val(),
             	 '<portlet:namespace/>curriculumSelected' :'curriculumSelected'
-            	 },
+           	 },
              dataType: 'json',
              on: {
              	success: function() {
 					var subjects = this.get('responseData');
-					console.log(A.one("#<portlet:namespace/>curriculumSelect").val());
+					
 	             	A.one('#<portlet:namespace />subjectSelect').empty();
 	             	A.one('#<portlet:namespace />courseSelect').empty();
 	
-					for(var i in subjects){
-						A.one('#<portlet:namespace />subjectSelect').append("<option value='" + subjects[i].subjectId + "' >" + subjects[i].subjectList + "</option> "); 
+	             	for (var i in subjects) {
+						var subject = subjects[i];
+
+						A.one('#<portlet:namespace />subjectSelect').append(
+							"<option value='" + subject.subjectId + "' >" +
+							subject.subjectCode + " - " + subject.subjectName +
+							"</option> "
+						); 
 					}
 					
 					A.one('#<portlet:namespace/>subjectSelect').simulate("change");
@@ -261,7 +258,7 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 			data: {
 				'<portlet:namespace/>subjectSelect' : A.one("#<portlet:namespace/>subjectSelect").val(),
 				'<portlet:namespace/>subjectSelected' : 'subjectSelected'
-				},
+			},
 			dataType: 'json',
 			on: {
 				success: function() {
@@ -269,8 +266,16 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 					
 					A.one('#<portlet:namespace />courseSelect').empty();
 					
-					for(var i in courses) {
-						A.one('#<portlet:namespace />courseSelect').append("<option value='" + courses[i].courseId + "' >" + courses[i].courseList + "</option> ");
+					for (var i in courses) {
+						var course = courses[i];
+						
+						A.one('#<portlet:namespace />courseSelect').append(
+							"<option value='" + course.courseId + "' >" +
+							course.courseTypeName + ": " +
+							course.hoursPerSemester + " <liferay-ui:message key='hours-per-semester' />" + ", " +
+							course.hoursPerWeek + " <liferay-ui:message key='hours-per-week' />" +
+							"</option> "
+						);
 					}
 					
 					// this is required to revalidate the form

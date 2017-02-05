@@ -33,6 +33,8 @@ public class SemesterImpl extends SemesterBaseImpl {
 	 * Never reference this class directly. All methods that expect a semester model instance should use the {@link hu.unideb.inf.model.Semester} interface instead.
 	 */
 	
+	private static final long serialVersionUID = 1L;
+	
 	private static final String SEPARATOR = "/";
 	
 	public SemesterImpl() {
@@ -54,4 +56,5 @@ public class SemesterImpl extends SemesterBaseImpl {
 	public String toString() {
 		return getBeginYear() + SEPARATOR + getEndYear() + SEPARATOR + getDivision();
 	}
+
 }

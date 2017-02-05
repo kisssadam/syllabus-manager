@@ -27,14 +27,14 @@ import aQute.bnd.annotation.ProviderType;
  */
 @ProviderType
 public class TimetableCourseImpl extends TimetableCourseBaseImpl {
-	
-	private static final long serialVersionUID = 1L;
-
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a timetable course model instance should use the {@link hu.unideb.inf.model.TimetableCourse} interface instead.
 	 */
+	
+	private static final long serialVersionUID = 1L;
+
 	public TimetableCourseImpl() {
 	}
 	

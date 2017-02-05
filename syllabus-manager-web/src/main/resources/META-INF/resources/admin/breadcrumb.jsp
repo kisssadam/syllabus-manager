@@ -72,17 +72,23 @@
 
 		if (subjectId > 0) {
 			Subject subject = SubjectLocalServiceUtil.getSubject(subjectId);
-			PortalUtil.addPortletBreadcrumbEntry(request, subject.toString(), viewCoursesURL.toString());
+			String subjectTitle = subject.getSubjectCode() + " - " + subject.getSubjectName();
+			PortalUtil.addPortletBreadcrumbEntry(request, subjectTitle, viewCoursesURL.toString());
 		}
 
 		if (courseId > 0) {
 			Course course = CourseLocalServiceUtil.getCourse(courseId);
-			PortalUtil.addPortletBreadcrumbEntry(request, course.toString(), viewTimetableCoursesURL.toString());
+			CourseType courseType = CourseTypeLocalServiceUtil.getCourseType(course.getCourseTypeId());
+			String courseTitle = courseType.getTypeName() + ": "
+				+ course.getHoursPerSemester() + " " + LanguageUtil.get(request, "hours-per-semester")
+				+ ", " + course.getHoursPerWeek() + " " + LanguageUtil.get(request, "hours-per-week");
+			PortalUtil.addPortletBreadcrumbEntry(request, courseTitle, viewTimetableCoursesURL.toString());
 		}
 		
 		if (timetableCourseId > 0) {
 			TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
-			PortalUtil.addPortletBreadcrumbEntry(request, timetableCourse.toString(), StringPool.BLANK);
+			String timetableCourseTitle = timetableCourse.getTimetableCourseCode();
+			PortalUtil.addPortletBreadcrumbEntry(request, timetableCourseTitle, StringPool.BLANK);
 		}
 	} else if (StringUtil.equalsIgnoreCase(home, WebKeys.ADMIN_HOME_SEMESTERS)) {
 		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, WebKeys.ADMIN_HOME_SEMESTERS), viewSemestersURL.toString());
@@ -94,7 +100,8 @@
 		
 		if (timetableCourseId > 0) {
 			TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(timetableCourseId);
-			PortalUtil.addPortletBreadcrumbEntry(request, timetableCourse.toString(), StringPool.BLANK);
+			String timetableCourseTitle = timetableCourse.getTimetableCourseCode();
+			PortalUtil.addPortletBreadcrumbEntry(request, timetableCourseTitle, StringPool.BLANK);
 		}
 	} else if (StringUtil.equalsIgnoreCase(home, WebKeys.ADMIN_HOME_COURSE_TYPES)) {
 		PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(request, WebKeys.ADMIN_HOME_COURSE_TYPES), viewCourseTypesURL.toString());

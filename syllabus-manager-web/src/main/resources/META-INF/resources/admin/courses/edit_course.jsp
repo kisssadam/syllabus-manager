@@ -118,16 +118,22 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
              data: {
             	 "<portlet:namespace/>curriculumSelect" : A.one("#<portlet:namespace/>curriculumSelect").val(),
             	 '<portlet:namespace/>curriculumSelected' :'curriculumSelected'
-            	 },
+           	 },
              dataType: 'json',
              on: {
              	success: function() {
 					var subjects = this.get('responseData');
-					console.log(A.one("#<portlet:namespace/>curriculumSelect").val());
+					
 	             	A.one('#<portlet:namespace />subjectSelect').empty();
 	
-					for(var i in subjects){
-						A.one('#<portlet:namespace />subjectSelect').append("<option value='" + subjects[i].subjectId + "' >" + subjects[i].subjectList + "</option> "); 
+	             	for (var i in subjects) {
+						var subject = subjects[i];
+
+						A.one('#<portlet:namespace />subjectSelect').append(
+							"<option value='" + subject.subjectId + "' >" +
+							subject.subjectCode + " - " + subject.subjectName +
+							"</option> "
+						); 
 					}
 					
 					A.one('#<portlet:namespace/>subjectSelect').simulate("change");

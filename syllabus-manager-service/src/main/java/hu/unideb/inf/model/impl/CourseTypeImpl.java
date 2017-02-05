@@ -32,6 +32,10 @@ public class CourseTypeImpl extends CourseTypeBaseImpl {
 	 *
 	 * Never reference this class directly. All methods that expect a course type model instance should use the {@link hu.unideb.inf.model.CourseType} interface instead.
 	 */
+	
+	private static final long serialVersionUID = 1L;
+
 	public CourseTypeImpl() {
 	}
+
 }

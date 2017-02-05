@@ -14,12 +14,7 @@
 
 package hu.unideb.inf.model.impl;
 
-import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.util.Validator;
-
 import aQute.bnd.annotation.ProviderType;
-import hu.unideb.inf.model.CourseType;
-import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
 
 /**
  * The extended model implementation for the Course service. Represents a row in the &quot;unideb_syllabus_manager_Course&quot; database table, with each column mapped to a property of this class.
@@ -32,28 +27,15 @@ import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
  */
 @ProviderType
 public class CourseImpl extends CourseBaseImpl {
-	
-	private static final long serialVersionUID = 1L;
-
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
 	 * Never reference this class directly. All methods that expect a course model instance should use the {@link hu.unideb.inf.model.Course} interface instead.
 	 */
+	
+	private static final long serialVersionUID = 1L;
+
 	public CourseImpl() {
 	}
 	
-	@Override
-	public String toString() {
-		CourseType courseType = null;
-
-		try {
-			courseType = CourseTypeLocalServiceUtil.fetchCourseType(getCourseTypeId());
-		} catch (SystemException e) {
-			e.printStackTrace();
-		}
-
-		return (Validator.isNull(courseType) ? "course type not found" : courseType.getTypeName()) + ": "
-				+ getHoursPerSemester() + " hours per semester, " + getHoursPerWeek() + " hours per week";
-	}
 }
