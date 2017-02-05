@@ -1471,10 +1471,17 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 				}
 				
 				for (TimetableCourse timetableCourse : timetableCourses) {
+					TimetableCourse tc = timetableCourse.toEscapedModel();
+
 					JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 					
-					jsonObject.put("timetableCourseList", HtmlUtil.escapeAttribute(timetableCourse.toString()));
-					jsonObject.put("timetableCourseId", timetableCourse.getTimetableCourseId());
+					jsonObject.put("timetableCourseId", tc.getTimetableCourseId());
+					jsonObject.put("timetableCourseCode", tc.getTimetableCourseCode());
+					jsonObject.put("subjectType", tc.getSubjectType());
+					jsonObject.put("recommendedTerm", tc.getRecommendedTerm());
+					jsonObject.put("limit", tc.getLimit());
+					jsonObject.put("classScheduleInfo", tc.getClassScheduleInfo());
+					jsonObject.put("description", tc.getDescription());
 					
 					jsonArray.put(jsonObject);
 				}
@@ -1490,5 +1497,5 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			writer.flush();
 		}
 	}
-
+	
 }

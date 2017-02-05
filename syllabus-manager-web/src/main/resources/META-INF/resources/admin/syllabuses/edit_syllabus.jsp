@@ -137,9 +137,14 @@
 				</aui:select>
 		
 				<aui:select label="timetableCourse" name="timetableCourseSelect" required="true">
-					<c:forEach items="${timetableCourses}" var="timetableCourse">
-						<aui:option selected="${timetableCourseId eq timetableCourse.timetableCourseId}" value="${timetableCourse.timetableCourseId}">
-							<c:out value="${timetableCourse}" />
+					<c:forEach items="${timetableCourses}" var="tc">
+						<aui:option selected="${timetableCourseId eq tc.timetableCourseId}" value="${tc.timetableCourseId}">
+							<liferay-ui:message key="timetable-course-code" /><c:out value=": ${tc.timetableCourseCode}, " />
+							<liferay-ui:message key="subject-type" /><c:out value=": ${tc.subjectType}, " />
+							<liferay-ui:message key="recommended-term" /><c:out value=": ${tc.recommendedTerm}, " />
+							<liferay-ui:message key="limit" /><c:out value=": ${tc.limit}, " />
+							<liferay-ui:message key="class-schedule-info" /><c:out value=": ${tc.classScheduleInfo}, " />
+							<liferay-ui:message key="description" /><c:out value=": ${tc.description}" />
 						</aui:option>
 					</c:forEach>
 				</aui:select>
@@ -223,7 +228,7 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 	             	A.one('#<portlet:namespace />courseSelect').empty();
 	             	A.one('#<portlet:namespace />timetableCourseSelect').empty();
 	
-					for(var i in subjects){
+					for (var i in subjects){
 						A.one('#<portlet:namespace />subjectSelect').append("<option value='" + subjects[i].subjectId + "' >" + subjects[i].subjectList + "</option> "); 
 					}
 					
@@ -253,7 +258,7 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 					A.one('#<portlet:namespace />courseSelect').empty();
 					A.one('#<portlet:namespace />timetableCourseSelect').empty();
 					
-					for(var i in courses) {
+					for (var i in courses) {
 						A.one('#<portlet:namespace />courseSelect').append("<option value='" + courses[i].courseId + "' >" + courses[i].courseList + "</option> ");
 					}
 					
@@ -282,8 +287,18 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 
 					A.one('#<portlet:namespace />timetableCourseSelect').empty();
 					
-					for(var i in timetableCourses) {
-						A.one('#<portlet:namespace />timetableCourseSelect').append("<option value='" + timetableCourses[i].timetableCourseId + "' >" + timetableCourses[i].timetableCourseList + "</option> ");
+					for (var i in timetableCourses) {
+						var tc = timetableCourses[i];
+						A.one('#<portlet:namespace />timetableCourseSelect').append(
+							"<option value='" + tc.timetableCourseId + "' >" +
+							"<liferay-ui:message key='timetable-course-code' />: " + tc.timetableCourseCode + ", " +
+							"<liferay-ui:message key='subject-type' />: " + tc.subjectType + ", " +
+							"<liferay-ui:message key='recommended-term' />: " + tc.recommendedTerm + ", " +
+							"<liferay-ui:message key='limit' />: " + tc.limit+ ", " +
+							"<liferay-ui:message key='class-schedule-info' />: " + tc.classScheduleInfo + ", " +
+							"<liferay-ui:message key='description' />: " + tc.description +
+							"</option> "
+						);
 					}
 					
 					// this is required to revalidate the form

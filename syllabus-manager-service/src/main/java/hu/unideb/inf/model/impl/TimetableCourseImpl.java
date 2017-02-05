@@ -27,6 +27,9 @@ import aQute.bnd.annotation.ProviderType;
  */
 @ProviderType
 public class TimetableCourseImpl extends TimetableCourseBaseImpl {
+	
+	private static final long serialVersionUID = 1L;
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
@@ -34,4 +37,5 @@ public class TimetableCourseImpl extends TimetableCourseBaseImpl {
 	 */
 	public TimetableCourseImpl() {
 	}
+	
 }

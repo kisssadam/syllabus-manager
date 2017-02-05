@@ -32,6 +32,9 @@ import hu.unideb.inf.service.CourseTypeLocalServiceUtil;
  */
 @ProviderType
 public class CourseImpl extends CourseBaseImpl {
+	
+	private static final long serialVersionUID = 1L;
+
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
