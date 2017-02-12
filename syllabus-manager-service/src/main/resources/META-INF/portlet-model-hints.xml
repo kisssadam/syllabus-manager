@@ -99,7 +99,9 @@
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
 		<field name="timetableCourseId" type="long" />
-		<field name="competence" type="String" />
+		<field name="competence" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="ethicalStandards" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>
