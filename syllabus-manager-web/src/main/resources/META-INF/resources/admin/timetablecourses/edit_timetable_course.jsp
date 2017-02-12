@@ -92,9 +92,7 @@
 		</c:choose>
 	</h1>
 	
-	<portlet:actionURL name="addTimetableCourse" var="addTimetableCourseURL">
-		<portlet:param name="home" value="${home}" />
-	</portlet:actionURL>
+	<portlet:actionURL name="addTimetableCourse" var="addTimetableCourseURL" />
 	
 	<aui:form action="<%=addTimetableCourseURL%>" name="<portlet:namespace />timetable_course_edit">
 		<aui:model-context bean="<%=timetableCourse%>" model="<%=TimetableCourse.class%>" />

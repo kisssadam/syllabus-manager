@@ -100,9 +100,7 @@
 		</c:choose>
 	</h1>
 	
-	<portlet:actionURL name="addSyllabus" var="addSyllabusURL">
-		<portlet:param name="home" value="${home}" />
-	</portlet:actionURL>
+	<portlet:actionURL name="addSyllabus" var="addSyllabusURL" />
 	
 	<aui:form action="<%=addSyllabusURL%>" name="<portlet:namespace />syllabus_edit">
 		<aui:model-context bean="<%=syllabus%>" model="<%=Syllabus.class%>" />

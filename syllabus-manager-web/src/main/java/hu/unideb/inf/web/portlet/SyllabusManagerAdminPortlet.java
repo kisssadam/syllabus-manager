@@ -430,7 +430,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", WebKeys.EDIT_TIMETABLE_COURSE);
 		} finally {
-			response.setRenderParameter("home", home);
+			response.setRenderParameter("home", WebKeys.ADMIN_HOME_CURRICULUMS);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 			response.setRenderParameter("courseId", String.valueOf(courseId));
@@ -504,7 +504,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			PortalUtil.copyRequestParameters(request, response);
 			response.setRenderParameter("mvcPath", WebKeys.EDIT_SYLLABUS);
 		} finally {
-			response.setRenderParameter("home", home);
+			response.setRenderParameter("home", WebKeys.ADMIN_HOME_CURRICULUMS);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 			response.setRenderParameter("subjectId", String.valueOf(subjectId));
 			response.setRenderParameter("courseId", String.valueOf(courseId));
