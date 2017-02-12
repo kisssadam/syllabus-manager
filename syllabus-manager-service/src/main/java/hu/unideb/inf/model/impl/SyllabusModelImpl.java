@@ -118,7 +118,7 @@ public class SyllabusModelImpl extends BaseModelImpl<Syllabus>
 		TABLE_COLUMNS_MAP.put("statusDate", Types.TIMESTAMP);
 	}
 
-	public static final String TABLE_SQL_CREATE = "create table syllabus_manager_Syllabus (uuid_ VARCHAR(75) null,syllabusId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,timetableCourseId LONG,competence VARCHAR(75) null,ethicalStandards TEXT null,topics VARCHAR(75) null,educationalMaterials TEXT null,recommendedLiterature TEXT null,weeklyTasks TEXT null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
+	public static final String TABLE_SQL_CREATE = "create table syllabus_manager_Syllabus (uuid_ VARCHAR(75) null,syllabusId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,timetableCourseId LONG,competence TEXT null,ethicalStandards TEXT null,topics TEXT null,educationalMaterials TEXT null,recommendedLiterature TEXT null,weeklyTasks TEXT null,status INTEGER,statusByUserId LONG,statusByUserName VARCHAR(75) null,statusDate DATE null)";
 	public static final String TABLE_SQL_DROP = "drop table syllabus_manager_Syllabus";
 	public static final String ORDER_BY_JPQL = " ORDER BY syllabus.syllabusId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY syllabus_manager_Syllabus.syllabusId ASC";

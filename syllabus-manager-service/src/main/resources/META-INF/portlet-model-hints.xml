@@ -105,7 +105,9 @@
 		<field name="ethicalStandards" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>
-		<field name="topics" type="String" />
+		<field name="topics" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="educationalMaterials" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>
