@@ -1398,90 +1398,15 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 		if (curriculumSelected.equalsIgnoreCase("curriculumSelected")) {
-			log.trace("Curriculum selected, serving subjects.");
-			try {
-				List<Subject> subjects = subjectService.getSubjectsByCurriculumId(curriculumId);
-
-				if (log.isTraceEnabled()) {
-					log.trace("subjects: " + subjects);
-				}
-				
-				for (Subject subject : subjects) {
-					Subject s = subject.toEscapedModel();
-					
-					JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-
-					jsonObject.put("subjectId", s.getSubjectId());
-					jsonObject.put("subjectCode", s.getSubjectCode());
-					jsonObject.put("subjectName", s.getSubjectName());
-
-					jsonArray.put(jsonObject);
-				}
-			} catch (SystemException e) {
-				if (log.isErrorEnabled()) {
-					log.error(e);
-				}
-			}
+			serveSubjects(curriculumId, jsonArray);
 		}
-
+		
 		if (subjectSelected.equalsIgnoreCase("subjectSelected")) {
-			log.trace("Subject selected, serving courses.");
-			try {
-				List<Course> courses = courseService.getCoursesBySubjectId(subjectId);
-
-				if (log.isTraceEnabled()) {
-					log.trace("courses: " + courses);
-				}
-				
-				for (Course course : courses) {
-					Course c = course.toEscapedModel();
-					CourseType ct = courseTypeService.getCourseType(c.getCourseTypeId()).toEscapedModel();
-					
-					JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-
-					jsonObject.put("courseId", c.getCourseId());
-					jsonObject.put("courseTypeName", ct.getTypeName());
-					jsonObject.put("hoursPerSemester", c.getHoursPerSemester());
-					jsonObject.put("hoursPerWeek", c.getHoursPerWeek());
-
-					jsonArray.put(jsonObject);
-				}
-			} catch (PortalException | SystemException e) {
-				if (log.isErrorEnabled()) {
-					log.error(e);
-				}
-			}
+			serveCourses(subjectId, jsonArray);
 		}
 		
 		if (courseSelected.equalsIgnoreCase("courseSelected")) {
-			log.trace("Course selected, serving timetableCourses.");
-			try {
-				List<TimetableCourse> timetableCourses = timetableCourseService.getTimetableCoursesByCourseId(courseId);
-				
-				if (log.isTraceEnabled()) {
-					log.trace("timetableCourses: " + timetableCourses);
-				}
-				
-				for (TimetableCourse timetableCourse : timetableCourses) {
-					TimetableCourse tc = timetableCourse.toEscapedModel();
-
-					JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-					
-					jsonObject.put("timetableCourseId", tc.getTimetableCourseId());
-					jsonObject.put("timetableCourseCode", tc.getTimetableCourseCode());
-					jsonObject.put("subjectType", tc.getSubjectType());
-					jsonObject.put("recommendedTerm", tc.getRecommendedTerm());
-					jsonObject.put("limit", tc.getLimit());
-					jsonObject.put("classScheduleInfo", tc.getClassScheduleInfo());
-					jsonObject.put("description", tc.getDescription());
-					
-					jsonArray.put(jsonObject);
-				}
-			} catch (SystemException e) {
-				if (log.isErrorEnabled()) {
-					log.error(e);
-				}
-			}
+			serveTimetableCourses(courseId, jsonArray);
 		}
 
 		try (PrintWriter writer = resourceResponse.getWriter()) {
@@ -1490,6 +1415,93 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	private void serveSubjects(long curriculumId, JSONArray jsonArray) {
+		log.trace("Curriculum selected, serving subjects.");
+		try {
+			List<Subject> subjects = subjectService.getSubjectsByCurriculumId(curriculumId);
+
+			if (log.isTraceEnabled()) {
+				log.trace("subjects: " + subjects);
+			}
+			
+			for (Subject subject : subjects) {
+				Subject s = subject.toEscapedModel();
+				
+				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+				jsonObject.put("subjectId", s.getSubjectId());
+				jsonObject.put("subjectCode", s.getSubjectCode());
+				jsonObject.put("subjectName", s.getSubjectName());
+
+				jsonArray.put(jsonObject);
+			}
+		} catch (SystemException e) {
+			if (log.isErrorEnabled()) {
+				log.error(e);
+			}
+		}
+	}
+
+	private void serveCourses(long subjectId, JSONArray jsonArray) {
+		log.trace("Subject selected, serving courses.");
+		try {
+			List<Course> courses = courseService.getCoursesBySubjectId(subjectId);
+
+			if (log.isTraceEnabled()) {
+				log.trace("courses: " + courses);
+			}
+			
+			for (Course course : courses) {
+				Course c = course.toEscapedModel();
+				CourseType ct = courseTypeService.getCourseType(c.getCourseTypeId()).toEscapedModel();
+				
+				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+				jsonObject.put("courseId", c.getCourseId());
+				jsonObject.put("courseTypeName", ct.getTypeName());
+				jsonObject.put("hoursPerSemester", c.getHoursPerSemester());
+				jsonObject.put("hoursPerWeek", c.getHoursPerWeek());
+
+				jsonArray.put(jsonObject);
+			}
+		} catch (PortalException | SystemException e) {
+			if (log.isErrorEnabled()) {
+				log.error(e);
+			}
+		}
+	}
+	
+	private void serveTimetableCourses(long courseId, JSONArray jsonArray) {
+		log.trace("Course selected, serving timetableCourses.");
+		try {
+			List<TimetableCourse> timetableCourses = timetableCourseService.getTimetableCoursesByCourseId(courseId);
+			
+			if (log.isTraceEnabled()) {
+				log.trace("timetableCourses: " + timetableCourses);
+			}
+			
+			for (TimetableCourse timetableCourse : timetableCourses) {
+				TimetableCourse tc = timetableCourse.toEscapedModel();
+
+				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+				
+				jsonObject.put("timetableCourseId", tc.getTimetableCourseId());
+				jsonObject.put("timetableCourseCode", tc.getTimetableCourseCode());
+				jsonObject.put("subjectType", tc.getSubjectType());
+				jsonObject.put("recommendedTerm", tc.getRecommendedTerm());
+				jsonObject.put("limit", tc.getLimit());
+				jsonObject.put("classScheduleInfo", tc.getClassScheduleInfo());
+				jsonObject.put("description", tc.getDescription());
+				
+				jsonArray.put(jsonObject);
+			}
+		} catch (SystemException e) {
+			if (log.isErrorEnabled()) {
+				log.error(e);
+			}
+		}
+	}
+	
 	@Reference(unbind = "-")
 	protected void setCurriculumService(CurriculumService curriculumService) {
 		this.curriculumService = curriculumService;
