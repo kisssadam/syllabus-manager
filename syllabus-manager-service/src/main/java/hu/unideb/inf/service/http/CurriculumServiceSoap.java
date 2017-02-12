@@ -16,9 +16,16 @@ package hu.unideb.inf.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import hu.unideb.inf.service.CurriculumServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link hu.unideb.inf.service.CurriculumServiceUtil} service utility. The
+ * {@link CurriculumServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,118 @@ import aQute.bnd.annotation.ProviderType;
  * @author Adam Kiss
  * @see CurriculumServiceHttp
  * @see hu.unideb.inf.model.CurriculumSoap
- * @see hu.unideb.inf.service.CurriculumServiceUtil
+ * @see CurriculumServiceUtil
  * @generated
  */
 @ProviderType
 public class CurriculumServiceSoap {
+	public static hu.unideb.inf.model.CurriculumSoap getCurriculum(
+		long curriculumId) throws RemoteException {
+		try {
+			hu.unideb.inf.model.Curriculum returnValue = CurriculumServiceUtil.getCurriculum(curriculumId);
+
+			return hu.unideb.inf.model.CurriculumSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.CurriculumSoap[] getCurriculums()
+		throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.Curriculum> returnValue = CurriculumServiceUtil.getCurriculums();
+
+			return hu.unideb.inf.model.CurriculumSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.CurriculumSoap getCurriculumByCode(
+		java.lang.String curriculumCode) throws RemoteException {
+		try {
+			hu.unideb.inf.model.Curriculum returnValue = CurriculumServiceUtil.getCurriculumByCode(curriculumCode);
+
+			return hu.unideb.inf.model.CurriculumSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.CurriculumSoap fetchCurriculumByCode(
+		java.lang.String curriculumCode) throws RemoteException {
+		try {
+			hu.unideb.inf.model.Curriculum returnValue = CurriculumServiceUtil.fetchCurriculumByCode(curriculumCode);
+
+			return hu.unideb.inf.model.CurriculumSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.CurriculumSoap addCurriculum(
+		java.lang.String curriculumCode, java.lang.String curriculumName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Curriculum returnValue = CurriculumServiceUtil.addCurriculum(curriculumCode,
+					curriculumName, serviceContext);
+
+			return hu.unideb.inf.model.CurriculumSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.CurriculumSoap deleteCurriculum(
+		long curriculumId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Curriculum returnValue = CurriculumServiceUtil.deleteCurriculum(curriculumId,
+					serviceContext);
+
+			return hu.unideb.inf.model.CurriculumSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.CurriculumSoap updateCurriculum(
+		long userId, long curriculumId, java.lang.String curriculumCode,
+		java.lang.String curriculumName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Curriculum returnValue = CurriculumServiceUtil.updateCurriculum(userId,
+					curriculumId, curriculumCode, curriculumName, serviceContext);
+
+			return hu.unideb.inf.model.CurriculumSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(CurriculumServiceSoap.class);
 }

@@ -33,11 +33,51 @@ public class CourseTypeServiceWrapper implements CourseTypeService,
 	}
 
 	@Override
-	public hu.unideb.inf.model.CourseType getCourseTypeByCourseTypeId(
-		long courseTypeId)
+	public hu.unideb.inf.model.CourseType addCourseType(
+		java.lang.String typeName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _courseTypeService.addCourseType(typeName, serviceContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.CourseType deleteCourseType(long courseTypeId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _courseTypeService.deleteCourseType(courseTypeId, serviceContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.CourseType fetchCourseTypeByTypeName(
+		java.lang.String typeName)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _courseTypeService.fetchCourseTypeByTypeName(typeName);
+	}
+
+	@Override
+	public hu.unideb.inf.model.CourseType getCourseType(long courseTypeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _courseTypeService.getCourseType(courseTypeId);
+	}
+
+	@Override
+	public hu.unideb.inf.model.CourseType getCourseTypeByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.exception.NoSuchCourseTypeException {
-		return _courseTypeService.getCourseTypeByCourseTypeId(courseTypeId);
+		return _courseTypeService.getCourseTypeByTypeName(typeName);
+	}
+
+	@Override
+	public hu.unideb.inf.model.CourseType updateCourseType(long userId,
+		long courseTypeId, java.lang.String typeName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _courseTypeService.updateCourseType(userId, courseTypeId,
+			typeName, serviceContext);
 	}
 
 	/**
@@ -48,6 +88,12 @@ public class CourseTypeServiceWrapper implements CourseTypeService,
 	@Override
 	public java.lang.String getOSGiServiceIdentifier() {
 		return _courseTypeService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.CourseType> getCourseTypes()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _courseTypeService.getCourseTypes();
 	}
 
 	@Override

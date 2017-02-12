@@ -14,6 +14,8 @@ import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.filter.BooleanFilter;
 import com.liferay.portal.kernel.search.generic.MatchQuery;
+import com.liferay.portal.kernel.search.generic.MultiMatchQuery;
+import com.liferay.portal.kernel.search.generic.MultiMatchQuery.Type;
 import com.liferay.portal.kernel.util.StringUtil;
 
 import hu.unideb.inf.model.Syllabus;
@@ -37,7 +39,7 @@ public class SyllabusSearcher extends BaseSearcher {
 	}
 	
 	public SyllabusSearcher() {
-		setDefaultSelectedFieldNames(Field.TITLE);
+		setDefaultSelectedFieldNames(Field.TITLE, Field.CONTENT);
 		setFilterSearch(true);
 		setPermissionAware(true);
 	}
@@ -59,12 +61,10 @@ public class SyllabusSearcher extends BaseSearcher {
 			SearchContext searchContext)
 		throws Exception {
 
-		MatchQuery matchQuery = new MatchQuery(
-			Field.TITLE, StringUtil.toLowerCase(searchContext.getKeywords()));
+		MultiMatchQuery multiMatchQuery = new MultiMatchQuery(StringUtil.toLowerCase(searchContext.getKeywords()));
+		multiMatchQuery.setType(Type.PHRASE);
 
-		matchQuery.setType(MatchQuery.Type.PHRASE_PREFIX);
-
-		searchQuery.add(matchQuery, BooleanClauseOccur.MUST);
+		searchQuery.add(multiMatchQuery, BooleanClauseOccur.MUST);
 	}
 	
 	@Override

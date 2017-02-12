@@ -21,11 +21,13 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
+import hu.unideb.inf.exception.NoSuchCourseException;
 import hu.unideb.inf.model.Course;
 
 import java.util.List;
@@ -54,6 +56,31 @@ public interface CourseService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CourseServiceUtil} to access the course remote service. Add custom service methods to {@link hu.unideb.inf.service.impl.CourseServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public Course addCourse(long subjectId, int hoursPerSemester,
+		int hoursPerWeek, long courseTypeId, ServiceContext serviceContext)
+		throws PortalException, SystemException;
+
+	public Course deleteCourse(long courseId, ServiceContext serviceContext)
+		throws PortalException, SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Course fetchCourseByS_CT(long subjectId, long courseTypeId)
+		throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Course getCourse(long courseId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Course getCourseByS_CT(long subjectId, long courseTypeId)
+		throws SystemException, NoSuchCourseException;
+
+	public Course updateCourse(long userId, long courseId, long subjectId,
+		int hoursPerSemester, int hoursPerWeek, long courseTypeId,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getCoursesCountBySubjectId(long subjectId)
+		throws SystemException;
 
 	/**
 	* Returns the OSGi service identifier.
@@ -63,6 +90,17 @@ public interface CourseService extends BaseService {
 	public java.lang.String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Course> getCourses() throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Course> getCoursesByCourseTypeId(long courseTypeId)
+		throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Course> getCoursesBySubjectId(long subjectId)
+		throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Course> getCoursesBySubjectId(long subjectId, int start, int end)
 		throws SystemException;
 }

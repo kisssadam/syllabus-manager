@@ -21,11 +21,13 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
 
+import hu.unideb.inf.exception.NoSuchSubjectException;
 import hu.unideb.inf.model.Subject;
 
 import java.util.List;
@@ -54,6 +56,33 @@ public interface SubjectService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SubjectServiceUtil} to access the subject remote service. Add custom service methods to {@link hu.unideb.inf.service.impl.SubjectServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public Subject addSubject(java.lang.String subjectCode,
+		java.lang.String subjectName, int credit, long curriculumId,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
+	public Subject deleteSubject(long subjectId, ServiceContext serviceContext)
+		throws PortalException, SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Subject fetchSubjectByC_S(long curriculumId,
+		java.lang.String subjectCode) throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Subject getSubject(long subjectId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Subject getSubjectByC_S(long curriculumId,
+		java.lang.String subjectCode)
+		throws SystemException, NoSuchSubjectException;
+
+	public Subject updateSubject(long userId, long subjectId,
+		java.lang.String subjectCode, java.lang.String subjectName, int credit,
+		long curriculumId, ServiceContext serviceContext)
+		throws PortalException, SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getSubjectsCountByCurriculumId(long curriculumId)
+		throws SystemException;
 
 	/**
 	* Returns the OSGi service identifier.
@@ -63,6 +92,13 @@ public interface SubjectService extends BaseService {
 	public java.lang.String getOSGiServiceIdentifier();
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Subject> getSubjects() throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Subject> getSubjectsByCurriculumId(long curriculumId)
 		throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Subject> getSubjectsByCurriculumId(long curriculumId,
+		int start, int end) throws SystemException;
 }

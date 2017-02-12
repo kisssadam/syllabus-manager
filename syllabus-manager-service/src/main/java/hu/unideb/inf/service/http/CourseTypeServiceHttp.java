@@ -55,17 +55,79 @@ import hu.unideb.inf.service.CourseTypeServiceUtil;
  */
 @ProviderType
 public class CourseTypeServiceHttp {
-	public static hu.unideb.inf.model.CourseType getCourseTypeByCourseTypeId(
+	public static hu.unideb.inf.model.CourseType getCourseType(
 		HttpPrincipal httpPrincipal, long courseTypeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		try {
+			MethodKey methodKey = new MethodKey(CourseTypeServiceUtil.class,
+					"getCourseType", _getCourseTypeParameterTypes0);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					courseTypeId);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (hu.unideb.inf.model.CourseType)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static java.util.List<hu.unideb.inf.model.CourseType> getCourseTypes(
+		HttpPrincipal httpPrincipal)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		try {
+			MethodKey methodKey = new MethodKey(CourseTypeServiceUtil.class,
+					"getCourseTypes", _getCourseTypesParameterTypes1);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.SystemException) {
+					throw (com.liferay.portal.kernel.exception.SystemException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (java.util.List<hu.unideb.inf.model.CourseType>)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static hu.unideb.inf.model.CourseType getCourseTypeByTypeName(
+		HttpPrincipal httpPrincipal, java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.exception.NoSuchCourseTypeException {
 		try {
 			MethodKey methodKey = new MethodKey(CourseTypeServiceUtil.class,
-					"getCourseTypeByCourseTypeId",
-					_getCourseTypeByCourseTypeIdParameterTypes0);
+					"getCourseTypeByTypeName",
+					_getCourseTypeByTypeNameParameterTypes2);
 
-			MethodHandler methodHandler = new MethodHandler(methodKey,
-					courseTypeId);
+			MethodHandler methodHandler = new MethodHandler(methodKey, typeName);
 
 			Object returnObj = null;
 
@@ -93,8 +155,175 @@ public class CourseTypeServiceHttp {
 		}
 	}
 
+	public static hu.unideb.inf.model.CourseType fetchCourseTypeByTypeName(
+		HttpPrincipal httpPrincipal, java.lang.String typeName)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		try {
+			MethodKey methodKey = new MethodKey(CourseTypeServiceUtil.class,
+					"fetchCourseTypeByTypeName",
+					_fetchCourseTypeByTypeNameParameterTypes3);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, typeName);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.SystemException) {
+					throw (com.liferay.portal.kernel.exception.SystemException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (hu.unideb.inf.model.CourseType)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static hu.unideb.inf.model.CourseType addCourseType(
+		HttpPrincipal httpPrincipal, java.lang.String typeName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			MethodKey methodKey = new MethodKey(CourseTypeServiceUtil.class,
+					"addCourseType", _addCourseTypeParameterTypes4);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					typeName, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				if (e instanceof com.liferay.portal.kernel.exception.SystemException) {
+					throw (com.liferay.portal.kernel.exception.SystemException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (hu.unideb.inf.model.CourseType)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static hu.unideb.inf.model.CourseType deleteCourseType(
+		HttpPrincipal httpPrincipal, long courseTypeId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			MethodKey methodKey = new MethodKey(CourseTypeServiceUtil.class,
+					"deleteCourseType", _deleteCourseTypeParameterTypes5);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey,
+					courseTypeId, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				if (e instanceof com.liferay.portal.kernel.exception.SystemException) {
+					throw (com.liferay.portal.kernel.exception.SystemException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (hu.unideb.inf.model.CourseType)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
+	public static hu.unideb.inf.model.CourseType updateCourseType(
+		HttpPrincipal httpPrincipal, long userId, long courseTypeId,
+		java.lang.String typeName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			MethodKey methodKey = new MethodKey(CourseTypeServiceUtil.class,
+					"updateCourseType", _updateCourseTypeParameterTypes6);
+
+			MethodHandler methodHandler = new MethodHandler(methodKey, userId,
+					courseTypeId, typeName, serviceContext);
+
+			Object returnObj = null;
+
+			try {
+				returnObj = TunnelUtil.invoke(httpPrincipal, methodHandler);
+			}
+			catch (Exception e) {
+				if (e instanceof com.liferay.portal.kernel.exception.PortalException) {
+					throw (com.liferay.portal.kernel.exception.PortalException)e;
+				}
+
+				if (e instanceof com.liferay.portal.kernel.exception.SystemException) {
+					throw (com.liferay.portal.kernel.exception.SystemException)e;
+				}
+
+				throw new com.liferay.portal.kernel.exception.SystemException(e);
+			}
+
+			return (hu.unideb.inf.model.CourseType)returnObj;
+		}
+		catch (com.liferay.portal.kernel.exception.SystemException se) {
+			_log.error(se, se);
+
+			throw se;
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(CourseTypeServiceHttp.class);
-	private static final Class<?>[] _getCourseTypeByCourseTypeIdParameterTypes0 = new Class[] {
+	private static final Class<?>[] _getCourseTypeParameterTypes0 = new Class[] {
 			long.class
+		};
+	private static final Class<?>[] _getCourseTypesParameterTypes1 = new Class[] {
+			
+		};
+	private static final Class<?>[] _getCourseTypeByTypeNameParameterTypes2 = new Class[] {
+			java.lang.String.class
+		};
+	private static final Class<?>[] _fetchCourseTypeByTypeNameParameterTypes3 = new Class[] {
+			java.lang.String.class
+		};
+	private static final Class<?>[] _addCourseTypeParameterTypes4 = new Class[] {
+			java.lang.String.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _deleteCourseTypeParameterTypes5 = new Class[] {
+			long.class, com.liferay.portal.kernel.service.ServiceContext.class
+		};
+	private static final Class<?>[] _updateCourseTypeParameterTypes6 = new Class[] {
+			long.class, long.class, java.lang.String.class,
+			com.liferay.portal.kernel.service.ServiceContext.class
 		};
 }

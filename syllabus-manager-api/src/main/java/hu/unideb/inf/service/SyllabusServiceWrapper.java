@@ -32,6 +32,63 @@ public class SyllabusServiceWrapper implements SyllabusService,
 		_syllabusService = syllabusService;
 	}
 
+	@Override
+	public hu.unideb.inf.model.Syllabus addSyllabus(long timetableCourseId,
+		java.lang.String competence, java.lang.String ethicalStandards,
+		java.lang.String topics, java.lang.String educationalMaterials,
+		java.lang.String recommendedLiterature, java.lang.String weeklyTasks,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _syllabusService.addSyllabus(timetableCourseId, competence,
+			ethicalStandards, topics, educationalMaterials,
+			recommendedLiterature, weeklyTasks, serviceContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Syllabus deleteSyllabus(long syllabusId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _syllabusService.deleteSyllabus(syllabusId, serviceContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Syllabus getSyllabus(long syllabusId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _syllabusService.getSyllabus(syllabusId);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Syllabus updateStatus(long userId, long classPK,
+		int status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext,
+		java.util.Map<java.lang.String, java.io.Serializable> workflowContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _syllabusService.updateStatus(userId, classPK, status,
+			serviceContext, workflowContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Syllabus updateSyllabus(long userId,
+		long syllabusId, long timetableCourseId, java.lang.String competence,
+		java.lang.String ethicalStandards, java.lang.String topics,
+		java.lang.String educationalMaterials,
+		java.lang.String recommendedLiterature, java.lang.String weeklyTasks,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _syllabusService.updateSyllabus(userId, syllabusId,
+			timetableCourseId, competence, ethicalStandards, topics,
+			educationalMaterials, recommendedLiterature, weeklyTasks,
+			serviceContext);
+	}
+
+	@Override
+	public int getSyllabusesCountByTimetableCourseId(long timetableCourseId) {
+		return _syllabusService.getSyllabusesCountByTimetableCourseId(timetableCourseId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -40,6 +97,24 @@ public class SyllabusServiceWrapper implements SyllabusService,
 	@Override
 	public java.lang.String getOSGiServiceIdentifier() {
 		return _syllabusService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.Syllabus> getSyllabuses() {
+		return _syllabusService.getSyllabuses();
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.Syllabus> getSyllabusesByTimetableCourseId(
+		long timetableCourseId) {
+		return _syllabusService.getSyllabusesByTimetableCourseId(timetableCourseId);
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.Syllabus> getSyllabusesByTimetableCourseId(
+		long timetableCourseId, int start, int end) {
+		return _syllabusService.getSyllabusesByTimetableCourseId(timetableCourseId,
+			start, end);
 	}
 
 	@Override

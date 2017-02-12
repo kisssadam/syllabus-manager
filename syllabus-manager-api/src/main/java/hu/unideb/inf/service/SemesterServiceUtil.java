@@ -41,6 +41,63 @@ public class SemesterServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link hu.unideb.inf.service.impl.SemesterServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static hu.unideb.inf.model.Semester addCurrentSemester(
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().addCurrentSemester(serviceContext);
+	}
+
+	public static hu.unideb.inf.model.Semester addNextSemester(
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().addNextSemester(serviceContext);
+	}
+
+	public static hu.unideb.inf.model.Semester addSemester(int beginYear,
+		int endYear, int division,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addSemester(beginYear, endYear, division, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.Semester deleteSemester(long semesterId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteSemester(semesterId, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.Semester getLatestSemester()
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.exception.NoSuchSemesterException {
+		return getService().getLatestSemester();
+	}
+
+	public static hu.unideb.inf.model.Semester getSemester(long semesterId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getSemester(semesterId);
+	}
+
+	public static hu.unideb.inf.model.Semester getSemesterByB_E_D(
+		int beginYear, int endYear, int division)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.exception.NoSuchSemesterException {
+		return getService().getSemesterByB_E_D(beginYear, endYear, division);
+	}
+
+	public static hu.unideb.inf.model.Semester updateSemester(long userId,
+		long semesterId, int beginYear, int endYear, int division,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateSemester(userId, semesterId, beginYear, endYear,
+			division, serviceContext);
+	}
 
 	/**
 	* Returns the OSGi service identifier.
@@ -49,6 +106,11 @@ public class SemesterServiceUtil {
 	*/
 	public static java.lang.String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List<hu.unideb.inf.model.Semester> getSemesters()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSemesters();
 	}
 
 	public static SemesterService getService() {

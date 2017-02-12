@@ -16,9 +16,16 @@ package hu.unideb.inf.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import hu.unideb.inf.service.SyllabusServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link hu.unideb.inf.service.SyllabusServiceUtil} service utility. The
+ * {@link SyllabusServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,141 @@ import aQute.bnd.annotation.ProviderType;
  * @author Adam Kiss
  * @see SyllabusServiceHttp
  * @see hu.unideb.inf.model.SyllabusSoap
- * @see hu.unideb.inf.service.SyllabusServiceUtil
+ * @see SyllabusServiceUtil
  * @generated
  */
 @ProviderType
 public class SyllabusServiceSoap {
+	public static hu.unideb.inf.model.SyllabusSoap[] getSyllabuses()
+		throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.Syllabus> returnValue = SyllabusServiceUtil.getSyllabuses();
+
+			return hu.unideb.inf.model.SyllabusSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SyllabusSoap[] getSyllabusesByTimetableCourseId(
+		long timetableCourseId) throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.Syllabus> returnValue = SyllabusServiceUtil.getSyllabusesByTimetableCourseId(timetableCourseId);
+
+			return hu.unideb.inf.model.SyllabusSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SyllabusSoap[] getSyllabusesByTimetableCourseId(
+		long timetableCourseId, int start, int end) throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.Syllabus> returnValue = SyllabusServiceUtil.getSyllabusesByTimetableCourseId(timetableCourseId,
+					start, end);
+
+			return hu.unideb.inf.model.SyllabusSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getSyllabusesCountByTimetableCourseId(
+		long timetableCourseId) throws RemoteException {
+		try {
+			int returnValue = SyllabusServiceUtil.getSyllabusesCountByTimetableCourseId(timetableCourseId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SyllabusSoap getSyllabus(long syllabusId)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Syllabus returnValue = SyllabusServiceUtil.getSyllabus(syllabusId);
+
+			return hu.unideb.inf.model.SyllabusSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SyllabusSoap addSyllabus(
+		long timetableCourseId, java.lang.String competence,
+		java.lang.String ethicalStandards, java.lang.String topics,
+		java.lang.String educationalMaterials,
+		java.lang.String recommendedLiterature, java.lang.String weeklyTasks,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Syllabus returnValue = SyllabusServiceUtil.addSyllabus(timetableCourseId,
+					competence, ethicalStandards, topics, educationalMaterials,
+					recommendedLiterature, weeklyTasks, serviceContext);
+
+			return hu.unideb.inf.model.SyllabusSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SyllabusSoap updateSyllabus(long userId,
+		long syllabusId, long timetableCourseId, java.lang.String competence,
+		java.lang.String ethicalStandards, java.lang.String topics,
+		java.lang.String educationalMaterials,
+		java.lang.String recommendedLiterature, java.lang.String weeklyTasks,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Syllabus returnValue = SyllabusServiceUtil.updateSyllabus(userId,
+					syllabusId, timetableCourseId, competence,
+					ethicalStandards, topics, educationalMaterials,
+					recommendedLiterature, weeklyTasks, serviceContext);
+
+			return hu.unideb.inf.model.SyllabusSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SyllabusSoap deleteSyllabus(
+		long syllabusId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Syllabus returnValue = SyllabusServiceUtil.deleteSyllabus(syllabusId,
+					serviceContext);
+
+			return hu.unideb.inf.model.SyllabusSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SyllabusServiceSoap.class);
 }

@@ -32,6 +32,63 @@ public class SubjectServiceWrapper implements SubjectService,
 		_subjectService = subjectService;
 	}
 
+	@Override
+	public hu.unideb.inf.model.Subject addSubject(
+		java.lang.String subjectCode, java.lang.String subjectName, int credit,
+		long curriculumId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _subjectService.addSubject(subjectCode, subjectName, credit,
+			curriculumId, serviceContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Subject deleteSubject(long subjectId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _subjectService.deleteSubject(subjectId, serviceContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Subject fetchSubjectByC_S(long curriculumId,
+		java.lang.String subjectCode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _subjectService.fetchSubjectByC_S(curriculumId, subjectCode);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Subject getSubject(long subjectId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _subjectService.getSubject(subjectId);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Subject getSubjectByC_S(long curriculumId,
+		java.lang.String subjectCode)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.exception.NoSuchSubjectException {
+		return _subjectService.getSubjectByC_S(curriculumId, subjectCode);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Subject updateSubject(long userId,
+		long subjectId, java.lang.String subjectCode,
+		java.lang.String subjectName, int credit, long curriculumId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _subjectService.updateSubject(userId, subjectId, subjectCode,
+			subjectName, credit, curriculumId, serviceContext);
+	}
+
+	@Override
+	public int getSubjectsCountByCurriculumId(long curriculumId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _subjectService.getSubjectsCountByCurriculumId(curriculumId);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -43,10 +100,24 @@ public class SubjectServiceWrapper implements SubjectService,
 	}
 
 	@Override
+	public java.util.List<hu.unideb.inf.model.Subject> getSubjects()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _subjectService.getSubjects();
+	}
+
+	@Override
 	public java.util.List<hu.unideb.inf.model.Subject> getSubjectsByCurriculumId(
 		long curriculumId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _subjectService.getSubjectsByCurriculumId(curriculumId);
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.Subject> getSubjectsByCurriculumId(
+		long curriculumId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _subjectService.getSubjectsByCurriculumId(curriculumId, start,
+			end);
 	}
 
 	@Override

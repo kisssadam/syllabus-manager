@@ -16,9 +16,16 @@ package hu.unideb.inf.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import hu.unideb.inf.service.TimetableCourseServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link hu.unideb.inf.service.TimetableCourseServiceUtil} service utility. The
+ * {@link TimetableCourseServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,230 @@ import aQute.bnd.annotation.ProviderType;
  * @author Adam Kiss
  * @see TimetableCourseServiceHttp
  * @see hu.unideb.inf.model.TimetableCourseSoap
- * @see hu.unideb.inf.service.TimetableCourseServiceUtil
+ * @see TimetableCourseServiceUtil
  * @generated
  */
 @ProviderType
 public class TimetableCourseServiceSoap {
+	public static hu.unideb.inf.model.TimetableCourseSoap getTimetableCourse(
+		long timetableCourseId) throws RemoteException {
+		try {
+			hu.unideb.inf.model.TimetableCourse returnValue = TimetableCourseServiceUtil.getTimetableCourse(timetableCourseId);
+
+			return hu.unideb.inf.model.TimetableCourseSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.TimetableCourseSoap[] getTimetableCourses()
+		throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.TimetableCourse> returnValue = TimetableCourseServiceUtil.getTimetableCourses();
+
+			return hu.unideb.inf.model.TimetableCourseSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.TimetableCourseSoap[] getTimetableCoursesBySemesterId(
+		long semesterId) throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.TimetableCourse> returnValue = TimetableCourseServiceUtil.getTimetableCoursesBySemesterId(semesterId);
+
+			return hu.unideb.inf.model.TimetableCourseSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.TimetableCourseSoap[] getTimetableCoursesBySemesterId(
+		long semesterId, int start, int end) throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.TimetableCourse> returnValue = TimetableCourseServiceUtil.getTimetableCoursesBySemesterId(semesterId,
+					start, end);
+
+			return hu.unideb.inf.model.TimetableCourseSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getTimetableCoursesCountBySemesterId(long semesterId)
+		throws RemoteException {
+		try {
+			int returnValue = TimetableCourseServiceUtil.getTimetableCoursesCountBySemesterId(semesterId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.TimetableCourseSoap fetchTimetableCourseByC_S_T_S(
+		long courseId, long semesterId, java.lang.String timetableCourseCode,
+		java.lang.String subjectType) throws RemoteException {
+		try {
+			hu.unideb.inf.model.TimetableCourse returnValue = TimetableCourseServiceUtil.fetchTimetableCourseByC_S_T_S(courseId,
+					semesterId, timetableCourseCode, subjectType);
+
+			return hu.unideb.inf.model.TimetableCourseSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.TimetableCourseSoap[] getTimetableCoursesByC_S(
+		long courseId, long semesterId) throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.TimetableCourse> returnValue = TimetableCourseServiceUtil.getTimetableCoursesByC_S(courseId,
+					semesterId);
+
+			return hu.unideb.inf.model.TimetableCourseSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.TimetableCourseSoap[] getTimetableCoursesByCourseId(
+		long courseId) throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.TimetableCourse> returnValue = TimetableCourseServiceUtil.getTimetableCoursesByCourseId(courseId);
+
+			return hu.unideb.inf.model.TimetableCourseSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.TimetableCourseSoap[] getTimetableCoursesByCourseId(
+		long courseId, int start, int end) throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.TimetableCourse> returnValue = TimetableCourseServiceUtil.getTimetableCoursesByCourseId(courseId,
+					start, end);
+
+			return hu.unideb.inf.model.TimetableCourseSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getTimetableCourseCountByCourseId(long courseId)
+		throws RemoteException {
+		try {
+			int returnValue = TimetableCourseServiceUtil.getTimetableCourseCountByCourseId(courseId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.LecturerSoap[] getLecutersByTimetableCourseId(
+		long timetableCourseId) throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.Lecturer> returnValue = TimetableCourseServiceUtil.getLecutersByTimetableCourseId(timetableCourseId);
+
+			return hu.unideb.inf.model.LecturerSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.TimetableCourseSoap addTimetableCourse(
+		long courseId, long semesterId, java.lang.String timetableCourseCode,
+		java.lang.String subjectType, int recommendedTerm, int limit,
+		long[] lecturerIds, java.lang.String classScheduleInfo,
+		java.lang.String description,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.TimetableCourse returnValue = TimetableCourseServiceUtil.addTimetableCourse(courseId,
+					semesterId, timetableCourseCode, subjectType,
+					recommendedTerm, limit, lecturerIds, classScheduleInfo,
+					description, serviceContext);
+
+			return hu.unideb.inf.model.TimetableCourseSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.TimetableCourseSoap updateTimetableCourse(
+		long userId, long timetableCourseId, long courseId, long semesterId,
+		java.lang.String timetableCourseCode, java.lang.String subjectType,
+		int recommendedTerm, int limit, long[] lecturerIds,
+		java.lang.String classScheduleInfo, java.lang.String description,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.TimetableCourse returnValue = TimetableCourseServiceUtil.updateTimetableCourse(userId,
+					timetableCourseId, courseId, semesterId,
+					timetableCourseCode, subjectType, recommendedTerm, limit,
+					lecturerIds, classScheduleInfo, description, serviceContext);
+
+			return hu.unideb.inf.model.TimetableCourseSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.TimetableCourseSoap deleteTimetableCourse(
+		long timetableCourseId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.TimetableCourse returnValue = TimetableCourseServiceUtil.deleteTimetableCourse(timetableCourseId,
+					serviceContext);
+
+			return hu.unideb.inf.model.TimetableCourseSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(TimetableCourseServiceSoap.class);
 }

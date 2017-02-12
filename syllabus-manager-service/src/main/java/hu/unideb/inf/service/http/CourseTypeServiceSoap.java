@@ -65,10 +65,103 @@ import java.rmi.RemoteException;
  */
 @ProviderType
 public class CourseTypeServiceSoap {
-	public static hu.unideb.inf.model.CourseTypeSoap getCourseTypeByCourseTypeId(
+	public static hu.unideb.inf.model.CourseTypeSoap getCourseType(
 		long courseTypeId) throws RemoteException {
 		try {
-			hu.unideb.inf.model.CourseType returnValue = CourseTypeServiceUtil.getCourseTypeByCourseTypeId(courseTypeId);
+			hu.unideb.inf.model.CourseType returnValue = CourseTypeServiceUtil.getCourseType(courseTypeId);
+
+			return hu.unideb.inf.model.CourseTypeSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.CourseTypeSoap[] getCourseTypes()
+		throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.CourseType> returnValue = CourseTypeServiceUtil.getCourseTypes();
+
+			return hu.unideb.inf.model.CourseTypeSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.CourseTypeSoap getCourseTypeByTypeName(
+		java.lang.String typeName) throws RemoteException {
+		try {
+			hu.unideb.inf.model.CourseType returnValue = CourseTypeServiceUtil.getCourseTypeByTypeName(typeName);
+
+			return hu.unideb.inf.model.CourseTypeSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.CourseTypeSoap fetchCourseTypeByTypeName(
+		java.lang.String typeName) throws RemoteException {
+		try {
+			hu.unideb.inf.model.CourseType returnValue = CourseTypeServiceUtil.fetchCourseTypeByTypeName(typeName);
+
+			return hu.unideb.inf.model.CourseTypeSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.CourseTypeSoap addCourseType(
+		java.lang.String typeName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.CourseType returnValue = CourseTypeServiceUtil.addCourseType(typeName,
+					serviceContext);
+
+			return hu.unideb.inf.model.CourseTypeSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.CourseTypeSoap deleteCourseType(
+		long courseTypeId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.CourseType returnValue = CourseTypeServiceUtil.deleteCourseType(courseTypeId,
+					serviceContext);
+
+			return hu.unideb.inf.model.CourseTypeSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.CourseTypeSoap updateCourseType(
+		long userId, long courseTypeId, java.lang.String typeName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.CourseType returnValue = CourseTypeServiceUtil.updateCourseType(userId,
+					courseTypeId, typeName, serviceContext);
 
 			return hu.unideb.inf.model.CourseTypeSoap.toSoapModel(returnValue);
 		}

@@ -65,12 +65,155 @@ import java.rmi.RemoteException;
  */
 @ProviderType
 public class SubjectServiceSoap {
+	public static hu.unideb.inf.model.SubjectSoap getSubject(long subjectId)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Subject returnValue = SubjectServiceUtil.getSubject(subjectId);
+
+			return hu.unideb.inf.model.SubjectSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SubjectSoap[] getSubjects()
+		throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.Subject> returnValue = SubjectServiceUtil.getSubjects();
+
+			return hu.unideb.inf.model.SubjectSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SubjectSoap getSubjectByC_S(
+		long curriculumId, java.lang.String subjectCode)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Subject returnValue = SubjectServiceUtil.getSubjectByC_S(curriculumId,
+					subjectCode);
+
+			return hu.unideb.inf.model.SubjectSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SubjectSoap fetchSubjectByC_S(
+		long curriculumId, java.lang.String subjectCode)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Subject returnValue = SubjectServiceUtil.fetchSubjectByC_S(curriculumId,
+					subjectCode);
+
+			return hu.unideb.inf.model.SubjectSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static hu.unideb.inf.model.SubjectSoap[] getSubjectsByCurriculumId(
 		long curriculumId) throws RemoteException {
 		try {
 			java.util.List<hu.unideb.inf.model.Subject> returnValue = SubjectServiceUtil.getSubjectsByCurriculumId(curriculumId);
 
 			return hu.unideb.inf.model.SubjectSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SubjectSoap[] getSubjectsByCurriculumId(
+		long curriculumId, int start, int end) throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.Subject> returnValue = SubjectServiceUtil.getSubjectsByCurriculumId(curriculumId,
+					start, end);
+
+			return hu.unideb.inf.model.SubjectSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getSubjectsCountByCurriculumId(long curriculumId)
+		throws RemoteException {
+		try {
+			int returnValue = SubjectServiceUtil.getSubjectsCountByCurriculumId(curriculumId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SubjectSoap addSubject(
+		java.lang.String subjectCode, java.lang.String subjectName, int credit,
+		long curriculumId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Subject returnValue = SubjectServiceUtil.addSubject(subjectCode,
+					subjectName, credit, curriculumId, serviceContext);
+
+			return hu.unideb.inf.model.SubjectSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SubjectSoap deleteSubject(
+		long subjectId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Subject returnValue = SubjectServiceUtil.deleteSubject(subjectId,
+					serviceContext);
+
+			return hu.unideb.inf.model.SubjectSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SubjectSoap updateSubject(long userId,
+		long subjectId, java.lang.String subjectCode,
+		java.lang.String subjectName, int credit, long curriculumId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Subject returnValue = SubjectServiceUtil.updateSubject(userId,
+					subjectId, subjectCode, subjectName, credit, curriculumId,
+					serviceContext);
+
+			return hu.unideb.inf.model.SubjectSoap.toSoapModel(returnValue);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

@@ -41,6 +41,61 @@ public class SyllabusServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link hu.unideb.inf.service.impl.SyllabusServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static hu.unideb.inf.model.Syllabus addSyllabus(
+		long timetableCourseId, java.lang.String competence,
+		java.lang.String ethicalStandards, java.lang.String topics,
+		java.lang.String educationalMaterials,
+		java.lang.String recommendedLiterature, java.lang.String weeklyTasks,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addSyllabus(timetableCourseId, competence,
+			ethicalStandards, topics, educationalMaterials,
+			recommendedLiterature, weeklyTasks, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.Syllabus deleteSyllabus(long syllabusId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteSyllabus(syllabusId, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.Syllabus getSyllabus(long syllabusId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getSyllabus(syllabusId);
+	}
+
+	public static hu.unideb.inf.model.Syllabus updateStatus(long userId,
+		long classPK, int status,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext,
+		java.util.Map<java.lang.String, java.io.Serializable> workflowContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService()
+				   .updateStatus(userId, classPK, status, serviceContext,
+			workflowContext);
+	}
+
+	public static hu.unideb.inf.model.Syllabus updateSyllabus(long userId,
+		long syllabusId, long timetableCourseId, java.lang.String competence,
+		java.lang.String ethicalStandards, java.lang.String topics,
+		java.lang.String educationalMaterials,
+		java.lang.String recommendedLiterature, java.lang.String weeklyTasks,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateSyllabus(userId, syllabusId, timetableCourseId,
+			competence, ethicalStandards, topics, educationalMaterials,
+			recommendedLiterature, weeklyTasks, serviceContext);
+	}
+
+	public static int getSyllabusesCountByTimetableCourseId(
+		long timetableCourseId) {
+		return getService()
+				   .getSyllabusesCountByTimetableCourseId(timetableCourseId);
+	}
 
 	/**
 	* Returns the OSGi service identifier.
@@ -49,6 +104,22 @@ public class SyllabusServiceUtil {
 	*/
 	public static java.lang.String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List<hu.unideb.inf.model.Syllabus> getSyllabuses() {
+		return getService().getSyllabuses();
+	}
+
+	public static java.util.List<hu.unideb.inf.model.Syllabus> getSyllabusesByTimetableCourseId(
+		long timetableCourseId) {
+		return getService().getSyllabusesByTimetableCourseId(timetableCourseId);
+	}
+
+	public static java.util.List<hu.unideb.inf.model.Syllabus> getSyllabusesByTimetableCourseId(
+		long timetableCourseId, int start, int end) {
+		return getService()
+				   .getSyllabusesByTimetableCourseId(timetableCourseId, start,
+			end);
 	}
 
 	public static SyllabusService getService() {

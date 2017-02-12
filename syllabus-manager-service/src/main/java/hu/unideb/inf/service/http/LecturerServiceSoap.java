@@ -16,9 +16,16 @@ package hu.unideb.inf.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import hu.unideb.inf.service.LecturerServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link hu.unideb.inf.service.LecturerServiceUtil} service utility. The
+ * {@link LecturerServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,131 @@ import aQute.bnd.annotation.ProviderType;
  * @author Adam Kiss
  * @see LecturerServiceHttp
  * @see hu.unideb.inf.model.LecturerSoap
- * @see hu.unideb.inf.service.LecturerServiceUtil
+ * @see LecturerServiceUtil
  * @generated
  */
 @ProviderType
 public class LecturerServiceSoap {
+	public static hu.unideb.inf.model.LecturerSoap getLecturer(long lecturerId)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Lecturer returnValue = LecturerServiceUtil.getLecturer(lecturerId);
+
+			return hu.unideb.inf.model.LecturerSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.LecturerSoap[] getLecturers()
+		throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.Lecturer> returnValue = LecturerServiceUtil.getLecturers();
+
+			return hu.unideb.inf.model.LecturerSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.LecturerSoap[] getLecturersByIds(
+		long[] lecturerIds) throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.Lecturer> returnValue = LecturerServiceUtil.getLecturersByIds(lecturerIds);
+
+			return hu.unideb.inf.model.LecturerSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.LecturerSoap getLecturerByName(
+		java.lang.String lecturerName) throws RemoteException {
+		try {
+			hu.unideb.inf.model.Lecturer returnValue = LecturerServiceUtil.getLecturerByName(lecturerName);
+
+			return hu.unideb.inf.model.LecturerSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.LecturerSoap fetchLecturerByName(
+		java.lang.String lecturerName) throws RemoteException {
+		try {
+			hu.unideb.inf.model.Lecturer returnValue = LecturerServiceUtil.fetchLecturerByName(lecturerName);
+
+			return hu.unideb.inf.model.LecturerSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.LecturerSoap addLecturer(
+		java.lang.String lecturerName, long lecturerUserId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Lecturer returnValue = LecturerServiceUtil.addLecturer(lecturerName,
+					lecturerUserId, serviceContext);
+
+			return hu.unideb.inf.model.LecturerSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.LecturerSoap deleteLecturer(
+		long lecturerId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Lecturer returnValue = LecturerServiceUtil.deleteLecturer(lecturerId,
+					serviceContext);
+
+			return hu.unideb.inf.model.LecturerSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.LecturerSoap updateLecturer(long userId,
+		long lecturerId, java.lang.String lecturerName, long lecturerUserId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Lecturer returnValue = LecturerServiceUtil.updateLecturer(userId,
+					lecturerId, lecturerName, lecturerUserId, serviceContext);
+
+			return hu.unideb.inf.model.LecturerSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(LecturerServiceSoap.class);
 }

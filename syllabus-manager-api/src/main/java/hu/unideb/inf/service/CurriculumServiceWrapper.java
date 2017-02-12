@@ -32,6 +32,56 @@ public class CurriculumServiceWrapper implements CurriculumService,
 		_curriculumService = curriculumService;
 	}
 
+	@Override
+	public hu.unideb.inf.model.Curriculum addCurriculum(
+		java.lang.String curriculumCode, java.lang.String curriculumName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _curriculumService.addCurriculum(curriculumCode, curriculumName,
+			serviceContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Curriculum deleteCurriculum(long curriculumId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _curriculumService.deleteCurriculum(curriculumId, serviceContext);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Curriculum fetchCurriculumByCode(
+		java.lang.String curriculumCode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _curriculumService.fetchCurriculumByCode(curriculumCode);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Curriculum getCurriculum(long curriculumId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return _curriculumService.getCurriculum(curriculumId);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Curriculum getCurriculumByCode(
+		java.lang.String curriculumCode)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.exception.NoSuchCurriculumException {
+		return _curriculumService.getCurriculumByCode(curriculumCode);
+	}
+
+	@Override
+	public hu.unideb.inf.model.Curriculum updateCurriculum(long userId,
+		long curriculumId, java.lang.String curriculumCode,
+		java.lang.String curriculumName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _curriculumService.updateCurriculum(userId, curriculumId,
+			curriculumCode, curriculumName, serviceContext);
+	}
+
 	/**
 	* Returns the OSGi service identifier.
 	*
@@ -40,6 +90,12 @@ public class CurriculumServiceWrapper implements CurriculumService,
 	@Override
 	public java.lang.String getOSGiServiceIdentifier() {
 		return _curriculumService.getOSGiServiceIdentifier();
+	}
+
+	@Override
+	public java.util.List<hu.unideb.inf.model.Curriculum> getCurriculums()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _curriculumService.getCurriculums();
 	}
 
 	@Override

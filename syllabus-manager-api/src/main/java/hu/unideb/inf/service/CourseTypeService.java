@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
 import com.liferay.portal.kernel.transaction.Propagation;
@@ -28,6 +29,8 @@ import com.liferay.portal.kernel.transaction.Transactional;
 
 import hu.unideb.inf.exception.NoSuchCourseTypeException;
 import hu.unideb.inf.model.CourseType;
+
+import java.util.List;
 
 /**
  * Provides the remote service interface for CourseType. Methods of this
@@ -53,9 +56,27 @@ public interface CourseTypeService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link CourseTypeServiceUtil} to access the course type remote service. Add custom service methods to {@link hu.unideb.inf.service.impl.CourseTypeServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public CourseType addCourseType(java.lang.String typeName,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
+	public CourseType deleteCourseType(long courseTypeId,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public CourseType getCourseTypeByCourseTypeId(long courseTypeId)
+	public CourseType fetchCourseTypeByTypeName(java.lang.String typeName)
+		throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CourseType getCourseType(long courseTypeId)
+		throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public CourseType getCourseTypeByTypeName(java.lang.String typeName)
 		throws SystemException, NoSuchCourseTypeException;
+
+	public CourseType updateCourseType(long userId, long courseTypeId,
+		java.lang.String typeName, ServiceContext serviceContext)
+		throws PortalException, SystemException;
 
 	/**
 	* Returns the OSGi service identifier.
@@ -63,4 +84,7 @@ public interface CourseTypeService extends BaseService {
 	* @return the OSGi service identifier
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<CourseType> getCourseTypes() throws SystemException;
 }

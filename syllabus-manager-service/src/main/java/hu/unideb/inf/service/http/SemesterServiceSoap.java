@@ -16,9 +16,16 @@ package hu.unideb.inf.service.http;
 
 import aQute.bnd.annotation.ProviderType;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import hu.unideb.inf.service.SemesterServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
- * {@link hu.unideb.inf.service.SemesterServiceUtil} service utility. The
+ * {@link SemesterServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
@@ -53,9 +60,148 @@ import aQute.bnd.annotation.ProviderType;
  * @author Adam Kiss
  * @see SemesterServiceHttp
  * @see hu.unideb.inf.model.SemesterSoap
- * @see hu.unideb.inf.service.SemesterServiceUtil
+ * @see SemesterServiceUtil
  * @generated
  */
 @ProviderType
 public class SemesterServiceSoap {
+	public static hu.unideb.inf.model.SemesterSoap getSemester(long semesterId)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Semester returnValue = SemesterServiceUtil.getSemester(semesterId);
+
+			return hu.unideb.inf.model.SemesterSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SemesterSoap[] getSemesters()
+		throws RemoteException {
+		try {
+			java.util.List<hu.unideb.inf.model.Semester> returnValue = SemesterServiceUtil.getSemesters();
+
+			return hu.unideb.inf.model.SemesterSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SemesterSoap getSemesterByB_E_D(
+		int beginYear, int endYear, int division) throws RemoteException {
+		try {
+			hu.unideb.inf.model.Semester returnValue = SemesterServiceUtil.getSemesterByB_E_D(beginYear,
+					endYear, division);
+
+			return hu.unideb.inf.model.SemesterSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SemesterSoap getLatestSemester()
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Semester returnValue = SemesterServiceUtil.getLatestSemester();
+
+			return hu.unideb.inf.model.SemesterSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SemesterSoap addNextSemester(
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Semester returnValue = SemesterServiceUtil.addNextSemester(serviceContext);
+
+			return hu.unideb.inf.model.SemesterSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SemesterSoap addCurrentSemester(
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Semester returnValue = SemesterServiceUtil.addCurrentSemester(serviceContext);
+
+			return hu.unideb.inf.model.SemesterSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SemesterSoap addSemester(int beginYear,
+		int endYear, int division,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Semester returnValue = SemesterServiceUtil.addSemester(beginYear,
+					endYear, division, serviceContext);
+
+			return hu.unideb.inf.model.SemesterSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SemesterSoap deleteSemester(
+		long semesterId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Semester returnValue = SemesterServiceUtil.deleteSemester(semesterId,
+					serviceContext);
+
+			return hu.unideb.inf.model.SemesterSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static hu.unideb.inf.model.SemesterSoap updateSemester(long userId,
+		long semesterId, int beginYear, int endYear, int division,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			hu.unideb.inf.model.Semester returnValue = SemesterServiceUtil.updateSemester(userId,
+					semesterId, beginYear, endYear, division, serviceContext);
+
+			return hu.unideb.inf.model.SemesterSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SemesterServiceSoap.class);
 }

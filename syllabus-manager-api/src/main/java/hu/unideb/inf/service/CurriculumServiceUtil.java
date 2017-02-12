@@ -41,6 +41,52 @@ public class CurriculumServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link hu.unideb.inf.service.impl.CurriculumServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static hu.unideb.inf.model.Curriculum addCurriculum(
+		java.lang.String curriculumCode, java.lang.String curriculumName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addCurriculum(curriculumCode, curriculumName, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.Curriculum deleteCurriculum(
+		long curriculumId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteCurriculum(curriculumId, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.Curriculum fetchCurriculumByCode(
+		java.lang.String curriculumCode)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchCurriculumByCode(curriculumCode);
+	}
+
+	public static hu.unideb.inf.model.Curriculum getCurriculum(
+		long curriculumId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getCurriculum(curriculumId);
+	}
+
+	public static hu.unideb.inf.model.Curriculum getCurriculumByCode(
+		java.lang.String curriculumCode)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.exception.NoSuchCurriculumException {
+		return getService().getCurriculumByCode(curriculumCode);
+	}
+
+	public static hu.unideb.inf.model.Curriculum updateCurriculum(long userId,
+		long curriculumId, java.lang.String curriculumCode,
+		java.lang.String curriculumName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateCurriculum(userId, curriculumId, curriculumCode,
+			curriculumName, serviceContext);
+	}
 
 	/**
 	* Returns the OSGi service identifier.
@@ -49,6 +95,11 @@ public class CurriculumServiceUtil {
 	*/
 	public static java.lang.String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List<hu.unideb.inf.model.Curriculum> getCurriculums()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCurriculums();
 	}
 
 	public static CurriculumService getService() {

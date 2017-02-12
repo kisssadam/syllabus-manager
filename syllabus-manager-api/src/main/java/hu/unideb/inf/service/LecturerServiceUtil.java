@@ -41,6 +41,49 @@ public class LecturerServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link hu.unideb.inf.service.impl.LecturerServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
+	public static hu.unideb.inf.model.Lecturer addLecturer(
+		java.lang.String lecturerName, long lecturerUserId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addLecturer(lecturerName, lecturerUserId, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.Lecturer deleteLecturer(long lecturerId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteLecturer(lecturerId, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.Lecturer fetchLecturerByName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchLecturerByName(lecturerName);
+	}
+
+	public static hu.unideb.inf.model.Lecturer getLecturer(long lecturerId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getLecturer(lecturerId);
+	}
+
+	public static hu.unideb.inf.model.Lecturer getLecturerByName(
+		java.lang.String lecturerName)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.exception.NoSuchLecturerException {
+		return getService().getLecturerByName(lecturerName);
+	}
+
+	public static hu.unideb.inf.model.Lecturer updateLecturer(long userId,
+		long lecturerId, java.lang.String lecturerName, long lecturerUserId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateLecturer(userId, lecturerId, lecturerName,
+			lecturerUserId, serviceContext);
+	}
 
 	/**
 	* Returns the OSGi service identifier.
@@ -49,6 +92,18 @@ public class LecturerServiceUtil {
 	*/
 	public static java.lang.String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List<hu.unideb.inf.model.Lecturer> getLecturers()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getLecturers();
+	}
+
+	public static java.util.List<hu.unideb.inf.model.Lecturer> getLecturersByIds(
+		long[] lecturerIds)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.unideb.inf.exception.NoSuchLecturerException {
+		return getService().getLecturersByIds(lecturerIds);
 	}
 
 	public static LecturerService getService() {

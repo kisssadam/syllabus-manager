@@ -41,11 +41,49 @@ public class CourseTypeServiceUtil {
 	 *
 	 * Never modify this class directly. Add custom service methods to {@link hu.unideb.inf.service.impl.CourseTypeServiceImpl} and rerun ServiceBuilder to regenerate this class.
 	 */
-	public static hu.unideb.inf.model.CourseType getCourseTypeByCourseTypeId(
+	public static hu.unideb.inf.model.CourseType addCourseType(
+		java.lang.String typeName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().addCourseType(typeName, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.CourseType deleteCourseType(
+		long courseTypeId,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteCourseType(courseTypeId, serviceContext);
+	}
+
+	public static hu.unideb.inf.model.CourseType fetchCourseTypeByTypeName(
+		java.lang.String typeName)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchCourseTypeByTypeName(typeName);
+	}
+
+	public static hu.unideb.inf.model.CourseType getCourseType(
 		long courseTypeId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+		return getService().getCourseType(courseTypeId);
+	}
+
+	public static hu.unideb.inf.model.CourseType getCourseTypeByTypeName(
+		java.lang.String typeName)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.exception.NoSuchCourseTypeException {
-		return getService().getCourseTypeByCourseTypeId(courseTypeId);
+		return getService().getCourseTypeByTypeName(typeName);
+	}
+
+	public static hu.unideb.inf.model.CourseType updateCourseType(long userId,
+		long courseTypeId, java.lang.String typeName,
+		com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateCourseType(userId, courseTypeId, typeName,
+			serviceContext);
 	}
 
 	/**
@@ -55,6 +93,11 @@ public class CourseTypeServiceUtil {
 	*/
 	public static java.lang.String getOSGiServiceIdentifier() {
 		return getService().getOSGiServiceIdentifier();
+	}
+
+	public static java.util.List<hu.unideb.inf.model.CourseType> getCourseTypes()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getCourseTypes();
 	}
 
 	public static CourseTypeService getService() {

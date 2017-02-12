@@ -21,9 +21,16 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import hu.unideb.inf.exception.NoSuchLecturerException;
+import hu.unideb.inf.model.Lecturer;
+
+import java.util.List;
 
 /**
  * Provides the remote service interface for Lecturer. Methods of this
@@ -49,6 +56,27 @@ public interface LecturerService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link LecturerServiceUtil} to access the lecturer remote service. Add custom service methods to {@link hu.unideb.inf.service.impl.LecturerServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public Lecturer addLecturer(java.lang.String lecturerName,
+		long lecturerUserId, ServiceContext serviceContext)
+		throws PortalException, SystemException;
+
+	public Lecturer deleteLecturer(long lecturerId,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Lecturer fetchLecturerByName(java.lang.String lecturerName)
+		throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Lecturer getLecturer(long lecturerId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Lecturer getLecturerByName(java.lang.String lecturerName)
+		throws SystemException, NoSuchLecturerException;
+
+	public Lecturer updateLecturer(long userId, long lecturerId,
+		java.lang.String lecturerName, long lecturerUserId,
+		ServiceContext serviceContext) throws PortalException, SystemException;
 
 	/**
 	* Returns the OSGi service identifier.
@@ -56,4 +84,11 @@ public interface LecturerService extends BaseService {
 	* @return the OSGi service identifier
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Lecturer> getLecturers() throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Lecturer> getLecturersByIds(long[] lecturerIds)
+		throws SystemException, NoSuchLecturerException;
 }

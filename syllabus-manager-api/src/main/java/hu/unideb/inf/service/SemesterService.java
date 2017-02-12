@@ -21,9 +21,16 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.jsonwebservice.JSONWebService;
 import com.liferay.portal.kernel.security.access.control.AccessControlled;
 import com.liferay.portal.kernel.service.BaseService;
+import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.spring.osgi.OSGiBeanProperties;
 import com.liferay.portal.kernel.transaction.Isolation;
+import com.liferay.portal.kernel.transaction.Propagation;
 import com.liferay.portal.kernel.transaction.Transactional;
+
+import hu.unideb.inf.exception.NoSuchSemesterException;
+import hu.unideb.inf.model.Semester;
+
+import java.util.List;
 
 /**
  * Provides the remote service interface for Semester. Methods of this
@@ -49,6 +56,32 @@ public interface SemesterService extends BaseService {
 	 *
 	 * Never modify or reference this interface directly. Always use {@link SemesterServiceUtil} to access the semester remote service. Add custom service methods to {@link hu.unideb.inf.service.impl.SemesterServiceImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public Semester addCurrentSemester(ServiceContext serviceContext)
+		throws PortalException, SystemException;
+
+	public Semester addNextSemester(ServiceContext serviceContext)
+		throws PortalException, SystemException;
+
+	public Semester addSemester(int beginYear, int endYear, int division,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
+	public Semester deleteSemester(long semesterId,
+		ServiceContext serviceContext) throws PortalException, SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Semester getLatestSemester()
+		throws SystemException, NoSuchSemesterException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Semester getSemester(long semesterId) throws PortalException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Semester getSemesterByB_E_D(int beginYear, int endYear, int division)
+		throws SystemException, NoSuchSemesterException;
+
+	public Semester updateSemester(long userId, long semesterId, int beginYear,
+		int endYear, int division, ServiceContext serviceContext)
+		throws PortalException, SystemException;
 
 	/**
 	* Returns the OSGi service identifier.
@@ -56,4 +89,7 @@ public interface SemesterService extends BaseService {
 	* @return the OSGi service identifier
 	*/
 	public java.lang.String getOSGiServiceIdentifier();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Semester> getSemesters() throws SystemException;
 }
