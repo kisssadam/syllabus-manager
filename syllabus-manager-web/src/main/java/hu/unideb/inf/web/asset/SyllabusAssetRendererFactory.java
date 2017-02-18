@@ -10,6 +10,8 @@ import com.liferay.asset.kernel.model.AssetRenderer;
 import com.liferay.asset.kernel.model.AssetRendererFactory;
 import com.liferay.asset.kernel.model.BaseAssetRendererFactory;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.portlet.LiferayPortletRequest;
 import com.liferay.portal.kernel.portlet.LiferayPortletResponse;
@@ -37,6 +39,8 @@ import hu.unideb.inf.web.constants.WebKeys;
 )
 public class SyllabusAssetRendererFactory extends BaseAssetRendererFactory<Syllabus> {
 
+	private static final Log log = LogFactoryUtil.getLog(SyllabusAssetRendererFactory.class);
+	
 	public static final String TYPE = "syllabus";
 	
 	private SyllabusLocalService syllabusLocalService;
@@ -48,8 +52,16 @@ public class SyllabusAssetRendererFactory extends BaseAssetRendererFactory<Sylla
 	
 	@Override
 	public AssetRenderer<Syllabus> getAssetRenderer(long classPK, int type) throws PortalException {
+		if (log.isTraceEnabled()) {
+			log.trace(String.format("getAssetRenderer() classPK: %d, type: %d", classPK, type));
+		}
+		
 		Syllabus syllabus = syllabusLocalService.getSyllabus(classPK);
-
+		
+		if (log.isTraceEnabled()) {
+			log.trace(String.format("getAssetRenderer() syllabus: '%s'", syllabus));
+		}
+		
 		return new SyllabusAssetRenderer(syllabus);
 	}
 	

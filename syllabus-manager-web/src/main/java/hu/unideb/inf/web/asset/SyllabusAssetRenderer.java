@@ -9,8 +9,6 @@ import javax.portlet.WindowState;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.osgi.service.component.annotations.Reference;
-
 import com.liferay.asset.kernel.model.AssetRendererFactory;
 import com.liferay.asset.kernel.model.BaseJSPAssetRenderer;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -32,11 +30,11 @@ import hu.unideb.inf.model.Semester;
 import hu.unideb.inf.model.Subject;
 import hu.unideb.inf.model.Syllabus;
 import hu.unideb.inf.model.TimetableCourse;
-import hu.unideb.inf.service.CourseLocalService;
-import hu.unideb.inf.service.CurriculumLocalService;
-import hu.unideb.inf.service.SemesterLocalService;
-import hu.unideb.inf.service.SubjectLocalService;
-import hu.unideb.inf.service.TimetableCourseLocalService;
+import hu.unideb.inf.service.CourseLocalServiceUtil;
+import hu.unideb.inf.service.CurriculumLocalServiceUtil;
+import hu.unideb.inf.service.SemesterLocalServiceUtil;
+import hu.unideb.inf.service.SubjectLocalServiceUtil;
+import hu.unideb.inf.service.TimetableCourseLocalServiceUtil;
 import hu.unideb.inf.service.permission.SyllabusPermission;
 import hu.unideb.inf.util.SyllabusActionKeys;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
@@ -46,45 +44,10 @@ public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> implem
 
 	private static final Log log = LogFactoryUtil.getLog(SyllabusAssetRenderer.class);
 
-	private TimetableCourseLocalService timetableCourseLocalService;
-
-	private CurriculumLocalService curriculumLocalService;
-
-	private SubjectLocalService subjectLocalService;
-
-	private CourseLocalService courseLocalService;
-
-	private SemesterLocalService semesterLocalService;
-
 	private Syllabus syllabus;
 
 	public SyllabusAssetRenderer(Syllabus syllabus) {
 		this.syllabus = syllabus;
-	}
-
-	@Reference(unbind = "-")
-	public void setTimetableCourseLocalService(TimetableCourseLocalService timetableCourseLocalService) {
-		this.timetableCourseLocalService = timetableCourseLocalService;
-	}
-
-	@Reference(unbind = "-")
-	protected void setCurriculumLocalService(CurriculumLocalService curriculumLocalService) {
-		this.curriculumLocalService = curriculumLocalService;
-	}
-
-	@Reference(unbind = "-")
-	protected void setSubjectLocalService(SubjectLocalService subjectLocalService) {
-		this.subjectLocalService = subjectLocalService;
-	}
-
-	@Reference(unbind = "-")
-	public void setCourseLocalService(CourseLocalService courseLocalService) {
-		this.courseLocalService = courseLocalService;
-	}
-
-	@Reference(unbind = "-")
-	public void setSemesterLocalService(SemesterLocalService semesterLocalService) {
-		this.semesterLocalService = semesterLocalService;
 	}
 
 	@Override
@@ -134,15 +97,18 @@ public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> implem
 
 	@Override
 	public String getSummary() {
+		if (log.isTraceEnabled()) {
+			log.trace(String.format("getSummary() syllabus: '%s'", syllabus));
+		}
+		
 		StringBuilder summary = new StringBuilder();
 
 		try {
-			TimetableCourse timetableCourse = timetableCourseLocalService
-					.getTimetableCourse(syllabus.getTimetableCourseId());
-			Course course = courseLocalService.getCourse(timetableCourse.getCourseId());
-			Subject subject = subjectLocalService.getSubject(course.getSubjectId());
-			Curriculum curriculum = curriculumLocalService.getCurriculum(subject.getCurriculumId());
-			Semester semester = semesterLocalService.getSemester(timetableCourse.getSemesterId());
+			TimetableCourse timetableCourse = TimetableCourseLocalServiceUtil.getTimetableCourse(syllabus.getTimetableCourseId());
+			Course course = CourseLocalServiceUtil.getCourse(timetableCourse.getCourseId());
+			Subject subject = SubjectLocalServiceUtil.getSubject(course.getSubjectId());
+			Curriculum curriculum = CurriculumLocalServiceUtil.getCurriculum(subject.getCurriculumId());
+			Semester semester = SemesterLocalServiceUtil.getSemester(timetableCourse.getSemesterId());
 
 			summary.append("Semester: ").append(semester);
 			summary.append(StringPool.NEW_LINE);
