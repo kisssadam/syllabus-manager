@@ -118,6 +118,8 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 	protected String getSyllabusManagerDataCSV() throws PortalException {
 		StringBuilder sb = new StringBuilder();
 		
+		sb.append(getCSVHeader());
+		
 		for (Curriculum curriculum : curriculumLocalService.getCurriculums()) {
 			String curriculumCode = curriculum.getCurriculumCode();
 			String curriculumName = curriculum.getCurriculumName();
@@ -193,6 +195,61 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 				}
 			}
 		}
+		
+		return sb.toString();
+	}
+
+	private Object getCSVHeader() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("curriculumCode");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("curriculumName");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("subjectCode");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("subjectName");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("credit");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("courseTypeName");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("hoursPerSemester");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("hoursPerWeek");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("semesterBeginYear");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("semesterEndYear");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("semesterDivision");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("lecturers");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("timetableCourseCode");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("subjectType");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("recommendedTerm");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("limit");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("classScheduleInfo");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("description");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("competence");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("ethicalStandards");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("topics");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("educationalMaterials");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("recommendedLiterature");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("weeklyTasks");
+		sb.append(StringPool.NEW_LINE);
 		
 		return sb.toString();
 	}
