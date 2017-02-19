@@ -108,12 +108,12 @@
 	http://rasul.work/index.php/2015/09/04/liferay-service-builder-json-javascript/
 --%>
 
-<portlet:resourceURL var="resourceURL"></portlet:resourceURL>
+<portlet:resourceURL id="/syllabusmanager/admin/serve_subjects" var="subjectsResourceURL"></portlet:resourceURL>
 
 <aui:script>
 AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', function(A) {
 	A.one("#<portlet:namespace/>curriculumSelect").on('change', function() {
-		A.io.request('<%=resourceURL%>', {
+		A.io.request('<%=subjectsResourceURL%>', {
              method: 'POST',
              data: {
             	 "<portlet:namespace/>curriculumSelect" : A.one("#<portlet:namespace/>curriculumSelect").val(),

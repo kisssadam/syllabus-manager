@@ -213,12 +213,14 @@
 	</aui:form>
 </div>
 
-<portlet:resourceURL var="resourceURL"></portlet:resourceURL>
+<portlet:resourceURL id="/syllabusmanager/admin/serve_subjects" var="subjectsResourceURL"></portlet:resourceURL>
+<portlet:resourceURL id="/syllabusmanager/admin/serve_courses" var="coursesResourceURL"></portlet:resourceURL>
+<portlet:resourceURL id="/syllabusmanager/admin/serve_timetable_courses" var="timetableCoursesResourceURL"></portlet:resourceURL>
 
 <aui:script>
 AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', function(A) {
 	A.one("#<portlet:namespace/>curriculumSelect").on('change', function() {
-		A.io.request('<%=resourceURL%>', {
+		A.io.request('<%=subjectsResourceURL%>', {
              method: 'POST',
              data: {
             	 "<portlet:namespace/>curriculumSelect" : A.one("#<portlet:namespace/>curriculumSelect").val(),
@@ -255,7 +257,7 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 	});
     
 	A.one("#<portlet:namespace/>subjectSelect").on('change', function() {
-		A.io.request('<%=resourceURL%>', {
+		A.io.request('<%=coursesResourceURL%>', {
 			method :'POST',
 			data: {
 				'<portlet:namespace/>subjectSelect' : A.one("#<portlet:namespace/>subjectSelect").val(),
@@ -293,7 +295,7 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 	});
 
 	A.one("#<portlet:namespace/>courseSelect").on('change', function() {
-		A.io.request('<%=resourceURL%>', {
+		A.io.request('<%=timetableCoursesResourceURL%>', {
 			method :'POST',
 			data: {
 				'<portlet:namespace/>courseSelect' : A.one("#<portlet:namespace/>courseSelect").val(),

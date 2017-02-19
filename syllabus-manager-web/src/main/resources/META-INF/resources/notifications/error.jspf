@@ -48,3 +48,5 @@
 <liferay-ui:error exception="<%=DeleteTimetableCoursesFirstException.class%>" message="delete-timetable-courses-first-exception" />
 
 <liferay-ui:error exception="<%=SyllabusCannotBeDeletedDueToApprovedStatusException.class%>" message="syllabus-cannot-be-deleted-due-to-approved-status-exception" />
+
+<liferay-ui:error exception="<%=ExportDataContentTypeException.class%>" message="export-data-content-type-exception" />

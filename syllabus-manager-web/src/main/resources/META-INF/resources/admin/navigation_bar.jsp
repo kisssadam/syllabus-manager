@@ -141,7 +141,7 @@
         <%--
         dialogos megoldashoz: https://www.liferay.com/community/forums/-/message_boards/message/41261810
         --%>
-        <aui:nav-item dropdown="true" iconCssClass="icon-upload" label="import" selected='false'>
+        <aui:nav-item dropdown="true" iconCssClass="icon-upload-alt" label="import" selected='false'>
         	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.IMPORT_SYLLABUS)%>'>
         		<portlet:renderURL var="importSyllabusURL">
 					<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_IMPORT_SYLLABUS%>" />
@@ -161,6 +161,22 @@
            	</c:if>
         </aui:nav-item>
         
+        <aui:nav-item dropdown="true" iconCssClass="icon-download-alt" label="export" selected='false'>
+        	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.EXPORT_SYLLABUS_DATA)%>'>
+				<portlet:resourceURL id="/syllabusmanager/export_data" var="exportSyllabusManagerDataCsvURL">
+					<liferay-portlet:param name="contentType" value="<%=ContentTypes.TEXT_CSV_UTF8%>" />
+				</portlet:resourceURL>
+				
+				<aui:nav-item href="<%= exportSyllabusManagerDataCsvURL.toString() %>" iconCssClass="icon-file-text" label="export-syllabus-data-csv" />
+
+				<portlet:resourceURL id="/syllabusmanager/export_data" var="exportSyllabusManagerDataXmlURL">
+					<liferay-portlet:param name="contentType" value="<%=ContentTypes.TEXT_XML_UTF8%>" />
+				</portlet:resourceURL>
+				
+				<aui:nav-item href="<%= exportSyllabusManagerDataXmlURL.toString() %>" iconCssClass="icon-file-text" label="export-syllabus-data-xml" />
+        	</c:if>
+        </aui:nav-item>
+        
         <aui:nav-item dropdown="true" iconCssClass="icon-tint" label="danger-zone" selected='false'>
         	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.CLEAR_DATABASE)%>'>
         		<portlet:renderURL var="clearDatabaseURL">
@@ -168,7 +184,7 @@
 					<portlet:param name="backURL" value="${backURL}" />
 				</portlet:renderURL>
 				
-        		<aui:nav-item href="<%= clearDatabaseURL.toString() %>" label="clear-database" />
+        		<aui:nav-item href="<%= clearDatabaseURL.toString() %>" iconCssClass="icon-remove-circle" label="clear-database" />
         	</c:if>
         </aui:nav-item>
     </aui:nav>

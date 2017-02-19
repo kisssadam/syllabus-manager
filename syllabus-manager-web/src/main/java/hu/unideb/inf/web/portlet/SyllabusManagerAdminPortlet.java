@@ -2,8 +2,6 @@ package hu.unideb.inf.web.portlet;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -12,9 +10,6 @@ import java.util.Set;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.Portlet;
-import javax.portlet.PortletException;
-import javax.portlet.ResourceRequest;
-import javax.portlet.ResourceResponse;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
@@ -22,9 +17,6 @@ import org.osgi.service.component.annotations.Reference;
 import com.liferay.portal.kernel.dao.search.SearchContainer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
@@ -1375,133 +1367,6 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	@Override
-	public void serveResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
-			throws IOException, PortletException {
-		log.trace("serveResource()");
-		
-		long curriculumId = ParamUtil.getLong(resourceRequest, "curriculumSelect");
-		String curriculumSelected = ParamUtil.getString(resourceRequest, "curriculumSelected");
-
-		long subjectId = ParamUtil.getLong(resourceRequest, "subjectSelect");
-		String subjectSelected = ParamUtil.getString(resourceRequest, "subjectSelected");
-		
-		long courseId = ParamUtil.getLong(resourceRequest, "courseSelect");
-		String courseSelected = ParamUtil.getString(resourceRequest, "courseSelected");
-
-		if (log.isDebugEnabled()) {
-			log.debug(String.format("curriculumId: %d, curriculumSelected: '%s'", curriculumId, curriculumSelected));
-			log.debug(String.format("subjectId: %d, subjectSelected: '%s'", subjectId, subjectSelected));
-			log.debug(String.format("courseId: %d, courseSelected: '%s'", courseId, courseSelected));
-		}
-
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
-
-		if (curriculumSelected.equalsIgnoreCase("curriculumSelected")) {
-			serveSubjects(curriculumId, jsonArray);
-		}
-		
-		if (subjectSelected.equalsIgnoreCase("subjectSelected")) {
-			serveCourses(subjectId, jsonArray);
-		}
-		
-		if (courseSelected.equalsIgnoreCase("courseSelected")) {
-			serveTimetableCourses(courseId, jsonArray);
-		}
-
-		try (PrintWriter writer = resourceResponse.getWriter()) {
-			writer.write(jsonArray.toString());
-			writer.flush();
-		}
-	}
-
-	private void serveSubjects(long curriculumId, JSONArray jsonArray) {
-		log.trace("Curriculum selected, serving subjects.");
-		try {
-			List<Subject> subjects = subjectService.getSubjectsByCurriculumId(curriculumId);
-
-			if (log.isTraceEnabled()) {
-				log.trace("subjects: " + subjects);
-			}
-			
-			for (Subject subject : subjects) {
-				Subject s = subject.toEscapedModel();
-				
-				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-
-				jsonObject.put("subjectId", s.getSubjectId());
-				jsonObject.put("subjectCode", s.getSubjectCode());
-				jsonObject.put("subjectName", s.getSubjectName());
-
-				jsonArray.put(jsonObject);
-			}
-		} catch (SystemException e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
-		}
-	}
-
-	private void serveCourses(long subjectId, JSONArray jsonArray) {
-		log.trace("Subject selected, serving courses.");
-		try {
-			List<Course> courses = courseService.getCoursesBySubjectId(subjectId);
-
-			if (log.isTraceEnabled()) {
-				log.trace("courses: " + courses);
-			}
-			
-			for (Course course : courses) {
-				Course c = course.toEscapedModel();
-				CourseType ct = courseTypeService.getCourseType(c.getCourseTypeId()).toEscapedModel();
-				
-				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-
-				jsonObject.put("courseId", c.getCourseId());
-				jsonObject.put("courseTypeName", ct.getTypeName());
-				jsonObject.put("hoursPerSemester", c.getHoursPerSemester());
-				jsonObject.put("hoursPerWeek", c.getHoursPerWeek());
-
-				jsonArray.put(jsonObject);
-			}
-		} catch (PortalException | SystemException e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
-		}
-	}
-	
-	private void serveTimetableCourses(long courseId, JSONArray jsonArray) {
-		log.trace("Course selected, serving timetableCourses.");
-		try {
-			List<TimetableCourse> timetableCourses = timetableCourseService.getTimetableCoursesByCourseId(courseId);
-			
-			if (log.isTraceEnabled()) {
-				log.trace("timetableCourses: " + timetableCourses);
-			}
-			
-			for (TimetableCourse timetableCourse : timetableCourses) {
-				TimetableCourse tc = timetableCourse.toEscapedModel();
-
-				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-				
-				jsonObject.put("timetableCourseId", tc.getTimetableCourseId());
-				jsonObject.put("timetableCourseCode", tc.getTimetableCourseCode());
-				jsonObject.put("subjectType", tc.getSubjectType());
-				jsonObject.put("recommendedTerm", tc.getRecommendedTerm());
-				jsonObject.put("limit", tc.getLimit());
-				jsonObject.put("classScheduleInfo", tc.getClassScheduleInfo());
-				jsonObject.put("description", tc.getDescription());
-				
-				jsonArray.put(jsonObject);
-			}
-		} catch (SystemException e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
-		}
-	}
-	
 	@Reference(unbind = "-")
 	protected void setCurriculumService(CurriculumService curriculumService) {
 		this.curriculumService = curriculumService;

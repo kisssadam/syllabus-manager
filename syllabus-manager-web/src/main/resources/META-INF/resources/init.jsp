@@ -27,6 +27,7 @@
 <%@ page import="com.liferay.portal.kernel.util.StringUtil"%>
 <%@ page import="com.liferay.portal.kernel.util.Validator"%>
 <%@ page import="com.liferay.portal.kernel.util.Constants"%>
+<%@ page import="com.liferay.portal.kernel.util.ContentTypes"%>
 
 <%@ page import="com.liferay.portal.kernel.util.PortalUtil"%>
 <%@ page import="com.liferay.portal.kernel.util.FastDateFormatFactoryUtil"%>
@@ -46,7 +47,6 @@
 <%@ page import="hu.unideb.inf.web.constants.WebKeys"%>
 <%@ page import="hu.unideb.inf.util.SyllabusActionKeys"%>
 <%@ page import="hu.unideb.inf.service.util.SemesterHelper"%>
-
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />
