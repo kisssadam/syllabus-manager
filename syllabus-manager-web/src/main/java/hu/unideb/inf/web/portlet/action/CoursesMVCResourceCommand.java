@@ -22,8 +22,8 @@ import com.liferay.portal.kernel.util.ParamUtil;
 
 import hu.unideb.inf.model.Course;
 import hu.unideb.inf.model.CourseType;
-import hu.unideb.inf.service.CourseService;
-import hu.unideb.inf.service.CourseTypeService;
+import hu.unideb.inf.service.CourseLocalService;
+import hu.unideb.inf.service.CourseTypeLocalService;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 
 @Component(
@@ -38,9 +38,9 @@ public class CoursesMVCResourceCommand extends BaseMVCResourceCommand {
 
 	private static final Log log = LogFactoryUtil.getLog(CoursesMVCResourceCommand.class);
 
-	private CourseService courseService;
+	private CourseLocalService courseLocalService;
 
-	private CourseTypeService courseTypeService;
+	private CourseTypeLocalService courseTypeLocalService;
 
 	@Override
 	protected void doServeResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
@@ -67,7 +67,7 @@ public class CoursesMVCResourceCommand extends BaseMVCResourceCommand {
 	private void serveCourses(long subjectId, JSONArray jsonArray) {
 		log.trace("Subject selected, serving courses.");
 		try {
-			List<Course> courses = courseService.getCoursesBySubjectId(subjectId);
+			List<Course> courses = courseLocalService.getCoursesBySubjectId(subjectId);
 
 			if (log.isTraceEnabled()) {
 				log.trace("courses: " + courses);
@@ -75,7 +75,7 @@ public class CoursesMVCResourceCommand extends BaseMVCResourceCommand {
 
 			for (Course course : courses) {
 				Course c = course.toEscapedModel();
-				CourseType ct = courseTypeService.getCourseType(c.getCourseTypeId()).toEscapedModel();
+				CourseType ct = courseTypeLocalService.getCourseType(c.getCourseTypeId()).toEscapedModel();
 
 				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
@@ -94,13 +94,13 @@ public class CoursesMVCResourceCommand extends BaseMVCResourceCommand {
 	}
 
 	@Reference(unbind = "-")
-	protected void setCourseService(CourseService courseService) {
-		this.courseService = courseService;
+	protected void setCourseService(CourseLocalService courseLocalService) {
+		this.courseLocalService = courseLocalService;
 	}
 
 	@Reference(unbind = "-")
-	protected void setCourseTypeService(CourseTypeService courseTypeService) {
-		this.courseTypeService = courseTypeService;
+	protected void setCourseTypeService(CourseTypeLocalService courseTypeLocalService) {
+		this.courseTypeLocalService = courseTypeLocalService;
 	}
 
 }

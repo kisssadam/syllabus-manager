@@ -20,7 +20,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
 import hu.unideb.inf.model.TimetableCourse;
-import hu.unideb.inf.service.TimetableCourseService;
+import hu.unideb.inf.service.TimetableCourseLocalService;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 
 @Component(
@@ -34,9 +34,9 @@ import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 public class TimetableCoursesMVCResourceCommand extends BaseMVCResourceCommand {
 
 	private static final Log log = LogFactoryUtil.getLog(TimetableCoursesMVCResourceCommand.class);
-
-	private TimetableCourseService timetableCourseService;
-
+	
+	private TimetableCourseLocalService timetableCourseLocalService;
+	
 	@Override
 	protected void doServeResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws Exception {
@@ -62,7 +62,7 @@ public class TimetableCoursesMVCResourceCommand extends BaseMVCResourceCommand {
 	private void serveTimetableCourses(long courseId, JSONArray jsonArray) {
 		log.trace("Course selected, serving timetableCourses.");
 		try {
-			List<TimetableCourse> timetableCourses = timetableCourseService.getTimetableCoursesByCourseId(courseId);
+			List<TimetableCourse> timetableCourses = timetableCourseLocalService.getTimetableCoursesByCourseId(courseId);
 
 			if (log.isTraceEnabled()) {
 				log.trace("timetableCourses: " + timetableCourses);
@@ -89,10 +89,10 @@ public class TimetableCoursesMVCResourceCommand extends BaseMVCResourceCommand {
 			}
 		}
 	}
-
+	
 	@Reference(unbind = "-")
-	protected void setTimetableCourseService(TimetableCourseService timetableCourseService) {
-		this.timetableCourseService = timetableCourseService;
+	protected void setTimetableCourseService(TimetableCourseLocalService timetableCourseLocalService) {
+		this.timetableCourseLocalService = timetableCourseLocalService;
 	}
 
 }

@@ -20,7 +20,7 @@ import com.liferay.portal.kernel.portlet.bridges.mvc.MVCResourceCommand;
 import com.liferay.portal.kernel.util.ParamUtil;
 
 import hu.unideb.inf.model.Subject;
-import hu.unideb.inf.service.SubjectService;
+import hu.unideb.inf.service.SubjectLocalService;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 
 @Component(
@@ -35,14 +35,14 @@ public class SubjectsMVCResourceCommand extends BaseMVCResourceCommand {
 
 	private static final Log log = LogFactoryUtil.getLog(SubjectsMVCResourceCommand.class);
 
-	private SubjectService subjectService;
+	private SubjectLocalService subjectLocalService;
 
 	@Override
 	protected void doServeResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws Exception {
 		long curriculumId = ParamUtil.getLong(resourceRequest, "curriculumSelect");
 		String curriculumSelected = ParamUtil.getString(resourceRequest, "curriculumSelected");
-		
+
 		if (log.isDebugEnabled()) {
 			log.debug(String.format("curriculumId: %d, curriculumSelected: '%s'", curriculumId, curriculumSelected));
 		}
@@ -62,7 +62,7 @@ public class SubjectsMVCResourceCommand extends BaseMVCResourceCommand {
 	private void serveSubjects(long curriculumId, JSONArray jsonArray) {
 		log.trace("Curriculum selected, serving subjects.");
 		try {
-			List<Subject> subjects = subjectService.getSubjectsByCurriculumId(curriculumId);
+			List<Subject> subjects = subjectLocalService.getSubjectsByCurriculumId(curriculumId);
 
 			if (log.isTraceEnabled()) {
 				log.trace("subjects: " + subjects);
@@ -87,8 +87,8 @@ public class SubjectsMVCResourceCommand extends BaseMVCResourceCommand {
 	}
 
 	@Reference(unbind = "-")
-	protected void setSubjectService(SubjectService subjectService) {
-		this.subjectService = subjectService;
+	protected void setSubjectService(SubjectLocalService subjectLocalService) {
+		this.subjectLocalService = subjectLocalService;
 	}
 
 }
