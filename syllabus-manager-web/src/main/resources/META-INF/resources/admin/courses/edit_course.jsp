@@ -108,7 +108,7 @@
 	http://rasul.work/index.php/2015/09/04/liferay-service-builder-json-javascript/
 --%>
 
-<portlet:resourceURL id="/syllabusmanager/admin/serve_subjects" var="subjectsResourceURL"></portlet:resourceURL>
+<portlet:resourceURL id="<%=WebKeys.MVC_RESOURCE_SERVE_SUBJECTS%>" var="subjectsResourceURL"></portlet:resourceURL>
 
 <aui:script>
 AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', function(A) {

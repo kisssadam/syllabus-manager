@@ -22,12 +22,13 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import hu.unideb.inf.model.TimetableCourse;
 import hu.unideb.inf.service.TimetableCourseLocalService;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
+import hu.unideb.inf.web.constants.WebKeys;
 
 @Component(
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN,
-		"mvc.command.name=/syllabusmanager/admin/serve_timetable_courses"
+		"mvc.command.name=" + WebKeys.MVC_RESOURCE_SERVE_TIMETABLE_COURSES
 	},
 	service = MVCResourceCommand.class
 )

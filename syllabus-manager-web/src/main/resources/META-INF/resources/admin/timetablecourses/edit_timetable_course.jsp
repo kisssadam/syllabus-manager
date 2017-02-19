@@ -204,8 +204,8 @@
 	</aui:form>
 </div>
 
-<portlet:resourceURL id="/syllabusmanager/admin/serve_subjects" var="subjectsResourceURL"></portlet:resourceURL>
-<portlet:resourceURL id="/syllabusmanager/admin/serve_courses" var="coursesResourceURL"></portlet:resourceURL>
+<portlet:resourceURL id="<%=WebKeys.MVC_RESOURCE_SERVE_SUBJECTS%>" var="subjectsResourceURL"></portlet:resourceURL>
+<portlet:resourceURL id="<%=WebKeys.MVC_RESOURCE_SERVE_COURSES%>" var="coursesResourceURL"></portlet:resourceURL>
 
 <aui:script use="liferay-auto-fields">
 new Liferay.AutoFields({

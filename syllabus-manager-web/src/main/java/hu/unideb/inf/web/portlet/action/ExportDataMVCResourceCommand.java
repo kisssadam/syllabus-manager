@@ -20,12 +20,13 @@ import com.liferay.portal.kernel.util.StringPool;
 
 import hu.unideb.inf.exception.ExportDataContentTypeException;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
+import hu.unideb.inf.web.constants.WebKeys;
 
 @Component(
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN,
-		"mvc.command.name=/syllabusmanager/export_data"
+		"mvc.command.name=" + WebKeys.MVC_RESOURCE_EXPORT_SYLLABUS_DATA
 	},
 	service = MVCResourceCommand.class
 )

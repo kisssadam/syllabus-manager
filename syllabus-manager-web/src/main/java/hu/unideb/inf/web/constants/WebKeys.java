@@ -60,4 +60,20 @@ public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 	
 	String FILE_INPUT_NAME = "fileupload";
 
+	/*
+	 * MVC Resource and Action Commands
+	 */
+	
+	String MVC_ACTION_IMPORT_SYLLABUS_DATA = "/syllabusmanager/admin/import_syllabus_data";
+	
+	String MVC_ACTION_CLEAR_DATABASE = "/syllabusmanager/admin/clear_database";
+	
+	String MVC_RESOURCE_SERVE_TIMETABLE_COURSES = "/syllabusmanager/admin/serve_timetable_courses";
+	
+	String MVC_RESOURCE_SERVE_COURSES = "/syllabusmanager/admin/serve_courses";
+	
+	String MVC_RESOURCE_SERVE_SUBJECTS = "/syllabusmanager/admin/serve_subjects";
+	
+	String MVC_RESOURCE_EXPORT_SYLLABUS_DATA = "/syllabusmanager/export_data";
+	
 }

@@ -13,7 +13,9 @@
 <jsp:include page="/admin/breadcrumb.jsp" />
 
 <!-- File upload form from http://www.codeyouneed.com/liferay-portlet-file-upload-tutorial/ -->
-<portlet:actionURL name="upload" var="uploadFileURL"></portlet:actionURL>
+<liferay-portlet:actionURL name="<%=WebKeys.MVC_ACTION_IMPORT_SYLLABUS_DATA%>" var="uploadFileURL">
+	<portlet:param name="mvcActionCommand" value="<%=WebKeys.MVC_ACTION_IMPORT_SYLLABUS_DATA%>" />
+</liferay-portlet:actionURL>
 
 <div class="closed container-fluid-1280 sidenav-container sidenav-right" id="<portlet:namespace />importTimetablePanelId">
 	<h1>Import ik_orarend_ws.csv</h1>

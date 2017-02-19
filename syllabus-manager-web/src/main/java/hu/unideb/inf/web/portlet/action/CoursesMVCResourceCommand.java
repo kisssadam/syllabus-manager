@@ -25,12 +25,13 @@ import hu.unideb.inf.model.CourseType;
 import hu.unideb.inf.service.CourseLocalService;
 import hu.unideb.inf.service.CourseTypeLocalService;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
+import hu.unideb.inf.web.constants.WebKeys;
 
 @Component(
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN,
-		"mvc.command.name=/syllabusmanager/admin/serve_courses"
+		"mvc.command.name=" + WebKeys.MVC_RESOURCE_SERVE_COURSES
 	},
 	service = MVCResourceCommand.class
 )

@@ -133,7 +133,6 @@
 					<portlet:param name="timetableCourseId" value="${timetableCourseId}" />
 				</portlet:renderURL>
             	
-<%--             	<aui:nav-item state="disabled" href="<%= addSyllabusURL.toString() %>" label="syllabus" /> --%>
             	<aui:nav-item href="<%= addSyllabusURL.toString() %>" label="syllabus" />
            	</c:if>
         </aui:nav-item>
@@ -163,13 +162,13 @@
         
         <aui:nav-item dropdown="true" iconCssClass="icon-download-alt" label="export" selected='false'>
         	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.EXPORT_SYLLABUS_DATA)%>'>
-				<portlet:resourceURL id="/syllabusmanager/export_data" var="exportSyllabusManagerDataCsvURL">
+				<portlet:resourceURL id="<%=WebKeys.MVC_RESOURCE_EXPORT_SYLLABUS_DATA%>" var="exportSyllabusManagerDataCsvURL">
 					<liferay-portlet:param name="contentType" value="<%=ContentTypes.TEXT_CSV_UTF8%>" />
 				</portlet:resourceURL>
 				
 				<aui:nav-item href="<%= exportSyllabusManagerDataCsvURL.toString() %>" iconCssClass="icon-file-text" label="export-syllabus-data-csv" />
 
-				<portlet:resourceURL id="/syllabusmanager/export_data" var="exportSyllabusManagerDataXmlURL">
+				<portlet:resourceURL id="<%=WebKeys.MVC_RESOURCE_EXPORT_SYLLABUS_DATA%>" var="exportSyllabusManagerDataXmlURL">
 					<liferay-portlet:param name="contentType" value="<%=ContentTypes.TEXT_XML_UTF8%>" />
 				</portlet:resourceURL>
 				

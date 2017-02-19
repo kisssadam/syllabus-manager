@@ -22,12 +22,13 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import hu.unideb.inf.model.Subject;
 import hu.unideb.inf.service.SubjectLocalService;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
+import hu.unideb.inf.web.constants.WebKeys;
 
 @Component(
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN,
-		"mvc.command.name=/syllabusmanager/admin/serve_subjects"
+		"mvc.command.name=" + WebKeys.MVC_RESOURCE_SERVE_SUBJECTS
 	},
 	service = MVCResourceCommand.class
 )

@@ -17,7 +17,9 @@
 	</h1>
 	
 	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.CLEAR_DATABASE)%>'>
-		<portlet:actionURL name="clearDatabase" var="clearDatabaseURL" />
+		<liferay-portlet:actionURL name="<%=WebKeys.MVC_ACTION_CLEAR_DATABASE%>" var="clearDatabaseURL">
+			<portlet:param name="mvcActionCommand" value="<%=WebKeys.MVC_ACTION_CLEAR_DATABASE%>" />
+		</liferay-portlet:actionURL>
 		
 		<aui:form method="post" action="<%=clearDatabaseURL%>" name="<portlet:namespace />clear_database">
 			<aui:fieldset>

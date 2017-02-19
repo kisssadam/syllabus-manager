@@ -213,9 +213,9 @@
 	</aui:form>
 </div>
 
-<portlet:resourceURL id="/syllabusmanager/admin/serve_subjects" var="subjectsResourceURL"></portlet:resourceURL>
-<portlet:resourceURL id="/syllabusmanager/admin/serve_courses" var="coursesResourceURL"></portlet:resourceURL>
-<portlet:resourceURL id="/syllabusmanager/admin/serve_timetable_courses" var="timetableCoursesResourceURL"></portlet:resourceURL>
+<portlet:resourceURL id="<%=WebKeys.MVC_RESOURCE_SERVE_SUBJECTS%>" var="subjectsResourceURL"></portlet:resourceURL>
+<portlet:resourceURL id="<%=WebKeys.MVC_RESOURCE_SERVE_COURSES%>" var="coursesResourceURL"></portlet:resourceURL>
+<portlet:resourceURL id="<%=WebKeys.MVC_RESOURCE_SERVE_TIMETABLE_COURSES%>" var="timetableCoursesResourceURL"></portlet:resourceURL>
 
 <aui:script>
 AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', function(A) {
