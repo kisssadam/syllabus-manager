@@ -220,8 +220,7 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 		A.io.request('<%=subjectsResourceURL%>', {
              method: 'POST',
              data: {
-            	 "<portlet:namespace/>curriculumSelect" : A.one("#<portlet:namespace/>curriculumSelect").val(),
-            	 '<portlet:namespace/>curriculumSelected' :'curriculumSelected'
+            	 "<portlet:namespace/>curriculumSelect" : A.one("#<portlet:namespace/>curriculumSelect").val()
            	 },
              dataType: 'json',
              on: {
@@ -255,8 +254,7 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 		A.io.request('<%=coursesResourceURL%>', {
 			method :'POST',
 			data: {
-				'<portlet:namespace/>subjectSelect' : A.one("#<portlet:namespace/>subjectSelect").val(),
-				'<portlet:namespace/>subjectSelected' : 'subjectSelected'
+				'<portlet:namespace/>subjectSelect' : A.one("#<portlet:namespace/>subjectSelect").val()
 			},
 			dataType: 'json',
 			on: {

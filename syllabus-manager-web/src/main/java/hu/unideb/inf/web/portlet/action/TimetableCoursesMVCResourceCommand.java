@@ -9,7 +9,6 @@ import javax.portlet.ResourceResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -37,60 +36,58 @@ public class TimetableCoursesMVCResourceCommand extends BaseMVCResourceCommand {
 	private static final Log log = LogFactoryUtil.getLog(TimetableCoursesMVCResourceCommand.class);
 	
 	private TimetableCourseLocalService timetableCourseLocalService;
-	
+
 	@Override
 	protected void doServeResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws Exception {
-		long courseId = ParamUtil.getLong(resourceRequest, "courseSelect");
-		String courseSelected = ParamUtil.getString(resourceRequest, "courseSelected");
-
-		if (log.isDebugEnabled()) {
-			log.debug(String.format("courseId: %d, courseSelected: '%s'", courseId, courseSelected));
-		}
-
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
-
-		if (courseSelected.equalsIgnoreCase("courseSelected")) {
-			serveTimetableCourses(courseId, jsonArray);
-		}
+		log.trace("Course selected, serving timetableCourses.");
 
 		try (PrintWriter writer = resourceResponse.getWriter()) {
+			long courseId = ParamUtil.getLong(resourceRequest, "courseSelect");
+
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("courseId: %d", courseId));
+			}
+
+			JSONArray jsonArray = serveTimetableCourses(courseId);
+
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("timetable courses to serve: '%s'", jsonArray));
+			}
+
 			writer.write(jsonArray.toString());
 			writer.flush();
-		}
-	}
-
-	private void serveTimetableCourses(long courseId, JSONArray jsonArray) {
-		log.trace("Course selected, serving timetableCourses.");
-		try {
-			List<TimetableCourse> timetableCourses = timetableCourseLocalService.getTimetableCoursesByCourseId(courseId);
-
-			if (log.isTraceEnabled()) {
-				log.trace("timetableCourses: " + timetableCourses);
-			}
-
-			for (TimetableCourse timetableCourse : timetableCourses) {
-				TimetableCourse tc = timetableCourse.toEscapedModel();
-
-				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-
-				jsonObject.put("timetableCourseId", tc.getTimetableCourseId());
-				jsonObject.put("timetableCourseCode", tc.getTimetableCourseCode());
-				jsonObject.put("subjectType", tc.getSubjectType());
-				jsonObject.put("recommendedTerm", tc.getRecommendedTerm());
-				jsonObject.put("limit", tc.getLimit());
-				jsonObject.put("classScheduleInfo", tc.getClassScheduleInfo());
-				jsonObject.put("description", tc.getDescription());
-
-				jsonArray.put(jsonObject);
-			}
-		} catch (SystemException e) {
+		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
 			}
 		}
 	}
-	
+
+	private JSONArray serveTimetableCourses(long courseId) {
+		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
+
+		List<TimetableCourse> timetableCourses = timetableCourseLocalService.getTimetableCoursesByCourseId(courseId);
+
+		for (TimetableCourse timetableCourse : timetableCourses) {
+			TimetableCourse tc = timetableCourse.toEscapedModel();
+
+			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+			jsonObject.put("timetableCourseId", tc.getTimetableCourseId());
+			jsonObject.put("timetableCourseCode", tc.getTimetableCourseCode());
+			jsonObject.put("subjectType", tc.getSubjectType());
+			jsonObject.put("recommendedTerm", tc.getRecommendedTerm());
+			jsonObject.put("limit", tc.getLimit());
+			jsonObject.put("classScheduleInfo", tc.getClassScheduleInfo());
+			jsonObject.put("description", tc.getDescription());
+
+			jsonArray.put(jsonObject);
+		}
+
+		return jsonArray;
+	}
+
 	@Reference(unbind = "-")
 	protected void setTimetableCourseService(TimetableCourseLocalService timetableCourseLocalService) {
 		this.timetableCourseLocalService = timetableCourseLocalService;

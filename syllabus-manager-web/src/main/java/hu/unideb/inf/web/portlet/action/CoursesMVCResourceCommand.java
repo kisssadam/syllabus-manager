@@ -10,7 +10,6 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
 import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -46,52 +45,49 @@ public class CoursesMVCResourceCommand extends BaseMVCResourceCommand {
 	@Override
 	protected void doServeResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws Exception {
-		long subjectId = ParamUtil.getLong(resourceRequest, "subjectSelect");
-		String subjectSelected = ParamUtil.getString(resourceRequest, "subjectSelected");
-
-		if (log.isDebugEnabled()) {
-			log.debug(String.format("subjectId: %d, subjectSelected: '%s'", subjectId, subjectSelected));
-		}
-
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
-
-		if (subjectSelected.equalsIgnoreCase("subjectSelected")) {
-			serveCourses(subjectId, jsonArray);
-		}
+		log.trace("Subject selected, serving courses.");
 
 		try (PrintWriter writer = resourceResponse.getWriter()) {
+			long subjectId = ParamUtil.getLong(resourceRequest, "subjectSelect");
+
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("subjectId: %d", subjectId));
+			}
+
+			JSONArray jsonArray = serveCourses(subjectId);
+
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("courses to serve: '%s'", jsonArray));
+			}
+
 			writer.write(jsonArray.toString());
 			writer.flush();
-		}
-	}
-
-	private void serveCourses(long subjectId, JSONArray jsonArray) {
-		log.trace("Subject selected, serving courses.");
-		try {
-			List<Course> courses = courseLocalService.getCoursesBySubjectId(subjectId);
-
-			if (log.isTraceEnabled()) {
-				log.trace("courses: " + courses);
-			}
-
-			for (Course course : courses) {
-				Course c = course.toEscapedModel();
-				CourseType ct = courseTypeLocalService.getCourseType(c.getCourseTypeId()).toEscapedModel();
-
-				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-
-				jsonObject.put("courseId", c.getCourseId());
-				jsonObject.put("courseTypeName", ct.getTypeName());
-				jsonObject.put("hoursPerSemester", c.getHoursPerSemester());
-				jsonObject.put("hoursPerWeek", c.getHoursPerWeek());
-
-				jsonArray.put(jsonObject);
-			}
-		} catch (PortalException | SystemException e) {
+		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
 			}
 		}
+	}
+
+	private JSONArray serveCourses(long subjectId) throws PortalException {
+		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
+
+		List<Course> courses = courseLocalService.getCoursesBySubjectId(subjectId);
+		for (Course course : courses) {
+			Course c = course.toEscapedModel();
+			CourseType ct = courseTypeLocalService.getCourseType(c.getCourseTypeId()).toEscapedModel();
+
+			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+			jsonObject.put("courseId", c.getCourseId());
+			jsonObject.put("courseTypeName", ct.getTypeName());
+			jsonObject.put("hoursPerSemester", c.getHoursPerSemester());
+			jsonObject.put("hoursPerWeek", c.getHoursPerWeek());
+
+			jsonArray.put(jsonObject);
+		}
+
+		return jsonArray;
 	}
 
 	@Reference(unbind = "-")

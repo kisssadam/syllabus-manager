@@ -116,8 +116,7 @@ AUI().use('aui-base', 'aui-io-request', 'aui-node', 'node-event-simulate', funct
 		A.io.request('<%=subjectsResourceURL%>', {
              method: 'POST',
              data: {
-            	 "<portlet:namespace/>curriculumSelect" : A.one("#<portlet:namespace/>curriculumSelect").val(),
-            	 '<portlet:namespace/>curriculumSelected' :'curriculumSelected'
+            	 "<portlet:namespace/>curriculumSelect" : A.one("#<portlet:namespace/>curriculumSelect").val()
            	 },
              dataType: 'json',
              on: {

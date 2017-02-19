@@ -9,7 +9,6 @@ import javax.portlet.ResourceResponse;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -41,50 +40,48 @@ public class SubjectsMVCResourceCommand extends BaseMVCResourceCommand {
 	@Override
 	protected void doServeResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 			throws Exception {
-		long curriculumId = ParamUtil.getLong(resourceRequest, "curriculumSelect");
-		String curriculumSelected = ParamUtil.getString(resourceRequest, "curriculumSelected");
-
-		if (log.isDebugEnabled()) {
-			log.debug(String.format("curriculumId: %d, curriculumSelected: '%s'", curriculumId, curriculumSelected));
-		}
-
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
-
-		if (curriculumSelected.equalsIgnoreCase("curriculumSelected")) {
-			serveSubjects(curriculumId, jsonArray);
-		}
+		log.trace("Curriculum selected, serving subjects.");
 
 		try (PrintWriter writer = resourceResponse.getWriter()) {
+			long curriculumId = ParamUtil.getLong(resourceRequest, "curriculumSelect");
+
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("curriculumId: %d", curriculumId));
+			}
+
+			JSONArray jsonArray = serveSubjects(curriculumId);
+
+			if (log.isDebugEnabled()) {
+				log.debug(String.format("subjects to serve: '%s'", jsonArray));
+			}
+
 			writer.write(jsonArray.toString());
 			writer.flush();
-		}
-	}
-
-	private void serveSubjects(long curriculumId, JSONArray jsonArray) {
-		log.trace("Curriculum selected, serving subjects.");
-		try {
-			List<Subject> subjects = subjectLocalService.getSubjectsByCurriculumId(curriculumId);
-
-			if (log.isTraceEnabled()) {
-				log.trace("subjects: " + subjects);
-			}
-
-			for (Subject subject : subjects) {
-				Subject s = subject.toEscapedModel();
-
-				JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-
-				jsonObject.put("subjectId", s.getSubjectId());
-				jsonObject.put("subjectCode", s.getSubjectCode());
-				jsonObject.put("subjectName", s.getSubjectName());
-
-				jsonArray.put(jsonObject);
-			}
-		} catch (SystemException e) {
+		} catch (Exception e) {
 			if (log.isErrorEnabled()) {
 				log.error(e);
 			}
 		}
+	}
+
+	private JSONArray serveSubjects(long curriculumId) {
+		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
+
+		List<Subject> subjects = subjectLocalService.getSubjectsByCurriculumId(curriculumId);
+
+		for (Subject subject : subjects) {
+			Subject s = subject.toEscapedModel();
+
+			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+			jsonObject.put("subjectId", s.getSubjectId());
+			jsonObject.put("subjectCode", s.getSubjectCode());
+			jsonObject.put("subjectName", s.getSubjectName());
+
+			jsonArray.put(jsonObject);
+		}
+
+		return jsonArray;
 	}
 
 	@Reference(unbind = "-")
