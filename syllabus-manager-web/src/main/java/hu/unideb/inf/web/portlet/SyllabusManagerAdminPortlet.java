@@ -1,7 +1,5 @@
 package hu.unideb.inf.web.portlet;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -23,11 +21,9 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
-import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
-import com.liferay.portal.kernel.util.StringPool;
 
 import hu.unideb.inf.model.Course;
 import hu.unideb.inf.model.CourseType;
@@ -47,8 +43,6 @@ import hu.unideb.inf.service.SyllabusLocalService;
 import hu.unideb.inf.service.TimetableCourseLocalService;
 import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 import hu.unideb.inf.web.constants.WebKeys;
-import hu.unideb.inf.web.util.SyllabusCSVParser;
-import hu.unideb.inf.web.util.TimetableCSVParser;
 
 @Component(
 	immediate = true,
