@@ -2,24 +2,28 @@ package hu.unideb.inf.web.constants;
 
 public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 
-	String CURRICULUM = "CURRICULUM";
-
-	String SYLLABUS = "SYLLABUS";
+	/*
+	 * ADMIN_HOME_... for proper breadcrumb generation and for appropriate navigation with back buttons.
+	 */
 
 	String ADMIN_HOME_CURRICULUMS = "curriculums";
-	
+
 	String ADMIN_HOME_SEMESTERS = "semesters";
-	
+
 	String ADMIN_HOME_COURSE_TYPES = "course-types";
-	
+
 	String ADMIN_HOME_LECTURERS = "lecturers";
-	
+
 	String ADMIN_HOME_IMPORT_SYLLABUS = "import-syllabus";
-	
+
 	String ADMIN_HOME_IMPORT_TIMETABLE = "import-timetable";
-	
+
+	/*
+	 * JSP paths
+	 */
+
 	String ADMIN_VIEW = "/admin/view.jsp";
-	
+
 	String VIEW_CURRICULUMS = "/admin/curriculums/view_curriculums.jsp";
 
 	String VIEW_SUBJECTS = "/admin/subjects/view_subjects.jsp";
@@ -37,7 +41,7 @@ public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 	String VIEW_SYLLABUSES = "/admin/syllabuses/view_syllabuses.jsp";
 
 	String ADMIN_VIEW_CLEAR_DATABASE = "/admin/danger_zone/clear_database.jsp";
-	
+
 	String EDIT_CURRICULUM = "/admin/curriculums/edit_curriculum.jsp";
 
 	String EDIT_SUBJECT = "/admin/subjects/edit_subject.jsp";
@@ -55,25 +59,37 @@ public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 	String EDIT_SYLLABUS = "/admin/syllabuses/edit_syllabus.jsp";
 
 	String ADMIN_IMPORT_SYLLABUS = "/admin/import_syllabus.jsp";
-	
+
 	String ADMIN_IMPORT_TIMETABLE = "/admin/import_timetable.jsp";
-	
-	String FILE_INPUT_NAME = "fileupload";
 
 	/*
-	 * MVC Resource and Action Commands
+	 * MVC Action Commands
 	 */
-	
+
 	String MVC_ACTION_IMPORT_SYLLABUS_DATA = "/syllabusmanager/admin/import_syllabus_data";
-	
+
 	String MVC_ACTION_CLEAR_DATABASE = "/syllabusmanager/admin/clear_database";
-	
+
+	/*
+	 * MVC Resource Commands
+	 */
+
 	String MVC_RESOURCE_SERVE_TIMETABLE_COURSES = "/syllabusmanager/admin/serve_timetable_courses";
-	
+
 	String MVC_RESOURCE_SERVE_COURSES = "/syllabusmanager/admin/serve_courses";
-	
+
 	String MVC_RESOURCE_SERVE_SUBJECTS = "/syllabusmanager/admin/serve_subjects";
-	
+
 	String MVC_RESOURCE_EXPORT_SYLLABUS_DATA = "/syllabusmanager/export_data";
-	
+
+	/*
+	 * Other things.
+	 */
+
+	String CURRICULUM = "CURRICULUM";
+
+	String SYLLABUS = "SYLLABUS";
+
+	String FILE_INPUT_NAME = "fileupload";
+
 }
