@@ -551,8 +551,8 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		return getSemesterValue(semester.getBeginYear(), semester.getEndYear(), semester.getDivision());
 	}
 	
-	private String getSemesterValue(int beginYear, int endYear, int division) {
-		return beginYear + "/" + endYear + "/" + division;
+	private String getSemesterValue(Integer beginYear, Integer endYear, Integer division) {
+		return beginYear == null || endYear == null || division == null ? StringPool.BLANK : beginYear + "/" + endYear + "/" + division;
 	}
 	
 
