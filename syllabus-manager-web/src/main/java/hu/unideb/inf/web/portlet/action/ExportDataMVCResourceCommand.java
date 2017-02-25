@@ -1,14 +1,24 @@
 package hu.unideb.inf.web.portlet.action;
 
+import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.log.Log;
@@ -312,11 +322,7 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		
 		sb.append(StringPool.SEMICOLON);
 		
-		sb.append(SyllabusCSVUtil.encode(semesterBeginYear));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(semesterEndYear));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(semesterDivision));
+		sb.append(SyllabusCSVUtil.encode(getSemesterValue(semesterBeginYear, semesterEndYear, semesterDivision)));
 		
 		sb.append(StringPool.SEMICOLON);
 		
@@ -362,9 +368,186 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		return sb.toString();
 	}
 
-	protected String getSyllabusManagerDataXML() {
-		// TODO java-s dom cucc jo lesz ide
-		return "sample xml text";
+	protected String getSyllabusManagerDataXML() throws Exception {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document document = db.newDocument();
+		
+		Element rootElement = document.createElement("syllabusManagerData");
+		document.appendChild(rootElement);
+		
+		Element curriculums = document.createElement("curriculums");
+		rootElement.appendChild(curriculums);
+		
+		for (Curriculum curriculum : curriculumLocalService.getCurriculums()) {
+			Element curriculumElement = document.createElement("curriculum");
+			curriculums.appendChild(curriculumElement);
+			
+			Element curriculumCode = document.createElement("curriculumCode");
+			curriculumCode.appendChild(document.createTextNode(curriculum.getCurriculumCode()));
+			curriculumElement.appendChild(curriculumCode);
+			
+			Element curriculumName = document.createElement("curriculumName");
+			curriculumName.appendChild(document.createTextNode(curriculum.getCurriculumName()));
+			curriculumElement.appendChild(curriculumName);
+			
+			Element subjects = document.createElement("subjects");
+			curriculumElement.appendChild(subjects);
+			
+			for (Subject subject : subjectLocalService.getSubjectsByCurriculumId(curriculum.getCurriculumId())) {
+				Element subjectElement = document.createElement("subject");
+				subjects.appendChild(subjectElement);
+				
+				Element subjectCode = document.createElement("subjectCode");
+				subjectCode.appendChild(document.createTextNode(subject.getSubjectCode()));
+				subjectElement.appendChild(subjectCode);
+				
+				Element subjectName = document.createElement("subjectName");
+				subjectName.appendChild(document.createTextNode(subject.getSubjectName()));
+				subjectElement.appendChild(subjectName);
+				
+				Element credit = document.createElement("credit");
+				credit.appendChild(document.createTextNode(String.valueOf(subject.getCredit())));
+				subjectElement.appendChild(credit);
+				
+				Element courses = document.createElement("courses");
+				subjectElement.appendChild(courses);
+				
+				for (Course course : courseLocalService.getCoursesBySubjectId(subject.getSubjectId())) {
+					Element courseElement = document.createElement("course");
+					courses.appendChild(courseElement);
+					
+					CourseType courseType = courseTypeLocalService.getCourseType(course.getCourseTypeId());
+					courseElement.setAttribute("courseType", courseType.getTypeName());
+					
+					Element hoursPerSemester = document.createElement("hoursPerSemester");
+					hoursPerSemester.appendChild(document.createTextNode(String.valueOf(course.getHoursPerSemester())));
+					courseElement.appendChild(hoursPerSemester);
+					
+					Element hoursPerWeek = document.createElement("hoursPerWeek");
+					hoursPerWeek.appendChild(document.createTextNode(String.valueOf(course.getHoursPerWeek())));
+					courseElement.appendChild(hoursPerWeek);
+					
+					Element timetableCourses = document.createElement("timetableCourses");
+					courseElement.appendChild(timetableCourses);
+					
+					for (TimetableCourse timetableCourse : timetableCourseLocalService.getTimetableCoursesByCourseId(course.getCourseId())) {
+						Element timetableCourseElement = document.createElement("timetableCourse");
+						timetableCourses.appendChild(timetableCourseElement);
+						
+						Semester semester = semesterLocalService.getSemester(timetableCourse.getSemesterId());
+						timetableCourseElement.setAttribute("semester", getSemesterValue(semester));
+						
+						Element timetableCourseCode = document.createElement("timetableCourseCode");
+						timetableCourseCode.appendChild(document.createTextNode(timetableCourse.getTimetableCourseCode()));
+						timetableCourseElement.appendChild(timetableCourseCode);
+						
+						Element subjectType = document.createElement("subjectType");
+						subjectType.appendChild(document.createTextNode(timetableCourse.getSubjectType()));
+						timetableCourseElement.appendChild(subjectType);
+						
+						Element recommendedTerm = document.createElement("recommendedTerm");
+						recommendedTerm.appendChild(document.createTextNode(String.valueOf(timetableCourse.getRecommendedTerm())));
+						timetableCourseElement.appendChild(recommendedTerm);
+						
+						Element limit = document.createElement("limit");
+						limit.appendChild(document.createTextNode(String.valueOf(timetableCourse.getLimit())));
+						timetableCourseElement.appendChild(limit);
+						
+						Element classShceduleInfo = document.createElement("classScheduleInfo");
+						classShceduleInfo.appendChild(document.createTextNode(timetableCourse.getClassScheduleInfo()));
+						timetableCourseElement.appendChild(classShceduleInfo);
+						
+						Element description = document.createElement("description");
+						description.appendChild(document.createTextNode(timetableCourse.getDescription()));
+						timetableCourseElement.appendChild(description);
+						
+						Element lecturers = getLecturersElement(document, lecturerLocalService.getTimetableCourseLecturers(timetableCourse.getTimetableCourseId()));
+						timetableCourseElement.appendChild(lecturers);
+						
+						Element syllabuses = document.createElement("syllabuses");
+						timetableCourseElement.appendChild(syllabuses);
+						
+						for (Syllabus syllabus : syllabusLocalService.getSyllabusesByTimetableCourseId(timetableCourse.getTimetableCourseId())) {
+							Element syllabusElement = document.createElement("syllabus");
+							syllabuses.appendChild(syllabusElement);
+							
+							Element competence = document.createElement("competence");
+							competence.appendChild(document.createTextNode(syllabus.getCompetence()));
+							syllabusElement.appendChild(competence);
+							
+							Element ethicalStandards = document.createElement("ethicalStandards");
+							ethicalStandards.appendChild(document.createTextNode(syllabus.getEthicalStandards()));
+							syllabusElement.appendChild(ethicalStandards);
+							
+							Element topics = document.createElement("topics");
+							topics.appendChild(document.createTextNode(syllabus.getTopics()));
+							syllabusElement.appendChild(topics);
+							
+							Element educationalMaterials = document.createElement("educationalMaterials");
+							educationalMaterials.appendChild(document.createTextNode(syllabus.getEducationalMaterials()));
+							syllabusElement.appendChild(educationalMaterials);
+							
+							Element weeklyTasks = document.createElement("weeklyTasks");
+							weeklyTasks.appendChild(document.createCDATASection(syllabus.getWeeklyTasks()));
+							syllabusElement.appendChild(weeklyTasks);
+						}
+					}
+				}
+			}
+		}
+		
+		Element lecturers = getLecturersElement(document, lecturerLocalService.getLecturers());
+		rootElement.appendChild(lecturers);
+		
+		Element semesters = document.createElement("semesters");
+		rootElement.appendChild(semesters);
+		
+		for (Semester semester : semesterLocalService.getSemesters()) {
+			Element semesterElement = document.createElement("semester");
+			semesterElement.appendChild(document.createTextNode(getSemesterValue(semester)));
+			semesters.appendChild(semesterElement);
+		}
+		
+		TransformerFactory tf = TransformerFactory.newInstance();
+		tf.setAttribute("indent-number", Integer.valueOf(4));
+		
+		Transformer transformer = tf.newTransformer();
+		transformer.setOutputProperty(OutputKeys.ENCODING, StandardCharsets.UTF_8.toString());
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		
+		StringWriter sw = new StringWriter();
+		StreamResult sr = new StreamResult(sw);
+		transformer.transform(new DOMSource(document), sr);
+		sw.flush();
+		return sw.toString();
+	}
+
+	private Element getLecturersElement(Document document, List<Lecturer> lecturerList) {
+		Element lecturers = document.createElement("lecturers");
+
+		for (Lecturer lecturer : lecturerList) {
+			Element lecturerElement = document.createElement("lecturer");
+			lecturers.appendChild(lecturerElement);
+			
+			Element lecturerName = document.createElement("lecturerName");
+			lecturerName.appendChild(document.createTextNode(lecturer.getLecturerName()));
+			lecturerElement.appendChild(lecturerName);
+			
+			Element lecturerLiferayUserId = document.createElement("lecturerLiferayUserId");
+			lecturerLiferayUserId.appendChild(document.createTextNode(String.valueOf(lecturer.getLecturerUserId())));
+			lecturerElement.appendChild(lecturerLiferayUserId);
+		}
+
+		return lecturers;
+	}
+
+	private String getSemesterValue(Semester semester) {
+		return getSemesterValue(semester.getBeginYear(), semester.getEndYear(), semester.getDivision());
+	}
+	
+	private String getSemesterValue(int beginYear, int endYear, int division) {
+		return beginYear + "/" + endYear + "/" + division;
 	}
 	
 
