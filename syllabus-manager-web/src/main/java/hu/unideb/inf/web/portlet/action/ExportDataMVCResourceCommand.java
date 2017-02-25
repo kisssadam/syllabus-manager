@@ -228,11 +228,7 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		sb.append(StringPool.SEMICOLON);
 		sb.append("hoursPerWeek");
 		sb.append(StringPool.SEMICOLON);
-		sb.append("semesterBeginYear");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("semesterEndYear");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("semesterDivision");
+		sb.append("semester");
 		sb.append(StringPool.SEMICOLON);
 		sb.append("lecturers");
 		sb.append(StringPool.SEMICOLON);
@@ -507,6 +503,15 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 			Element semesterElement = document.createElement("semester");
 			semesterElement.appendChild(document.createTextNode(getSemesterValue(semester)));
 			semesters.appendChild(semesterElement);
+		}
+		
+		Element courseTypes = document.createElement("courseTypes");
+		rootElement.appendChild(courseTypes);
+		
+		for (CourseType courseType : courseTypeLocalService.getCourseTypes()) {
+			Element courseTypeElement = document.createElement("courseType");
+			courseTypeElement.appendChild(document.createTextNode(courseType.getTypeName()));
+			courseTypes.appendChild(courseTypeElement);
 		}
 		
 		TransformerFactory tf = TransformerFactory.newInstance();
