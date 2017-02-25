@@ -1,3 +1,1 @@
-<%@include file="/init.jsp"%>
-
-Hello Syllabus Asset Renderer! This is syllabus_abstract.jsp!
+<%@include file="syllabus_full_content.jsp"%>
