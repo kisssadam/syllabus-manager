@@ -43,23 +43,21 @@
 %>
 
 <c:if test='<%= SyllabusPermission.contains(permissionChecker, syllabus.getSyllabusId(), "VIEW") %>'>
-	<aui:panel>
-		<aui:input name="curriculum" type="text" value="${curriculum.curriculumCode} - ${curriculum.curriculumName}" />
-		
-		<aui:input name="semester" type="text" value="${semester.beginYear}/${semester.endYear}/${semester.division}" />
-		
-		<aui:input name="subject" type="text" value="${subject.subjectCode} - ${subject.subjectName}" />
-		
-		<aui:input name="courseType" type="text" value="${courseType.typeName}" />
-		
-		<aui:input name="timetableCourseCode" type="text" value="${timetableCourse.timetableCourseCode}" />
-		
-		<c:forEach items="${lecturers}" var="lecturer">
-			<aui:input name="lecturer" type="text" value="${lecturer.lecturerName}" />
-		</c:forEach>
-		
-		<aui:input name="syllabusLastModifiedDate" type="text" value="<%= dateFormat.format(syllabus.getModifiedDate()) %>" />
-		
-		<aui:workflow-status markupView="lexicon" showIcon="<%= true %>" showLabel="<%= true %>" status="<%= syllabus.getStatus() %>" />
-	</aui:panel>
+	<aui:input name="curriculum" type="text" value="${curriculum.curriculumCode} - ${curriculum.curriculumName}" />
+	
+	<aui:input name="semester" type="text" value="${semester.beginYear}/${semester.endYear}/${semester.division}" />
+	
+	<aui:input name="subject" type="text" value="${subject.subjectCode} - ${subject.subjectName}" />
+	
+	<aui:input name="courseType" type="text" value="${courseType.typeName}" />
+	
+	<aui:input name="timetableCourseCode" type="text" value="${timetableCourse.timetableCourseCode}" />
+	
+	<c:forEach items="${lecturers}" var="lecturer">
+		<aui:input name="lecturer" type="text" value="${lecturer.lecturerName}" />
+	</c:forEach>
+	
+	<aui:input name="syllabusLastModifiedDate" type="text" value="<%= dateFormat.format(syllabus.getModifiedDate()) %>" />
+	
+	<aui:workflow-status markupView="lexicon" showIcon="<%= true %>" showLabel="<%= true %>" status="<%= syllabus.getStatus() %>" />
 </c:if>
