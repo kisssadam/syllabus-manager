@@ -138,16 +138,16 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		switch (contentType) {
 		case ContentTypes.TEXT_CSV:
 		case ContentTypes.TEXT_CSV_UTF8:
-			extension = ".csv";
+			extension = "csv";
 			break;
 		
 		case ContentTypes.TEXT_XML:
 		case ContentTypes.TEXT_XML_UTF8:
-			extension = ".xml";
+			extension = "xml";
 			break;
 		
 		default:
-			extension = ".dat";
+			extension = "dat";
 			break;
 		}
 		
