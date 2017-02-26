@@ -50,3 +50,4 @@
 <liferay-ui:error exception="<%=SyllabusCannotBeDeletedDueToApprovedStatusException.class%>" message="syllabus-cannot-be-deleted-due-to-approved-status-exception" />
 
 <liferay-ui:error exception="<%=ExportDataContentTypeException.class%>" message="export-data-content-type-exception" />
+<liferay-ui:error exception="<%=ExportDataEntityTypeException.class%>" message="export-data-entity-type-exception" />

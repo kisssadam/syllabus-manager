@@ -30,8 +30,10 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 
 import hu.unideb.inf.exception.ExportDataContentTypeException;
+import hu.unideb.inf.exception.ExportDataEntityTypeException;
 import hu.unideb.inf.model.Course;
 import hu.unideb.inf.model.CourseType;
 import hu.unideb.inf.model.Curriculum;
@@ -56,15 +58,13 @@ import hu.unideb.inf.web.util.SyllabusCSVUtil;
 	immediate = true,
 	property = {
 		"javax.portlet.name=" + SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN,
-		"mvc.command.name=" + WebKeys.MVC_RESOURCE_EXPORT_SYLLABUS_DATA
+		"mvc.command.name=" + WebKeys.MVC_RESOURCE_EXPORT_DATA
 	},
 	service = MVCResourceCommand.class
 )
 public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 
 	private static final Log log = LogFactoryUtil.getLog(ExportDataMVCResourceCommand.class);
-	
-	private static final String FILENAME_PREFIX = "syllabus_manager_data_";
 	
 	private CurriculumLocalService curriculumLocalService;
 
@@ -86,27 +86,38 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 	protected void doServeResource(ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
 		try {
 			String contentType = ParamUtil.getString(resourceRequest, "contentType", StringPool.BLANK);
+			String entityType = ParamUtil.getString(resourceRequest, "entityType", StringPool.BLANK);
 			
 			if (log.isDebugEnabled()) {
-				log.debug(String.format("doServeResource() contentType: '%s'", contentType));
+				log.debug(String.format("doServeResource() contentType: '%s', entityType: '%s'", contentType, entityType));
+			}
+			
+			if (Validator.isBlank(contentType)) {
+				throw new ExportDataContentTypeException(String.format("Unknown content type: '%s'", contentType));
+			}
+			
+			if (Validator.isBlank(entityType)) {
+				throw new ExportDataEntityTypeException(String.format("Unknown entity type: '%s'", entityType));
 			}
 			
 			String filename = null;
 			String content = null;
 			
-			switch (contentType) {
-			case ContentTypes.TEXT_CSV_UTF8:
-				content = getSyllabusManagerDataCSV();
-				filename = getFilename("csv");
+			switch (entityType) {
+			case WebKeys.SYLLABUS:
+				filename = getFilename("syllabus_data_", contentType);
+				content = getSyllabusData(contentType);
 				break;
-
-			case ContentTypes.TEXT_XML_UTF8:
-				content = getSyllabusManagerDataXML();
-				filename = getFilename("xml");
+			
+			case WebKeys.LECTURER:
+				filename = getFilename("lecturer_data_", contentType);
+				content = getLecturerData(contentType);
 				break;
-
-			default:
-				throw new ExportDataContentTypeException(String.format("Unkown content type: '%s'", contentType));
+			
+			case WebKeys.SEMESTER:
+				filename = getFilename("semester_data_", contentType);
+				content = getSemesterData(contentType);
+				break;
 			}
 			
 			if (log.isTraceEnabled()) {
@@ -121,8 +132,52 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		}
 	}
 
-	protected String getFilename(String extension) {
-		return FILENAME_PREFIX + String.valueOf(new Date().getTime()) + "." + extension;
+	protected String getFilename(String prefix, String contentType) {
+		String extension = "";
+		
+		switch (contentType) {
+		case ContentTypes.TEXT_CSV:
+		case ContentTypes.TEXT_CSV_UTF8:
+			extension = ".csv";
+			break;
+		
+		case ContentTypes.TEXT_XML:
+		case ContentTypes.TEXT_XML_UTF8:
+			extension = ".xml";
+			break;
+		
+		default:
+			extension = ".dat";
+			break;
+		}
+		
+		return prefix + String.valueOf(new Date().getTime()) + "." + extension;
+	}
+
+	private String getSyllabusData(String contentType) throws Exception {
+		String data = null;
+		
+		switch (contentType) {
+		case ContentTypes.TEXT_CSV_UTF8:
+			data = getSyllabusManagerDataCSV();
+			break;
+		
+		case ContentTypes.TEXT_XML_UTF8:
+			data = getSyllabusManagerDataXML();
+			break;
+		}
+		
+		return data;
+	}
+
+	private String getLecturerData(String contentType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	private String getSemesterData(String contentType) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	protected String getSyllabusManagerDataCSV() throws PortalException {

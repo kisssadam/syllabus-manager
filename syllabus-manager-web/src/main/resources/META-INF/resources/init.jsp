@@ -47,6 +47,7 @@
 <%@ page import="hu.unideb.inf.web.constants.WebKeys"%>
 <%@ page import="hu.unideb.inf.util.SyllabusActionKeys"%>
 <%@ page import="hu.unideb.inf.service.util.SemesterHelper"%>
+
 <liferay-theme:defineObjects />
 
 <portlet:defineObjects />

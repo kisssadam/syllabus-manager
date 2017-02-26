@@ -62,6 +62,8 @@ public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 
 	String ADMIN_IMPORT_TIMETABLE = "/admin/import_timetable.jsp";
 
+	String ADMIN_EXPORT_IMPORT_DATA = "/admin/danger_zone/export_import.jsp";
+
 	/*
 	 * MVC Action Commands
 	 */
@@ -80,7 +82,7 @@ public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 
 	String MVC_RESOURCE_SERVE_SUBJECTS = "/syllabusmanager/admin/serve_subjects";
 
-	String MVC_RESOURCE_EXPORT_SYLLABUS_DATA = "/syllabusmanager/export_data";
+	String MVC_RESOURCE_EXPORT_DATA = "/syllabusmanager/export_data";
 
 	/*
 	 * Other things.
@@ -89,6 +91,10 @@ public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 	String CURRICULUM = "CURRICULUM";
 
 	String SYLLABUS = "SYLLABUS";
+
+	String LECTURER = "LECTURER";
+
+	String SEMESTER = "SEMESTER";
 
 	String FILE_INPUT_NAME = "fileupload";
 

@@ -141,7 +141,7 @@
         dialogos megoldashoz: https://www.liferay.com/community/forums/-/message_boards/message/41261810
         --%>
         <aui:nav-item dropdown="true" iconCssClass="icon-upload-alt" label="import" selected='false'>
-        	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.IMPORT_SYLLABUS)%>'>
+        	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.IMPORT_DATA)%>'>
         		<portlet:renderURL var="importSyllabusURL">
 					<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_IMPORT_SYLLABUS%>" />
 					<portlet:param name="backURL" value="${backURL}" />
@@ -150,7 +150,7 @@
             	<aui:nav-item href="<%= importSyllabusURL.toString() %>" label="ik_syllabus_ws.csv" />
 			</c:if>
 			
-			<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.IMPORT_TIMETABLE)%>'>
+			<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.IMPORT_DATA)%>'>
 				<portlet:renderURL var="importTimetableURL">
 					<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_IMPORT_TIMETABLE%>" />
 					<portlet:param name="backURL" value="${backURL}" />
@@ -158,22 +158,6 @@
             	
             	<aui:nav-item href="<%= importTimetableURL.toString() %>" label="ik_orarend_ws.csv" />
            	</c:if>
-        </aui:nav-item>
-        
-        <aui:nav-item dropdown="true" iconCssClass="icon-download-alt" label="export" selected='false'>
-        	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.EXPORT_SYLLABUS_DATA)%>'>
-				<portlet:resourceURL id="<%=WebKeys.MVC_RESOURCE_EXPORT_SYLLABUS_DATA%>" var="exportSyllabusManagerDataCsvURL">
-					<liferay-portlet:param name="contentType" value="<%=ContentTypes.TEXT_CSV_UTF8%>" />
-				</portlet:resourceURL>
-				
-				<aui:nav-item href="<%= exportSyllabusManagerDataCsvURL.toString() %>" iconCssClass="icon-file-text" label="export-syllabus-data-csv" />
-
-				<portlet:resourceURL id="<%=WebKeys.MVC_RESOURCE_EXPORT_SYLLABUS_DATA%>" var="exportSyllabusManagerDataXmlURL">
-					<liferay-portlet:param name="contentType" value="<%=ContentTypes.TEXT_XML_UTF8%>" />
-				</portlet:resourceURL>
-				
-				<aui:nav-item href="<%= exportSyllabusManagerDataXmlURL.toString() %>" iconCssClass="icon-file-text" label="export-syllabus-data-xml" />
-        	</c:if>
         </aui:nav-item>
         
         <aui:nav-item dropdown="true" iconCssClass="icon-tint" label="danger-zone" selected='false'>
@@ -184,6 +168,15 @@
 				</portlet:renderURL>
 				
         		<aui:nav-item href="<%= clearDatabaseURL.toString() %>" iconCssClass="icon-remove-circle" label="clear-database" />
+        	</c:if>
+        	
+        	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.IMPORT_DATA) || ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.EXPORT_DATA)%>'>
+       			<portlet:renderURL var="exportImportDataURL">
+					<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_EXPORT_IMPORT_DATA%>" />
+					<portlet:param name="backURL" value="${backURL}" />
+				</portlet:renderURL>
+        		
+        		<aui:nav-item href="<%= exportImportDataURL.toString() %>" iconCssClass="icon-random" label="export-import" />
         	</c:if>
         </aui:nav-item>
     </aui:nav>

@@ -61,7 +61,8 @@ import hu.unideb.inf.web.constants.WebKeys;
 		"javax.portlet.name=" + SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN,
 		"javax.portlet.resource-bundle=content.Language",
 		"javax.portlet.security-role-ref=administrator,power-user,user",
-		"javax.portlet.supports.mime-type=text/html"
+		"javax.portlet.supports.mime-type=text/html",
+		"com.liferay.portlet.header-portlet-css=/admin/style/style.css"
 	},
 	service = Portlet.class
 )

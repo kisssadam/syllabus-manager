@@ -34,12 +34,10 @@ public class SyllabusActionKeys extends com.liferay.portal.kernel.security.permi
 
 	public static final String DELETE_SYLLABUSES = "DELETE_SYLLABUSES";
 
-	public static final String IMPORT_SYLLABUS = "IMPORT_SYLLABUS";
-
-	public static final String IMPORT_TIMETABLE = "IMPORT_TIMETABLE";
+	public static final String IMPORT_DATA = "IMPORT_DATA";
 
 	public static final String CLEAR_DATABASE = "CLEAR_DATABASE";
 
-	public static final String EXPORT_SYLLABUS_DATA = "EXPORT_SYLLABUS_DATA";
+	public static final String EXPORT_DATA = "EXPORT_DATA";
 
 }
