@@ -11,6 +11,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -118,6 +119,11 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 				filename = getFilename("semester_data_", contentType);
 				content = getSemesterData(contentType);
 				break;
+			
+			case WebKeys.COURSE_TYPE:
+				filename = getFilename("course_type_data_", contentType);
+				content = getCourseTypeData(contentType);
+				break;
 			}
 			
 			if (log.isTraceEnabled()) {
@@ -154,36 +160,150 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		return prefix + String.valueOf(new Date().getTime()) + "." + extension;
 	}
 
-	private String getSyllabusData(String contentType) throws Exception {
+	protected String getSyllabusData(String contentType) throws Exception {
 		String data = null;
 		
 		switch (contentType) {
 		case ContentTypes.TEXT_CSV_UTF8:
-			data = getSyllabusManagerDataCSV();
+			data = getSyllabusDataCSV();
 			break;
 		
 		case ContentTypes.TEXT_XML_UTF8:
-			data = getSyllabusManagerDataXML();
+			data = getSyllabusDataXML();
 			break;
 		}
 		
 		return data;
 	}
 
-	private String getLecturerData(String contentType) {
-		// TODO Auto-generated method stub
-		return null;
+	protected String getLecturerData(String contentType) throws Exception {
+		String data = null;
+		
+		switch (contentType) {
+		case ContentTypes.TEXT_CSV_UTF8:
+			data = getLecturerDataCSV();
+			break;
+		
+		case ContentTypes.TEXT_XML_UTF8:
+			data = getLecturerDataXML();
+			break;
+		}
+		
+		return data;
 	}
 	
-	private String getSemesterData(String contentType) {
-		// TODO Auto-generated method stub
-		return null;
+	protected String getSemesterData(String contentType) throws Exception {
+		String data = null;
+		
+		switch (contentType) {
+		case ContentTypes.TEXT_CSV_UTF8:
+			data = getSemesterDataCSV();
+			break;
+		
+		case ContentTypes.TEXT_XML_UTF8:
+			data = getSemesterDataXML();
+			break;
+		}
+		
+		return data;
 	}
-
-	protected String getSyllabusManagerDataCSV() throws PortalException {
+	
+	protected String getCourseTypeData(String contentType) throws Exception {
+		String data = null;
+		
+		switch (contentType) {
+		case ContentTypes.TEXT_CSV_UTF8:
+			data = getCourseTypeDataCSV();
+			break;
+		
+		case ContentTypes.TEXT_XML_UTF8:
+			data = getCourseTypeDataXML();
+			break;
+		}
+		
+		return data;
+	}
+	
+	protected String getCourseTypeDataCSV() {
 		StringBuilder sb = new StringBuilder();
 		
-		sb.append(getCSVHeader());
+		sb.append("courseType");
+		sb.append(StringPool.NEW_LINE);
+		
+		for (CourseType courseType : courseTypeLocalService.getCourseTypes()) {
+			sb.append(courseType.getTypeName());
+			sb.append(StringPool.NEW_LINE);
+		}
+		
+		return sb.toString();
+	}
+
+	protected String getCourseTypeDataXML() throws Exception {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document document = db.newDocument();
+		
+		document.appendChild(getCourseTypesElement(document, courseTypeLocalService.getCourseTypes()));
+		
+		return documentToString(document);
+	}
+
+	protected String getLecturerDataCSV() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("lecturerName");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("lecturerLiferayUserId");
+		sb.append(StringPool.NEW_LINE);
+		
+		for (Lecturer lecturer : lecturerLocalService.getLecturers()) {
+			sb.append(lecturer.getLecturerName());
+			sb.append(StringPool.SEMICOLON);
+			sb.append(lecturer.getLecturerUserId());
+			sb.append(StringPool.NEW_LINE);
+		}
+		
+		return sb.toString();
+	}
+	
+	protected String getLecturerDataXML() throws Exception {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document document = db.newDocument();
+		
+		document.appendChild(getLecturersElement(document, lecturerLocalService.getLecturers()));
+		
+		return documentToString(document);
+	}
+
+	protected String getSemesterDataCSV() {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("semester");
+		sb.append(StringPool.NEW_LINE);
+		
+		for (Semester semester : semesterLocalService.getSemesters()) {
+			sb.append(getSemesterValue(semester));
+			sb.append(StringPool.NEW_LINE);
+		}
+		
+		return sb.toString();
+	}
+	
+	protected String getSemesterDataXML() throws Exception {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document document = db.newDocument();
+		
+		document.appendChild(getSemestersElement(document, semesterLocalService.getSemesters()));
+		
+		return documentToString(document);
+	}
+
+	protected String getSyllabusDataCSV() throws PortalException {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(getSyllabusCSVHeader());
 		
 		for (Curriculum curriculum : curriculumLocalService.getCurriculums()) {
 			String curriculumCode = curriculum.getCurriculumCode();
@@ -264,7 +384,7 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		return sb.toString();
 	}
 
-	private Object getCSVHeader() {
+	protected Object getSyllabusCSVHeader() {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("curriculumCode");
@@ -315,22 +435,22 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		return sb.toString();
 	}
 
-	private String getCSVLine(String curriculumCode, String curriculumName) {
+	protected String getCSVLine(String curriculumCode, String curriculumName) {
 		return getCSVLine(curriculumCode, curriculumName, null, null, null);
 	}
 	
-	private String getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
+	protected String getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
 			Integer credit) {
 		return getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName, credit, null, null, null);
 	}
 	
-	private String getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
+	protected String getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
 			Integer credit, String courseTypeName, Integer hoursPerSemester, Integer hoursPerWeek) {
 		return getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName, credit, courseTypeName,
 				hoursPerSemester, hoursPerWeek, null, null, null, null, null, null, null, null, null, null);
 	}
 	
-	private String getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
+	protected String getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
 			Integer credit, String courseTypeName, Integer hoursPerSemester, Integer hoursPerWeek,
 			Integer semesterBeginYear, Integer semesterEndYear, Integer semesterDivision, List<Lecturer> lecturers,
 			String timetableCourseCode, String subjectType, Integer recommendedTerm, Integer limit,
@@ -341,7 +461,7 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 				null, null, null, null);
 	}
 	
-	private String getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
+	protected String getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
 			Integer credit, String courseTypeName, Integer hoursPerSemester, Integer hoursPerWeek,
 			Integer semesterBeginYear, Integer semesterEndYear, Integer semesterDivision, List<Lecturer> lecturers,
 			String timetableCourseCode, String subjectType, Integer recommendedTerm, Integer limit,
@@ -419,16 +539,13 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		return sb.toString();
 	}
 
-	protected String getSyllabusManagerDataXML() throws Exception {
+	protected String getSyllabusDataXML() throws Exception {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder();
 		Document document = db.newDocument();
 		
-		Element rootElement = document.createElement("syllabusManagerData");
-		document.appendChild(rootElement);
-		
 		Element curriculums = document.createElement("curriculums");
-		rootElement.appendChild(curriculums);
+		document.appendChild(curriculums);
 		
 		for (Curriculum curriculum : curriculumLocalService.getCurriculums()) {
 			Element curriculumElement = document.createElement("curriculum");
@@ -548,42 +665,22 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 			}
 		}
 		
-		Element lecturers = getLecturersElement(document, lecturerLocalService.getLecturers());
-		rootElement.appendChild(lecturers);
-		
+		return documentToString(document);
+	}
+
+	protected Element getSemestersElement(Document document, List<Semester> semesterList) {
 		Element semesters = document.createElement("semesters");
-		rootElement.appendChild(semesters);
 		
-		for (Semester semester : semesterLocalService.getSemesters()) {
+		for (Semester semester : semesterList) {
 			Element semesterElement = document.createElement("semester");
 			semesterElement.appendChild(document.createTextNode(getSemesterValue(semester)));
 			semesters.appendChild(semesterElement);
 		}
 		
-		Element courseTypes = document.createElement("courseTypes");
-		rootElement.appendChild(courseTypes);
-		
-		for (CourseType courseType : courseTypeLocalService.getCourseTypes()) {
-			Element courseTypeElement = document.createElement("courseType");
-			courseTypeElement.appendChild(document.createTextNode(courseType.getTypeName()));
-			courseTypes.appendChild(courseTypeElement);
-		}
-		
-		TransformerFactory tf = TransformerFactory.newInstance();
-		tf.setAttribute("indent-number", Integer.valueOf(4));
-		
-		Transformer transformer = tf.newTransformer();
-		transformer.setOutputProperty(OutputKeys.ENCODING, StandardCharsets.UTF_8.toString());
-		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-		
-		StringWriter sw = new StringWriter();
-		StreamResult sr = new StreamResult(sw);
-		transformer.transform(new DOMSource(document), sr);
-		sw.flush();
-		return sw.toString();
+		return semesters;
 	}
 
-	private Element getLecturersElement(Document document, List<Lecturer> lecturerList) {
+	protected Element getLecturersElement(Document document, List<Lecturer> lecturerList) {
 		Element lecturers = document.createElement("lecturers");
 
 		for (Lecturer lecturer : lecturerList) {
@@ -601,15 +698,41 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 
 		return lecturers;
 	}
+	
+	protected Element getCourseTypesElement(Document document, List<CourseType> courseTypeList) {
+		Element courseTypes = document.createElement("courseTypes");
+		
+		for (CourseType courseType : courseTypeList) {
+			Element courseTypeElement = document.createElement("courseType");
+			courseTypeElement.appendChild(document.createTextNode(courseType.getTypeName()));
+			courseTypes.appendChild(courseTypeElement);
+		}
+		
+		return courseTypes;
+	}
 
-	private String getSemesterValue(Semester semester) {
+	protected String getSemesterValue(Semester semester) {
 		return getSemesterValue(semester.getBeginYear(), semester.getEndYear(), semester.getDivision());
 	}
 	
-	private String getSemesterValue(Integer beginYear, Integer endYear, Integer division) {
+	protected String getSemesterValue(Integer beginYear, Integer endYear, Integer division) {
 		return beginYear == null || endYear == null || division == null ? StringPool.BLANK : beginYear + "/" + endYear + "/" + division;
 	}
-	
+
+	protected String documentToString(Document document) throws TransformerException {
+		TransformerFactory tf = TransformerFactory.newInstance();
+		tf.setAttribute("indent-number", Integer.valueOf(4));
+		
+		Transformer transformer = tf.newTransformer();
+		transformer.setOutputProperty(OutputKeys.ENCODING, StandardCharsets.UTF_8.toString());
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		
+		StringWriter sw = new StringWriter();
+		StreamResult sr = new StreamResult(sw);
+		transformer.transform(new DOMSource(document), sr);
+		sw.flush();
+		return sw.toString();
+	}
 
 	@Reference(unbind = "-")
 	protected void setCurriculumService(CurriculumLocalService curriculumLocalService) {

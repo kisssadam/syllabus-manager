@@ -96,6 +96,8 @@ public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 
 	String SEMESTER = "SEMESTER";
 
+	String COURSE_TYPE = "COURSE_TYPE";
+
 	String FILE_INPUT_NAME = "fileupload";
 
 }
