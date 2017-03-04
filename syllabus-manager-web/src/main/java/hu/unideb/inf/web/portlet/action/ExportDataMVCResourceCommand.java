@@ -641,19 +641,19 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 							syllabuses.appendChild(syllabusElement);
 							
 							Element competence = document.createElement("competence");
-							competence.appendChild(document.createTextNode(syllabus.getCompetence()));
+							competence.appendChild(document.createCDATASection(syllabus.getCompetence()));
 							syllabusElement.appendChild(competence);
 							
 							Element ethicalStandards = document.createElement("ethicalStandards");
-							ethicalStandards.appendChild(document.createTextNode(syllabus.getEthicalStandards()));
+							ethicalStandards.appendChild(document.createCDATASection(syllabus.getEthicalStandards()));
 							syllabusElement.appendChild(ethicalStandards);
 							
 							Element topics = document.createElement("topics");
-							topics.appendChild(document.createTextNode(syllabus.getTopics()));
+							topics.appendChild(document.createCDATASection(syllabus.getTopics()));
 							syllabusElement.appendChild(topics);
 							
 							Element educationalMaterials = document.createElement("educationalMaterials");
-							educationalMaterials.appendChild(document.createTextNode(syllabus.getEducationalMaterials()));
+							educationalMaterials.appendChild(document.createCDATASection(syllabus.getEducationalMaterials()));
 							syllabusElement.appendChild(educationalMaterials);
 							
 							Element weeklyTasks = document.createElement("weeklyTasks");
