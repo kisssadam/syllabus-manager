@@ -28,15 +28,18 @@ public abstract class AbstractCSVDataImporter extends AbstractDataImporter {
 				log.trace(String.format("line[%d]: '%s'", lineIndex, line));
 			}
 			if (lineIndex++ == 0) {
-				parseHeader();
+				parseHeader(line);
 			} else {
 				parseLine(line);
 			}
 		}
 	}
 
-	public abstract void parseHeader();
+	protected void parseHeader(String header) {
+		// there is no need for the header
+		return;
+	}
 
-	public abstract void parseLine(String line);
+	protected abstract void parseLine(String line);
 
 }

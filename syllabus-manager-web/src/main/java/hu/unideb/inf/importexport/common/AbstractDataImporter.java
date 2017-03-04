@@ -25,11 +25,11 @@ public abstract class AbstractDataImporter implements DataImporter {
 		this.bufferedReader = new BufferedReader(new FileReader(uploadRequest.getFile(WebKeys.FILE_INPUT_NAME)));
 	}
 
-	public ActionRequest getActionRequest() {
+	protected ActionRequest getActionRequest() {
 		return actionRequest;
 	}
 
-	public BufferedReader getBufferedReader() {
+	protected BufferedReader getBufferedReader() {
 		return bufferedReader;
 	}
 

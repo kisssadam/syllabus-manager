@@ -13,13 +13,7 @@ public class CourseTypeCSVDataImporter extends AbstractCSVDataImporter {
 	}
 
 	@Override
-	public void parseHeader() {
-		// there is no need for the header
-		return;
-	}
-
-	@Override
-	public void parseLine(String line) {
+	protected void parseLine(String line) {
 		// TODO
 	}
 
