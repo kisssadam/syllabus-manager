@@ -98,20 +98,20 @@
 			</liferay-portlet:actionURL>
 			
 			<aui:form action="<%=importDataURL.toString()%>" enctype="multipart/form-data" method="post">
-				<aui:input type="file" name="fileupload">
+				<aui:input type="file" name="fileupload" label="file">
 					<aui:validator name="required" />
 				</aui:input>
 				
 				<aui:field-wrapper name="content-type" required="true">
-					<aui:input name="contentType" type="radio" label="CSV" value="<%=ContentTypes.TEXT_CSV_UTF8%>" checked="true" />
-					<aui:input name="contentType" type="radio" label="XML" value="<%=ContentTypes.TEXT_XML_UTF8%>" />
+					<aui:input name="contentType" type="radio" label="label-csv" value="<%=ContentTypes.TEXT_CSV_UTF8%>" checked="true" />
+					<aui:input name="contentType" type="radio" label="label-xml" value="<%=ContentTypes.TEXT_XML_UTF8%>" />
 				</aui:field-wrapper>
 				
 				<aui:field-wrapper name="entity-type" required="true">
-					<aui:input name="entityType" type="radio" label="<%=WebKeys.SYLLABUS%>" value="<%=WebKeys.SYLLABUS%>" checked="true" />
-					<aui:input name="entityType" type="radio" label="<%=WebKeys.LECTURER%>" value="<%=WebKeys.LECTURER%>" />
-					<aui:input name="entityType" type="radio" label="<%=WebKeys.SEMESTER%>" value="<%=WebKeys.SEMESTER%>" />
-					<aui:input name="entityType" type="radio" label="<%=WebKeys.COURSE_TYPE%>" value="<%=WebKeys.COURSE_TYPE%>" />
+					<aui:input name="entityType" type="radio" label="syllabuses" value="<%=WebKeys.SYLLABUS%>" checked="true" />
+					<aui:input name="entityType" type="radio" label="lecturers" value="<%=WebKeys.LECTURER%>" />
+					<aui:input name="entityType" type="radio" label="semesters" value="<%=WebKeys.SEMESTER%>" />
+					<aui:input name="entityType" type="radio" label="course-types" value="<%=WebKeys.COURSE_TYPE%>" />
 				</aui:field-wrapper>
 				
 				<aui:button-row>
