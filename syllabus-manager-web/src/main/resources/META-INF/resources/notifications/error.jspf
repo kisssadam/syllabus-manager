@@ -51,3 +51,6 @@
 
 <liferay-ui:error exception="<%=ExportDataContentTypeException.class%>" message="export-data-content-type-exception" />
 <liferay-ui:error exception="<%=ExportDataEntityTypeException.class%>" message="export-data-entity-type-exception" />
+
+<liferay-ui:error exception="<%=ImportDataContentTypeException.class%>" message="import-data-content-type-exception" />
+<liferay-ui:error exception="<%=ImportDataEntityTypeException.class%>" message="import-data-entity-type-exception" />

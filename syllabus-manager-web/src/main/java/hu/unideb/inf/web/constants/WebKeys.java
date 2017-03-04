@@ -69,6 +69,8 @@ public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 	 */
 
 	String MVC_ACTION_IMPORT_SYLLABUS_DATA = "/syllabusmanager/admin/import_syllabus_data";
+	
+	String MVC_ACTION_IMPORT_DATA = "/syllabusmanager/admin/import_data";
 
 	String MVC_ACTION_CLEAR_DATABASE = "/syllabusmanager/admin/clear_database";
 

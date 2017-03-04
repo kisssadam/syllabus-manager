@@ -93,45 +93,31 @@
 		<aui:col span="6">
 			<liferay-ui:header title="import" />
 			
-			<aui:button-row>
-				<aui:col span="6">
-					<aui:button icon="icon-upload" href="" value="import-syllabus-data-csv" cssClass="col-xs-12 export-import-button" />
-				</aui:col>
+			<liferay-portlet:actionURL name="<%=WebKeys.MVC_ACTION_IMPORT_DATA%>" var="importDataURL">
+				<portlet:param name="mvcActionCommand" value="<%=WebKeys.MVC_ACTION_IMPORT_SYLLABUS_DATA%>" />
+			</liferay-portlet:actionURL>
 			
-				<aui:col span="6">
-					<aui:button icon="icon-upload" href="" value="import-syllabus-data-xml" cssClass="col-xs-12 export-import-button" />
-				</aui:col>
-			</aui:button-row>
-			
-			<aui:button-row>
-				<aui:col span="6">
-					<aui:button icon="icon-upload" href="" value="import-lecturer-data-csv" cssClass="col-xs-12 export-import-button" />
-				</aui:col>
+			<aui:form action="<%=importDataURL.toString()%>" enctype="multipart/form-data" method="post">
+				<aui:input type="file" name="fileupload">
+					<aui:validator name="required" />
+				</aui:input>
 				
-				<aui:col span="6">
-					<aui:button icon="icon-upload" href="" value="import-lecturer-data-xml" cssClass="col-xs-12 export-import-button" />
-				</aui:col>
-			</aui:button-row>
-			
-			<aui:button-row>
-				<aui:col span="6">
-					<aui:button icon="icon-upload" href="" value="import-semester-data-csv" cssClass="col-xs-12 export-import-button" />
-				</aui:col>
+				<aui:field-wrapper name="content-type" required="true">
+					<aui:input name="contentType" type="radio" label="CSV" value="<%=ContentTypes.TEXT_CSV_UTF8%>" checked="true" />
+					<aui:input name="contentType" type="radio" label="XML" value="<%=ContentTypes.TEXT_XML_UTF8%>" />
+				</aui:field-wrapper>
 				
-				<aui:col span="6">
-					<aui:button icon="icon-upload" href="" value="import-semester-data-xml" cssClass="col-xs-12 export-import-button" />
-				</aui:col>
-			</aui:button-row>
-			
-			<aui:button-row>
-				<aui:col span="6">
-					<aui:button icon="icon-upload" href="" value="import-course-type-data-csv" cssClass="col-xs-12 export-import-button" />
-				</aui:col>
+				<aui:field-wrapper name="entity-type" required="true">
+					<aui:input name="entityType" type="radio" label="<%=WebKeys.SYLLABUS%>" value="<%=WebKeys.SYLLABUS%>" checked="true" />
+					<aui:input name="entityType" type="radio" label="<%=WebKeys.LECTURER%>" value="<%=WebKeys.LECTURER%>" />
+					<aui:input name="entityType" type="radio" label="<%=WebKeys.SEMESTER%>" value="<%=WebKeys.SEMESTER%>" />
+					<aui:input name="entityType" type="radio" label="<%=WebKeys.COURSE_TYPE%>" value="<%=WebKeys.COURSE_TYPE%>" />
+				</aui:field-wrapper>
 				
-				<aui:col span="6">
-					<aui:button icon="icon-upload" href="" value="import-course-type-data-xml" cssClass="col-xs-12 export-import-button" />
-				</aui:col>
-			</aui:button-row>
+				<aui:button-row>
+					<aui:button type="submit" />
+				</aui:button-row>
+			</aui:form>
 		</aui:col>
 	</c:if>
 </div>

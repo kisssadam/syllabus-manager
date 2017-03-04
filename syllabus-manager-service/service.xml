@@ -284,5 +284,7 @@
         <exception>SyllabusCannotBeDeletedDueToApprovedStatus</exception>
         <exception>ExportDataContentType</exception>
         <exception>ExportDataEntityType</exception>
+        <exception>ImportDataContentType</exception>
+        <exception>ImportDataEntityType</exception>
 	</exceptions>
 </service-builder>
