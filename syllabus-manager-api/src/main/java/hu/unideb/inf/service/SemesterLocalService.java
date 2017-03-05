@@ -134,6 +134,10 @@ public interface SemesterLocalService extends BaseLocalService,
 	public Semester fetchSemester(long semesterId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public Semester fetchSemesterByB_E_D(int beginYear, int endYear,
+		int division);
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Semester getLatestSemester()
 		throws SystemException, NoSuchSemesterException;
 

@@ -142,10 +142,9 @@ public class LecturerLocalServiceUtil {
 		return getService().fetchLecturer(lecturerId);
 	}
 
-	public static hu.unideb.inf.model.Lecturer fetchLecturerByName(
-		java.lang.String lecturerName)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().fetchLecturerByName(lecturerName);
+	public static hu.unideb.inf.model.Lecturer fetchLecturerByN_U(
+		java.lang.String lecturerName, long lecturerUserId) {
+		return getService().fetchLecturerByN_U(lecturerName, lecturerUserId);
 	}
 
 	/**
@@ -160,11 +159,10 @@ public class LecturerLocalServiceUtil {
 		return getService().getLecturer(lecturerId);
 	}
 
-	public static hu.unideb.inf.model.Lecturer getLecturerByName(
-		java.lang.String lecturerName)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			hu.unideb.inf.exception.NoSuchLecturerException {
-		return getService().getLecturerByName(lecturerName);
+	public static hu.unideb.inf.model.Lecturer getLecturerByN_U(
+		java.lang.String lecturerName, long lecturerUserId)
+		throws hu.unideb.inf.exception.NoSuchLecturerException {
+		return getService().getLecturerByN_U(lecturerName, lecturerUserId);
 	}
 
 	/**

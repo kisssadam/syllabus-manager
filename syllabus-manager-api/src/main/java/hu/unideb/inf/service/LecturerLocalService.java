@@ -136,8 +136,8 @@ public interface LecturerLocalService extends BaseLocalService,
 	public Lecturer fetchLecturer(long lecturerId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Lecturer fetchLecturerByName(java.lang.String lecturerName)
-		throws SystemException;
+	public Lecturer fetchLecturerByN_U(java.lang.String lecturerName,
+		long lecturerUserId);
 
 	/**
 	* Returns the lecturer with the primary key.
@@ -150,8 +150,8 @@ public interface LecturerLocalService extends BaseLocalService,
 	public Lecturer getLecturer(long lecturerId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Lecturer getLecturerByName(java.lang.String lecturerName)
-		throws SystemException, NoSuchLecturerException;
+	public Lecturer getLecturerByN_U(java.lang.String lecturerName,
+		long lecturerUserId) throws NoSuchLecturerException;
 
 	/**
 	* Updates the lecturer in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.

@@ -149,10 +149,10 @@ public class LecturerLocalServiceWrapper implements LecturerLocalService,
 	}
 
 	@Override
-	public hu.unideb.inf.model.Lecturer fetchLecturerByName(
-		java.lang.String lecturerName)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _lecturerLocalService.fetchLecturerByName(lecturerName);
+	public hu.unideb.inf.model.Lecturer fetchLecturerByN_U(
+		java.lang.String lecturerName, long lecturerUserId) {
+		return _lecturerLocalService.fetchLecturerByN_U(lecturerName,
+			lecturerUserId);
 	}
 
 	/**
@@ -169,11 +169,11 @@ public class LecturerLocalServiceWrapper implements LecturerLocalService,
 	}
 
 	@Override
-	public hu.unideb.inf.model.Lecturer getLecturerByName(
-		java.lang.String lecturerName)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			hu.unideb.inf.exception.NoSuchLecturerException {
-		return _lecturerLocalService.getLecturerByName(lecturerName);
+	public hu.unideb.inf.model.Lecturer getLecturerByN_U(
+		java.lang.String lecturerName, long lecturerUserId)
+		throws hu.unideb.inf.exception.NoSuchLecturerException {
+		return _lecturerLocalService.getLecturerByN_U(lecturerName,
+			lecturerUserId);
 	}
 
 	/**

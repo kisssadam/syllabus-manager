@@ -153,6 +153,13 @@ public class SemesterLocalServiceWrapper implements SemesterLocalService,
 	}
 
 	@Override
+	public hu.unideb.inf.model.Semester fetchSemesterByB_E_D(int beginYear,
+		int endYear, int division) {
+		return _semesterLocalService.fetchSemesterByB_E_D(beginYear, endYear,
+			division);
+	}
+
+	@Override
 	public hu.unideb.inf.model.Semester getLatestSemester()
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.exception.NoSuchSemesterException {

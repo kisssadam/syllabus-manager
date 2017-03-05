@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.portlet.ActionRequest;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
@@ -18,7 +20,7 @@ public abstract class AbstractCSVDataImporter extends AbstractDataImporter {
 	}
 
 	@Override
-	public void importData() throws IOException {
+	public void importData() throws IOException, SystemException, PortalException {
 		BufferedReader br = getBufferedReader();
 		String line = null;
 		long lineIndex = 0L;
@@ -40,6 +42,6 @@ public abstract class AbstractCSVDataImporter extends AbstractDataImporter {
 		return;
 	}
 
-	protected abstract void parseLine(String line);
+	protected abstract void parseLine(String line) throws SystemException, PortalException;
 
 }

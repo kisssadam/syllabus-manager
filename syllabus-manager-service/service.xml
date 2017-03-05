@@ -206,12 +206,13 @@
 		<column name="createDate" type="Date"></column>
 		<column name="modifiedDate" type="Date"></column>
 		<column name="lecturerName" type="String"></column>
-		<column name="lecturerUserId" type="long"></column>
+		<column name="lecturerUserId" type="long" convert-null="true"></column>
 		<column name="timetableCourses" type="Collection"
 			mapping-table="Lecturers_TimetableCourses" entity="TimetableCourse">
 		</column>
-		<finder name="LecturerName" return-type="Lecturer" unique="true">
+		<finder name="N_U" return-type="Lecturer" unique="true">
 			<finder-column name="lecturerName"></finder-column>
+            <finder-column name="lecturerUserId"></finder-column>
 		</finder>
 	</entity>
     <entity name="Syllabus" local-service="true" uuid="true" uuid-accessor="true">

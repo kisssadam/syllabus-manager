@@ -4,6 +4,10 @@ import java.io.FileNotFoundException;
 
 import javax.portlet.ActionRequest;
 
+import org.w3c.dom.Document;
+
+import com.liferay.portal.kernel.exception.PortalException;
+
 import hu.unideb.inf.importexport.common.AbstractXMLDataImporter;
 
 public class SyllabusXMLDataImporter extends AbstractXMLDataImporter {
@@ -13,7 +17,7 @@ public class SyllabusXMLDataImporter extends AbstractXMLDataImporter {
 	}
 
 	@Override
-	public void importData() {
+	protected void parseDocument(Document document) throws PortalException {
 		// TODO
 	}
 

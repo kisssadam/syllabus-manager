@@ -42,49 +42,55 @@ public interface LecturerPersistence extends BasePersistence<Lecturer> {
 	 */
 
 	/**
-	* Returns the lecturer where lecturerName = &#63; or throws a {@link NoSuchLecturerException} if it could not be found.
+	* Returns the lecturer where lecturerName = &#63; and lecturerUserId = &#63; or throws a {@link NoSuchLecturerException} if it could not be found.
 	*
 	* @param lecturerName the lecturer name
+	* @param lecturerUserId the lecturer user ID
 	* @return the matching lecturer
 	* @throws NoSuchLecturerException if a matching lecturer could not be found
 	*/
-	public Lecturer findByLecturerName(java.lang.String lecturerName)
+	public Lecturer findByN_U(java.lang.String lecturerName, long lecturerUserId)
 		throws NoSuchLecturerException;
 
 	/**
-	* Returns the lecturer where lecturerName = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the lecturer where lecturerName = &#63; and lecturerUserId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param lecturerName the lecturer name
+	* @param lecturerUserId the lecturer user ID
 	* @return the matching lecturer, or <code>null</code> if a matching lecturer could not be found
 	*/
-	public Lecturer fetchByLecturerName(java.lang.String lecturerName);
+	public Lecturer fetchByN_U(java.lang.String lecturerName,
+		long lecturerUserId);
 
 	/**
-	* Returns the lecturer where lecturerName = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the lecturer where lecturerName = &#63; and lecturerUserId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
 	* @param lecturerName the lecturer name
+	* @param lecturerUserId the lecturer user ID
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the matching lecturer, or <code>null</code> if a matching lecturer could not be found
 	*/
-	public Lecturer fetchByLecturerName(java.lang.String lecturerName,
-		boolean retrieveFromCache);
+	public Lecturer fetchByN_U(java.lang.String lecturerName,
+		long lecturerUserId, boolean retrieveFromCache);
 
 	/**
-	* Removes the lecturer where lecturerName = &#63; from the database.
+	* Removes the lecturer where lecturerName = &#63; and lecturerUserId = &#63; from the database.
 	*
 	* @param lecturerName the lecturer name
+	* @param lecturerUserId the lecturer user ID
 	* @return the lecturer that was removed
 	*/
-	public Lecturer removeByLecturerName(java.lang.String lecturerName)
-		throws NoSuchLecturerException;
+	public Lecturer removeByN_U(java.lang.String lecturerName,
+		long lecturerUserId) throws NoSuchLecturerException;
 
 	/**
-	* Returns the number of lecturers where lecturerName = &#63;.
+	* Returns the number of lecturers where lecturerName = &#63; and lecturerUserId = &#63;.
 	*
 	* @param lecturerName the lecturer name
+	* @param lecturerUserId the lecturer user ID
 	* @return the number of matching lecturers
 	*/
-	public int countByLecturerName(java.lang.String lecturerName);
+	public int countByN_U(java.lang.String lecturerName, long lecturerUserId);
 
 	/**
 	* Caches the lecturer in the entity cache if it is enabled.

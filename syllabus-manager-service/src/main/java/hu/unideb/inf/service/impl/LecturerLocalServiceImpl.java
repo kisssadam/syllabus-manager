@@ -37,10 +37,12 @@ import hu.unideb.inf.service.base.LecturerLocalServiceBaseImpl;
  * The implementation of the lecturer local service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link hu.unideb.inf.service.LecturerLocalService} interface.
+ * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy
+ * their definitions into the {@link hu.unideb.inf.service.LecturerLocalService} interface.
  *
  * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+ * This is a local service. Methods of this service will not have security checks based on the propagated JAAS
+ * credentials because this service can only be accessed from within the same VM.
  * </p>
  *
  * @author Adam Kiss
@@ -52,9 +54,10 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 	/*
 	 * NOTE FOR DEVELOPERS:
 	 *
-	 * Never reference this class directly. Always use {@link hu.unideb.inf.service.LecturerLocalServiceUtil} to access the lecturer local service.
+	 * Never reference this class directly. Always use {@link hu.unideb.inf.service.LecturerLocalServiceUtil} to access
+	 * the lecturer local service.
 	 */
-	
+
 	public List<Lecturer> getLecturers() throws SystemException {
 		return lecturerPersistence.findAll();
 	}
@@ -69,13 +72,21 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 		return lecturers;
 	}
 
-	public Lecturer getLecturerByName(String lecturerName) throws NoSuchLecturerException, SystemException {
-		return lecturerPersistence.findByLecturerName(lecturerName);
+	public Lecturer getLecturerByN_U(String lecturerName, long lecturerUserId) throws NoSuchLecturerException {
+		return lecturerPersistence.findByN_U(lecturerName, lecturerUserId);
 	}
 
-	public Lecturer fetchLecturerByName(String lecturerName) throws SystemException {
-		return lecturerPersistence.fetchByLecturerName(lecturerName);
+	public Lecturer fetchLecturerByN_U(String lecturerName, long lecturerUserId) {
+		return lecturerPersistence.fetchByN_U(lecturerName, lecturerUserId);
 	}
+
+	// public Lecturer getLecturerByName(String lecturerName) throws NoSuchLecturerException, SystemException {
+	// return lecturerPersistence.findByLecturerName(lecturerName);
+	// }
+	//
+	// public Lecturer fetchLecturerByName(String lecturerName) throws SystemException {
+	// return lecturerPersistence.fetchByLecturerName(lecturerName);
+	// }
 
 	public Lecturer addLecturer(String lecturerName, long lecturerUserId, ServiceContext serviceContext)
 			throws PortalException, SystemException {
@@ -113,7 +124,7 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 		if (!timetableCourseLocalService.getLecturerTimetableCourses(lecturerId).isEmpty()) {
 			throw new DeleteTimetableCoursesFirstException();
 		}
-		
+
 		lecturerPersistence.clearTimetableCourses(lecturerId);
 
 		Lecturer lecturer = lecturerLocalService.getLecturer(lecturerId);
@@ -155,12 +166,12 @@ public class LecturerLocalServiceImpl extends LecturerLocalServiceBaseImpl {
 			throw new LecturerNameException();
 		}
 
-		Lecturer lecturer = lecturerLocalService.fetchLecturerByName(lecturerName);
+		Lecturer lecturer = lecturerLocalService.fetchLecturerByN_U(lecturerName, lecturerUserId);
 		if (Validator.isNotNull(lecturer)) {
 			if (lecturer.getLecturerId() != lecturerId) {
 				throw new DuplicateLecturerException();
 			}
 		}
 	}
-	
+
 }

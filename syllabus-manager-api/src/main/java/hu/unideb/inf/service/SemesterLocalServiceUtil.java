@@ -146,6 +146,11 @@ public class SemesterLocalServiceUtil {
 		return getService().fetchSemester(semesterId);
 	}
 
+	public static hu.unideb.inf.model.Semester fetchSemesterByB_E_D(
+		int beginYear, int endYear, int division) {
+		return getService().fetchSemesterByB_E_D(beginYear, endYear, division);
+	}
+
 	public static hu.unideb.inf.model.Semester getLatestSemester()
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.exception.NoSuchSemesterException {

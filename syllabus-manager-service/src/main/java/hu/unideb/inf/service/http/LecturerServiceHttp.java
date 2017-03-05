@@ -155,16 +155,17 @@ public class LecturerServiceHttp {
 		}
 	}
 
-	public static hu.unideb.inf.model.Lecturer getLecturerByName(
-		HttpPrincipal httpPrincipal, java.lang.String lecturerName)
+	public static hu.unideb.inf.model.Lecturer getLecturerByN_U(
+		HttpPrincipal httpPrincipal, java.lang.String lecturerName,
+		long lecturerUserId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			hu.unideb.inf.exception.NoSuchLecturerException {
 		try {
 			MethodKey methodKey = new MethodKey(LecturerServiceUtil.class,
-					"getLecturerByName", _getLecturerByNameParameterTypes3);
+					"getLecturerByN_U", _getLecturerByN_UParameterTypes3);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
-					lecturerName);
+					lecturerName, lecturerUserId);
 
 			Object returnObj = null;
 
@@ -192,15 +193,16 @@ public class LecturerServiceHttp {
 		}
 	}
 
-	public static hu.unideb.inf.model.Lecturer fetchLecturerByName(
-		HttpPrincipal httpPrincipal, java.lang.String lecturerName)
+	public static hu.unideb.inf.model.Lecturer fetchLecturerByN_U(
+		HttpPrincipal httpPrincipal, java.lang.String lecturerName,
+		long lecturerUserId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		try {
 			MethodKey methodKey = new MethodKey(LecturerServiceUtil.class,
-					"fetchLecturerByName", _fetchLecturerByNameParameterTypes4);
+					"fetchLecturerByN_U", _fetchLecturerByN_UParameterTypes4);
 
 			MethodHandler methodHandler = new MethodHandler(methodKey,
-					lecturerName);
+					lecturerName, lecturerUserId);
 
 			Object returnObj = null;
 
@@ -348,11 +350,11 @@ public class LecturerServiceHttp {
 	private static final Class<?>[] _getLecturersByIdsParameterTypes2 = new Class[] {
 			long[].class
 		};
-	private static final Class<?>[] _getLecturerByNameParameterTypes3 = new Class[] {
-			java.lang.String.class
+	private static final Class<?>[] _getLecturerByN_UParameterTypes3 = new Class[] {
+			java.lang.String.class, long.class
 		};
-	private static final Class<?>[] _fetchLecturerByNameParameterTypes4 = new Class[] {
-			java.lang.String.class
+	private static final Class<?>[] _fetchLecturerByN_UParameterTypes4 = new Class[] {
+			java.lang.String.class, long.class
 		};
 	private static final Class<?>[] _addLecturerParameterTypes5 = new Class[] {
 			java.lang.String.class, long.class,

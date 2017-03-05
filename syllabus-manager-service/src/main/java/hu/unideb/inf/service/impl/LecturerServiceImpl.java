@@ -67,12 +67,13 @@ public class LecturerServiceImpl extends LecturerServiceBaseImpl {
 		return lecturerLocalService.getLecturersByIds(lecturerIds);
 	}
 
-	public Lecturer getLecturerByName(String lecturerName) throws NoSuchLecturerException, SystemException {
-		return lecturerLocalService.getLecturerByName(lecturerName);
+	public Lecturer getLecturerByN_U(String lecturerName, long lecturerUserId)
+			throws NoSuchLecturerException, SystemException {
+		return lecturerLocalService.getLecturerByN_U(lecturerName, lecturerUserId);
 	}
 
-	public Lecturer fetchLecturerByName(String lecturerName) throws SystemException {
-		return lecturerLocalService.fetchLecturerByName(lecturerName);
+	public Lecturer fetchLecturerByN_U(String lecturerName, long lecturerUserId) throws SystemException {
+		return lecturerLocalService.fetchLecturerByN_U(lecturerName, lecturerUserId);
 	}
 
 	public Lecturer addLecturer(String lecturerName, long lecturerUserId, ServiceContext serviceContext)

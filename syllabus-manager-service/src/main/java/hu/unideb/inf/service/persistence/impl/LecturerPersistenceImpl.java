@@ -94,35 +94,40 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(LecturerModelImpl.ENTITY_CACHE_ENABLED,
 			LecturerModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-	public static final FinderPath FINDER_PATH_FETCH_BY_LECTURERNAME = new FinderPath(LecturerModelImpl.ENTITY_CACHE_ENABLED,
+	public static final FinderPath FINDER_PATH_FETCH_BY_N_U = new FinderPath(LecturerModelImpl.ENTITY_CACHE_ENABLED,
 			LecturerModelImpl.FINDER_CACHE_ENABLED, LecturerImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByLecturerName",
-			new String[] { String.class.getName() },
-			LecturerModelImpl.LECTURERNAME_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_LECTURERNAME = new FinderPath(LecturerModelImpl.ENTITY_CACHE_ENABLED,
+			FINDER_CLASS_NAME_ENTITY, "fetchByN_U",
+			new String[] { String.class.getName(), Long.class.getName() },
+			LecturerModelImpl.LECTURERNAME_COLUMN_BITMASK |
+			LecturerModelImpl.LECTURERUSERID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_N_U = new FinderPath(LecturerModelImpl.ENTITY_CACHE_ENABLED,
 			LecturerModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByLecturerName",
-			new String[] { String.class.getName() });
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByN_U",
+			new String[] { String.class.getName(), Long.class.getName() });
 
 	/**
-	 * Returns the lecturer where lecturerName = &#63; or throws a {@link NoSuchLecturerException} if it could not be found.
+	 * Returns the lecturer where lecturerName = &#63; and lecturerUserId = &#63; or throws a {@link NoSuchLecturerException} if it could not be found.
 	 *
 	 * @param lecturerName the lecturer name
+	 * @param lecturerUserId the lecturer user ID
 	 * @return the matching lecturer
 	 * @throws NoSuchLecturerException if a matching lecturer could not be found
 	 */
 	@Override
-	public Lecturer findByLecturerName(String lecturerName)
+	public Lecturer findByN_U(String lecturerName, long lecturerUserId)
 		throws NoSuchLecturerException {
-		Lecturer lecturer = fetchByLecturerName(lecturerName);
+		Lecturer lecturer = fetchByN_U(lecturerName, lecturerUserId);
 
 		if (lecturer == null) {
-			StringBundler msg = new StringBundler(4);
+			StringBundler msg = new StringBundler(6);
 
 			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
 
 			msg.append("lecturerName=");
 			msg.append(lecturerName);
+
+			msg.append(", lecturerUserId=");
+			msg.append(lecturerUserId);
 
 			msg.append(StringPool.CLOSE_CURLY_BRACE);
 
@@ -137,61 +142,66 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 	}
 
 	/**
-	 * Returns the lecturer where lecturerName = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 * Returns the lecturer where lecturerName = &#63; and lecturerUserId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	 *
 	 * @param lecturerName the lecturer name
+	 * @param lecturerUserId the lecturer user ID
 	 * @return the matching lecturer, or <code>null</code> if a matching lecturer could not be found
 	 */
 	@Override
-	public Lecturer fetchByLecturerName(String lecturerName) {
-		return fetchByLecturerName(lecturerName, true);
+	public Lecturer fetchByN_U(String lecturerName, long lecturerUserId) {
+		return fetchByN_U(lecturerName, lecturerUserId, true);
 	}
 
 	/**
-	 * Returns the lecturer where lecturerName = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 * Returns the lecturer where lecturerName = &#63; and lecturerUserId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	 *
 	 * @param lecturerName the lecturer name
+	 * @param lecturerUserId the lecturer user ID
 	 * @param retrieveFromCache whether to retrieve from the finder cache
 	 * @return the matching lecturer, or <code>null</code> if a matching lecturer could not be found
 	 */
 	@Override
-	public Lecturer fetchByLecturerName(String lecturerName,
+	public Lecturer fetchByN_U(String lecturerName, long lecturerUserId,
 		boolean retrieveFromCache) {
-		Object[] finderArgs = new Object[] { lecturerName };
+		Object[] finderArgs = new Object[] { lecturerName, lecturerUserId };
 
 		Object result = null;
 
 		if (retrieveFromCache) {
-			result = finderCache.getResult(FINDER_PATH_FETCH_BY_LECTURERNAME,
+			result = finderCache.getResult(FINDER_PATH_FETCH_BY_N_U,
 					finderArgs, this);
 		}
 
 		if (result instanceof Lecturer) {
 			Lecturer lecturer = (Lecturer)result;
 
-			if (!Objects.equals(lecturerName, lecturer.getLecturerName())) {
+			if (!Objects.equals(lecturerName, lecturer.getLecturerName()) ||
+					(lecturerUserId != lecturer.getLecturerUserId())) {
 				result = null;
 			}
 		}
 
 		if (result == null) {
-			StringBundler query = new StringBundler(3);
+			StringBundler query = new StringBundler(4);
 
 			query.append(_SQL_SELECT_LECTURER_WHERE);
 
 			boolean bindLecturerName = false;
 
 			if (lecturerName == null) {
-				query.append(_FINDER_COLUMN_LECTURERNAME_LECTURERNAME_1);
+				query.append(_FINDER_COLUMN_N_U_LECTURERNAME_1);
 			}
 			else if (lecturerName.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_LECTURERNAME_LECTURERNAME_3);
+				query.append(_FINDER_COLUMN_N_U_LECTURERNAME_3);
 			}
 			else {
 				bindLecturerName = true;
 
-				query.append(_FINDER_COLUMN_LECTURERNAME_LECTURERNAME_2);
+				query.append(_FINDER_COLUMN_N_U_LECTURERNAME_2);
 			}
+
+			query.append(_FINDER_COLUMN_N_U_LECTURERUSERID_2);
 
 			String sql = query.toString();
 
@@ -208,11 +218,13 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 					qPos.add(lecturerName);
 				}
 
+				qPos.add(lecturerUserId);
+
 				List<Lecturer> list = q.list();
 
 				if (list.isEmpty()) {
-					finderCache.putResult(FINDER_PATH_FETCH_BY_LECTURERNAME,
-						finderArgs, list);
+					finderCache.putResult(FINDER_PATH_FETCH_BY_N_U, finderArgs,
+						list);
 				}
 				else {
 					Lecturer lecturer = list.get(0);
@@ -222,15 +234,15 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 					cacheResult(lecturer);
 
 					if ((lecturer.getLecturerName() == null) ||
-							!lecturer.getLecturerName().equals(lecturerName)) {
-						finderCache.putResult(FINDER_PATH_FETCH_BY_LECTURERNAME,
+							!lecturer.getLecturerName().equals(lecturerName) ||
+							(lecturer.getLecturerUserId() != lecturerUserId)) {
+						finderCache.putResult(FINDER_PATH_FETCH_BY_N_U,
 							finderArgs, lecturer);
 					}
 				}
 			}
 			catch (Exception e) {
-				finderCache.removeResult(FINDER_PATH_FETCH_BY_LECTURERNAME,
-					finderArgs);
+				finderCache.removeResult(FINDER_PATH_FETCH_BY_N_U, finderArgs);
 
 				throw processException(e);
 			}
@@ -248,51 +260,55 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 	}
 
 	/**
-	 * Removes the lecturer where lecturerName = &#63; from the database.
+	 * Removes the lecturer where lecturerName = &#63; and lecturerUserId = &#63; from the database.
 	 *
 	 * @param lecturerName the lecturer name
+	 * @param lecturerUserId the lecturer user ID
 	 * @return the lecturer that was removed
 	 */
 	@Override
-	public Lecturer removeByLecturerName(String lecturerName)
+	public Lecturer removeByN_U(String lecturerName, long lecturerUserId)
 		throws NoSuchLecturerException {
-		Lecturer lecturer = findByLecturerName(lecturerName);
+		Lecturer lecturer = findByN_U(lecturerName, lecturerUserId);
 
 		return remove(lecturer);
 	}
 
 	/**
-	 * Returns the number of lecturers where lecturerName = &#63;.
+	 * Returns the number of lecturers where lecturerName = &#63; and lecturerUserId = &#63;.
 	 *
 	 * @param lecturerName the lecturer name
+	 * @param lecturerUserId the lecturer user ID
 	 * @return the number of matching lecturers
 	 */
 	@Override
-	public int countByLecturerName(String lecturerName) {
-		FinderPath finderPath = FINDER_PATH_COUNT_BY_LECTURERNAME;
+	public int countByN_U(String lecturerName, long lecturerUserId) {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_N_U;
 
-		Object[] finderArgs = new Object[] { lecturerName };
+		Object[] finderArgs = new Object[] { lecturerName, lecturerUserId };
 
 		Long count = (Long)finderCache.getResult(finderPath, finderArgs, this);
 
 		if (count == null) {
-			StringBundler query = new StringBundler(2);
+			StringBundler query = new StringBundler(3);
 
 			query.append(_SQL_COUNT_LECTURER_WHERE);
 
 			boolean bindLecturerName = false;
 
 			if (lecturerName == null) {
-				query.append(_FINDER_COLUMN_LECTURERNAME_LECTURERNAME_1);
+				query.append(_FINDER_COLUMN_N_U_LECTURERNAME_1);
 			}
 			else if (lecturerName.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_LECTURERNAME_LECTURERNAME_3);
+				query.append(_FINDER_COLUMN_N_U_LECTURERNAME_3);
 			}
 			else {
 				bindLecturerName = true;
 
-				query.append(_FINDER_COLUMN_LECTURERNAME_LECTURERNAME_2);
+				query.append(_FINDER_COLUMN_N_U_LECTURERNAME_2);
 			}
+
+			query.append(_FINDER_COLUMN_N_U_LECTURERUSERID_2);
 
 			String sql = query.toString();
 
@@ -308,6 +324,8 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 				if (bindLecturerName) {
 					qPos.add(lecturerName);
 				}
+
+				qPos.add(lecturerUserId);
 
 				count = (Long)q.uniqueResult();
 
@@ -326,9 +344,10 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_LECTURERNAME_LECTURERNAME_1 = "lecturer.lecturerName IS NULL";
-	private static final String _FINDER_COLUMN_LECTURERNAME_LECTURERNAME_2 = "lecturer.lecturerName = ?";
-	private static final String _FINDER_COLUMN_LECTURERNAME_LECTURERNAME_3 = "(lecturer.lecturerName IS NULL OR lecturer.lecturerName = '')";
+	private static final String _FINDER_COLUMN_N_U_LECTURERNAME_1 = "lecturer.lecturerName IS NULL AND ";
+	private static final String _FINDER_COLUMN_N_U_LECTURERNAME_2 = "lecturer.lecturerName = ? AND ";
+	private static final String _FINDER_COLUMN_N_U_LECTURERNAME_3 = "(lecturer.lecturerName IS NULL OR lecturer.lecturerName = '') AND ";
+	private static final String _FINDER_COLUMN_N_U_LECTURERUSERID_2 = "lecturer.lecturerUserId = ?";
 
 	public LecturerPersistenceImpl() {
 		setModelClass(Lecturer.class);
@@ -344,8 +363,10 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 		entityCache.putResult(LecturerModelImpl.ENTITY_CACHE_ENABLED,
 			LecturerImpl.class, lecturer.getPrimaryKey(), lecturer);
 
-		finderCache.putResult(FINDER_PATH_FETCH_BY_LECTURERNAME,
-			new Object[] { lecturer.getLecturerName() }, lecturer);
+		finderCache.putResult(FINDER_PATH_FETCH_BY_N_U,
+			new Object[] {
+				lecturer.getLecturerName(), lecturer.getLecturerUserId()
+			}, lecturer);
 
 		lecturer.resetOriginalValues();
 	}
@@ -416,31 +437,38 @@ public class LecturerPersistenceImpl extends BasePersistenceImpl<Lecturer>
 	}
 
 	protected void cacheUniqueFindersCache(LecturerModelImpl lecturerModelImpl) {
-		Object[] args = new Object[] { lecturerModelImpl.getLecturerName() };
+		Object[] args = new Object[] {
+				lecturerModelImpl.getLecturerName(),
+				lecturerModelImpl.getLecturerUserId()
+			};
 
-		finderCache.putResult(FINDER_PATH_COUNT_BY_LECTURERNAME, args,
-			Long.valueOf(1), false);
-		finderCache.putResult(FINDER_PATH_FETCH_BY_LECTURERNAME, args,
+		finderCache.putResult(FINDER_PATH_COUNT_BY_N_U, args, Long.valueOf(1),
+			false);
+		finderCache.putResult(FINDER_PATH_FETCH_BY_N_U, args,
 			lecturerModelImpl, false);
 	}
 
 	protected void clearUniqueFindersCache(
 		LecturerModelImpl lecturerModelImpl, boolean clearCurrent) {
 		if (clearCurrent) {
-			Object[] args = new Object[] { lecturerModelImpl.getLecturerName() };
+			Object[] args = new Object[] {
+					lecturerModelImpl.getLecturerName(),
+					lecturerModelImpl.getLecturerUserId()
+				};
 
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_LECTURERNAME, args);
-			finderCache.removeResult(FINDER_PATH_FETCH_BY_LECTURERNAME, args);
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_N_U, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_N_U, args);
 		}
 
 		if ((lecturerModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_LECTURERNAME.getColumnBitmask()) != 0) {
+				FINDER_PATH_FETCH_BY_N_U.getColumnBitmask()) != 0) {
 			Object[] args = new Object[] {
-					lecturerModelImpl.getOriginalLecturerName()
+					lecturerModelImpl.getOriginalLecturerName(),
+					lecturerModelImpl.getOriginalLecturerUserId()
 				};
 
-			finderCache.removeResult(FINDER_PATH_COUNT_BY_LECTURERNAME, args);
-			finderCache.removeResult(FINDER_PATH_FETCH_BY_LECTURERNAME, args);
+			finderCache.removeResult(FINDER_PATH_COUNT_BY_N_U, args);
+			finderCache.removeResult(FINDER_PATH_FETCH_BY_N_U, args);
 		}
 	}
 

@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 
 import javax.portlet.ActionRequest;
 
+import com.liferay.portal.kernel.exception.PortalException;
+
 import hu.unideb.inf.importexport.common.AbstractCSVDataImporter;
 
 public class SemesterCSVDataImporter extends AbstractCSVDataImporter {
@@ -13,8 +15,8 @@ public class SemesterCSVDataImporter extends AbstractCSVDataImporter {
 	}
 
 	@Override
-	protected void parseLine(String line) {
-		// TODO
+	protected void parseLine(String line) throws PortalException {
+		parseSemester(line);
 	}
 
 }

@@ -71,6 +71,10 @@ public class SemesterLocalServiceImpl extends SemesterLocalServiceBaseImpl {
 			throws NoSuchSemesterException, SystemException {
 		return semesterPersistence.findByB_E_D(beginYear, endYear, division);
 	}
+	
+	public Semester fetchSemesterByB_E_D(int beginYear, int endYear, int division) {
+		return semesterPersistence.fetchByB_E_D(beginYear, endYear, division);
+	}
 
 	public Semester getLatestSemester() throws SystemException, NoSuchSemesterException {
 		DynamicQuery latestSemesterQuery = DynamicQueryFactoryUtil.forClass(SemesterImpl.class)

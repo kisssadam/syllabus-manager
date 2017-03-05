@@ -111,59 +111,68 @@ public class LecturerUtil {
 	}
 
 	/**
-	* Returns the lecturer where lecturerName = &#63; or throws a {@link NoSuchLecturerException} if it could not be found.
+	* Returns the lecturer where lecturerName = &#63; and lecturerUserId = &#63; or throws a {@link NoSuchLecturerException} if it could not be found.
 	*
 	* @param lecturerName the lecturer name
+	* @param lecturerUserId the lecturer user ID
 	* @return the matching lecturer
 	* @throws NoSuchLecturerException if a matching lecturer could not be found
 	*/
-	public static Lecturer findByLecturerName(java.lang.String lecturerName)
+	public static Lecturer findByN_U(java.lang.String lecturerName,
+		long lecturerUserId)
 		throws hu.unideb.inf.exception.NoSuchLecturerException {
-		return getPersistence().findByLecturerName(lecturerName);
+		return getPersistence().findByN_U(lecturerName, lecturerUserId);
 	}
 
 	/**
-	* Returns the lecturer where lecturerName = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	* Returns the lecturer where lecturerName = &#63; and lecturerUserId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
 	*
 	* @param lecturerName the lecturer name
+	* @param lecturerUserId the lecturer user ID
 	* @return the matching lecturer, or <code>null</code> if a matching lecturer could not be found
 	*/
-	public static Lecturer fetchByLecturerName(java.lang.String lecturerName) {
-		return getPersistence().fetchByLecturerName(lecturerName);
+	public static Lecturer fetchByN_U(java.lang.String lecturerName,
+		long lecturerUserId) {
+		return getPersistence().fetchByN_U(lecturerName, lecturerUserId);
 	}
 
 	/**
-	* Returns the lecturer where lecturerName = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	* Returns the lecturer where lecturerName = &#63; and lecturerUserId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
 	*
 	* @param lecturerName the lecturer name
+	* @param lecturerUserId the lecturer user ID
 	* @param retrieveFromCache whether to retrieve from the finder cache
 	* @return the matching lecturer, or <code>null</code> if a matching lecturer could not be found
 	*/
-	public static Lecturer fetchByLecturerName(java.lang.String lecturerName,
-		boolean retrieveFromCache) {
+	public static Lecturer fetchByN_U(java.lang.String lecturerName,
+		long lecturerUserId, boolean retrieveFromCache) {
 		return getPersistence()
-				   .fetchByLecturerName(lecturerName, retrieveFromCache);
+				   .fetchByN_U(lecturerName, lecturerUserId, retrieveFromCache);
 	}
 
 	/**
-	* Removes the lecturer where lecturerName = &#63; from the database.
+	* Removes the lecturer where lecturerName = &#63; and lecturerUserId = &#63; from the database.
 	*
 	* @param lecturerName the lecturer name
+	* @param lecturerUserId the lecturer user ID
 	* @return the lecturer that was removed
 	*/
-	public static Lecturer removeByLecturerName(java.lang.String lecturerName)
+	public static Lecturer removeByN_U(java.lang.String lecturerName,
+		long lecturerUserId)
 		throws hu.unideb.inf.exception.NoSuchLecturerException {
-		return getPersistence().removeByLecturerName(lecturerName);
+		return getPersistence().removeByN_U(lecturerName, lecturerUserId);
 	}
 
 	/**
-	* Returns the number of lecturers where lecturerName = &#63;.
+	* Returns the number of lecturers where lecturerName = &#63; and lecturerUserId = &#63;.
 	*
 	* @param lecturerName the lecturer name
+	* @param lecturerUserId the lecturer user ID
 	* @return the number of matching lecturers
 	*/
-	public static int countByLecturerName(java.lang.String lecturerName) {
-		return getPersistence().countByLecturerName(lecturerName);
+	public static int countByN_U(java.lang.String lecturerName,
+		long lecturerUserId) {
+		return getPersistence().countByN_U(lecturerName, lecturerUserId);
 	}
 
 	/**

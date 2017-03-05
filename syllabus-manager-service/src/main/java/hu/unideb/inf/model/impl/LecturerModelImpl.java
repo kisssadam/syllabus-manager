@@ -111,7 +111,8 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 				"value.object.column.bitmask.enabled.hu.unideb.inf.model.Lecturer"),
 			true);
 	public static final long LECTURERNAME_COLUMN_BITMASK = 1L;
-	public static final long LECTURERID_COLUMN_BITMASK = 2L;
+	public static final long LECTURERUSERID_COLUMN_BITMASK = 2L;
+	public static final long LECTURERID_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -424,6 +425,14 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 
 	@Override
 	public void setLecturerUserId(long lecturerUserId) {
+		_columnBitmask |= LECTURERUSERID_COLUMN_BITMASK;
+
+		if (!_setOriginalLecturerUserId) {
+			_setOriginalLecturerUserId = true;
+
+			_originalLecturerUserId = _lecturerUserId;
+		}
+
 		_lecturerUserId = lecturerUserId;
 	}
 
@@ -441,6 +450,10 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 
 	@Override
 	public void setLecturerUserUuid(String lecturerUserUuid) {
+	}
+
+	public long getOriginalLecturerUserId() {
+		return _originalLecturerUserId;
 	}
 
 	public long getColumnBitmask() {
@@ -548,6 +561,10 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 		lecturerModelImpl._setModifiedDate = false;
 
 		lecturerModelImpl._originalLecturerName = lecturerModelImpl._lecturerName;
+
+		lecturerModelImpl._originalLecturerUserId = lecturerModelImpl._lecturerUserId;
+
+		lecturerModelImpl._setOriginalLecturerUserId = false;
 
 		lecturerModelImpl._columnBitmask = 0;
 	}
@@ -695,6 +712,8 @@ public class LecturerModelImpl extends BaseModelImpl<Lecturer>
 	private String _lecturerName;
 	private String _originalLecturerName;
 	private long _lecturerUserId;
+	private long _originalLecturerUserId;
+	private boolean _setOriginalLecturerUserId;
 	private long _columnBitmask;
 	private Lecturer _escapedModel;
 }

@@ -107,10 +107,12 @@ public class LecturerServiceSoap {
 		}
 	}
 
-	public static hu.unideb.inf.model.LecturerSoap getLecturerByName(
-		java.lang.String lecturerName) throws RemoteException {
+	public static hu.unideb.inf.model.LecturerSoap getLecturerByN_U(
+		java.lang.String lecturerName, long lecturerUserId)
+		throws RemoteException {
 		try {
-			hu.unideb.inf.model.Lecturer returnValue = LecturerServiceUtil.getLecturerByName(lecturerName);
+			hu.unideb.inf.model.Lecturer returnValue = LecturerServiceUtil.getLecturerByN_U(lecturerName,
+					lecturerUserId);
 
 			return hu.unideb.inf.model.LecturerSoap.toSoapModel(returnValue);
 		}
@@ -121,10 +123,12 @@ public class LecturerServiceSoap {
 		}
 	}
 
-	public static hu.unideb.inf.model.LecturerSoap fetchLecturerByName(
-		java.lang.String lecturerName) throws RemoteException {
+	public static hu.unideb.inf.model.LecturerSoap fetchLecturerByN_U(
+		java.lang.String lecturerName, long lecturerUserId)
+		throws RemoteException {
 		try {
-			hu.unideb.inf.model.Lecturer returnValue = LecturerServiceUtil.fetchLecturerByName(lecturerName);
+			hu.unideb.inf.model.Lecturer returnValue = LecturerServiceUtil.fetchLecturerByN_U(lecturerName,
+					lecturerUserId);
 
 			return hu.unideb.inf.model.LecturerSoap.toSoapModel(returnValue);
 		}

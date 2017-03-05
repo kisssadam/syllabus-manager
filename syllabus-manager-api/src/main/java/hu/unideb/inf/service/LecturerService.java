@@ -64,15 +64,15 @@ public interface LecturerService extends BaseService {
 		ServiceContext serviceContext) throws PortalException, SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Lecturer fetchLecturerByName(java.lang.String lecturerName)
-		throws SystemException;
+	public Lecturer fetchLecturerByN_U(java.lang.String lecturerName,
+		long lecturerUserId) throws SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public Lecturer getLecturer(long lecturerId) throws PortalException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public Lecturer getLecturerByName(java.lang.String lecturerName)
-		throws SystemException, NoSuchLecturerException;
+	public Lecturer getLecturerByN_U(java.lang.String lecturerName,
+		long lecturerUserId) throws SystemException, NoSuchLecturerException;
 
 	public Lecturer updateLecturer(long userId, long lecturerId,
 		java.lang.String lecturerName, long lecturerUserId,
