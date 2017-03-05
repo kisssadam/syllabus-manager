@@ -27,6 +27,9 @@ public class SyllabusCSVUtil extends CSVUtil {
 	}
 
 	public static String decode(String s) {
+		if (s == null) {
+			return null;
+		}
 		return s.replace("\\n", "\n");
 	}
 
