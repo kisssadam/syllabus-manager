@@ -293,7 +293,7 @@ public abstract class AbstractDataImporter implements DataImporter {
 		List<Syllabus> syllabuses = SyllabusLocalServiceUtil
 				.getSyllabusesByTimetableCourseId(timetableCourse.getTimetableCourseId());
 
-		boolean found = false;
+		Syllabus syllabus = null;
 
 		for (Syllabus s : syllabuses) {
 			if (StringUtil.equalsIgnoreCase(s.getCompetence(), competence)
@@ -302,14 +302,12 @@ public abstract class AbstractDataImporter implements DataImporter {
 					&& StringUtil.equalsIgnoreCase(s.getEducationalMaterials(), educationalMaterials)
 					&& StringUtil.equalsIgnoreCase(s.getRecommendedLiterature(), recommendedLiterature)
 					&& StringUtil.equalsIgnoreCase(s.getWeeklyTasks(), weeklyTasks)) {
-				found = true;
+				syllabus = s;
 				break;
 			}
 		}
 
-		Syllabus syllabus = null;
-
-		if (!found) {
+		if (syllabus == null) {
 			if (log.isTraceEnabled()) {
 				log.trace(String.format(
 						"Adding new syllabus: timetableCourseId: %d, competence: '%s', ethicalStandards: '%s', topics: '%s', educationalMaterials: '%s', recommendedLiteature: '%s', weeklyTasks: '%s'",

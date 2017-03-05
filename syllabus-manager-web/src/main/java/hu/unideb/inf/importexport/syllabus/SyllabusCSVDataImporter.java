@@ -19,6 +19,7 @@ import hu.unideb.inf.model.Lecturer;
 import hu.unideb.inf.model.Semester;
 import hu.unideb.inf.model.Subject;
 import hu.unideb.inf.model.TimetableCourse;
+import hu.unideb.inf.web.util.SyllabusCSVUtil;
 
 public class SyllabusCSVDataImporter extends AbstractCSVDataImporter {
 
@@ -37,67 +38,75 @@ public class SyllabusCSVDataImporter extends AbstractCSVDataImporter {
 
 		Matcher matcher = pattern.matcher(line);
 		if (matcher.matches()) {
-			String curriculumCode = matcher.group("curriculumCode");
-			String curriculumName = matcher.group("curriculumName");
-			Curriculum curriculum = parseCurriculum(curriculumCode, curriculumName);
+			String curriculumCode = SyllabusCSVUtil.decode(matcher.group("curriculumCode"));
+			String curriculumName = SyllabusCSVUtil.decode(matcher.group("curriculumName"));
 
-			String subjectCode = matcher.group("subjectCode");
-			String subjectName = matcher.group("subjectName");
-			String credit = matcher.group("credit");
+			if (Validator.isNotNull(curriculumCode)) {
+				Curriculum curriculum = parseCurriculum(curriculumCode, curriculumName);
 
-			if (Validator.isNotNull(subjectCode)) {
-				Subject subject = parseSubject(curriculum, subjectCode, subjectName, Integer.parseInt(credit));
+				String subjectCode = SyllabusCSVUtil.decode(matcher.group("subjectCode"));
+				String subjectName = SyllabusCSVUtil.decode(matcher.group("subjectName"));
+				String credit = SyllabusCSVUtil.decode(matcher.group("credit"));
 
-				String courseTypeName = matcher.group("courseTypeName");
-				if (Validator.isNotNull(courseTypeName)) {
-					CourseType courseType = parseCourseType(courseTypeName);
+				if (Validator.isNotNull(subjectCode)) {
+					Subject subject = parseSubject(curriculum, subjectCode, subjectName, Integer.parseInt(credit));
 
-					String hoursPerSemester = matcher.group("hoursPerSemester");
-					String hoursPerWeek = matcher.group("hoursPerWeek");
+					String courseTypeName = SyllabusCSVUtil.decode(matcher.group("courseTypeName"));
+					if (Validator.isNotNull(courseTypeName)) {
+						CourseType courseType = parseCourseType(courseTypeName);
 
-					if (Validator.isNotNull(hoursPerSemester) && Validator.isNotNull(hoursPerWeek)) {
-						Course course = parseCourse(subject, courseType, Integer.parseInt(hoursPerSemester),
-								Integer.parseInt(hoursPerWeek));
+						String hoursPerSemester = SyllabusCSVUtil.decode(matcher.group("hoursPerSemester"));
+						String hoursPerWeek = SyllabusCSVUtil.decode(matcher.group("hoursPerWeek"));
 
-						String semesterString = matcher.group("semester");
-						if (Validator.isNotNull(semesterString)) {
-							Semester semester = parseSemester(semesterString);
+						if (Validator.isNotNull(hoursPerSemester) && Validator.isNotNull(hoursPerWeek)) {
+							Course course = parseCourse(subject, courseType, Integer.parseInt(hoursPerSemester),
+									Integer.parseInt(hoursPerWeek));
 
-							String lecturers = matcher.group("lecturers");
-							if (Validator.isNotNull(lecturers)) {
-								String[] lecturerNames = lecturers.split(",");
+							String semesterString = SyllabusCSVUtil.decode(matcher.group("semester"));
+							if (Validator.isNotNull(semesterString)) {
+								Semester semester = parseSemester(semesterString);
 
-								List<Lecturer> lecturerList = new ArrayList<>();
-								for (String lecturerName : lecturerNames) {
-									Lecturer lecturer = parseLecturer(lecturerName, 0L);
-									lecturerList.add(lecturer);
-								}
+								String lecturers = matcher.group("lecturers");
+								if (Validator.isNotNull(lecturers)) {
+									String[] lecturerNames = lecturers.split(",");
 
-								String timetableCourseCode = matcher.group("timetableCourseCode");
-								String subjectType = matcher.group("subjectType");
-								String recommendedTerm = matcher.group("recommendedTerm");
-								String limit = matcher.group("limit");
-								String classScheduleInfo = matcher.group("classScheduleInfo");
-								String description = matcher.group("description");
+									List<Lecturer> lecturerList = new ArrayList<>();
+									for (String lecturerName : lecturerNames) {
+										Lecturer lecturer = parseLecturer(SyllabusCSVUtil.decode(lecturerName), 0L);
+										lecturerList.add(lecturer);
+									}
 
-								if (Validator.isNotNull(timetableCourseCode)) {
-									long[] lecturerIds = lecturerList.stream()
-											.mapToLong(lecturer -> lecturer.getLecturerId()).toArray();
+									String timetableCourseCode = SyllabusCSVUtil
+											.decode(matcher.group("timetableCourseCode"));
+									String subjectType = SyllabusCSVUtil.decode(matcher.group("subjectType"));
+									String recommendedTerm = SyllabusCSVUtil.decode(matcher.group("recommendedTerm"));
+									String limit = SyllabusCSVUtil.decode(matcher.group("limit"));
+									String classScheduleInfo = SyllabusCSVUtil
+											.decode(matcher.group("classScheduleInfo"));
+									String description = SyllabusCSVUtil.decode(matcher.group("description"));
 
-									TimetableCourse timetableCourse = parseTimetableCourse(course, semester,
-											timetableCourseCode, subjectType, Integer.parseInt(recommendedTerm),
-											Integer.parseInt(limit), lecturerIds, classScheduleInfo, description);
+									if (Validator.isNotNull(timetableCourseCode)) {
+										long[] lecturerIds = lecturerList.stream()
+												.mapToLong(lecturer -> lecturer.getLecturerId()).toArray();
 
-									String competence = matcher.group("competence");
-									String ethicalStandards = matcher.group("ethicalStandards");
-									String topics = matcher.group("topics");
-									String educationalMaterials = matcher.group("educationalMaterials");
-									String recommendedLiterature = matcher.group("recommendedLiterature");
-									String weeklyTasks = matcher.group("weeklyTasks");
+										TimetableCourse timetableCourse = parseTimetableCourse(course, semester,
+												timetableCourseCode, subjectType, Integer.parseInt(recommendedTerm),
+												Integer.parseInt(limit), lecturerIds, classScheduleInfo, description);
 
-									if (Validator.isNotNull(competence)) {
-										parseSyllabus(timetableCourse, competence, ethicalStandards, topics,
-												educationalMaterials, recommendedLiterature, weeklyTasks);
+										String competence = SyllabusCSVUtil.decode(matcher.group("competence"));
+										String ethicalStandards = SyllabusCSVUtil
+												.decode(matcher.group("ethicalStandards"));
+										String topics = SyllabusCSVUtil.decode(matcher.group("topics"));
+										String educationalMaterials = SyllabusCSVUtil
+												.decode(matcher.group("educationalMaterials"));
+										String recommendedLiterature = SyllabusCSVUtil
+												.decode(matcher.group("recommendedLiterature"));
+										String weeklyTasks = SyllabusCSVUtil.decode(matcher.group("weeklyTasks"));
+
+										if (Validator.isNotNull(competence)) {
+											parseSyllabus(timetableCourse, competence, ethicalStandards, topics,
+													educationalMaterials, recommendedLiterature, weeklyTasks);
+										}
 									}
 								}
 							}

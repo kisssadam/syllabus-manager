@@ -18,7 +18,16 @@ public class SyllabusCSVUtil extends CSVUtil {
 	}
 
 	public static String encode(String s) {
-		return s == null ? StringPool.BLANK : CSVUtil.encode(s);
+		if (s == null) {
+			return StringPool.BLANK;
+		}
+
+		s = s.replace("\n", "\\n");
+		return CSVUtil.encode(s);
+	}
+
+	public static String decode(String s) {
+		return s.replace("\\n", "\n");
 	}
 
 }
