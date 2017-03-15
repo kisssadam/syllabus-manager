@@ -15,11 +15,9 @@ public class LecturerCSVDataImporter extends AbstractCSVDataImporter {
 	}
 
 	@Override
-	protected void parseLine(String line) throws PortalException {
-		String[] tokens = line.split(";");
-
-		String lecturerName = tokens[0];
-		Long lecturerLiferayUserId = Long.valueOf(tokens[1]);
+	protected void parseLine(String[] line) throws PortalException {
+		String lecturerName = line[0];
+		Long lecturerLiferayUserId = Long.valueOf(line[1]);
 
 		parseLecturer(lecturerName, lecturerLiferayUserId);
 	}

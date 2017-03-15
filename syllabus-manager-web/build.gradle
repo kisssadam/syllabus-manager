@@ -1,3 +1,7 @@
+repositories {
+   mavenCentral()
+}
+
 dependencies {
 	compile group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "2.0.0"
 	compile group: "com.liferay.portal", name: "com.liferay.util.taglib", version: "2.0.0"
@@ -7,6 +11,10 @@ dependencies {
 	compile group: "jstl", name: "jstl", version: "1.2"
 	compile group: "org.osgi", name: "org.osgi.compendium", version: "5.0.0"
 	compile group: "org.osgi", name: "org.osgi.service.component.annotations", version: "1.3.0"
+	compile group: "com.opencsv", name: "opencsv", version: "3.9"
+	compile group: "org.apache.commons", name: "commons-lang3", version: "3.5"
+	compile group: "commons-beanutils", name: "commons-beanutils", version: "1.9.3"
 	compile project(":modules:syllabus-manager:syllabus-manager-api")
 	compile project(":modules:syllabus-manager:syllabus-manager-service")
 }
+

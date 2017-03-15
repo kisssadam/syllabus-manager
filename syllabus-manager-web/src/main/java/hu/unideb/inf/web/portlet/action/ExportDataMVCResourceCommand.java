@@ -1,5 +1,6 @@
 package hu.unideb.inf.web.portlet.action;
 
+import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -32,6 +33,7 @@ import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
+import com.opencsv.CSVWriter;
 
 import hu.unideb.inf.exception.ExportDataContentTypeException;
 import hu.unideb.inf.exception.ExportDataEntityTypeException;
@@ -243,22 +245,24 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		return documentToString(document);
 	}
 
-	protected String getLecturerDataCSV() {
-		StringBuilder sb = new StringBuilder();
-
-		sb.append("lecturerName");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("lecturerLiferayUserId");
-		sb.append(StringPool.NEW_LINE);
-
-		for (Lecturer lecturer : lecturerLocalService.getLecturers()) {
-			sb.append(SyllabusCSVUtil.encode(lecturer.getLecturerName()));
-			sb.append(StringPool.SEMICOLON);
-			sb.append(lecturer.getLecturerUserId());
-			sb.append(StringPool.NEW_LINE);
+	protected String getLecturerDataCSV() throws IOException {
+		StringWriter sw = new StringWriter();
+		
+		try (CSVWriter csvWriter = new CSVWriter(sw, ';', '"')) {
+			csvWriter.writeNext(new String[] {
+				"lecturerName",
+				"lecturerLiferayUserId"
+			});
+			
+			for (Lecturer lecturer : lecturerLocalService.getLecturers()) {
+				csvWriter.writeNext(new String[] {
+					SyllabusCSVUtil.encode(lecturer.getLecturerName()),
+					SyllabusCSVUtil.encode(lecturer.getLecturerUserId())
+				});
+			}
 		}
-
-		return sb.toString();
+		
+		return sw.toString();
 	}
 
 	protected String getLecturerDataXML() throws Exception {
@@ -298,7 +302,50 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 	protected String getSyllabusDataCSV() throws PortalException {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(getSyllabusCSVHeader());
+		sb.append("curriculumCode");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("curriculumName");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("subjectCode");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("subjectName");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("credit");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("courseTypeName");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("hoursPerSemester");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("hoursPerWeek");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("semester");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("lecturers");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("timetableCourseCode");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("subjectType");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("recommendedTerm");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("limit");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("classScheduleInfo");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("description");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("competence");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("ethicalStandards");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("topics");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("educationalMaterials");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("recommendedLiterature");
+		sb.append(StringPool.SEMICOLON);
+		sb.append("weeklyTasks");
+		sb.append(StringPool.NEW_LINE);
 
 		for (Curriculum curriculum : curriculumLocalService.getCurriculums()) {
 			String curriculumCode = curriculum.getCurriculumCode();
@@ -379,57 +426,6 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 				}
 			}
 		}
-
-		return sb.toString();
-	}
-
-	protected Object getSyllabusCSVHeader() {
-		StringBuilder sb = new StringBuilder();
-
-		sb.append("curriculumCode");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("curriculumName");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("subjectCode");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("subjectName");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("credit");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("courseTypeName");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("hoursPerSemester");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("hoursPerWeek");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("semester");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("lecturers");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("timetableCourseCode");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("subjectType");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("recommendedTerm");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("limit");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("classScheduleInfo");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("description");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("competence");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("ethicalStandards");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("topics");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("educationalMaterials");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("recommendedLiterature");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("weeklyTasks");
-		sb.append(StringPool.NEW_LINE);
 
 		return sb.toString();
 	}

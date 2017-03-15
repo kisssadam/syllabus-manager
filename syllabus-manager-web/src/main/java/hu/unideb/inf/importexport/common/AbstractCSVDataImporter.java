@@ -1,8 +1,8 @@
 package hu.unideb.inf.importexport.common;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.portlet.ActionRequest;
 
@@ -10,24 +10,27 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.opencsv.CSVReader;
 
 public abstract class AbstractCSVDataImporter extends AbstractDataImporter {
 
 	private static final Log log = LogFactoryUtil.getLog(AbstractCSVDataImporter.class);
 
+	private CSVReader csvReader;
+
 	public AbstractCSVDataImporter(ActionRequest actionRequest) throws FileNotFoundException {
 		super(actionRequest);
+		this.csvReader = new CSVReader(getBufferedReader(), ';', '"');
 	}
 
 	@Override
 	public void importData() throws IOException, SystemException, PortalException {
-		BufferedReader br = getBufferedReader();
-		String line = null;
+		String[] line = null;
 		long lineIndex = 0L;
 
-		while ((line = br.readLine()) != null) {
+		while ((line = csvReader.readNext()) != null) {
 			if (log.isTraceEnabled()) {
-				log.trace(String.format("line[%d]: '%s'", lineIndex, line));
+				log.trace(String.format("line[%d]: '%s'", lineIndex, Arrays.toString(line)));
 			}
 			if (lineIndex++ == 0) {
 				parseHeader(line);
@@ -37,11 +40,17 @@ public abstract class AbstractCSVDataImporter extends AbstractDataImporter {
 		}
 	}
 
-	protected void parseHeader(String header) {
+	protected void parseHeader(String[] header) {
 		// there is no need for the header
 		return;
 	}
 
-	protected abstract void parseLine(String line) throws SystemException, PortalException;
+	protected abstract void parseLine(String[] line) throws SystemException, PortalException;
+
+	@Override
+	public void close() throws IOException {
+		super.close();
+		csvReader.close();
+	}
 
 }

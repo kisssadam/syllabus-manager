@@ -8,6 +8,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 
 import hu.unideb.inf.importexport.common.AbstractCSVDataImporter;
+import hu.unideb.inf.web.util.SyllabusCSVUtil;
 
 public class CourseTypeCSVDataImporter extends AbstractCSVDataImporter {
 
@@ -16,8 +17,8 @@ public class CourseTypeCSVDataImporter extends AbstractCSVDataImporter {
 	}
 
 	@Override
-	protected void parseLine(String line) throws SystemException, PortalException {
-		String courseTypeName = line;
+	protected void parseLine(String[] line) throws SystemException, PortalException {
+		String courseTypeName = SyllabusCSVUtil.decode(line[0]);
 
 		parseCourseType(courseTypeName);
 	}

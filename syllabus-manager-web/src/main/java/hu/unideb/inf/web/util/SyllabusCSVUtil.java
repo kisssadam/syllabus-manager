@@ -30,6 +30,7 @@ public class SyllabusCSVUtil extends CSVUtil {
 		if (s == null) {
 			return null;
 		}
+
 		return s.replace("\\n", "\n");
 	}
 

@@ -1,6 +1,7 @@
 package hu.unideb.inf.importexport.semester;
 
 import java.io.FileNotFoundException;
+import java.util.StringJoiner;
 
 import javax.portlet.ActionRequest;
 
@@ -15,8 +16,14 @@ public class SemesterCSVDataImporter extends AbstractCSVDataImporter {
 	}
 
 	@Override
-	protected void parseLine(String line) throws PortalException {
-		parseSemester(line);
+	protected void parseLine(String[] line) throws PortalException {
+		StringJoiner sj = new StringJoiner("/");
+
+		for (String s : line) {
+			sj.add(s);
+		}
+
+		parseSemester(sj.toString());
 	}
 
 }

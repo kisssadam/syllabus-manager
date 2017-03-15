@@ -1,3 +1,8 @@
 Bundle-Name: Syllabus Manager Web
 Bundle-SymbolicName: syllabus.manager.web
 Bundle-Version: 1.0.0
+
+Include-Resource:\
+	@opencsv-3.9.jar,\
+	@commons-beanutils-1.9.3.jar,\
+	@commons-lang3-3.5.jar
