@@ -57,8 +57,14 @@ import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 import hu.unideb.inf.web.constants.WebKeys;
 import hu.unideb.inf.web.util.SyllabusCSVUtil;
 
-@Component(immediate = true, property = { "javax.portlet.name=" + SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN,
-		"mvc.command.name=" + WebKeys.MVC_RESOURCE_EXPORT_DATA }, service = MVCResourceCommand.class)
+@Component(
+	immediate = true,
+	property = {
+		"javax.portlet.name=" + SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN,
+		"mvc.command.name=" + WebKeys.MVC_RESOURCE_EXPORT_DATA
+	},
+	service = MVCResourceCommand.class
+)
 public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 
 	private static final Log log = LogFactoryUtil.getLog(ExportDataMVCResourceCommand.class);
@@ -491,7 +497,7 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 			
 			SyllabusCSVUtil.encode(getSemesterValue(semesterBeginYear, semesterEndYear, semesterDivision)),
 			
-			lecturersWriter.toString(),
+			SyllabusCSVUtil.encode(lecturersWriter.toString()),
 			
 			SyllabusCSVUtil.encode(timetableCourseCode),
 			SyllabusCSVUtil.encode(subjectType),

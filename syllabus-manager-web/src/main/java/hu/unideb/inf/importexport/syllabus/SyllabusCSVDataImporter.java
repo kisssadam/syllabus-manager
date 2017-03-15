@@ -63,7 +63,8 @@ public class SyllabusCSVDataImporter extends AbstractCSVDataImporter {
 							if (Validator.isNotNull(lecturers)) {
 								List<Lecturer> lecturerList = new ArrayList<>();
 
-								try (CSVReader csvReader = new CSVReader(new StringReader(lecturers),
+								try (CSVReader csvReader = new CSVReader(
+										new StringReader(SyllabusCSVUtil.decode(lecturers)),
 										WebKeys.CSV_INNER_SEPARATOR, WebKeys.CSV_QUOTE_CHARACTER)) {
 									String[] lecturerLine = null;
 									while ((lecturerLine = csvReader.readNext()) != null) {
