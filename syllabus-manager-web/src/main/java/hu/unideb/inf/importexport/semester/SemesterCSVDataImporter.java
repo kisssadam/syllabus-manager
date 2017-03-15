@@ -17,13 +17,13 @@ public class SemesterCSVDataImporter extends AbstractCSVDataImporter {
 
 	@Override
 	protected void parseLine(String[] line) throws PortalException {
-		StringJoiner sj = new StringJoiner("/");
+		StringJoiner semesterString = new StringJoiner("/");
 
 		for (String s : line) {
-			sj.add(s);
+			semesterString.add(s);
 		}
 
-		parseSemester(sj.toString());
+		parseSemester(semesterString.toString());
 	}
 
 }

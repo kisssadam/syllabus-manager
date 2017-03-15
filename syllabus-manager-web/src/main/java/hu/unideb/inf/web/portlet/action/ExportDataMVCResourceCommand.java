@@ -284,18 +284,24 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		return documentToString(document);
 	}
 
-	protected String getSemesterDataCSV() {
-		StringBuilder sb = new StringBuilder();
-
-		sb.append("semester");
-		sb.append(StringPool.NEW_LINE);
-
-		for (Semester semester : semesterLocalService.getSemesters()) {
-			sb.append(SyllabusCSVUtil.encode(getSemesterValue(semester)));
-			sb.append(StringPool.NEW_LINE);
+	protected String getSemesterDataCSV() throws IOException {
+		StringWriter sw = new StringWriter();
+		
+		try (CSVWriter csvWriter = new CSVWriter(sw, WebKeys.CSV_SEPARATOR, WebKeys.CSV_QUOTE_CHARACTER)) {
+			csvWriter.writeNext(new String[] {
+				"semester"
+			});
+			
+			for (Semester semester : semesterLocalService.getSemesters()) {
+				csvWriter.writeNext(new String[] {
+					SyllabusCSVUtil.encode(getSemesterValue(semester))
+				});
+			}
+			
+			csvWriter.flush();
 		}
-
-		return sb.toString();
+		
+		return sw.toString();
 	}
 
 	protected String getSemesterDataXML() throws Exception {
