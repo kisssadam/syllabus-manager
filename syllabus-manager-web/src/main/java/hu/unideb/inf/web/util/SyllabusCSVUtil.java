@@ -29,16 +29,14 @@ public class SyllabusCSVUtil {
 		if (s == null) {
 			return StringPool.BLANK;
 		}
-
-		return s.replace("\n", "\\n");
+		return s;
 	}
 
 	public static String decode(String s) {
 		if (s == null) {
 			return null;
 		}
-
-		return s.replace("\\n", "\n");
+		return s;
 	}
 
 }

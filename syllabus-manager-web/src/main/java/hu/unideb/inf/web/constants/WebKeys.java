@@ -105,5 +105,7 @@ public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 	char CSV_QUOTE_CHARACTER = '"';
 	
 	char CSV_SEPARATOR = ';';
+	
+	char CSV_INNER_SEPARATOR = ',';
 
 }

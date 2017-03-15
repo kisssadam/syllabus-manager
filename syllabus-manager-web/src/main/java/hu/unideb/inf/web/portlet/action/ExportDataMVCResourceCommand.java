@@ -314,124 +314,106 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		return documentToString(document);
 	}
 
-	protected String getSyllabusDataCSV() throws PortalException {
-		StringBuilder sb = new StringBuilder();
+	protected String getSyllabusDataCSV() throws PortalException, IOException {
+		StringWriter sw = new StringWriter();
+		
+		try (CSVWriter csvWriter = new CSVWriter(sw, WebKeys.CSV_SEPARATOR, WebKeys.CSV_QUOTE_CHARACTER)) {
+			csvWriter.writeNext(new String[] {
+				"curriculumCode",
+				"curriculumName",
+				"subjectCode",
+				"subjectName",
+				"credit",
+				"courseTypeName",
+				"hoursPerSemester",
+				"hoursPerWeek",
+				"semester",
+				"lecturers",
+				"timetableCourseCode",
+				"subjectType",
+				"recommendedTerm",
+				"limit",
+				"classScheduleInfo",
+				"description",
+				"competence",
+				"ethicalStandards",
+				"topics",
+				"educationalMaterials",
+				"recommendedLiterature",
+				"weeklyTasks"
+			});
+			
+			for (Curriculum curriculum : curriculumLocalService.getCurriculums()) {
+				String curriculumCode = curriculum.getCurriculumCode();
+				String curriculumName = curriculum.getCurriculumName();
 
-		sb.append("curriculumCode");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("curriculumName");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("subjectCode");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("subjectName");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("credit");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("courseTypeName");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("hoursPerSemester");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("hoursPerWeek");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("semester");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("lecturers");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("timetableCourseCode");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("subjectType");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("recommendedTerm");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("limit");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("classScheduleInfo");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("description");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("competence");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("ethicalStandards");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("topics");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("educationalMaterials");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("recommendedLiterature");
-		sb.append(StringPool.SEMICOLON);
-		sb.append("weeklyTasks");
-		sb.append(StringPool.NEW_LINE);
+				List<Subject> subjects = subjectLocalService.getSubjectsByCurriculumId(curriculum.getCurriculumId());
+				if (subjects == null || subjects.isEmpty()) {
+					csvWriter.writeNext(getCSVLine(curriculumCode, curriculumName));
+				} else {
+					for (Subject subject : subjects) {
+						String subjectCode = subject.getSubjectCode();
+						String subjectName = subject.getSubjectName();
+						Integer credit = subject.getCredit();
 
-		for (Curriculum curriculum : curriculumLocalService.getCurriculums()) {
-			String curriculumCode = curriculum.getCurriculumCode();
-			String curriculumName = curriculum.getCurriculumName();
+						List<Course> courses = courseLocalService.getCoursesBySubjectId(subject.getSubjectId());
+						if (courses == null || courses.isEmpty()) {
+							csvWriter.writeNext(getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName, credit));
+						} else {
+							for (Course course : courses) {
+								CourseType courseType = courseTypeLocalService.getCourseType(course.getCourseTypeId());
+								String courseTypeName = courseType.getTypeName();
 
-			List<Subject> subjects = subjectLocalService.getSubjectsByCurriculumId(curriculum.getCurriculumId());
-			if (subjects == null || subjects.isEmpty()) {
-				sb.append(getCSVLine(curriculumCode, curriculumName));
-			} else {
-				for (Subject subject : subjects) {
-					String subjectCode = subject.getSubjectCode();
-					String subjectName = subject.getSubjectName();
-					Integer credit = subject.getCredit();
+								Integer hoursPerSemester = course.getHoursPerSemester();
+								Integer hoursPerWeek = course.getHoursPerWeek();
 
-					List<Course> courses = courseLocalService.getCoursesBySubjectId(subject.getSubjectId());
-					if (courses == null || courses.isEmpty()) {
-						sb.append(getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName, credit));
-					} else {
-						for (Course course : courses) {
-							CourseType courseType = courseTypeLocalService.getCourseType(course.getCourseTypeId());
-							String courseTypeName = courseType.getTypeName();
+								List<TimetableCourse> timetableCourses = timetableCourseLocalService
+										.getTimetableCoursesByCourseId(course.getCourseId());
+								if (timetableCourses == null || timetableCourses.isEmpty()) {
+									csvWriter.writeNext(getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName, credit,
+											courseTypeName, hoursPerSemester, hoursPerWeek));
+								} else {
+									for (TimetableCourse timetableCourse : timetableCourses) {
+										Semester semester = semesterLocalService
+												.getSemester(timetableCourse.getSemesterId());
+										Integer semesterBeginYear = semester.getBeginYear();
+										Integer semesterEndYear = semester.getEndYear();
+										Integer semesterDivision = semester.getDivision();
 
-							Integer hoursPerSemester = course.getHoursPerSemester();
-							Integer hoursPerWeek = course.getHoursPerWeek();
+										List<Lecturer> lecturers = lecturerLocalService
+												.getTimetableCourseLecturers(timetableCourse.getTimetableCourseId());
 
-							List<TimetableCourse> timetableCourses = timetableCourseLocalService
-									.getTimetableCoursesByCourseId(course.getCourseId());
-							if (timetableCourses == null || timetableCourses.isEmpty()) {
-								sb.append(getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName, credit,
-										courseTypeName, hoursPerSemester, hoursPerWeek));
-							} else {
-								for (TimetableCourse timetableCourse : timetableCourses) {
-									Semester semester = semesterLocalService
-											.getSemester(timetableCourse.getSemesterId());
-									Integer semesterBeginYear = semester.getBeginYear();
-									Integer semesterEndYear = semester.getEndYear();
-									Integer semesterDivision = semester.getDivision();
+										String timetableCourseCode = timetableCourse.getTimetableCourseCode();
+										String subjectType = timetableCourse.getSubjectType();
+										Integer recommendedTerm = timetableCourse.getRecommendedTerm();
+										Integer limit = timetableCourse.getLimit();
+										String classScheduleInfo = timetableCourse.getClassScheduleInfo();
+										String description = timetableCourse.getDescription();
 
-									List<Lecturer> lecturers = lecturerLocalService
-											.getTimetableCourseLecturers(timetableCourse.getTimetableCourseId());
-
-									String timetableCourseCode = timetableCourse.getTimetableCourseCode();
-									String subjectType = timetableCourse.getSubjectType();
-									Integer recommendedTerm = timetableCourse.getRecommendedTerm();
-									Integer limit = timetableCourse.getLimit();
-									String classScheduleInfo = timetableCourse.getClassScheduleInfo();
-									String description = timetableCourse.getDescription();
-
-									List<Syllabus> syllabuses = syllabusLocalService
-											.getSyllabusesByTimetableCourseId(timetableCourse.getTimetableCourseId());
-									if (syllabuses == null || syllabuses.isEmpty()) {
-										sb.append(getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName,
-												credit, courseTypeName, hoursPerSemester, hoursPerWeek,
-												semesterBeginYear, semesterEndYear, semesterDivision, lecturers,
-												timetableCourseCode, subjectType, recommendedTerm, limit,
-												classScheduleInfo, description));
-									} else {
-										for (Syllabus syllabus : syllabuses) {
-											String competence = syllabus.getCompetence();
-											String ethicalStandards = syllabus.getEthicalStandards();
-											String topics = syllabus.getTopics();
-											String educationalMaterials = syllabus.getEducationalMaterials();
-											String recommendedLiterature = syllabus.getRecommendedLiterature();
-											String weeklyTasks = syllabus.getWeeklyTasks();
-
-											sb.append(getCSVLine(curriculumCode, curriculumName, subjectCode,
-													subjectName, credit, courseTypeName, hoursPerSemester, hoursPerWeek,
+										List<Syllabus> syllabuses = syllabusLocalService
+												.getSyllabusesByTimetableCourseId(timetableCourse.getTimetableCourseId());
+										if (syllabuses == null || syllabuses.isEmpty()) {
+											csvWriter.writeNext(getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName,
+													credit, courseTypeName, hoursPerSemester, hoursPerWeek,
 													semesterBeginYear, semesterEndYear, semesterDivision, lecturers,
 													timetableCourseCode, subjectType, recommendedTerm, limit,
-													classScheduleInfo, description, competence, ethicalStandards,
-													topics, educationalMaterials, recommendedLiterature, weeklyTasks));
+													classScheduleInfo, description));
+										} else {
+											for (Syllabus syllabus : syllabuses) {
+												String competence = syllabus.getCompetence();
+												String ethicalStandards = syllabus.getEthicalStandards();
+												String topics = syllabus.getTopics();
+												String educationalMaterials = syllabus.getEducationalMaterials();
+												String recommendedLiterature = syllabus.getRecommendedLiterature();
+												String weeklyTasks = syllabus.getWeeklyTasks();
+
+												csvWriter.writeNext(getCSVLine(curriculumCode, curriculumName, subjectCode,
+														subjectName, credit, courseTypeName, hoursPerSemester, hoursPerWeek,
+														semesterBeginYear, semesterEndYear, semesterDivision, lecturers,
+														timetableCourseCode, subjectType, recommendedTerm, limit,
+														classScheduleInfo, description, competence, ethicalStandards,
+														topics, educationalMaterials, recommendedLiterature, weeklyTasks));
+											}
 										}
 									}
 								}
@@ -440,113 +422,91 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 					}
 				}
 			}
+			
+			csvWriter.flush();
 		}
-
-		return sb.toString();
+		
+		return sw.toString();
 	}
 
-	protected String getCSVLine(String curriculumCode, String curriculumName) {
+	protected String[] getCSVLine(String curriculumCode, String curriculumName) throws IOException {
 		return getCSVLine(curriculumCode, curriculumName, null, null, null);
 	}
 
-	protected String getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
-			Integer credit) {
+	protected String[] getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
+			Integer credit) throws IOException {
 		return getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName, credit, null, null, null);
 	}
 
-	protected String getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
-			Integer credit, String courseTypeName, Integer hoursPerSemester, Integer hoursPerWeek) {
+	protected String[] getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
+			Integer credit, String courseTypeName, Integer hoursPerSemester, Integer hoursPerWeek) throws IOException {
 		return getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName, credit, courseTypeName,
 				hoursPerSemester, hoursPerWeek, null, null, null, null, null, null, null, null, null, null);
 	}
 
-	protected String getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
+	protected String[] getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
 			Integer credit, String courseTypeName, Integer hoursPerSemester, Integer hoursPerWeek,
 			Integer semesterBeginYear, Integer semesterEndYear, Integer semesterDivision, List<Lecturer> lecturers,
 			String timetableCourseCode, String subjectType, Integer recommendedTerm, Integer limit,
-			String classScheduleInfo, String description) {
+			String classScheduleInfo, String description) throws IOException {
 		return getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName, credit, courseTypeName,
 				hoursPerSemester, hoursPerWeek, semesterBeginYear, semesterEndYear, semesterDivision, lecturers,
 				timetableCourseCode, subjectType, recommendedTerm, limit, classScheduleInfo, description, null, null,
 				null, null, null, null);
 	}
 
-	protected String getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
+	protected String[] getCSVLine(String curriculumCode, String curriculumName, String subjectCode, String subjectName,
 			Integer credit, String courseTypeName, Integer hoursPerSemester, Integer hoursPerWeek,
 			Integer semesterBeginYear, Integer semesterEndYear, Integer semesterDivision, List<Lecturer> lecturers,
 			String timetableCourseCode, String subjectType, Integer recommendedTerm, Integer limit,
 			String classScheduleInfo, String description, String competence, String ethicalStandards, String topics,
-			String educationalMaterials, String recommendedLiterature, String weeklyTasks) {
-		StringBuilder sb = new StringBuilder();
-
-		sb.append(SyllabusCSVUtil.encode(curriculumCode));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(curriculumName));
-
-		sb.append(StringPool.SEMICOLON);
-
-		sb.append(SyllabusCSVUtil.encode(subjectCode));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(subjectName));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(credit));
-
-		sb.append(StringPool.SEMICOLON);
-
-		sb.append(SyllabusCSVUtil.encode(courseTypeName));
-
-		sb.append(StringPool.SEMICOLON);
-
-		sb.append(SyllabusCSVUtil.encode(hoursPerSemester));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(hoursPerWeek));
-
-		sb.append(StringPool.SEMICOLON);
-
-		sb.append(SyllabusCSVUtil.encode(getSemesterValue(semesterBeginYear, semesterEndYear, semesterDivision)));
-
-		sb.append(StringPool.SEMICOLON);
-
-		if (lecturers != null) {
-			for (int i = 0; i < lecturers.size(); i++) {
-				sb.append(SyllabusCSVUtil.encode(lecturers.get(i).getLecturerName()));
-				if (i + 1 < lecturers.size()) {
-					sb.append(StringPool.COMMA);
+			String educationalMaterials, String recommendedLiterature, String weeklyTasks) throws IOException {
+		StringWriter lecturersWriter = new StringWriter();
+		try (CSVWriter csvWriter = new CSVWriter(lecturersWriter, WebKeys.CSV_INNER_SEPARATOR, WebKeys.CSV_QUOTE_CHARACTER)) {
+			if (lecturers != null) {
+				for (Lecturer lecturer : lecturers) {
+					csvWriter.writeNext(new String[] {
+						SyllabusCSVUtil.encode(lecturer.getLecturerName()),
+						SyllabusCSVUtil.encode(lecturer.getLecturerUserId())
+					});
+					
+					csvWriter.flush();
 				}
 			}
 		}
+		
+		return new String[] {
+			SyllabusCSVUtil.encode(curriculumCode),
+			SyllabusCSVUtil.encode(curriculumName),
+			
+			SyllabusCSVUtil.encode(subjectCode),
+			
+			SyllabusCSVUtil.encode(subjectName),
+			SyllabusCSVUtil.encode(credit),
 
-		sb.append(StringPool.SEMICOLON);
+			SyllabusCSVUtil.encode(courseTypeName),
 
-		sb.append(SyllabusCSVUtil.encode(timetableCourseCode));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(subjectType));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(recommendedTerm));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(limit));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(classScheduleInfo));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(description));
-
-		sb.append(StringPool.SEMICOLON);
-
-		sb.append(SyllabusCSVUtil.encode(competence));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(ethicalStandards));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(topics));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(educationalMaterials));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(recommendedLiterature));
-		sb.append(StringPool.SEMICOLON);
-		sb.append(SyllabusCSVUtil.encode(weeklyTasks));
-
-		sb.append(StringPool.NEW_LINE);
-
-		return sb.toString();
+			SyllabusCSVUtil.encode(hoursPerSemester),
+			SyllabusCSVUtil.encode(hoursPerWeek),
+			
+			SyllabusCSVUtil.encode(getSemesterValue(semesterBeginYear, semesterEndYear, semesterDivision)),
+			
+			lecturersWriter.toString(),
+			
+			SyllabusCSVUtil.encode(timetableCourseCode),
+			SyllabusCSVUtil.encode(subjectType),
+			SyllabusCSVUtil.encode(recommendedTerm),
+			SyllabusCSVUtil.encode(limit),
+			SyllabusCSVUtil.encode(classScheduleInfo),
+			SyllabusCSVUtil.encode(description),
+			
+			SyllabusCSVUtil.encode(competence),
+			SyllabusCSVUtil.encode(ethicalStandards),
+			SyllabusCSVUtil.encode(topics),
+			SyllabusCSVUtil.encode(educationalMaterials),
+			SyllabusCSVUtil.encode(recommendedLiterature),
+			SyllabusCSVUtil.encode(weeklyTasks)
+		};
 	}
 
 	protected String getSyllabusDataXML() throws Exception {

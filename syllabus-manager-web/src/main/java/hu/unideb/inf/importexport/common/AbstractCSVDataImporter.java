@@ -47,7 +47,7 @@ public abstract class AbstractCSVDataImporter extends AbstractDataImporter {
 		return;
 	}
 
-	protected abstract void parseLine(String[] line) throws SystemException, PortalException;
+	protected abstract void parseLine(String[] line) throws SystemException, PortalException, IOException;
 
 	@Override
 	public void close() throws IOException {
