@@ -69,7 +69,7 @@ public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 	 */
 
 	String MVC_ACTION_IMPORT_SYLLABUS_DATA = "/syllabusmanager/admin/import_syllabus_data";
-	
+
 	String MVC_ACTION_IMPORT_DATA = "/syllabusmanager/admin/import_data";
 
 	String MVC_ACTION_CLEAR_DATABASE = "/syllabusmanager/admin/clear_database";
@@ -101,5 +101,9 @@ public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 	String COURSE_TYPE = "COURSE_TYPE";
 
 	String FILE_INPUT_NAME = "fileupload";
+
+	char CSV_QUOTE_CHARACTER = '"';
+	
+	char CSV_SEPARATOR = ';';
 
 }

@@ -1,12 +1,20 @@
 package hu.unideb.inf.web.util;
 
-import com.liferay.portal.kernel.util.CSVUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 
-public class SyllabusCSVUtil extends CSVUtil {
+public class SyllabusCSVUtil {
 
 	public static String encode(Object obj) {
-		return CSVUtil.encode(obj);
+		Class<?> clazz = obj.getClass();
+
+		if (!clazz.isArray()) {
+			return encode(String.valueOf(obj));
+		}
+
+		Object[] array = (Object[]) obj;
+
+		return encode(StringUtil.merge(array));
 	}
 
 	public static String encode(Integer n) {
@@ -22,8 +30,7 @@ public class SyllabusCSVUtil extends CSVUtil {
 			return StringPool.BLANK;
 		}
 
-		s = s.replace("\n", "\\n");
-		return CSVUtil.encode(s);
+		return s.replace("\n", "\\n");
 	}
 
 	public static String decode(String s) {

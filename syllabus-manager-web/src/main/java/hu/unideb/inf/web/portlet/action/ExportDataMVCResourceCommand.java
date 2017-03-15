@@ -221,18 +221,25 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 		return data;
 	}
 
-	protected String getCourseTypeDataCSV() {
-		StringBuilder sb = new StringBuilder();
-
-		sb.append("courseType");
-		sb.append(StringPool.NEW_LINE);
-
-		for (CourseType courseType : courseTypeLocalService.getCourseTypes()) {
-			sb.append(SyllabusCSVUtil.encode(courseType.getTypeName()));
-			sb.append(StringPool.NEW_LINE);
+	protected String getCourseTypeDataCSV() throws IOException {
+		StringWriter sw = new StringWriter();
+		
+		try (CSVWriter csvWriter = new CSVWriter(sw, WebKeys.CSV_SEPARATOR, WebKeys.CSV_QUOTE_CHARACTER)) {
+			csvWriter.writeNext(new String[] {
+				"courseType"
+			});
+			
+			for (CourseType courseType : courseTypeLocalService.getCourseTypes()) {
+				csvWriter.writeNext(new String[] {
+					SyllabusCSVUtil.encode(courseType.getTypeName())
+				});
+			}
+			
+			csvWriter.flush();
 		}
-
-		return sb.toString();
+		
+		return sw.toString();
+		
 	}
 
 	protected String getCourseTypeDataXML() throws Exception {
@@ -248,7 +255,7 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 	protected String getLecturerDataCSV() throws IOException {
 		StringWriter sw = new StringWriter();
 		
-		try (CSVWriter csvWriter = new CSVWriter(sw, ';', '"')) {
+		try (CSVWriter csvWriter = new CSVWriter(sw, WebKeys.CSV_SEPARATOR, WebKeys.CSV_QUOTE_CHARACTER)) {
 			csvWriter.writeNext(new String[] {
 				"lecturerName",
 				"lecturerLiferayUserId"
@@ -260,6 +267,8 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 					SyllabusCSVUtil.encode(lecturer.getLecturerUserId())
 				});
 			}
+			
+			csvWriter.flush();
 		}
 		
 		return sw.toString();

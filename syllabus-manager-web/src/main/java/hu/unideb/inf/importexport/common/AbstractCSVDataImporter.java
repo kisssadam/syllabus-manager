@@ -12,6 +12,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.opencsv.CSVReader;
 
+import hu.unideb.inf.web.constants.WebKeys;
+
 public abstract class AbstractCSVDataImporter extends AbstractDataImporter {
 
 	private static final Log log = LogFactoryUtil.getLog(AbstractCSVDataImporter.class);
@@ -20,7 +22,7 @@ public abstract class AbstractCSVDataImporter extends AbstractDataImporter {
 
 	public AbstractCSVDataImporter(ActionRequest actionRequest) throws FileNotFoundException {
 		super(actionRequest);
-		this.csvReader = new CSVReader(getBufferedReader(), ';', '"');
+		this.csvReader = new CSVReader(getBufferedReader(), WebKeys.CSV_SEPARATOR, WebKeys.CSV_QUOTE_CHARACTER);
 	}
 
 	@Override
@@ -50,7 +52,9 @@ public abstract class AbstractCSVDataImporter extends AbstractDataImporter {
 	@Override
 	public void close() throws IOException {
 		super.close();
-		csvReader.close();
+		if (csvReader != null) {
+			csvReader.close();
+		}
 	}
 
 }
