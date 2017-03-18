@@ -78,14 +78,15 @@
 			results="<%=SyllabusLocalServiceUtil.getSyllabusesByTimetableCourseId(timetableCourseId, searchContainer.getStart(), searchContainer.getEnd())%>"
 		/>
 		
-		<liferay-ui:search-container-row className="hu.unideb.inf.model.Syllabus" escapedModel="<%= true %>" modelVar="syllabus" keyProperty="syllabusId">
+		<liferay-ui:search-container-row className="hu.unideb.inf.model.Syllabus" escapedModel="<%= false %>" modelVar="syllabus" keyProperty="syllabusId">
 			<c:if test='<%=SyllabusPermission.contains(permissionChecker, syllabus.getSyllabusId(), "VIEW")%>'>
-				<liferay-ui:search-container-column-text name="competence" property="competence" />
-				<liferay-ui:search-container-column-text name="ethical-standards" property="ethicalStandards" />
-				<liferay-ui:search-container-column-text name="topics" property="topics" />
-				<liferay-ui:search-container-column-text name="educational-materials" property="educationalMaterials" />
-				<liferay-ui:search-container-column-text name="recommended-literature" property="recommendedLiterature" />
-				<liferay-ui:search-container-column-text name="weekly-tasks" property="weeklyTasks" />
+				<liferay-ui:search-container-column-text name="competence" value="<%= HtmlUtil.escape(syllabus.getCompetence()) %>" />
+				<liferay-ui:search-container-column-text name="ethical-standards" value="<%= HtmlUtil.escape(syllabus.getEthicalStandards()) %>" />
+				<liferay-ui:search-container-column-text name="topics" value="<%= HtmlUtil.escape(syllabus.getTopics()) %>" />
+				<liferay-ui:search-container-column-text name="educational-materials" value="<%= HtmlUtil.escape(syllabus.getEducationalMaterials()) %>" />
+				<liferay-ui:search-container-column-text name="recommended-literature" value="<%= HtmlUtil.escape(syllabus.getRecommendedLiterature()) %>" />
+				<%-- Weekly tasks contains html code, so it cannot/shouldn't be escaped!  --%>
+				<liferay-ui:search-container-column-text name="weekly-tasks" value="<%= syllabus.getWeeklyTasks() %>" />
 				<liferay-ui:search-container-column-text name="status" >
 					<aui:workflow-status markupView="lexicon" showIcon="<%= false %>" showLabel="<%= false %>" status="<%= syllabus.getStatus() %>" />
 				</liferay-ui:search-container-column-text>
