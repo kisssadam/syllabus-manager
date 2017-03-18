@@ -57,14 +57,8 @@ import hu.unideb.inf.web.constants.SyllabusManagerPortletKeys;
 import hu.unideb.inf.web.constants.WebKeys;
 import hu.unideb.inf.web.util.SyllabusCSVUtil;
 
-@Component(
-	immediate = true,
-	property = {
-		"javax.portlet.name=" + SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN,
-		"mvc.command.name=" + WebKeys.MVC_RESOURCE_EXPORT_DATA
-	},
-	service = MVCResourceCommand.class
-)
+@Component(immediate = true, property = { "javax.portlet.name=" + SyllabusManagerPortletKeys.SYLLABUS_MANAGER_ADMIN,
+		"mvc.command.name=" + WebKeys.MVC_RESOURCE_EXPORT_DATA }, service = MVCResourceCommand.class)
 public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 
 	private static final Log log = LogFactoryUtil.getLog(ExportDataMVCResourceCommand.class);
@@ -229,23 +223,19 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 
 	protected String getCourseTypeDataCSV() throws IOException {
 		StringWriter sw = new StringWriter();
-		
+
 		try (CSVWriter csvWriter = new CSVWriter(sw, WebKeys.CSV_SEPARATOR, WebKeys.CSV_QUOTE_CHARACTER)) {
-			csvWriter.writeNext(new String[] {
-				"courseType"
-			});
-			
+			csvWriter.writeNext(new String[] { "courseType" });
+
 			for (CourseType courseType : courseTypeLocalService.getCourseTypes()) {
-				csvWriter.writeNext(new String[] {
-					SyllabusCSVUtil.encode(courseType.getTypeName())
-				});
+				csvWriter.writeNext(new String[] { SyllabusCSVUtil.encode(courseType.getTypeName()) });
 			}
-			
+
 			csvWriter.flush();
 		}
-		
+
 		return sw.toString();
-		
+
 	}
 
 	protected String getCourseTypeDataXML() throws Exception {
@@ -260,23 +250,18 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 
 	protected String getLecturerDataCSV() throws IOException {
 		StringWriter sw = new StringWriter();
-		
+
 		try (CSVWriter csvWriter = new CSVWriter(sw, WebKeys.CSV_SEPARATOR, WebKeys.CSV_QUOTE_CHARACTER)) {
-			csvWriter.writeNext(new String[] {
-				"lecturerName",
-				"lecturerLiferayUserId"
-			});
-			
+			csvWriter.writeNext(new String[] { "lecturerName", "lecturerLiferayUserId" });
+
 			for (Lecturer lecturer : lecturerLocalService.getLecturers()) {
-				csvWriter.writeNext(new String[] {
-					SyllabusCSVUtil.encode(lecturer.getLecturerName()),
-					SyllabusCSVUtil.encode(lecturer.getLecturerUserId())
-				});
+				csvWriter.writeNext(new String[] { SyllabusCSVUtil.encode(lecturer.getLecturerName()),
+						SyllabusCSVUtil.encode(lecturer.getLecturerUserId()) });
 			}
-			
+
 			csvWriter.flush();
 		}
-		
+
 		return sw.toString();
 	}
 
@@ -292,21 +277,17 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 
 	protected String getSemesterDataCSV() throws IOException {
 		StringWriter sw = new StringWriter();
-		
+
 		try (CSVWriter csvWriter = new CSVWriter(sw, WebKeys.CSV_SEPARATOR, WebKeys.CSV_QUOTE_CHARACTER)) {
-			csvWriter.writeNext(new String[] {
-				"semester"
-			});
-			
+			csvWriter.writeNext(new String[] { "semester" });
+
 			for (Semester semester : semesterLocalService.getSemesters()) {
-				csvWriter.writeNext(new String[] {
-					SyllabusCSVUtil.encode(getSemesterValue(semester))
-				});
+				csvWriter.writeNext(new String[] { SyllabusCSVUtil.encode(getSemesterValue(semester)) });
 			}
-			
+
 			csvWriter.flush();
 		}
-		
+
 		return sw.toString();
 	}
 
@@ -322,33 +303,14 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 
 	protected String getSyllabusDataCSV() throws PortalException, IOException {
 		StringWriter sw = new StringWriter();
-		
+
 		try (CSVWriter csvWriter = new CSVWriter(sw, WebKeys.CSV_SEPARATOR, WebKeys.CSV_QUOTE_CHARACTER)) {
-			csvWriter.writeNext(new String[] {
-				"curriculumCode",
-				"curriculumName",
-				"subjectCode",
-				"subjectName",
-				"credit",
-				"courseTypeName",
-				"hoursPerSemester",
-				"hoursPerWeek",
-				"semester",
-				"lecturers",
-				"timetableCourseCode",
-				"subjectType",
-				"recommendedTerm",
-				"limit",
-				"classScheduleInfo",
-				"description",
-				"competence",
-				"ethicalStandards",
-				"topics",
-				"educationalMaterials",
-				"recommendedLiterature",
-				"weeklyTasks"
-			});
-			
+			csvWriter.writeNext(new String[] { "curriculumCode", "curriculumName", "subjectCode", "subjectName",
+					"credit", "courseTypeName", "hoursPerSemester", "hoursPerWeek", "semester", "lecturers",
+					"timetableCourseCode", "subjectType", "recommendedTerm", "limit", "classScheduleInfo",
+					"description", "competence", "ethicalStandards", "topics", "educationalMaterials",
+					"recommendedLiterature", "weeklyTasks" });
+
 			for (Curriculum curriculum : curriculumLocalService.getCurriculums()) {
 				String curriculumCode = curriculum.getCurriculumCode();
 				String curriculumName = curriculum.getCurriculumName();
@@ -364,7 +326,8 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 
 						List<Course> courses = courseLocalService.getCoursesBySubjectId(subject.getSubjectId());
 						if (courses == null || courses.isEmpty()) {
-							csvWriter.writeNext(getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName, credit));
+							csvWriter.writeNext(
+									getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName, credit));
 						} else {
 							for (Course course : courses) {
 								CourseType courseType = courseTypeLocalService.getCourseType(course.getCourseTypeId());
@@ -376,8 +339,8 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 								List<TimetableCourse> timetableCourses = timetableCourseLocalService
 										.getTimetableCoursesByCourseId(course.getCourseId());
 								if (timetableCourses == null || timetableCourses.isEmpty()) {
-									csvWriter.writeNext(getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName, credit,
-											courseTypeName, hoursPerSemester, hoursPerWeek));
+									csvWriter.writeNext(getCSVLine(curriculumCode, curriculumName, subjectCode,
+											subjectName, credit, courseTypeName, hoursPerSemester, hoursPerWeek));
 								} else {
 									for (TimetableCourse timetableCourse : timetableCourses) {
 										Semester semester = semesterLocalService
@@ -397,10 +360,11 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 										String description = timetableCourse.getDescription();
 
 										List<Syllabus> syllabuses = syllabusLocalService
-												.getSyllabusesByTimetableCourseId(timetableCourse.getTimetableCourseId());
+												.getSyllabusesByTimetableCourseId(
+														timetableCourse.getTimetableCourseId());
 										if (syllabuses == null || syllabuses.isEmpty()) {
-											csvWriter.writeNext(getCSVLine(curriculumCode, curriculumName, subjectCode, subjectName,
-													credit, courseTypeName, hoursPerSemester, hoursPerWeek,
+											csvWriter.writeNext(getCSVLine(curriculumCode, curriculumName, subjectCode,
+													subjectName, credit, courseTypeName, hoursPerSemester, hoursPerWeek,
 													semesterBeginYear, semesterEndYear, semesterDivision, lecturers,
 													timetableCourseCode, subjectType, recommendedTerm, limit,
 													classScheduleInfo, description));
@@ -413,12 +377,14 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 												String recommendedLiterature = syllabus.getRecommendedLiterature();
 												String weeklyTasks = syllabus.getWeeklyTasks();
 
-												csvWriter.writeNext(getCSVLine(curriculumCode, curriculumName, subjectCode,
-														subjectName, credit, courseTypeName, hoursPerSemester, hoursPerWeek,
-														semesterBeginYear, semesterEndYear, semesterDivision, lecturers,
+												csvWriter.writeNext(getCSVLine(curriculumCode, curriculumName,
+														subjectCode, subjectName, credit, courseTypeName,
+														hoursPerSemester, hoursPerWeek, semesterBeginYear,
+														semesterEndYear, semesterDivision, lecturers,
 														timetableCourseCode, subjectType, recommendedTerm, limit,
 														classScheduleInfo, description, competence, ethicalStandards,
-														topics, educationalMaterials, recommendedLiterature, weeklyTasks));
+														topics, educationalMaterials, recommendedLiterature,
+														weeklyTasks));
 											}
 										}
 									}
@@ -428,10 +394,10 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 					}
 				}
 			}
-			
+
 			csvWriter.flush();
 		}
-		
+
 		return sw.toString();
 	}
 
@@ -468,51 +434,39 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 			String classScheduleInfo, String description, String competence, String ethicalStandards, String topics,
 			String educationalMaterials, String recommendedLiterature, String weeklyTasks) throws IOException {
 		StringWriter lecturersWriter = new StringWriter();
-		try (CSVWriter csvWriter = new CSVWriter(lecturersWriter, WebKeys.CSV_INNER_SEPARATOR, WebKeys.CSV_QUOTE_CHARACTER)) {
+		try (CSVWriter csvWriter = new CSVWriter(lecturersWriter, WebKeys.CSV_INNER_SEPARATOR,
+				WebKeys.CSV_QUOTE_CHARACTER)) {
 			if (lecturers != null) {
 				for (Lecturer lecturer : lecturers) {
-					csvWriter.writeNext(new String[] {
-						SyllabusCSVUtil.encode(lecturer.getLecturerName()),
-						SyllabusCSVUtil.encode(lecturer.getLecturerUserId())
-					});
-					
+					csvWriter.writeNext(new String[] { SyllabusCSVUtil.encode(lecturer.getLecturerName()),
+							SyllabusCSVUtil.encode(lecturer.getLecturerUserId()) });
+
 					csvWriter.flush();
 				}
 			}
 		}
-		
-		return new String[] {
-			SyllabusCSVUtil.encode(curriculumCode),
-			SyllabusCSVUtil.encode(curriculumName),
-			
-			SyllabusCSVUtil.encode(subjectCode),
-			
-			SyllabusCSVUtil.encode(subjectName),
-			SyllabusCSVUtil.encode(credit),
 
-			SyllabusCSVUtil.encode(courseTypeName),
+		return new String[] { SyllabusCSVUtil.encode(curriculumCode), SyllabusCSVUtil.encode(curriculumName),
 
-			SyllabusCSVUtil.encode(hoursPerSemester),
-			SyllabusCSVUtil.encode(hoursPerWeek),
-			
-			SyllabusCSVUtil.encode(getSemesterValue(semesterBeginYear, semesterEndYear, semesterDivision)),
-			
-			SyllabusCSVUtil.encode(lecturersWriter.toString()),
-			
-			SyllabusCSVUtil.encode(timetableCourseCode),
-			SyllabusCSVUtil.encode(subjectType),
-			SyllabusCSVUtil.encode(recommendedTerm),
-			SyllabusCSVUtil.encode(limit),
-			SyllabusCSVUtil.encode(classScheduleInfo),
-			SyllabusCSVUtil.encode(description),
-			
-			SyllabusCSVUtil.encode(competence),
-			SyllabusCSVUtil.encode(ethicalStandards),
-			SyllabusCSVUtil.encode(topics),
-			SyllabusCSVUtil.encode(educationalMaterials),
-			SyllabusCSVUtil.encode(recommendedLiterature),
-			SyllabusCSVUtil.encode(weeklyTasks)
-		};
+				SyllabusCSVUtil.encode(subjectCode),
+
+				SyllabusCSVUtil.encode(subjectName), SyllabusCSVUtil.encode(credit),
+
+				SyllabusCSVUtil.encode(courseTypeName),
+
+				SyllabusCSVUtil.encode(hoursPerSemester), SyllabusCSVUtil.encode(hoursPerWeek),
+
+				SyllabusCSVUtil.encode(getSemesterValue(semesterBeginYear, semesterEndYear, semesterDivision)),
+
+				SyllabusCSVUtil.encode(lecturersWriter.toString()),
+
+				SyllabusCSVUtil.encode(timetableCourseCode), SyllabusCSVUtil.encode(subjectType),
+				SyllabusCSVUtil.encode(recommendedTerm), SyllabusCSVUtil.encode(limit),
+				SyllabusCSVUtil.encode(classScheduleInfo), SyllabusCSVUtil.encode(description),
+
+				SyllabusCSVUtil.encode(competence), SyllabusCSVUtil.encode(ethicalStandards),
+				SyllabusCSVUtil.encode(topics), SyllabusCSVUtil.encode(educationalMaterials),
+				SyllabusCSVUtil.encode(recommendedLiterature), SyllabusCSVUtil.encode(weeklyTasks) };
 	}
 
 	protected String getSyllabusDataXML() throws Exception {
@@ -637,6 +591,11 @@ public class ExportDataMVCResourceCommand extends BaseMVCResourceCommand {
 							educationalMaterials
 									.appendChild(document.createCDATASection(syllabus.getEducationalMaterials()));
 							syllabusElement.appendChild(educationalMaterials);
+
+							Element recommendedLiterature = document.createElement("recommendedLiterature");
+							recommendedLiterature
+									.appendChild(document.createCDATASection(syllabus.getRecommendedLiterature()));
+							syllabusElement.appendChild(recommendedLiterature);
 
 							Element weeklyTasks = document.createElement("weeklyTasks");
 							weeklyTasks.appendChild(document.createCDATASection(syllabus.getWeeklyTasks()));
