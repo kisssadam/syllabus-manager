@@ -7,6 +7,8 @@ syllabus-manager-service/bin/**/*
 syllabus-manager-web/build/**/*
 syllabus-manager-web/bin/**/*
 
+**/.tern-project
+
 # JDT-specific (Eclipse Java Development Tools)
 **/.classpath
 
