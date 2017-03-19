@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 import hu.unideb.inf.model.Course;
 import hu.unideb.inf.model.CourseType;
@@ -118,6 +119,8 @@ public class ClearDatabaseMVCActionCommand extends BaseMVCActionCommand {
 		} catch (Exception e) {
 			log.error(e);
 			SessionErrors.add(actionRequest, e.getClass().getName());
+			PortalUtil.copyRequestParameters(actionRequest, actionResponse);
+		} finally {
 			actionResponse.setRenderParameter("mvcPath", WebKeys.ADMIN_VIEW_CLEAR_DATABASE);
 		}
 	}

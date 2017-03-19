@@ -91,6 +91,7 @@ public class SyllabusAssetRenderer extends BaseJSPAssetRenderer<Syllabus> implem
 	}
 
 	@Override
+	@Deprecated
 	public String getSummary(Locale locale) {
 		return getSummary();
 	}
