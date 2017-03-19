@@ -9,6 +9,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.bridges.mvc.BaseMVCActionCommand;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCActionCommand;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.PortalUtil;
 
 import hu.unideb.inf.importexport.common.DataImporter;
 import hu.unideb.inf.importexport.common.DataImporterFactory;
@@ -28,12 +30,20 @@ public class ImportDataMVCActionCommand extends BaseMVCActionCommand {
 	private static final Log log = LogFactoryUtil.getLog(ImportDataMVCActionCommand.class);
 
 	@Override
-	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) throws Exception {
+	protected void doProcessAction(ActionRequest actionRequest, ActionResponse actionResponse) {
 		log.trace("doProcessAction()");
 
-		DataImporterFactory dataImportFactory = DataImporterFactory.getInstance();
-		try (DataImporter dataImporter = dataImportFactory.newDataImporter(actionRequest)) {
-			dataImporter.importData();
+		try {
+			DataImporterFactory dataImportFactory = DataImporterFactory.getInstance();
+			try (DataImporter dataImporter = dataImportFactory.newDataImporter(actionRequest)) {
+				dataImporter.importData();
+			}
+		} catch (Exception e) {
+			log.error(e);
+			SessionErrors.add(actionRequest, e.getClass().getName());
+			PortalUtil.copyRequestParameters(actionRequest, actionResponse);
+		} finally {
+			actionResponse.setRenderParameter("mvcPath", WebKeys.ADMIN_EXPORT_IMPORT_DATA);
 		}
 	}
 

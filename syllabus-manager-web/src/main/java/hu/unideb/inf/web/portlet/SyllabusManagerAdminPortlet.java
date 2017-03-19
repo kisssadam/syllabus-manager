@@ -119,9 +119,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			response.setRenderParameter("mvcPath", WebKeys.VIEW_CURRICULUMS);
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
@@ -167,9 +165,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			response.setRenderParameter("mvcPath", WebKeys.VIEW_SUBJECTS);
 			response.setRenderParameter("curriculumId", String.valueOf(curriculumId));
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
@@ -297,9 +293,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			response.setRenderParameter("mvcPath", WebKeys.VIEW_SEMESTERS);
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
@@ -340,9 +334,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			response.setRenderParameter("mvcPath", WebKeys.VIEW_LECTURERS);
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
@@ -409,9 +401,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			response.setRenderParameter("mvcPath", WebKeys.VIEW_TIMETABLE_COURSES);
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
@@ -483,9 +473,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			
 			response.setRenderParameter("mvcPath", WebKeys.VIEW_SYLLABUSES);
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 			SessionErrors.add(request, e.getClass().getName());
 
 			PortalUtil.copyRequestParameters(request, response);
@@ -536,9 +524,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			curriculumLocalService.deleteCurriculum(curriculumId, serviceContext);
 			SessionMessages.add(request, "curriculumDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -571,9 +557,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			subjectLocalService.deleteSubject(subjectId, serviceContext);
 			SessionMessages.add(request, "subjectDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -609,9 +593,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			courseLocalService.deleteCourse(courseId, serviceContext);
 			SessionMessages.add(request, "courseDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -644,9 +626,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			courseTypeLocalService.deleteCourseType(courseTypeId, serviceContext);
 			SessionMessages.add(request, "courseTypeDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -677,9 +657,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			semesterLocalService.deleteSemester(semesterId, serviceContext);
 			SessionMessages.add(request, "semesterDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -710,9 +688,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			lecturerLocalService.deleteLecturer(lecturerId, serviceContext);
 			SessionMessages.add(request, "lecturerDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -753,9 +729,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			timetableCourseLocalService.deleteTimetableCourse(timetableCourseId, serviceContext);
 			SessionMessages.add(request, "timetableCourseDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -801,9 +775,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 			syllabusLocalService.deleteSyllabus(syllabusId, serviceContext);
 			SessionMessages.add(request, "syllabusDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -844,9 +816,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			SessionMessages.add(request, "curriculumsDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -884,9 +854,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			SessionMessages.add(request, "subjectsDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -925,9 +893,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			SessionMessages.add(request, "coursesDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -964,9 +930,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			SessionMessages.add(request, "courseTypesDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -1002,9 +966,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			SessionMessages.add(request, "semestersDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -1040,9 +1002,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			SessionMessages.add(request, "lecturersDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -1084,9 +1044,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			SessionMessages.add(request, "timetableCoursesDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
@@ -1129,9 +1087,7 @@ public class SyllabusManagerAdminPortlet extends MVCPortlet {
 
 			SessionMessages.add(request, "syllabusesDeleted");
 		} catch (Exception e) {
-			if (log.isErrorEnabled()) {
-				log.error(e);
-			}
+			log.error(e);
 
 			SessionErrors.add(request, e.getClass().getName());
 			PortalUtil.copyRequestParameters(request, response);
