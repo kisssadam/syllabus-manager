@@ -137,29 +137,6 @@
            	</c:if>
         </aui:nav-item>
         
-        <%--
-        dialogos megoldashoz: https://www.liferay.com/community/forums/-/message_boards/message/41261810
-        --%>
-        <aui:nav-item dropdown="true" iconCssClass="icon-upload-alt" label="import" selected='false'>
-        	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.IMPORT_DATA)%>'>
-        		<portlet:renderURL var="importSyllabusURL">
-					<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_IMPORT_SYLLABUS%>" />
-					<portlet:param name="backURL" value="${backURL}" />
-				</portlet:renderURL>
-            	
-            	<aui:nav-item href="<%= importSyllabusURL.toString() %>" label="ik_syllabus_ws.csv" />
-			</c:if>
-			
-			<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.IMPORT_DATA)%>'>
-				<portlet:renderURL var="importTimetableURL">
-					<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_IMPORT_TIMETABLE%>" />
-					<portlet:param name="backURL" value="${backURL}" />
-				</portlet:renderURL>
-            	
-            	<aui:nav-item href="<%= importTimetableURL.toString() %>" label="ik_orarend_ws.csv" />
-           	</c:if>
-        </aui:nav-item>
-        
         <aui:nav-item dropdown="true" iconCssClass="icon-tint" label="danger-zone" selected='false'>
         	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.CLEAR_DATABASE)%>'>
         		<portlet:renderURL var="clearDatabaseURL">
@@ -178,6 +155,29 @@
         		
         		<aui:nav-item href="<%= exportImportDataURL.toString() %>" iconCssClass="icon-random" label="export-import" />
         	</c:if>
+        </aui:nav-item>
+        
+        <%--
+        dialogos megoldashoz: https://www.liferay.com/community/forums/-/message_boards/message/41261810
+        --%>
+        <aui:nav-item dropdown="true" cssClass="deprecated" iconCssClass="icon-upload-alt" label="import" selected='false'>
+        	<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.IMPORT_DATA)%>'>
+        		<portlet:renderURL var="importSyllabusURL">
+					<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_IMPORT_SYLLABUS%>" />
+					<portlet:param name="backURL" value="${backURL}" />
+				</portlet:renderURL>
+            	
+            	<aui:nav-item cssClass="deprecated" href="<%= importSyllabusURL.toString() %>" label="ik_syllabus_ws.csv" />
+			</c:if>
+			
+			<c:if test='<%=ModelPermission.contains(permissionChecker, scopeGroupId, SyllabusActionKeys.IMPORT_DATA)%>'>
+				<portlet:renderURL var="importTimetableURL">
+					<portlet:param name="mvcPath" value="<%=WebKeys.ADMIN_IMPORT_TIMETABLE%>" />
+					<portlet:param name="backURL" value="${backURL}" />
+				</portlet:renderURL>
+            	
+            	<aui:nav-item cssClass="deprecated" href="<%= importTimetableURL.toString() %>" label="ik_orarend_ws.csv" />
+           	</c:if>
         </aui:nav-item>
     </aui:nav>
 </aui:nav-bar>
